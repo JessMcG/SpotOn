@@ -12,8 +12,8 @@ var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
-var client_id = '8feabe30295f40cfba0c04f9199d2d7c'; // Your client id
-var client_secret = '90432e8cdcb641a3b552a82101c060fa'; // Your secret
+var client_id = 'ca4b921b3f414f7093ebeb74cca2b128'; // Your client id
+var client_secret = 'f379d91708a14bd2880e1c4456bd9e8d'; // Your secret
 var redirect_uri = 'http://catalog-alabama-8080.codio.io/SpotOn/web_application/authorization_code/callback'; // Your redirect uri
 
 /**
