@@ -14,7 +14,11 @@ var cookieParser = require('cookie-parser');
 
 var client_id = '8feabe30295f40cfba0c04f9199d2d7c'; // Your client id
 var client_secret = '90432e8cdcb641a3b552a82101c060fa'; // Your secret
+<<<<<<< HEAD
 var redirect_uri = 'http://catalog-alabama-8080.codio.io/SpotOn/callback'; // Your redirect uri
+=======
+var redirect_uri = 'http://catalog-alabama-8080.codio.io/SpotOn/web_application/authorization_code/callback'; // Your redirect uri
+>>>>>>> 7829cece99006be1d36dd2fc446d195782342b3d
 
 /**
  * Generates a random string containing numbers and letters
@@ -38,7 +42,12 @@ var app = express();
 app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
 
+<<<<<<< HEAD
 app.get('/login', function(req, res) {
+=======
+// /login
+app.get('http://catalog-alabama-8080.codio.io/SpotOn/web_application/authorization_code/login', function(req, res) {
+>>>>>>> 7829cece99006be1d36dd2fc446d195782342b3d
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -55,7 +64,12 @@ app.get('/login', function(req, res) {
     }));
 });
 
+<<<<<<< HEAD
 app.get('/callback', function(req, res) {
+=======
+// /callback
+app.get('http://catalog-alabama-8080.codio.io/SpotOn/web_application/authorization_code/callback', function(req, res) {
+>>>>>>> 7829cece99006be1d36dd2fc446d195782342b3d
 
   // your application requests refresh and access tokens
   // after checking the state parameter
@@ -117,7 +131,12 @@ app.get('/callback', function(req, res) {
   }
 });
 
+<<<<<<< HEAD
 app.get('/refresh_token', function(req, res) {
+=======
+// /refresh_token
+app.get('http://catalog-alabama-8080.codio.io/SpotOn/web_application/authorization_code/refresh_token', function(req, res) {
+>>>>>>> 7829cece99006be1d36dd2fc446d195782342b3d
 
   // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
