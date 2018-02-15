@@ -12,6 +12,7 @@ var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
+<<<<<<< HEAD
 var client_id = '8feabe30295f40cfba0c04f9199d2d7c'; // Your client id
 var client_secret = '90432e8cdcb641a3b552a82101c060fa'; // Your secret
 <<<<<<< HEAD
@@ -19,6 +20,11 @@ var redirect_uri = 'http://catalog-alabama-8080.codio.io/SpotOn/callback'; // Yo
 =======
 var redirect_uri = 'http://catalog-alabama-8080.codio.io/SpotOn/web_application/authorization_code/callback'; // Your redirect uri
 >>>>>>> 7829cece99006be1d36dd2fc446d195782342b3d
+=======
+var client_id = 'ca4b921b3f414f7093ebeb74cca2b128'; // Your client id
+var client_secret = 'f379d91708a14bd2880e1c4456bd9e8d'; // Your secret
+var redirect_uri = 'http://catalog-alabama-8080.codio.io/SpotOn/web_application/authorization_code/callback/'; // Your redirect uri
+>>>>>>> a66e516bc271ebb1eac418a2122b52559ece4d5b
 
 /**
  * Generates a random string containing numbers and letters
@@ -46,8 +52,12 @@ app.use(express.static(__dirname + '/public'))
 app.get('/login', function(req, res) {
 =======
 // /login
+<<<<<<< HEAD
 app.get('http://catalog-alabama-8080.codio.io/SpotOn/web_application/authorization_code/login', function(req, res) {
 >>>>>>> 7829cece99006be1d36dd2fc446d195782342b3d
+=======
+app.get('/login', function(req, res) {
+>>>>>>> a66e516bc271ebb1eac418a2122b52559ece4d5b
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -68,8 +78,12 @@ app.get('http://catalog-alabama-8080.codio.io/SpotOn/web_application/authorizati
 app.get('/callback', function(req, res) {
 =======
 // /callback
+<<<<<<< HEAD
 app.get('http://catalog-alabama-8080.codio.io/SpotOn/web_application/authorization_code/callback', function(req, res) {
 >>>>>>> 7829cece99006be1d36dd2fc446d195782342b3d
+=======
+app.get('/callback', function(req, res) {
+>>>>>>> a66e516bc271ebb1eac418a2122b52559ece4d5b
 
   // your application requests refresh and access tokens
   // after checking the state parameter
@@ -135,8 +149,12 @@ app.get('http://catalog-alabama-8080.codio.io/SpotOn/web_application/authorizati
 app.get('/refresh_token', function(req, res) {
 =======
 // /refresh_token
+<<<<<<< HEAD
 app.get('http://catalog-alabama-8080.codio.io/SpotOn/web_application/authorization_code/refresh_token', function(req, res) {
 >>>>>>> 7829cece99006be1d36dd2fc446d195782342b3d
+=======
+app.get('/refresh_token', function(req, res) {
+>>>>>>> a66e516bc271ebb1eac418a2122b52559ece4d5b
 
   // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
