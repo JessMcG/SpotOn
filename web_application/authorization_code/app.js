@@ -14,7 +14,7 @@ var cookieParser = require('cookie-parser');
 
 var client_id = '8feabe30295f40cfba0c04f9199d2d7c'; // Your client id
 var client_secret = '90432e8cdcb641a3b552a82101c060fa'; // Your secret
-var redirect_uri = 'http://catalog-alabama-8080.codio.io/SpotOn/callback'; // Your redirect uri
+var redirect_uri = 'http://catalog-alabama-8080.codio.io/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
