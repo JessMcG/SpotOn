@@ -39,7 +39,7 @@ app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
 
 // /login
-app.get('SpotOn/web_application/authorization_code/login', function(req, res) {
+app.get('/login', function(req, res) {
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -57,7 +57,7 @@ app.get('SpotOn/web_application/authorization_code/login', function(req, res) {
 });
 
 // /callback
-app.get('SpotOn/web_application/authorization_code/callback', function(req, res) {
+app.get('/callback', function(req, res) {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
@@ -120,7 +120,7 @@ app.get('SpotOn/web_application/authorization_code/callback', function(req, res)
 });
 
 // /refresh_token
-app.get('SpotOn/web_application/authorization_code/refresh_token', function(req, res) {
+app.get('/refresh_token', function(req, res) {
 
   // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
