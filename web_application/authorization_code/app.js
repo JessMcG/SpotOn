@@ -14,7 +14,7 @@ var cookieParser = require('cookie-parser');
 
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
 var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
-var redirect_uri = 'http://absurd-pamela-8080.codio.io/SpotOn/web_application/authorization_code/callback/'; // Your redirect uri
+var redirect_uri = 'http://absurd-pamela-8080.codio.io/callback/'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -57,7 +57,7 @@ app.get('/login', function(req, res) {
 });
 
 // /callback
-app.get('http://absurd-pamela-8080.codio.io/SpotOn/web_application/authorization_code/callback', function(req, res) {
+app.get('/callback/', function(req, res) {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
@@ -120,7 +120,7 @@ app.get('http://absurd-pamela-8080.codio.io/SpotOn/web_application/authorization
 });
 
 // /refresh_token
-app.get('http://absurd-pamela-8080.codio.io/SpotOn/web_application/authorization_code/refresh_token', function(req, res) {
+app.get('/refresh_token', function(req, res) {
 
   // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
