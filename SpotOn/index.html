@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Spot On</title>
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	
+	<link rel="icon" type="image/gif" href="favicon.gif" />
+	<link rel="icon" type="image/png" href="img/favicon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="js/script.js"></script>
+</head>
+<body>
+
+	<div id="container">
+		
+		<div id="nav">
+			<a href="index.html"><img id="logo" src="img/SpotOnLogo.png" alt="logo" /></a>	
+			
+			<ul id="normalMenu">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="profile.html">Profile</a></li>
+				<li><a href="player.html">Media Player</a></li>
+			</ul>
+						
+			<div id="loginWithSpotify">
+					<p>Login with </p> <img id="SpotLogo" src="img/spotifyLogo.png" alt="spotify logo" />
+			</div>
+			
+			<a href="profile.html"><div id="respMenu">				
+				
+			</div></a>
+		</div>
+		
+		<div id="header">
+			
+			<h2>Welcome to SpotOn<br /> <span>an online playlist generator.</span></h2>
+			
+			
+			<form onsubmit="return false;">
+				
+				<div id="homeSearchForm">
+					
+					<div class="byArtist inactiveButton">
+						
+						<p>Search by Artist</p>
+						
+					</div>
+					
+					<div class="bySong activeButton">
+						
+						<p>Search by Song</p>
+						
+					</div>
+					
+				</div>
+				
+				<input id="artistField" type="text" placeholder="Artist name...." />
+				
+				<input id="songField" type="text" placeholder="Song name...." />
+				
+				<button id="dontWork">Search</button>
+				
+			</form>
+			
+		</div>
+		
+		<div id="clear-box">
+			
+		</div>
+		
+		<div id="homeBoxes">
+			
+			<div class="homeBox h-box-tablet">
+				
+				<img src="img/funds.png" alt="note" />
+				
+				<h3>100% free</h3>
+				
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque velit di non tempor ipsum tellus vel est. Nunc eget imperdiet risus. Quisque et fringilla massa. Sed a congue est.</p>
+			</div>
+			
+			<div class="homeBox box-margin-tablet">
+				
+				<img src="img/headphones.png" alt="note" />
+				
+				<h3>Find new music</h3>
+				
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque velit di non tempor ipsum tellus vel est. Nunc eget imperdiet risus. Quisque et fringilla massa. Sed a congue est.</p>
+			</div>
+			
+			<div class="homeBox">
+				
+				<img src="img/playlist.png" alt="note" />
+				
+				<h3>Custom playlists</h3>
+				
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque velit di non tempor ipsum tellus vel est. Nunc eget imperdiet risus. Quisque et fringilla massa. Sed a congue est.</p>
+			</div>
+			
+		</div>
+		
+		<div id="searchResults">
+			
+			<h2>Search Results</h2>
+			
+			<p>Listing results for <span>Rag n Bone Man</span></p>
+			
+			<div class="searchResult">
+				
+				<img class="searchResultImage" src="img/testArt.jpg" />
+					
+				<h3>Rag n Bone Man<br /> <span>Human</span></h3>
+				
+				<div class="addTrack addSearchedTrack">
+					
+					<img src="img/add.png" alt="add track" />
+					
+				</div>
+				
+				<div class="addTrack playSearchedTrack">
+					
+					<img src="img/play.png" alt="play track" />
+					
+				</div>
+				
+			</div>
+			<div class="searchResult">
+				
+				<img class="searchResultImage" src="img/testArt.jpg" />
+					
+				<h3>Rag n Bone Man<br /> <span>Ego</span></h3>
+				
+				<div class="addTrack addSearchedTrack">
+					
+					<img src="img/add.png" alt="add track" />
+					
+				</div>
+				
+				<div class="addTrack playSearchedTrack">
+					
+					<img src="img/play.png" alt="play track" />
+					
+				</div>
+				
+			</div>
+			<div class="searchResult">
+				
+				<img class="searchResultImage" src="img/testArt.jpg" />
+					
+				<h3>Rag n Bone Man<br /> <span>Skin</span></h3>
+				
+				<div class="addTrack addSearchedTrack">
+					
+					<img src="img/add.png" alt="add track" />
+					
+				</div>
+				
+				<div class="addTrack playSearchedTrack">
+					
+					<img src="img/play.png" alt="play track" />
+					
+				</div>
+				
+			</div>
+			
+			<div class="searchResult">
+				
+				<img class="searchResultImage" src="img/testArt.jpg" />
+					
+				<h3>Rag n Bone Man<br /> <span>Bitter End</span></h3>
+				
+				<div class="addTrack addSearchedTrack">
+					
+					<img src="img/add.png" alt="add track" />
+					
+				</div>
+				
+				<div class="addTrack playSearchedTrack">
+					
+					<img src="img/play.png" alt="play track" />
+					
+				</div>
+				
+			</div>
+			
+		</div>
+		
+	
+	</div>
+</body>
+</html>
