@@ -39,7 +39,7 @@ app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
 
 // /login
-app.get('http://absurd-pamela-8080.codio.io/SpotOn/web_application/authorization_code/login', function(req, res) {
+app.get('/login', function(req, res) {
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
