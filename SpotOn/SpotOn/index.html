@@ -1,0 +1,334 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Spot On</title>
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="icon" type="image/gif" href="favicon.gif" />
+	<link rel="icon" type="image/png" href="img/favicon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="js/script2.js"></script>
+</head>
+<body>
+
+	<div id="container">
+		
+		<div id="nav">
+			<a href="index.html"><img id="logo" src="img/SpotOnLogo.png" alt="logo" /></a>	
+			
+			<ul id="normalMenu">
+				<li><a href="/login">Home</a></li>
+				<li><a href="profile.html">Profile</a></li>
+				<li><a href="player.html">Media Player</a></li>
+			</ul>
+						
+			 <a href="/login" ><div id="loginWithSpotify">
+					<p>Login with </p> <img id="SpotLogo" src="img/spotifyLogo.png" alt="spotify logo" />
+			</div></a>
+			
+			<div id="respMenu">				
+				
+			</div>
+		</div>
+		
+		<div id="respNav">
+			
+			<div class="respContent">
+				<div id="closeRespMenu">
+
+				</div>
+
+				<div id="respNavProfileLogin">
+
+				</div>
+				<img id="respNavImage" src="img/guest.jpg" alt="" />
+
+				<h2>Guest User</h2>
+
+				<div id="spotifyLoginResp">
+					<p>Login with </p> <img id="SpotLogoResp" src="img/spotifyLogo.png" alt="spotify logo" />
+				</div>
+
+				<div id="respNavLinks">
+
+
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="profile.html">Profile</a></li>
+						<li><a href="player.html">Media Player</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div id="header">
+			
+			<h2>Welcome to SpotOn<br /> <span>an online playlist generator.</span></h2>
+			
+			
+			<form onsubmit="return false;">
+				
+				<div id="homeSearchForm">
+					
+					<div class="byArtist inactiveButton">
+						
+						<p>Search by Artist</p>
+						
+					</div>
+					
+					<div class="bySong activeButton">
+						
+						<p>Search by Song</p>
+						
+					</div>
+					
+				</div>
+				
+				<input id="artistField" type="text" placeholder="Artist name...." />
+				
+				<input id="songField" type="text" placeholder="Song name...." />
+				
+				<button id="dontWork">Search</button>
+				
+			</form>
+			
+		</div>
+		
+		<div id="clear-box">
+			
+		</div>
+		
+		<div id="homeBoxes">
+			
+			<div class="homeBox h-box-tablet">
+				
+				<img src="img/funds.png" alt="note" />
+				
+				<h3>100% free</h3>
+				
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque velit di non tempor ipsum tellus vel est. Nunc eget imperdiet risus. Quisque et fringilla massa. Sed a congue est.</p>
+			</div>
+			
+			<div class="homeBox box-margin-tablet">
+				
+				<img src="img/headphones.png" alt="note" />
+				
+				<h3>Find new music</h3>
+				
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque velit di non tempor ipsum tellus vel est. Nunc eget imperdiet risus. Quisque et fringilla massa. Sed a congue est.</p>
+			</div>
+			
+			<div class="homeBox">
+				
+				<img src="img/playlist.png" alt="note" />
+				
+				<h3>Custom playlists</h3>
+				
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque velit di non tempor ipsum tellus vel est. Nunc eget imperdiet risus. Quisque et fringilla massa. Sed a congue est.</p>
+			</div>
+			
+		</div>
+		
+		<div id="searchResults">
+			
+			<h2>Search Results</h2>
+			
+			<p>Listing results for <span>Rag n Bone Man</span></p>
+			
+			<div class="searchResult">
+				
+				<img class="searchResultImage" src="img/testArt.jpg" />
+					
+				<h3>Rag n Bone Man<br /> <span>Human</span></h3>
+				
+				<div class="addTrack addSearchedTrack">
+					
+					<img src="img/add.png" alt="add track" />
+					
+				</div>
+				
+				<div class="addTrack playSearchedTrack">
+					
+					<img src="img/play.png" alt="play track" />
+					
+				</div>
+				
+			</div>
+			<div class="searchResult">
+				
+				<img class="searchResultImage" src="img/testArt.jpg" />
+					
+				<h3>Rag n Bone Man<br /> <span>Ego</span></h3>
+				
+				<div class="addTrack addSearchedTrack">
+					
+					<img src="img/add.png" alt="add track" />
+					
+				</div>
+				
+				<div class="addTrack playSearchedTrack">
+					
+					<img src="img/play.png" alt="play track" />
+					
+				</div>
+				
+			</div>
+			<div class="searchResult">
+				
+				<img class="searchResultImage" src="img/testArt.jpg" />
+					
+				<h3>Rag n Bone Man<br /> <span>Skin</span></h3>
+				
+				<div class="addTrack addSearchedTrack">
+					
+					<img src="img/add.png" alt="add track" />
+					
+				</div>
+				
+				<div class="addTrack playSearchedTrack">
+					
+					<img src="img/play.png" alt="play track" />
+					
+				</div>
+				
+			</div>
+			
+			<div class="searchResult">
+				
+				<img class="searchResultImage" src="img/testArt.jpg" />
+					
+				<h3>Rag n Bone Man<br /> <span>Bitter End</span></h3>
+				
+				<div class="addTrack addSearchedTrack">
+					
+					<img src="img/add.png" alt="add track" />
+					
+				</div>
+				
+				<div class="addTrack playSearchedTrack">
+					
+					<img src="img/play.png" alt="play track" />
+					
+				</div>
+				
+			</div>
+			
+		</div>
+		
+	
+	</div>
+	
+	<!-- -->
+	
+	 <script id="user-profile-template" type="text/x-handlebars-template">
+      <h1>Logged in as {{display_name}}</h1>
+      <div class="media">
+        <div class="pull-left">
+          <img class="media-object" width="150" src="{{images.0.url}}" />
+        </div>
+        <div class="media-body">
+          <dl class="dl-horizontal">
+            <dt>Display name</dt><dd class="clearfix">{{display_name}}</dd>
+            <dt>Id</dt><dd>{{id}}</dd>
+            <dt>Email</dt><dd>{{email}}</dd>
+            <dt>Spotify URI</dt><dd><a href="{{external_urls.spotify}}">{{external_urls.spotify}}</a></dd>
+            <dt>Link</dt><dd><a href="{{href}}">{{href}}</a></dd>
+            <dt>Profile Image</dt><dd class="clearfix"><a href="{{images.0.url}}">{{images.0.url}}</a></dd>
+            <dt>Country</dt><dd>{{country}}</dd>
+          </dl>
+        </div>
+      </div>
+    </script>
+
+    <script id="oauth-template" type="text/x-handlebars-template">
+      <h2>oAuth info</h2>
+      <dl class="dl-horizontal">
+        <dt>Access token</dt><dd class="text-overflow">{{access_token}}</dd>
+        <dt>Refresh token</dt><dd class="text-overflow">{{refresh_token}}</dd>
+      </dl>
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
+	
+	
+	  <script>
+      (function() {
+
+        /**
+         * Obtains parameters from the hash of the URL
+         * @return Object
+         */
+        function getHashParams() {
+          var hashParams = {};
+          var e, r = /([^&;=]+)=?([^&;]*)/g,
+              q = window.location.hash.substring(1);
+          while ( e = r.exec(q)) {
+             hashParams[e[1]] = decodeURIComponent(e[2]);
+          }
+          return hashParams;
+        }
+
+        var userProfileSource = document.getElementById('user-profile-template').innerHTML,
+            userProfileTemplate = Handlebars.compile(userProfileSource),
+            userProfilePlaceholder = document.getElementById('user-profile');
+
+        var oauthSource = document.getElementById('oauth-template').innerHTML,
+            oauthTemplate = Handlebars.compile(oauthSource),
+            oauthPlaceholder = document.getElementById('oauth');
+
+        var params = getHashParams();
+
+        var access_token = params.access_token,
+            refresh_token = params.refresh_token,
+            error = params.error;
+
+        if (error) {
+          alert('There was an error during the authentication');
+        } else {
+          if (access_token) {
+            // render oauth info
+            oauthPlaceholder.innerHTML = oauthTemplate({
+              access_token: access_token,
+              refresh_token: refresh_token
+            });
+
+            $.ajax({
+                url: 'https://api.spotify.com/v1/me',
+                headers: {
+                  'Authorization': 'Bearer ' + access_token
+                },
+                success: function(response) {
+                  userProfilePlaceholder.innerHTML = userProfileTemplate(response);
+
+                  $('#login').hide();
+                  $('#loggedin').show();
+                }
+            });
+          } else {
+              // render initial screen
+              $('#login').show();
+              $('#loggedin').hide();
+          }
+
+          document.getElementById('obtain-new-token').addEventListener('click', function() {
+            $.ajax({
+              url: '/refresh_token',
+              data: {
+                'refresh_token': refresh_token
+              }
+            }).done(function(data) {
+              access_token = data.access_token;
+              oauthPlaceholder.innerHTML = oauthTemplate({
+                access_token: access_token,
+                refresh_token: refresh_token
+              });
+            });
+          }, false);
+        }
+      })();
+    </script>
+	
+</body>
+</html>
