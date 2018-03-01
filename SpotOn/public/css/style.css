@@ -1,0 +1,1442 @@
+*{
+	padding:0;
+	margin:0;
+	font-family: 'Raleway', sans-serif;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	outline:none;
+}
+::selection {
+	background: #d109ca;
+	color:#fff;
+}
+body{	
+	background:#f6f8f8;
+}
+#container{
+	width:100%;
+	height:auto;
+	background:#f6f8f8;
+	margin:auto;
+	overflow: hidden;
+}
+#header{
+	width:100%;
+	height:480px;
+	background:url(../img/home-bg3.png) center;
+	background-size: cover;
+	transform:rotate(0deg);
+	z-index: 30;
+	position: absolute;
+	top:0;
+	left:0;
+}
+#clear-box{
+	width:100%;
+	height: 480px;
+}
+#header h2{
+	font-weight: 400;
+	text-align: center;
+	color:#fff;
+	padding-top:110px;
+	padding-bottom:50px;
+	font-size: 30px;
+}
+#header h2 span{
+	font-size: 22px;
+	font-weight: 200;
+}
+
+/* search songs on homepage css end */
+
+#header form{
+	width:300px;
+	height: 100px;
+	margin:auto;
+}
+#header form input{
+	width:280px;
+	height: 30px;
+	border-radius: 20px;
+	border:none;
+	margin-top:20px;
+	padding-left:20px;
+}
+#header form button{
+	width:80px;
+	height:30px;
+	background-image: linear-gradient(to top, #00B4FF 50%, #005bea 100%);
+	color:#fff;
+	cursor:pointer;
+	float:right;
+	margin-top:20px;
+	border:none;
+	border-radius: 20px;
+	font-size: 14px;
+}
+#header form input:focus{
+	outline:none;
+}
+
+#homeSearchForm{
+	width:300px;
+	height: 30px;
+	background: #fff;
+	border-radius: 20px;
+}
+
+.bySong{
+	width:150px;
+	height: 30px;
+	border-bottom-right-radius: 20px;
+	border-top-right-radius: 20px;
+	float:left;
+}
+.activeButton{
+	background-image: linear-gradient(to top, #00B4FF 50%, #005bea 100%);
+	color:#fff;
+	cursor: default;
+}
+.inactiveButton{
+	background: #fff;
+	color:#333;
+	cursor: pointer;
+}
+.bySong p{
+	padding:0;
+	margin: 0;
+	text-align: center;
+	font-weight: 500;
+	line-height: 30px;
+	font-size: 14px;
+	
+}
+.byArtist{
+	width:150px;
+	height: 30px;
+	border-bottom-left-radius: 20px;
+	border-top-left-radius: 20px;
+	float:left;
+}
+.byArtist p{
+	padding:0;
+	text-align: center;
+	margin: 0;
+	font-weight: 500;
+	line-height: 30px;
+	font-size: 14px;
+	
+}
+
+/* search songs on homepage css end */
+
+#nav{
+	width:100%;
+	height:54px;
+	position: fixed;
+	top:0;
+	left:0;
+	z-index: 100;
+}
+#logo{
+	width:auto;
+	height: 35px;
+	float:left;
+	margin:12.5px 0 0 12.5px;
+}
+#nav ul{
+	float:right;
+	margin-right:170px;
+}
+#nav ul li{
+	list-style-type:none;
+	float:left;
+	margin:15px 10px 0 0;
+}
+#nav ul li a{
+	text-decoration: none;
+	color:#fff;
+}
+#homeBoxes{
+	width:1200px;
+	height:300px;
+	margin:auto;
+	transform:rotate(-0deg);
+	margin-top:40px;
+}
+.homeBox{
+	width:350px;
+	height: 300px;
+	position: relative;
+	float:left;
+	margin-left:37.5px;
+}
+.homeBox img{
+	width:35px;
+	height: auto;
+	position: absolute;
+	top:10px;
+	left:10px;
+}
+.homeBox h3{
+	font-weight:300;
+	font-size: 25px;
+	margin: 10px 0 0 70px;
+}
+.homeBox p{
+	padding-top:20px;
+	font-size: 16px;
+}
+
+.h-box-tablet{
+	display: block;
+}
+.box-margin-tablet{
+	margin-right:0px;
+}
+
+
+/*
+		homepage end - search results begins
+*/
+
+
+#searchResults{
+	width:1000px;
+	height: 700px;
+	margin: -1000px auto 0 auto;
+	z-index: -1;
+}
+#searchResults h2{
+	text-align: center;
+	padding-top: 120px;
+	font-weight: 300;
+	font-size: 30px;
+}
+#searchResults p{
+	text-align: center;
+	font-weight: 300;
+	font-size: 20px;
+	color:#888;
+	padding-bottom: 50px;
+}
+#searchResults p span{
+	color:#0775e6;
+}
+.searchResult{
+	width:470px;
+	height:180px;
+	background: #fff;
+	float:left;
+	margin:0 0 30px 30px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	position: relative;
+	z-index: 1;
+}
+.searchResult img{
+	width:180px;
+	height: 180px;
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+	float:left;
+}
+.searchResult h3{
+	font-weight: 300;
+	font-size: 24px;
+	position: relative;
+	padding: 10px 0 0 190px;
+}
+.searchResult h3 span{
+	font-weight: 300;
+	font-size: 20px;
+	position: relative;
+	color:#888;
+	padding: 10px 0 0 0px;
+}
+.addTrack{
+	width:40px;
+	height:40px;
+	border-radius: 50px;
+	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+	position: absolute;
+	cursor: pointer;
+}
+.addTrack img{
+	width:30px;
+	height:30px;
+	margin:5px;
+}
+.addSearchedTrack{
+	bottom:10px;
+	right:60px;	
+}
+.playSearchedTrack{
+	bottom:10px;
+	right:10px;
+	
+}
+/*
+		search results ends
+*/
+
+/*
+		Profile start
+*/
+#profilePicture{
+	width:200px;
+	height:200px;
+	border-radius: 150px;
+	position: absolute;
+	bottom: -85px;
+	left: 100px;
+	background:#f0f;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+}
+#header h3{
+	font-weight: 400;
+	text-align: center;
+	color:#fff;
+	padding-top:190px;
+	padding-bottom:0px;
+	font-size: 30px;
+}
+#header h3 span{
+	font-size: 22px;
+	font-weight: 200;
+}
+#header h4{
+	font-weight: 500;
+	text-align: center;
+	color:#dedede;
+	padding-top:10px;
+	padding-bottom:0px;
+	font-size: 20px;
+}
+#header h4 span{
+	font-weight: 500;
+	color:#00bdff;
+}
+#profileInfo{
+	width: 1000px;
+	height: auto;
+	padding-top: 50px;
+	padding-bottom: 150px;
+	margin:auto;
+}
+.profileCols{
+	width:500px;
+	height:auto;
+	float:left;
+}
+.profileCols h2{
+	text-align: center;
+	font-weight:300;
+	font-size: 30px;
+}
+#profileSongs{
+	width:470px;
+	height:auto;
+	background: #fff;
+	float:left;
+	margin:30px 0 0px 30px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+}
+/* profile search results */
+.searchResultProfile{
+	width:470px;
+	height:180px;
+	background: #fff;
+	float:left;
+	margin:30px 0 0px 30px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	position: relative;
+	z-index: 1;
+}
+.searchResultProfile img{
+	width:180px;
+	height: 180px;
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+	float:left;
+}
+.searchResultProfile h3{
+	font-weight: 300;
+	font-size: 24px;
+	position: relative;
+	padding: 10px 0 0 190px;
+}
+.searchResultProfile h3 span{
+	font-weight: 300;
+	font-size: 20px;
+	position: relative;
+	color:#888;
+	padding: 10px 0 0 0px;
+	display: block;
+}
+.addTrackProfile{
+	width:40px;
+	height:40px;
+	border-radius: 50px;
+	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+	position: absolute;
+	cursor: pointer;
+}
+.addTrackProfile img{
+	width:30px;
+	height:30px;
+	margin:5px;
+}
+.addSearchedTrack{
+	bottom:10px;
+	right:60px;	
+}
+.playSearchedTrack{
+	bottom:10px;
+	right:10px;
+	
+}
+.trackOnProfile{
+	width:100%;
+	height: 40px;
+	float:left;
+}
+.trackOnProfile p{
+	font-size:16px;
+	padding: 9.5px 0 0 10px;
+	font-weight: 300;
+}
+.trackOnProfile p span{
+	color:#666;
+}
+.playTrackProfile{
+	width:27px;
+	height: 27px;
+	margin-top:-22.5px;
+	margin-right:8px;
+	border-radius: 50px;
+	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+	float:right;	
+} 
+.playTrackProfile img{
+	width:22px;
+	height: 22px;
+	margin:2.5px;
+}
+ol{
+	list-style-type: none;
+}
+/*
+		Profile end
+*/
+#loginOverlay{
+	width:100%;
+	height:100vh;
+	background: rgba(0, 0, 0, 0.7);
+	z-index: 10000;
+	position: fixed;
+	top:0;
+	left:0;
+	display: none;
+}
+#loginBox{
+	width:600px;
+	height: 340px;
+	background: #fafafa;
+	border-radius: 5px;
+	margin:auto;
+	margin-top:200px;
+	position: relative;
+	display: none;
+}
+#loginBox h2{
+	font-weight: 300;
+	font-size:35px;
+	padding-top: 40px;
+	padding-bottom: 85px;
+	text-align: center;
+}
+#loginWithSpotify{
+	width:160px;
+	height:33px;
+	background: #7eb54d;
+	margin:auto;
+	border-radius: 5px;
+	position: fixed;
+	top:10px;
+	right:10px;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	cursor: pointer;
+}
+#loginWithSpotify p{
+	text-align: left;
+	line-height: 33px;
+	margin-left:10px;
+	color:#fff;
+	font-weight: 300;
+	font-size: 14px;
+}
+#SpotLogo{
+	position: absolute;
+	top:5px;
+	right:10px;
+	width:auto;
+	height: 23px;
+} 
+#closeLoginForm{
+	width:30px;
+	height: 30px;
+	position: absolute;
+	top:10px;
+	right:10px;
+	cursor: pointer;
+}
+#musicPlayer{
+	width:470px;
+	height:480px;
+	background: #fff;
+	float:left;
+	margin:30px 0 100px 30px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+}
+#coverArtBlured{
+	width:470px;
+	height:240px;
+	filter: blur(0px);
+	overflow: hidden;
+	float: left;
+}
+#coverArtBluredInner{
+	width:470px;
+	height:470px;
+	top:-255px;
+	left:-235px;
+	filter: blur(7px);
+	background:url(../img/art4.jpg) center;
+	background-size: cover;
+	overflow: hidden;
+}
+#trackArt{
+	width:200px;
+	height:200px;
+	margin:auto;
+	background:url(../img/art4.jpg) center;
+	background-size: cover;
+	position: absolute;
+	top:100px;
+	left:135px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+}
+#trackDetails{
+	width:100%;
+	height: 60px;
+	margin-top: 65px;
+	float: left;
+}
+#trackDetails h2{
+	text-align: center;
+	font-weight: 300;
+	font-size: 25px;
+}
+#trackDetails p{
+	text-align: center;
+	font-weight: 300;
+	font-size: 20px;
+	color:#888;
+}
+#playTrackButton{	
+	width:55px;
+	height: 55px;
+	border-radius: 80px;
+	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+	position: absolute;
+	bottom:40px;
+	left:207.5px;
+	cursor: pointer;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+}
+#playTrackButton img{
+	width:45px;
+	height:45px;
+	margin:5px;
+}
+.nextPrevButtons{	
+	width:35px;
+	height: 35px;
+	border-radius: 80px;
+	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+	position: absolute;
+	cursor: pointer;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+}
+.nextPrevButtons img{
+	width:25px;
+	height:25px;
+	margin:5px;
+}
+.prevPos{
+	bottom:50px;
+	left:157.5px;
+}
+.nextPos{
+	bottom:50px;
+	left:277.5px;
+}
+#footer{
+	width:100%;
+	height: 100px;
+	float:left;
+}
+@media (max-width:1190px){
+	
+	/* media player below */
+		#musicPlayer{
+		width:400px;
+		height:480px;
+		background: #fff;
+		float:left;
+		margin:30px 0 100px 30px;
+		border-radius: 5px;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		position: relative;
+		z-index: 1;
+		overflow: hidden;
+	}
+	#coverArtBlured{
+		width:400px;
+		height:240px;
+		filter: blur(0px);
+		overflow: hidden;
+		float: left;
+	}
+	#coverArtBluredInner{
+		width:400px;
+		height:400px;
+		top:-255px;
+		left:-235px;
+		filter: blur(7px);
+		background:url(../img/art4.jpg) center;
+		background-size: cover;
+		overflow: hidden;
+	}
+	#trackArt{
+		width:200px;
+		height:200px;
+		margin:auto;
+		background:url(../img/art4.jpg) center;
+		background-size: cover;
+		position: absolute;
+		top:80px;
+		left:100px;
+		border-radius: 5px;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	}
+	#trackDetails{
+		width:100%;
+		height: 60px;
+		margin-top: 65px;
+		float: left;
+	}
+	#trackDetails h2{
+		text-align: center;
+		font-weight: 300;
+		font-size: 25px;
+	}
+	#trackDetails p{
+		text-align: center;
+		font-weight: 300;
+		font-size: 20px;
+		color:#888;
+	}
+	#playTrackButton{	
+		width:55px;
+		height: 55px;
+		border-radius: 80px;
+		background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+		position: absolute;
+		bottom:40px;
+		left:172.5px;
+		cursor: pointer;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	}
+	#playTrackButton img{
+		width:45px;
+		height:45px;
+		margin:5px;
+	}
+	.nextPrevButtons{	
+		width:35px;
+		height: 35px;
+		border-radius: 80px;
+		background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+		position: absolute;
+		cursor: pointer;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	}
+	.nextPrevButtons img{
+		width:25px;
+		height:25px;
+		margin:5px;
+	}
+	.prevPos{
+		bottom:50px;
+		left:122.5px;
+	}
+	.nextPos{
+		bottom:50px;
+		left:242.5px;
+	}
+	
+	
+	/* media player above*/
+	.box-margin-tablet{
+		margin-right:50px;
+	}
+	.h-box-tablet{
+		display: none;
+	}
+	#header{
+		height:580px;
+	}
+	#clear-box{
+		width:100%;
+		height: 580px;
+	}
+	#homeBoxes{
+		width:700px;
+		margin-top:20px;
+	}
+	.homeBox{
+		width:325px;
+		margin-left:0px;
+	}
+	#container{
+		width:100%;
+		height:auto;
+		background: #f6f8f8;
+		margin:auto;
+		overflow: hidden;
+	}
+	
+	/*
+			homepage end - search results begins
+	*/
+
+
+	#searchResults{
+		width:700px;
+		height: auto;
+		margin: -1000px auto 0 auto;
+		z-index: -1;
+	}
+	#searchResults h2{
+		text-align: center;
+		padding-top: 120px;
+		font-weight: 300;
+		font-size: 30px;
+	}
+	#searchResults p{
+		text-align: center;
+		font-weight: 300;
+		font-size: 20px;
+		color:#888;
+		padding-bottom: 50px;
+	}
+	#searchResults p span{
+		color:#0775e6;
+	}
+	.searchResult{
+		width:700px;
+		height:180px;
+		background: #fff;
+		float:left;
+		margin:0 0 30px 0px;
+		border-radius: 5px;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		position: relative;
+		z-index: 1;
+	}
+	.searchResult img{
+		width:180px;
+		height: 180px;
+		border-bottom-left-radius: 5px;
+		border-top-left-radius: 5px;
+		float:left;
+	}
+	.searchResult h3{
+		font-weight: 300;
+		font-size: 24px;
+		position: relative;
+		padding: 10px 0 0 190px;
+	}
+	.searchResult h3 span{
+		font-weight: 300;
+		font-size: 20px;
+		position: relative;
+		color:#888;
+		padding: 10px 0 0 0px;
+	}
+	.addTrack{
+		width:40px;
+		height:40px;
+		border-radius: 50px;
+		background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+		position: absolute;
+		cursor: pointer;
+	}
+	.addTrack img{
+		width:30px;
+		height:30px;
+		margin:5px;
+	}
+	.addSearchedTrack{
+		bottom:10px;
+		right:60px;	
+	}
+	.playSearchedTrack{
+		bottom:10px;
+		right:10px;
+
+	}
+	/*
+			search results ends
+	*/
+	
+
+/*
+		Profile start
+*/	
+	
+#profilePicture{
+	width:200px;
+	height:200px;
+	border-radius: 150px;
+	position: absolute;
+	bottom: -15px;
+	left: 80px;
+	background:#f0f;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+}
+#header h3{
+	font-weight: 400;
+	text-align: center;
+	color:#fff;
+	padding-top:190px;
+	padding-bottom:0px;
+	font-size: 30px;
+}
+#header h3 span{
+	font-size: 22px;
+	font-weight: 200;
+}
+#header h4{
+	font-weight: 500;
+	text-align: center;
+	color:#dedede;
+	padding-top:10px;
+	padding-bottom:0px;
+	font-size: 20px;
+}
+#header h4 span{
+	font-weight: 500;
+	color:#00bdff;
+}
+#profileInfo{
+	width: 700px;
+	height: auto;
+	padding-top: 50px;
+	padding-bottom: 150px;
+	margin:auto;
+}
+.profileCols{
+	width:350px;
+	height:auto;
+	float:left;
+}
+.profileCols h2{
+	text-align: center;
+	font-weight:300;
+	font-size: 30px;
+}
+#profileSongs{
+	width:240px;
+	height:auto;
+	background: #fff;
+	float:right;
+	margin:30px 0 0px 30px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+}
+/* profile search results */
+.searchResultProfile{
+	width:400px;
+	height:150px;
+	background: #fff;
+	float:left;
+	margin:30px 0 0px 30px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	position: relative;
+	z-index: 1;
+}
+.searchResultProfile img{
+	width:150px;
+	height: 150px;
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+	float:left;
+}
+.searchResultProfile h3{
+	font-weight: 300;
+	font-size: 24px;
+	position: relative;
+	padding: 10px 0 0 190px;
+}
+.searchResultProfile h3 span{
+	font-weight: 300;
+	font-size: 20px;
+	position: relative;
+	color:#888;
+	padding: 10px 0 0 0px;
+	display: block;
+}
+.addTrackProfile{
+	width:40px;
+	height:40px;
+	border-radius: 50px;
+	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+	position: absolute;
+	cursor: pointer;
+}
+.addTrackProfile img{
+	width:30px;
+	height:30px;
+	margin:5px;
+}
+.addSearchedTrack{
+	bottom:10px;
+	right:60px;	
+}
+.playSearchedTrack{
+	bottom:10px;
+	right:10px;
+	
+}
+.trackOnProfile{
+	width:100%;
+	height: 40px;
+	float:left;
+}
+.trackOnProfile p{
+	font-size:16px;
+	padding: 9.5px 0 0 10px;
+	font-weight: 300;
+}
+.trackOnProfile p span{
+	color:#666;
+}
+.playTrackProfile{
+	width:27px;
+	height: 27px;
+	margin-top:-22.5px;
+	margin-right:8px;
+	border-radius: 50px;
+	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+	float:right;	
+	cursor: pointer;
+} 
+.playTrackProfile img{
+	width:22px;
+	height: 22px;
+	margin:2.5px;
+}
+ol{
+	list-style-type: none;
+}
+
+#loginWithSpotify{
+	display: block;
+}
+/*
+		Profile end
+*/
+}
+
+@media (max-width:740px){
+
+	/* media player below */
+		#musicPlayer{
+		width:100%;
+		height:480px;
+		background: #fff;
+		float:left;
+		margin:30px 0 100px 30px;
+		border-radius: 5px;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		position: relative;
+		z-index: 1;
+		overflow: hidden;
+		margin-left: 0;
+	}
+	#coverArtBlured{
+		width:100%;
+		height:240px;
+		filter: blur(0px);
+		overflow: hidden;
+		float: left;
+	}
+	#coverArtBluredInner{
+		width:100%;
+		height:100vw;
+		top:-40vw;
+		left:-40vw;
+		filter: blur(7px);
+		background:url(../img/art4.jpg) center;
+		background-size: cover;
+		overflow: hidden;
+	}
+	#trackArt{
+		width:60vw;
+		height:60vw;
+		margin:auto;
+		background:url(../img/art4.jpg) center;
+		background-size: cover;
+		position: absolute;
+		top:50px;
+		left:15vw;
+		border-radius: 5px;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	}
+	#trackDetails{
+		width:100%;
+		height: 60px;
+		margin-top: 65px;
+		float: left;
+	}
+	#trackDetails h2{
+		text-align: center;
+		font-weight: 300;
+		font-size: 25px;
+	}
+	#trackDetails p{
+		text-align: center;
+		font-weight: 300;
+		font-size: 20px;
+		color:#888;
+	}
+	#playTrackButton{	
+		width:15vw;
+		height:0;
+		padding-bottom: 15vw;
+		border-radius: 80px;
+		background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+		position: absolute;
+		bottom:40px;
+		left:37vw;
+		cursor: pointer;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	}
+	#playTrackButton img{
+		width:13vw;
+		height:13vw;
+		margin:1vw;
+	}
+	.nextPrevButtons{	
+		width:35px;
+		height: 35px;
+		border-radius: 80px;
+		background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+		position: absolute;
+		cursor: pointer;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	}
+	.nextPrevButtons img{
+		width:25px;
+		height:25px;
+		margin:5px;
+	}
+	.prevPos{
+		bottom:50px;
+		left:20vw;
+	}
+	.nextPos{
+		bottom:50px;
+		left:60vw;
+	}
+	
+	/* media player above*/
+	
+	
+	
+	#loginWithSpotify{
+		display: none;
+	}
+	.box-margin-tablet{
+		margin-right:auto;
+	}
+	.h-box-tablet{
+		display: block;
+	}
+	#header{
+		height:550px;
+	}
+	#clear-box{
+		width:100%;
+		height: 550px;
+	}
+	#homeBoxes{
+		width:100%;
+		height:auto;
+		margin:auto;
+		background: #f0f;
+		transform:rotate(-0deg);
+		margin-top:20px;
+	}
+	.homeBox{
+		width:80%;
+		height: auto;
+		position: relative;
+		float:left;
+		margin: 0px 10% 40px 10%;
+	}
+	.homeBox img{
+		width:45px;
+		height: auto;
+		position: absolute;
+		top:10px;
+		left:10px;
+	}
+	.homeBox h3{
+		font-weight:300;
+		font-size: 25px;
+		margin: 10px 0 0 70px;
+	}
+	.homeBox p{
+		padding-top:20px;
+		font-size: 16px;
+	}
+	#normalMenu{
+		display: none;
+	}
+	#respMenu{
+		display: block;
+		background: url(../img/menu.png) center;
+		background-size: cover;
+		width:35px;
+		height: 35px;
+		position: absolute;
+		top:10px;
+		right:10px;
+	}
+	
+	
+	/*
+			homepage end - search results begins
+	*/
+
+
+	#searchResults{
+		width:100%;
+		height: auto;
+		margin: -1000px auto 0 auto;
+		z-index: -1;
+	}
+	#searchResults h2{
+		text-align: center;
+		padding-top: 120px;
+		font-weight: 300;
+		font-size: 30px;
+	}
+	#searchResults p{
+		text-align: center;
+		font-weight: 300;
+		font-size: 20px;
+		color:#888;
+		padding-bottom: 50px;
+	}
+	#searchResults p span{
+		color:#0775e6;
+	}
+	.searchResult{
+		width:90%;
+		height:100px;
+		background: #fff;
+		float:left;
+		margin:0 0 30px 5%;
+		border-radius: 5px;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		position: relative;
+		z-index: 1;
+	}
+	.searchResult img{
+		width:100px;
+		height: 100px;
+		border-bottom-left-radius: 5px;
+		border-top-left-radius: 5px;
+		float:left;
+	}
+	.searchResult h3{
+		font-weight: 300;
+		font-size: 20px;
+		position: relative;
+		padding: 5px 0 0 110px;
+	}
+	.searchResult h3 span{
+		font-weight: 300;
+		font-size: 16px;
+		position: relative;
+		color:#888;
+		padding: 10px 0 0 0px;
+	}
+	.addTrack{
+		width:35px;
+		height:35px;
+		border-radius: 50px;
+		background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+		position: absolute;
+		cursor: pointer;
+	}
+	.addTrack img{
+		width:25px;
+		height:25px;
+		margin:5px;
+	}
+	.addSearchedTrack{
+		bottom:10px;
+		right:55px;	
+	}
+	.playSearchedTrack{
+		bottom:10px;
+		right:10px;
+
+	}
+	/*
+			search results ends
+	*/
+	
+	
+
+/*
+		Profile start
+*/	
+	
+#profilePicture{
+	width:200px;
+	height:200px;
+	border-radius: 150px;
+	position: absolute;
+	bottom: -15px;
+	left: 80px;
+	background:#f0f;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+}
+#header h3{
+	font-weight: 400;
+	text-align: center;
+	color:#fff;
+	padding-top:190px;
+	padding-bottom:0px;
+	font-size: 30px;
+}
+#header h3 span{
+	font-size: 22px;
+	font-weight: 200;
+}
+#header h4{
+	font-weight: 500;
+	text-align: center;
+	color:#dedede;
+	padding-top:10px;
+	padding-bottom:0px;
+	font-size: 20px;
+}
+#header h4 span{
+	font-weight: 500;
+	color:#00bdff;
+}
+#profileInfo{
+	width: 90%;
+	height: auto;
+	padding-top: 50px;
+	padding-bottom: 0px;
+	margin:auto;
+}
+.profileCols{
+	width:100%;
+	height:auto;
+	float:left;
+	margin-bottom: -30px;
+}
+.profileCols h2{
+	text-align: center;
+	font-weight:300;
+	font-size: 30px;
+}
+#profileSongs{
+	width:100%;
+	height:auto;
+	background: #fff;
+	float:right;
+	margin:30px 0 0px 30px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+}
+/* profile search results */
+.searchResultProfile{
+	width:100%;
+	height:100px;
+	background: #fff;
+	float:left;
+	margin:30px 0 0px 0;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	position: relative;
+	z-index: 1;
+}
+.searchResultProfile img{
+	width:100px;
+	height: 100px;
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+	float:left;
+}
+.searchResultProfile h3{
+	font-weight: 300;
+	font-size: 24px;
+	position: relative;
+	padding: 10px 0 0 120px;
+}
+.searchResultProfile h3 span{
+	font-weight: 300;
+	font-size: 20px;
+	position: relative;
+	color:#888;
+	padding: 10px 0 0 0px;
+	display: none;
+}
+.addTrackProfile{
+	width:40px;
+	height:40px;
+	border-radius: 50px;
+	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+	position: absolute;
+	cursor: pointer;
+}
+.addTrackProfile img{
+	width:30px;
+	height:30px;
+	margin:5px;
+}
+.addSearchedTrack{
+	bottom:10px;
+	right:60px;	
+}
+.playSearchedTrack{
+	bottom:10px;
+	right:10px;
+	
+}
+.trackOnProfile{
+	width:100%;
+	height: 40px;
+	float:left;
+}
+.trackOnProfile p{
+	font-size:16px;
+	padding: 9.5px 0 0 10px;
+	font-weight: 300;
+}
+.trackOnProfile p span{
+	color:#666;
+}
+.playTrackProfile{
+	width:27px;
+	height: 27px;
+	margin-top:-22.5px;
+	margin-right:8px;
+	border-radius: 50px;
+	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+	float:right;	
+} 
+.playTrackProfile img{
+	width:22px;
+	height: 22px;
+	margin:2.5px;
+}
+ol{
+	list-style-type: none;
+}
+/*
+		Profile end
+*/	.really{
+		padding-bottom: 50px;
+	}
+	
+	
+}
