@@ -9,7 +9,7 @@
 	background: #d109ca;
 	color:#fff;
 }
-body{	
+body{
 	background:#f6f8f8;
 }
 #container{
@@ -109,7 +109,7 @@ body{
 	font-weight: 500;
 	line-height: 30px;
 	font-size: 14px;
-	
+
 }
 .byArtist{
 	width:150px;
@@ -125,7 +125,7 @@ body{
 	font-weight: 500;
 	line-height: 30px;
 	font-size: 14px;
-	
+
 }
 
 /* search songs on homepage css end */
@@ -271,12 +271,12 @@ body{
 }
 .addSearchedTrack{
 	bottom:10px;
-	right:60px;	
+	right:60px;
 }
 .playSearchedTrack{
 	bottom:10px;
 	right:10px;
-	
+
 }
 /*
 		search results ends
@@ -402,12 +402,12 @@ body{
 }
 .addSearchedTrack{
 	bottom:10px;
-	right:60px;	
+	right:60px;
 }
 .playSearchedTrack{
 	bottom:10px;
 	right:10px;
-	
+
 }
 .trackOnProfile{
 	width:100%;
@@ -429,8 +429,8 @@ body{
 	margin-right:8px;
 	border-radius: 50px;
 	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
-	float:right;	
-} 
+	float:right;
+}
 .playTrackProfile img{
 	width:22px;
 	height: 22px;
@@ -497,7 +497,7 @@ ol{
 	right:10px;
 	width:auto;
 	height: 23px;
-} 
+}
 #closeLoginForm{
 	width:30px;
 	height: 30px;
@@ -568,7 +568,7 @@ ol{
 	font-size: 20px;
 	color:#888;
 }
-#playTrackButton{	
+#playTrackButton{
 	width:55px;
 	height: 55px;
 	border-radius: 80px;
@@ -586,7 +586,7 @@ ol{
 	height:45px;
 	margin:5px;
 }
-.nextPrevButtons{	
+.nextPrevButtons{
 	width:35px;
 	height: 35px;
 	border-radius: 80px;
@@ -616,7 +616,7 @@ ol{
 	float:left;
 }
 @media (max-width:1190px){
-	
+
 	/* media player below */
 		#musicPlayer{
 		width:400px;
@@ -680,7 +680,7 @@ ol{
 		font-size: 20px;
 		color:#888;
 	}
-	#playTrackButton{	
+	#playTrackButton{
 		width:55px;
 		height: 55px;
 		border-radius: 80px;
@@ -698,7 +698,7 @@ ol{
 		height:45px;
 		margin:5px;
 	}
-	.nextPrevButtons{	
+	.nextPrevButtons{
 		width:35px;
 		height: 35px;
 		border-radius: 80px;
@@ -722,8 +722,8 @@ ol{
 		bottom:50px;
 		left:242.5px;
 	}
-	
-	
+
+
 	/* media player above*/
 	.box-margin-tablet{
 		margin-right:50px;
@@ -753,7 +753,7 @@ ol{
 		margin:auto;
 		overflow: hidden;
 	}
-	
+
 	/*
 			homepage end - search results begins
 	*/
@@ -829,7 +829,7 @@ ol{
 	}
 	.addSearchedTrack{
 		bottom:10px;
-		right:60px;	
+		right:60px;
 	}
 	.playSearchedTrack{
 		bottom:10px;
@@ -839,12 +839,12 @@ ol{
 	/*
 			search results ends
 	*/
-	
+
 
 /*
 		Profile start
-*/	
-	
+*/
+
 #profilePicture{
 	width:200px;
 	height:200px;
@@ -962,12 +962,12 @@ ol{
 }
 .addSearchedTrack{
 	bottom:10px;
-	right:60px;	
+	right:60px;
 }
 .playSearchedTrack{
 	bottom:10px;
 	right:10px;
-	
+
 }
 .trackOnProfile{
 	width:100%;
@@ -989,9 +989,9 @@ ol{
 	margin-right:8px;
 	border-radius: 50px;
 	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
-	float:right;	
+	float:right;
 	cursor: pointer;
-} 
+}
 .playTrackProfile img{
 	width:22px;
 	height: 22px;
@@ -1075,7 +1075,7 @@ ol{
 		font-size: 20px;
 		color:#888;
 	}
-	#playTrackButton{	
+	#playTrackButton{
 		width:15vw;
 		height:0;
 		padding-bottom: 15vw;
@@ -1094,7 +1094,7 @@ ol{
 		height:13vw;
 		margin:1vw;
 	}
-	.nextPrevButtons{	
+	.nextPrevButtons{
 		width:35px;
 		height: 35px;
 		border-radius: 80px;
@@ -1118,11 +1118,11 @@ ol{
 		bottom:50px;
 		left:60vw;
 	}
-	
+
 	/* media player above*/
-	
-	
-	
+
+
+
 	#loginWithSpotify{
 		display: none;
 	}
@@ -1183,8 +1183,8 @@ ol{
 		top:10px;
 		right:10px;
 	}
-	
-	
+
+
 	/*
 			homepage end - search results begins
 	*/
@@ -1260,7 +1260,7 @@ ol{
 	}
 	.addSearchedTrack{
 		bottom:10px;
-		right:55px;	
+		right:55px;
 	}
 	.playSearchedTrack{
 		bottom:10px;
@@ -1270,13 +1270,13 @@ ol{
 	/*
 			search results ends
 	*/
-	
-	
+
+
 
 /*
 		Profile start
-*/	
-	
+*/
+
 #profilePicture{
 	width:200px;
 	height:200px;
@@ -1395,12 +1395,12 @@ ol{
 }
 .addSearchedTrack{
 	bottom:10px;
-	right:60px;	
+	right:60px;
 }
 .playSearchedTrack{
 	bottom:10px;
 	right:10px;
-	
+
 }
 .trackOnProfile{
 	width:100%;
@@ -1422,8 +1422,8 @@ ol{
 	margin-right:8px;
 	border-radius: 50px;
 	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
-	float:right;	
-} 
+	float:right;
+}
 .playTrackProfile img{
 	width:22px;
 	height: 22px;
@@ -1437,6 +1437,13 @@ ol{
 */	.really{
 		padding-bottom: 50px;
 	}
-	
-	
+
+	#settingsContent{
+		width: 1000px;
+		height: 100px;
+		padding-top: 50px;
+		padding-bottom: 150px;
+		margin:auto;
+	}
+
 }
