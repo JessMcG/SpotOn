@@ -1,0 +1,62 @@
+{
+	"tracks": [
+		
+		{
+			"track_id": "0",
+			"artist_name": "Twenty One Pilots",
+			"track_name": "Stressed Out",
+			"album_art": "img/pilots.jpg",
+			"playlist_title": "Playlist 1",
+			"track": "audio/stressed.mp3"
+		},
+		{   
+			"track_id": "1",
+			"artist_name": "Muse",
+			"track_name": "Time Is Running Out",
+			"album_art": "img/muse.jpg",
+			"playlist_title": "Playlist 1",
+			"track": "audio/time.mp3"
+		},
+		{   
+			"track_id": "2",
+			"artist_name": "Rag n Bones Man",
+			"track_name": "Human",
+			"album_art": "img/testArt.jpg",
+			"playlist_title": "Playlist 1",
+			"track": "audio/human.mp3"
+		},
+		{
+			"track_id": "3",
+			"artist_name": "Wu Tang Clan",
+			"track_name": "C.R.E.A.M",
+			"album_art": "img/wu.jpg",
+			"playlist_title": "Playlist 1",
+			"track": "audio/cream.mp3"
+		},
+		{
+			"track_id": "4",
+			"artist_name": "Imagine Dragons",
+			"track_name": "Roots",
+			"album_art": "img/art4.jpg",
+			"playlist_title": "Playlist 1",
+			"track": "audio/roots.mp3"
+		},
+		{   
+			"track_id": "5",
+			"artist_name": "Rag n Bones Man2",
+			"track_name": "Human2",
+			"album_art": "img/testArt.jpg",
+			"playlist_title": "Playlist 1",
+			"track": "audio/human.mp3"
+		},
+		{   
+			"track_id": "5",
+			"artist_name": "Rag n Bones Man6",
+			"track_name": "Human2",
+			"album_art": "img/testArt.jpg",
+			"playlist_title": "Playlist 1",
+			"track": "audio/human.mp3"
+		}
+		
+			  ]
+}
