@@ -9,13 +9,13 @@
 	<link rel="icon" type="image/png" href="img/favicon.png" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-	<script src="js/script.js"></script>
+	<script src="js/script2.js"></script>
 </head>
 <body>
 	
 	<div id="container">
 				
-		<div id="nav">
+		<header id="nav">
 			<a href="index.html"><img id="logo" src="img/SpotOnLogo.png" alt="logo" /></a>	
 			
 			<ul id="normalMenu">
@@ -28,19 +28,49 @@
 					<p>Login with </p> <img id="SpotLogo" src="img/spotifyLogo.png" alt="spotify logo" />
 			</div>
 			
-			<a href="profile.html"><div id="respMenu">				
+			<div id="respMenu">				
 				
-			</div></a>
-		</div>
+			</div>
+		</header>
 		
-		<div id="header">
+		<header id="respNav">
 			
-			<img src="img/profile.jpg" id="profilePicture" />
+			<div class="respContent">
+				<div id="closeRespMenu">
+
+				</div>
+
+				<div id="respNavProfileLogin">
+
+				</div>
+				<img id="respNavImage" src="img/guest.jpg" alt="" />
+
+				<h2>Guest User</h2>
+
+				<div id="spotifyLoginResp">
+					<p>Login with </p> <img id="SpotLogoResp" src="img/spotifyLogo.png" alt="spotify logo" />
+				</div>
+
+				<div id="respNavLinks">
+
+
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="profile.html">Profile</a></li>
+						<li><a href="player.html">Media Player</a></li>
+					</ul>
+				</div>
+			</div>
+		</header>
+		
+		<header id="header">
+			
+			<img src="img/profile.jpg" id="profilePicture" alt=""/>
 			
 			<h3>Allan Noble</h3>
 			<h4>Playlists - <span>3</span> Songs - <span>19</span></h4>	
 			
-		</div>
+		</header>
 		
 		<div id="clear-box">
 			
@@ -48,195 +78,136 @@
 		
 		<div id="profileInfo">
 		
-			<div class="profileCols">
+			<section class="profileCols">
 				
-				<h2>My Playlists</h2>
+				<h1>Music</h1>
 			
-				
-				<div class="searchResultProfile">
-				
-					<img class="searchResultImage" src="img/art2.jpg" />
-
-					<h3>Playlist Title<br /> <span>19 songs / 3 hrs 21 mins</span></h3>
-				
-					<div class="addTrackProfile addSearchedTrack">
-
-						<img src="img/close.png" alt="add track" />
-
+				<div id="switch">
+					
+					<div class="switchInner myPlaylists activeInner">
+						<p>Playlists</p>
 					</div>
-				
-					<div class="addTrackProfile playSearchedTrack">
-
-						<img src="img/play.png" alt="play track" />
-
+					<div class="switchInner mySongs">
+						<p>Tracks</p>
 					</div>
-				
+					
 				</div>
 				
 				
-				<div class="searchResultProfile">
+				<article id="profilePlaylistSwitch">
 				
-					<img class="searchResultImage" src="img/art1.jpg" />
+					<div class="searchResultProfile">
 
-					<h3>Playlist Title<br /> <span>8 tracks / 54 mins</span></h3>
-				
-					<div class="addTrackProfile addSearchedTrack">
+						<img class="searchResultImage" src="img/art2.jpg" alt=""/>
 
-						<img src="img/close.png" alt="add track" />
+						<h3>Playlist Title<br /> <span>19 songs / 3 hrs 21 mins</span></h3>
+
+						<div class="addTrackProfile addSearchedTrack">
+
+							<img src="img/close.png" alt="add track" />
+
+						</div>
+
+						<div class="addTrackProfile playSearchedTrack">
+
+							<img src="img/play.png" alt="play track" />
+
+						</div>
+
+					</div>
+
+
+					<div class="searchResultProfile">
+
+						<img class="searchResultImage" src="img/art1.jpg" alt="" />
+
+						<h3>Playlist Title<br /> <span>8 tracks / 54 mins</span></h3>
+
+						<div class="addTrackProfile addSearchedTrack">
+
+							<img src="img/close.png" alt="add track" />
+
+						</div>
+
+						<div class="addTrackProfile playSearchedTrack">
+
+							<img src="img/play.png" alt="play track" />
+
+						</div>
+
+					</div>
+
+
+					<div class="searchResultProfile">
+
+						<img class="searchResultImage" src="img/art3.jpg" alt="" />
+
+						<h3>Playlist Title<br /> <span>6 songs / 32 mins</span></h3>
+
+						<div class="addTrackProfile addSearchedTrack">
+
+							<img src="img/close.png" alt="add track" />
+
+						</div>
+
+						<div class="addTrackProfile playSearchedTrack">
+
+							<img src="img/play.png" alt="play track" />
+
+						</div>
 
 					</div>
 				
-					<div class="addTrackProfile playSearchedTrack">
-
-						<img src="img/play.png" alt="play track" />
-
-					</div>
-				
-				</div>
+				</article>
 				
 				
-				<div class="searchResultProfile">
-				
-					<img class="searchResultImage" src="img/art3.jpg" />
-
-					<h3>Playlist Title<br /> <span>6 songs / 32 mins</span></h3>
-				
-					<div class="addTrackProfile addSearchedTrack">
-
-						<img src="img/close.png" alt="add track" />
-
-					</div>
-				
-					<div class="addTrackProfile playSearchedTrack">
-
-						<img src="img/play.png" alt="play track" />
-
-					</div>
-				
-				</div>
-				
-				
-			</div>
-			<div class="profileCols">
-				
-				<h2>Tracks</h2>
-				
-				<div id="profileSongs">
+				<article id="profileSongSwitch">
+					
+					<div class="profileSongs">
 				
 					
-					<ol>
-						<li class="trackOnProfile">
-							
-							<p>Track title <span>3 min 31</span></p>
-							
-							<div class="playTrackProfile">
-								<img src="img/play.png" alt="play track" />
-							</div>
-						</li>
-						<li class="trackOnProfile">
-							
-							<p>Track title <span>3 min 31</span></p>
-							
-							<div class="playTrackProfile">
-								<img src="img/play.png" alt="play track" />
-							</div>
-						</li>
-						<li class="trackOnProfile">
-							
-							<p>Track title <span>3 min 31</span></p>
-							
-							<div class="playTrackProfile">
-								<img src="img/play.png" alt="play track" />
-							</div>
-						</li>
-						<li class="trackOnProfile">
-							
-							<p>Track title <span>3 min 31</span></p>
-							
-							<div class="playTrackProfile">
-								<img src="img/play.png" alt="play track" />
-							</div>
-						</li>
-						<li class="trackOnProfile">
-							
-							<p>Track title <span>3 min 31</span></p>
-							
-							<div class="playTrackProfile">
-								<img src="img/play.png" alt="play track" />
-							</div>
-						</li>
-						<li class="trackOnProfile">
-							
-							<p>Track title <span>3 min 31</span></p>
-							
-							<div class="playTrackProfile">
-								<img src="img/play.png" alt="play track" />
-							</div>
-						</li>
-						<li class="trackOnProfile">
-							
-							<p>Track title <span>3 min 31</span></p>
-							
-							<div class="playTrackProfile">
-								<img src="img/play.png" alt="play track" />
-							</div>
-						</li>
-						<li class="trackOnProfile">
-							
-							<p>Track title <span>3 min 31</span></p>
-							
-							<div class="playTrackProfile">
-								<img src="img/play.png" alt="play track" />
-							</div>
-						</li>
-						<li class="trackOnProfile">
-							
-							<p>Track title <span>3 min 31</span></p>
-							
-							<div class="playTrackProfile">
-								<img src="img/play.png" alt="play track" />
-							</div>
-						</li>
-						<li class="trackOnProfile">
-							
-							<p>Track title <span>3 min 31</span></p>
-							
-							<div class="playTrackProfile">
-								<img src="img/play.png" alt="play track" />
-							</div>
-						</li>
-						<li class="trackOnProfile">
-							
-							<p>Track title <span>3 min 31</span></p>
-							
-							<div class="playTrackProfile">
-								<img src="img/play.png" alt="play track" />
-							</div>
-						</li>
-						<li class="trackOnProfile">
-							
-							<p>Track title <span>3 min 31</span></p>
-							
-							<div class="playTrackProfile">
-								<img src="img/play.png" alt="play track" />
-							</div>
-						</li>
-						
-						
+						<ol class="profileMySongs">
+
+
+						</ol>
+					
+					</div>
+				
+				</article>
+				
+			</section>
+			
+			<section class="profileCols">
+				
+				<h1 id="wtf">Recent Searches</h1>
+				
+				<div class="profileSongs">
+									
+					<ol id="recentSearchResults">
+						<li class="recentSearch"><p>Artist - <span>Rise Against</span></p> <div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
+						<li class="recentSearch"><p>Track - <span>Dirt Whispered</span></p><div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
+						<li class="recentSearch"><p>Track - <span>Savior</span></p><div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
+						<li class="recentSearch"><p>Artist - <span>Macklemore</span></p><div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
+						<li class="recentSearch"><p>Artist - <span>Rise Against</span></p> <div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
+						<li class="recentSearch"><p>Track - <span>Dirt Whispered</span></p><div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
+						<li class="recentSearch"><p>Track - <span>Savior</span></p><div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
+						<li class="recentSearch"><p>Artist - <span>Macklemore</span></p><div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
+						<li class="recentSearch"><p>Track - <span>Savior</span></p><div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
+						<li class="recentSearch"><p>Artist - <span>Macklemore</span></p><div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
 					</ol>
 					
 				</div>
 				
-			</div>
+			</section>
 		
 		</div>
 		
 		
-		<div id="footer">
+		<footer id="footer">
 			
 						
 			
-		</div>
+		</footer>
 		
 	</div>
 </body>
