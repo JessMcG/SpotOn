@@ -4,11 +4,12 @@
   "description": "Spotify Web App Project",
   "main": "server.js",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
     "mongodb": "^3.0.4",
     "nodemon": "^1.17.1",
     "querystring": "^0.2.0",
-    "request": "^2.83.0",
-    "express": "^4.16.2"
+    "request": "^2.83.0"
   },
   "devDependencies": {},
   "scripts": {
