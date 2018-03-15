@@ -8,7 +8,7 @@ var allowedKeys = {
   66: 'b'
 };
 
-var konamiCode = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'];
+var konamiCode = ['up']; //, 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'];
 
 var konamiCodePosition = 0;
 
@@ -20,8 +20,10 @@ document.addEventListener('keydown', function(e) {
     konamiCodePosition++;
     if (konamiCodePosition == konamiCode.length) {
 
-      var audio = new Audio('/Users/mikaela/github/SpotOn/SpotOn/mp3/cantina.mp3');
+      var audio = new Audio('mp3/cantina.mp3');
       audio.play();
+
+      $("#konami").show();
 
       konamiCodePosition = 0;
     }
