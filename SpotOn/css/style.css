@@ -5,11 +5,124 @@
 	-webkit-tap-highlight-color:rgba(0,0,0,0);
 	outline:none;
 }
+.playSingleTrack{
+	cursor:pointer;
+}
+#switch{
+	width:470px;
+	height: 35px;
+	border-radius: 5px;
+	background: #fff;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	margin-top: 30px;
+	margin-left: 30px;	
+	overflow: hidden;
+	text-align: center;
+	line-height: 35px;
+}
+.switchInner{
+	width:235px;
+	height:35px;
+	float:left;
+	cursor: pointer;
+}
+.activeInner{
+	background-image: linear-gradient(to top, #00B4FF 10%, #005bea 100%);
+	color:#fff;
+	cursor: default;
+}
+
+
+.recentSearch{
+	width:100%;
+	height: 40px;
+	float:left;
+}
+.recentSearch p{
+	font-size:16px;
+	padding: 9.5px 0 0 10px;
+	font-weight: 300;
+}
+.recentSearch p span{
+	color:#666;
+}
+#recentSearchResults{
+	background: #fff;
+}
+#recentSearchResults li:nth-child(even){
+	background: #fafafa;
+}
+ol li:nth-child(even){
+	background: #fafafa;
+}
+.profileResultPlaylist{
+	width:27px;
+	height: 27px;
+	margin-top:-22.5px;
+	margin-right:8px;
+	border-radius: 50px;
+	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+	float:right;	
+} 
+.profileResultPlaylist img{
+	width:22px;
+	height: 22px;
+	margin:2.5px;
+}
+
+#waves{
+	width:130%;
+	height: auto;
+	position: absolute;
+	bottom:-19px;
+	left:-20%;
+	opacity: 0.2;
+    -webkit-animation: wave 0.7s infinite; /* Safari 4.0 - 8.0 */
+    animation: wave 0.7s infinite;
+}
+#waves2{
+	width:105%;
+	height: auto;
+	position: absolute;
+	bottom:-15px;
+	left:-4%;
+	opacity: 0.4;
+    -webkit-animation: wave2 1.8s infinite; /* Safari 4.0 - 8.0 */
+    animation: wave2 1.8s infinite;
+}
+#waves3{
+	width:155%;
+	height: auto;
+	position: absolute;
+	bottom:-15px;
+	left:-24%;
+	opacity: 0.1;
+    -webkit-animation: wave3 1.6s infinite; /* Safari 4.0 - 8.0 */
+    animation: wave3 1.6s infinite;
+	
+}
+@keyframes wave {
+    0%   {bottom: -30px;left: 0%;}
+    50%  {bottom: -10px;left: -4%;}
+    100% {bottom: -30px;left: 0%;}
+}
+@keyframes wave2 {
+    0%   {bottom: -30px;left: 0%;}
+    40%  {bottom: 0px;left: -2%;}
+    100% {bottom: -30px;left: 0%;}
+}
+@keyframes wave3 {
+    0%   {bottom: -25px;left: 0%;}
+    60%  {bottom: -15px;left: -3%;}
+    100% {bottom: -25px;left: 0%;}
+}
 ::selection {
 	background: #d109ca;
 	color:#fff;
 }
-body{
+body{	
 	background:#f6f8f8;
 }
 #container{
@@ -109,7 +222,7 @@ body{
 	font-weight: 500;
 	line-height: 30px;
 	font-size: 14px;
-
+	
 }
 .byArtist{
 	width:150px;
@@ -125,7 +238,7 @@ body{
 	font-weight: 500;
 	line-height: 30px;
 	font-size: 14px;
-
+	
 }
 
 /* search songs on homepage css end */
@@ -271,12 +384,12 @@ body{
 }
 .addSearchedTrack{
 	bottom:10px;
-	right:60px;
+	right:60px;	
 }
 .playSearchedTrack{
 	bottom:10px;
 	right:10px;
-
+	
 }
 /*
 		search results ends
@@ -333,12 +446,13 @@ body{
 	height:auto;
 	float:left;
 }
-.profileCols h2{
+.profileCols h1{
 	text-align: center;
 	font-weight:300;
 	font-size: 30px;
+	padding-left: 30px;
 }
-#profileSongs{
+.profileSongs{
 	width:470px;
 	height:auto;
 	background: #fff;
@@ -402,12 +516,12 @@ body{
 }
 .addSearchedTrack{
 	bottom:10px;
-	right:60px;
+	right:60px;	
 }
 .playSearchedTrack{
 	bottom:10px;
 	right:10px;
-
+	
 }
 .trackOnProfile{
 	width:100%;
@@ -429,8 +543,8 @@ body{
 	margin-right:8px;
 	border-radius: 50px;
 	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
-	float:right;
-}
+	float:right;	
+} 
 .playTrackProfile img{
 	width:22px;
 	height: 22px;
@@ -497,7 +611,7 @@ ol{
 	right:10px;
 	width:auto;
 	height: 23px;
-}
+} 
 #closeLoginForm{
 	width:30px;
 	height: 30px;
@@ -526,6 +640,7 @@ ol{
 	filter: blur(0px);
 	overflow: hidden;
 	float: left;
+	position: relative;
 }
 #coverArtBluredInner{
 	width:470px;
@@ -533,7 +648,6 @@ ol{
 	top:-255px;
 	left:-235px;
 	filter: blur(7px);
-	background:url(../img/art4.jpg) center;
 	background-size: cover;
 	overflow: hidden;
 }
@@ -541,7 +655,6 @@ ol{
 	width:200px;
 	height:200px;
 	margin:auto;
-	background:url(../img/art4.jpg) center;
 	background-size: cover;
 	position: absolute;
 	top:100px;
@@ -568,7 +681,7 @@ ol{
 	font-size: 20px;
 	color:#888;
 }
-#playTrackButton{
+.playTrackButton{	
 	width:55px;
 	height: 55px;
 	border-radius: 80px;
@@ -581,12 +694,30 @@ ol{
 	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
 }
-#playTrackButton img{
+.playTrackButton img{
 	width:45px;
 	height:45px;
 	margin:5px;
 }
-.nextPrevButtons{
+.playTrackButton2{	
+	width:55px;
+	height: 55px;
+	border-radius: 80px;
+	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+	position: absolute;
+	bottom:40px;
+	left:207.5px;
+	cursor: pointer;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+}
+.playTrackButton2 img{
+	width:45px;
+	height:45px;
+	margin:5px;
+}
+.nextPrevButtons{	
 	width:35px;
 	height: 35px;
 	border-radius: 80px;
@@ -615,22 +746,70 @@ ol{
 	height: 100px;
 	float:left;
 }
-@media (max-width:1190px){
+#respNav{
+		display: none;
+	}
+@media (min-width:1500px){
+	#header{
+		width:100%;
+		height:570px;
+		background:url(../img/home-bg3.png) center;
+		background-size: cover;
+		transform:rotate(0deg);
+		z-index: 30;
+		position: absolute;
+		top:0;
+		left:0;
+	}
 
+	#clear-box{
+		width:100%;
+		height: 570px;
+	}
+}
+@media (max-width:1190px){
+	#switch{
+	width:400px;
+	height: 35px;
+	border-radius: 5px;
+	background: #fff;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	margin-top: 30px;
+	margin-left: 30px;	
+	overflow: hidden;
+	text-align: center;
+	line-height: 35px;
+}
+.switchInner{
+	width:200px;
+	height:35px;
+	float:left;
+	cursor: pointer;
+}
+.activeInner{
+	background-image: linear-gradient(to top, #00B4FF 10%, #005bea 100%);
+	color:#fff;
+	cursor: default;
+}
+
+	
+	
 	/* media player below */
-		#musicPlayer{
-		width:400px;
-		height:480px;
-		background: #fff;
-		float:left;
-		margin:30px 0 100px 30px;
-		border-radius: 5px;
-		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
-		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
-		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
-		position: relative;
-		z-index: 1;
-		overflow: hidden;
+	#musicPlayer{
+	width:400px;
+	height:480px;
+	background: #fff;
+	float:left;
+	margin:30px 0 100px 30px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
 	}
 	#coverArtBlured{
 		width:400px;
@@ -680,7 +859,7 @@ ol{
 		font-size: 20px;
 		color:#888;
 	}
-	#playTrackButton{
+	.playTrackButton{	
 		width:55px;
 		height: 55px;
 		border-radius: 80px;
@@ -693,12 +872,30 @@ ol{
 		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
 		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
 	}
-	#playTrackButton img{
+	.playTrackButton img{
 		width:45px;
 		height:45px;
 		margin:5px;
 	}
-	.nextPrevButtons{
+	.playTrackButton2{	
+		width:55px;
+		height: 55px;
+		border-radius: 80px;
+		background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+		position: absolute;
+		bottom:40px;
+		left:172.5px;
+		cursor: pointer;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	}
+	.playTrackButton2 img{
+		width:45px;
+		height:45px;
+		margin:5px;
+	}
+	.nextPrevButtons{	
 		width:35px;
 		height: 35px;
 		border-radius: 80px;
@@ -722,8 +919,8 @@ ol{
 		bottom:50px;
 		left:242.5px;
 	}
-
-
+	
+	
 	/* media player above*/
 	.box-margin-tablet{
 		margin-right:50px;
@@ -753,7 +950,7 @@ ol{
 		margin:auto;
 		overflow: hidden;
 	}
-
+	
 	/*
 			homepage end - search results begins
 	*/
@@ -829,7 +1026,7 @@ ol{
 	}
 	.addSearchedTrack{
 		bottom:10px;
-		right:60px;
+		right:60px;	
 	}
 	.playSearchedTrack{
 		bottom:10px;
@@ -839,12 +1036,12 @@ ol{
 	/*
 			search results ends
 	*/
-
+	
 
 /*
 		Profile start
-*/
-
+*/	
+	
 #profilePicture{
 	width:200px;
 	height:200px;
@@ -893,12 +1090,12 @@ ol{
 	height:auto;
 	float:left;
 }
-.profileCols h2{
+.profileCols h1{
 	text-align: center;
 	font-weight:300;
 	font-size: 30px;
 }
-#profileSongs{
+.profileSongs{
 	width:240px;
 	height:auto;
 	background: #fff;
@@ -962,12 +1159,12 @@ ol{
 }
 .addSearchedTrack{
 	bottom:10px;
-	right:60px;
+	right:60px;	
 }
 .playSearchedTrack{
 	bottom:10px;
 	right:10px;
-
+	
 }
 .trackOnProfile{
 	width:100%;
@@ -989,9 +1186,9 @@ ol{
 	margin-right:8px;
 	border-radius: 50px;
 	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
-	float:right;
+	float:right;	
 	cursor: pointer;
-}
+} 
 .playTrackProfile img{
 	width:22px;
 	height: 22px;
@@ -1007,10 +1204,172 @@ ol{
 /*
 		Profile end
 */
+	#respNav{
+		display: none;
+	}
 }
 
 @media (max-width:740px){
+	#switch{
+		width:100%;
+		height: 35px;
+		border-radius: 5px;
+		background: #fff;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		margin-top: 30px;
+		margin-left: 0px;	
+		overflow: hidden;
+		text-align: center;
+		line-height: 35px;
+	}
+	.switchInner{
+		width:50%;
+		height:35px;
+		float:left;
+		cursor: pointer;
+	}
+	.activeInner{
+		background-image: linear-gradient(to top, #00B4FF 10%, #005bea 100%);
+		color:#fff;
+		cursor: default;
+	}
 
+	#respNav{
+		width:0%;
+		height: 100vh;
+		background:#f1f1f1;
+		position: fixed;
+		top:0;
+		right:-10px;
+		padding-right:10px;
+		z-index: 342;
+		overflow: hidden;
+		display: block;
+	}
+	#respNavLinks{
+		width:101%;
+		height: 850px;
+		background:#fff;
+		position: relative;
+		margin-top: 30px;
+	}
+	#respNavLinks h3{
+		font-weight: 500;
+		font-size: 22px;
+		text-align: center;
+		padding-top: 10px;
+	}
+	#respNavLinks hr{
+		width:80%;
+		margin-left: 10%;
+		background: #666;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		height: 0.5px;
+		border: 0.5px solid #fff;
+	}
+	#respNav h2{
+		text-align: center;
+		font-weight: 300;
+		font-size: 24px;
+		margin-top: 5px;
+		color:#333;
+	}
+	#respNav ul{
+		width:100%;
+		height: auto;
+		margin-top: 0px;
+	}
+	#respNav ul li{
+		list-style-type: none;
+		width:100%;
+		height:40px;
+		float:left;
+		text-align: center;
+	}
+	#respNav ul li a{
+		color:#000;
+		font-size: 20px;
+		text-decoration: none;
+		font-weight: 300;
+		line-height: 50px;
+	}
+	.respContent{
+		
+	}
+	
+	.respNavBoxShadow{
+		-webkit-box-shadow: -2px 2px 14px 0px rgba(0,0,0,0.75);
+		-moz-box-shadow: -2px 2px 14px 0px rgba(0,0,0,0.75);
+		box-shadow: -2px 2px 14px 0px rgba(0,0,0,0.75);
+	}
+	#respNavProfileLogin{
+		width:400px;
+		height: 220px;
+		background: url(../img/m-bg.jpg) center;
+		background-size: cover;
+		transform:rotate(10deg);
+		margin: -30px 0 0 -30px;
+		position: relative;
+		z-index: 1;
+	}
+	#respNavImage{
+		width:40%;
+		height: auto;
+		border-radius: 100px;
+		margin-left:30%;
+		margin-top:-50px;
+		position: relative;
+		z-index: 6;
+		-webkit-box-shadow: -2px 2px 14px 0px rgba(0,0,0,0.25);
+		-moz-box-shadow: -2px 2px 14px 0px rgba(0,0,0,0.25);
+		box-shadow: -2px 2px 14px 0px rgba(0,0,0,0.25);
+		
+	}
+	#closeRespMenu{
+		width:35px;
+		height:35px;
+		background:url(../img/close.png) center;
+		background-size: cover;
+		position: absolute;
+		top:10px;
+		left:10px;
+		display: none;
+		z-index: 10;
+	}
+
+	#spotifyLoginResp{
+		width:160px;
+		height:33px;
+		background: #7eb54d;
+		margin:auto;
+		border-radius: 5px;
+		position: relative;
+		top:10px;
+		right:0px;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		cursor: pointer;
+	}
+	#spotifyLoginResp p{
+		text-align: left;
+		line-height: 33px;
+		margin-left:10px;
+		color:#fff;
+		font-weight: 300;
+		font-size: 14px;
+	}
+	#SpotLogoResp{
+		position: absolute;
+		top:5px;
+		right:10px;
+		width:auto;
+		height: 23px;
+	} 
+	
 	/* media player below */
 		#musicPlayer{
 		width:100%;
@@ -1075,7 +1434,7 @@ ol{
 		font-size: 20px;
 		color:#888;
 	}
-	#playTrackButton{
+	.playTrackButton{	
 		width:15vw;
 		height:0;
 		padding-bottom: 15vw;
@@ -1089,12 +1448,31 @@ ol{
 		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
 		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
 	}
-	#playTrackButton img{
+	.playTrackButton img{
 		width:13vw;
 		height:13vw;
 		margin:1vw;
 	}
-	.nextPrevButtons{
+	.playTrackButton2{	
+		width:15vw;
+		height:0;
+		padding-bottom: 15vw;
+		border-radius: 80px;
+		background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+		position: absolute;
+		bottom:40px;
+		left:37vw;
+		cursor: pointer;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	}
+	.playTrackButton2 img{
+		width:13vw;
+		height:13vw;
+		margin:1vw;
+	}
+	.nextPrevButtons{	
 		width:35px;
 		height: 35px;
 		border-radius: 80px;
@@ -1118,11 +1496,9 @@ ol{
 		bottom:50px;
 		left:60vw;
 	}
-
+	
 	/* media player above*/
-
-
-
+	
 	#loginWithSpotify{
 		display: none;
 	}
@@ -1183,8 +1559,8 @@ ol{
 		top:10px;
 		right:10px;
 	}
-
-
+	
+	
 	/*
 			homepage end - search results begins
 	*/
@@ -1260,7 +1636,7 @@ ol{
 	}
 	.addSearchedTrack{
 		bottom:10px;
-		right:55px;
+		right:55px;	
 	}
 	.playSearchedTrack{
 		bottom:10px;
@@ -1270,13 +1646,13 @@ ol{
 	/*
 			search results ends
 	*/
-
-
+	
+	
 
 /*
 		Profile start
-*/
-
+*/	
+	
 #profilePicture{
 	width:200px;
 	height:200px;
@@ -1326,12 +1702,13 @@ ol{
 	float:left;
 	margin-bottom: -30px;
 }
-.profileCols h2{
+.profileCols h1{
 	text-align: center;
 	font-weight:300;
 	font-size: 30px;
+	margin-left: -30px;
 }
-#profileSongs{
+.profileSongs{
 	width:100%;
 	height:auto;
 	background: #fff;
@@ -1395,12 +1772,12 @@ ol{
 }
 .addSearchedTrack{
 	bottom:10px;
-	right:60px;
+	right:60px;	
 }
 .playSearchedTrack{
 	bottom:10px;
 	right:10px;
-
+	
 }
 .trackOnProfile{
 	width:100%;
@@ -1422,8 +1799,8 @@ ol{
 	margin-right:8px;
 	border-radius: 50px;
 	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
-	float:right;
-}
+	float:right;	
+} 
 .playTrackProfile img{
 	width:22px;
 	height: 22px;
@@ -1437,13 +1814,8 @@ ol{
 */	.really{
 		padding-bottom: 50px;
 	}
-
-	#settingsContent{
-		width: 1000px;
-		height: 100px;
-		padding-top: 50px;
-		padding-bottom: 150px;
-		margin:auto;
+	#wtf{
+		padding-top:60px;
 	}
-
+	
 }
