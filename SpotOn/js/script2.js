@@ -19,11 +19,7 @@ $(document).ready(function(){
 		$("#profilePlaylistSwitch").show();
 		$("#profileSongSwitch").hide();
 	});
-	
-	
-	
-	
-	
+		
 	$("#waves,#waves2,#waves3").hide();
 	
 	$("#artistField").hide();
@@ -124,7 +120,7 @@ $(document).ready(function(){
 			$(data.tracks).each(function(index, value){
 					
 
-				var appendTrack = "<li class='trackOnProfile'><p>" + value.artist_name + " - <span>" + value.track_name + " " + "</span></p><div class='playTrackProfile'><img class='playSingleTrack' src='img/play.png' alt='" + value.track_id +"' />";
+				var appendTrack = "<li class='trackOnProfile'><p class='ellipsis' title='"+ value.artist_name + " - " + value.track_name  +"'>" + value.artist_name + " - <span>" + value.track_name + " " + "</span></p><div class='playTrackProfile'><img class='playSingleTrack' src='img/play.png' alt='" + value.track_id +"' />";
 
 				//$("ol li:even").css("background-color", "#fafafa");
 
@@ -267,6 +263,10 @@ $(document).ready(function(){
 		}
 	
 	});
+	// show tooltips on hover of tracks with jquery ui
+  $( function() {
+	$( document ).tooltip();
+  } );
 	
 	
 });

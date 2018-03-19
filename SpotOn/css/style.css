@@ -5,6 +5,16 @@
 	-webkit-tap-highlight-color:rgba(0,0,0,0);
 	outline:none;
 }
+.ellipsis{
+	width:auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+label {
+		display: inline-block;
+		width: 5em;
+}
 .playSingleTrack{
 	cursor:pointer;
 }
@@ -1041,175 +1051,189 @@ ol{
 /*
 		Profile start
 */	
-	
-#profilePicture{
-	width:200px;
-	height:200px;
-	border-radius: 150px;
-	position: absolute;
-	bottom: -15px;
-	left: 80px;
-	background:#f0f;
-	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
-}
-#header h3{
-	font-weight: 400;
-	text-align: center;
-	color:#fff;
-	padding-top:190px;
-	padding-bottom:0px;
-	font-size: 30px;
-}
-#header h3 span{
-	font-size: 22px;
-	font-weight: 200;
-}
-#header h4{
-	font-weight: 500;
-	text-align: center;
-	color:#dedede;
-	padding-top:10px;
-	padding-bottom:0px;
-	font-size: 20px;
-}
-#header h4 span{
-	font-weight: 500;
-	color:#00bdff;
-}
-#profileInfo{
-	width: 700px;
-	height: auto;
-	padding-top: 50px;
-	padding-bottom: 150px;
-	margin:auto;
-}
-.profileCols{
-	width:350px;
-	height:auto;
-	float:left;
-}
-.profileCols h1{
-	text-align: center;
-	font-weight:300;
-	font-size: 30px;
-}
-.profileSongs{
-	width:240px;
-	height:auto;
-	background: #fff;
-	float:right;
-	margin:30px 0 0px 30px;
-	border-radius: 5px;
-	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
-	position: relative;
-	z-index: 1;
-	overflow: hidden;
-}
-/* profile search results */
-.searchResultProfile{
-	width:400px;
-	height:150px;
-	background: #fff;
-	float:left;
-	margin:30px 0 0px 30px;
-	border-radius: 5px;
-	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
-	position: relative;
-	z-index: 1;
-}
-.searchResultProfile img{
-	width:150px;
-	height: 150px;
-	border-bottom-left-radius: 5px;
-	border-top-left-radius: 5px;
-	float:left;
-}
-.searchResultProfile h3{
-	font-weight: 300;
-	font-size: 24px;
-	position: relative;
-	padding: 10px 0 0 190px;
-}
-.searchResultProfile h3 span{
-	font-weight: 300;
-	font-size: 20px;
-	position: relative;
-	color:#888;
-	padding: 10px 0 0 0px;
-	display: block;
-}
-.addTrackProfile{
-	width:40px;
-	height:40px;
-	border-radius: 50px;
-	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
-	position: absolute;
-	cursor: pointer;
-}
-.addTrackProfile img{
-	width:30px;
-	height:30px;
-	margin:5px;
-}
-.addSearchedTrack{
-	bottom:10px;
-	right:60px;	
-}
-.playSearchedTrack{
-	bottom:10px;
-	right:10px;
-	
-}
-.trackOnProfile{
-	width:100%;
-	height: 40px;
-	float:left;
-}
-.trackOnProfile p{
-	font-size:16px;
-	padding: 9.5px 0 0 10px;
-	font-weight: 300;
-}
-.trackOnProfile p span{
-	color:#666;
-}
-.playTrackProfile{
-	width:27px;
-	height: 27px;
-	margin-top:-22.5px;
-	margin-right:8px;
-	border-radius: 50px;
-	background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
-	float:right;	
-	cursor: pointer;
-} 
-.playTrackProfile img{
-	width:22px;
-	height: 22px;
-	margin:2.5px;
-}
-ol{
-	list-style-type: none;
-}
 
-#loginWithSpotify{
-	display: block;
-}
-/*
-		Profile end
-*/
+	#profilePicture{
+		width:200px;
+		height:200px;
+		border-radius: 150px;
+		position: absolute;
+		bottom: -15px;
+		left: 80px;
+		background:#f0f;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+	}
+	#header h3{
+		font-weight: 400;
+		text-align: center;
+		color:#fff;
+		padding-top:190px;
+		padding-bottom:0px;
+		font-size: 30px;
+	}
+	#header h3 span{
+		font-size: 22px;
+		font-weight: 200;
+	}
+	#header h4{
+		font-weight: 500;
+		text-align: center;
+		color:#dedede;
+		padding-top:10px;
+		padding-bottom:0px;
+		font-size: 20px;
+	}
+	#header h4 span{
+		font-weight: 500;
+		color:#00bdff;
+	}
+	#profileInfo{
+		width: 700px;
+		height: auto;
+		padding-top: 50px;
+		padding-bottom: 150px;
+		margin:auto;
+	}
+	.profileCols{
+		width:350px;
+		height:auto;
+		float:left;
+	}
+	.profileCols h1{
+		text-align: center;
+		font-weight:300;
+		font-size: 30px;
+	}
+	.profileSongs{
+		width:240px;
+		height:auto;
+		background: #fff;
+		float:right;
+		margin:30px 0 0px 30px;
+		border-radius: 5px;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		position: relative;
+		z-index: 1;
+		overflow: hidden;
+	}
+	/* profile search results */
+	.searchResultProfile{
+		width:400px;
+		height:150px;
+		background: #fff;
+		float:left;
+		margin:30px 0 0px 30px;
+		border-radius: 5px;
+		-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		-moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.75);
+		position: relative;
+		z-index: 1;
+	}
+	.searchResultProfile img{
+		width:150px;
+		height: 150px;
+		border-bottom-left-radius: 5px;
+		border-top-left-radius: 5px;
+		float:left;
+	}
+	.searchResultProfile h3{
+		font-weight: 300;
+		font-size: 24px;
+		position: relative;
+		padding: 10px 0 0 190px;
+	}
+	.searchResultProfile h3 span{
+		font-weight: 300;
+		font-size: 20px;
+		position: relative;
+		color:#888;
+		padding: 10px 0 0 0px;
+		display: block;
+	}
+	.addTrackProfile{
+		width:40px;
+		height:40px;
+		border-radius: 50px;
+		background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+		position: absolute;
+		cursor: pointer;
+	}
+	.addTrackProfile img{
+		width:30px;
+		height:30px;
+		margin:5px;
+	}
+	.addSearchedTrack{
+		bottom:10px;
+		right:60px;	
+	}
+	.playSearchedTrack{
+		bottom:10px;
+		right:10px;
+
+	}
+	.trackOnProfile{
+		width:100%;
+		height: 40px;
+		float:left;
+	}
+	.trackOnProfile p{
+		font-size:16px;
+		padding: 9.5px 0 0 10px;
+		font-weight: 300;
+	}
+	.trackOnProfile p span{
+		color:#666;
+	}
+	.playTrackProfile{
+		width:27px;
+		height: 27px;
+		margin-top:-22.5px;
+		margin-right:8px;
+		border-radius: 50px;
+		background-image: linear-gradient(to left, #00B4FF 0%, #d109ca 100%);
+		float:right;	
+		cursor: pointer;
+	} 
+	.playTrackProfile img{
+		width:22px;
+		height: 22px;
+		margin:2.5px;
+	}
+	ol{
+		list-style-type: none;
+	}
+
+	#loginWithSpotify{
+		display: block;
+	}
+	/*
+			Profile end
+	*/
 	#respNav{
 		display: none;
+	}
+	
+	.ellipsis{
+		width:170px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 }
 
 @media (max-width:740px){
+
+	.ellipsis{
+		width:80%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 	#switch{
 		width:100%;
 		height: 35px;
