@@ -108,7 +108,7 @@ app.get('/callback/', function(req, res) {
         request.get(options, function(error, response, body) {
           console.log(body);
           //Add user account to database with access & refresh tokens
-          db.collection('users').save({user_id: body.user_id, access_t: access_token, refresh_token: refresh_token}, function(err, result) {
+          db.collection('users').save({user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
             if (err) throw err;
             console.log('Saved to Database');
             //res.redirect('/');
