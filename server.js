@@ -4,6 +4,8 @@ var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+const MongoClient = require('mongodb').MongoClient;
+const url = "mongodb://localhost:27017/spot_on";
 
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
 var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
@@ -31,6 +33,15 @@ var app = express();
 app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
 
+//Initialise the database connection
+var db;
+
+MongoClient.connect(url, function(err, database){
+  if(err) throw err;
+  db = database;
+  app.listen(8080);
+ });
+
 // /login
 app.get('/login', function(req, res) {
 
@@ -38,7 +49,9 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email';
+  var scope = 'user-read-private user-read-email playlist-read-private';
+  scope += ' user-library-read playlist-modify-public playlist-modify-private';
+  scope += ' playlist-read-collaborative';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -94,7 +107,15 @@ app.get('/callback/', function(req, res) {
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           console.log(body);
+          //Add user account to database with access & refresh tokens
+          db.collection('users').save({user_id: body.user_id, access_t: access_token, refresh_token: refresh_token}, function(err, result) {
+            if (err) throw err;
+            console.log('Saved to Database');
+            //res.redirect('/');
+          });
         });
+
+
 
         // we can also pass the token to the browser to make requests from there
         res.redirect('/#' +
