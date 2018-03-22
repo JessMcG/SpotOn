@@ -74,9 +74,9 @@ app.get('/callback/', function(req, res) {
 
   if (state === null || state !== storedState) {
     res.redirect('/#' +
-      querystring.stringify({
-        error: 'state_mismatch'
-      }));
+    querystring.stringify({
+      error: 'state_mismatch'
+    }));
   } else {
     res.clearCookie(stateKey);
     var authOptions = {
@@ -96,7 +96,7 @@ app.get('/callback/', function(req, res) {
       if (!error && response.statusCode === 200) {
 
         var access_token = body.access_token,
-            refresh_token = body.refresh_token;
+        refresh_token = body.refresh_token;
 
         var options = {
           url: 'https://api.spotify.com/v1/me',
@@ -127,29 +127,17 @@ app.get('/callback/', function(req, res) {
               });
             }
 
-
-          //Add user account to database with access & refresh tokens
-          /*db.collection('users').save({user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
-            if (err) throw err;
-            console.log('Saved to Database');
-            res.redirect('/');
-          });*/
+          });
         });
 
         //Change Login Button to Logout
 
 
-        // we can also pass the token to the browser to make requests from there
-        /*res.redirect('/#' +
-          querystring.stringify({
-            access_token: access_token,
-            refresh_token: refresh_token
-          }));*/
       } else {
         res.redirect('/#' +
-          querystring.stringify({
-            error: 'invalid_token'
-          }));
+        querystring.stringify({
+          error: 'invalid_token'
+        }));
       }
     });
   }
