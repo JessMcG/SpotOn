@@ -107,12 +107,33 @@ app.get('/callback/', function(req, res) {
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           console.log(body);
+          //Search database for the current user ID
+          db.collection('users').find({user_id: body.id}).toArray(function(err, result) {
+            if (err) throw err;
+            //If user_id already exists, update the database
+            if (result.length>0){
+              db.collection('users').update({user_id: body.id},{access_token: access_token, refresh_token: refresh_token}, function(err, result) {
+                if (err) throw err;
+                console.log('Saved to Database');
+                res.redirect('/');
+              });
+            }
+            //otherwise create a new user account
+            else {
+              db.collection('users').insert({user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
+                if (err) throw err;
+                console.log('Saved to Database');
+                res.redirect('/');
+              });
+            }
+
+
           //Add user account to database with access & refresh tokens
-          db.collection('users').save({user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
+          /*db.collection('users').save({user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
             if (err) throw err;
             console.log('Saved to Database');
             res.redirect('/');
-          });
+          });*/
         });
 
         //Change Login Button to Logout
