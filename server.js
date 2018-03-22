@@ -1,11 +1,13 @@
 //Login function obtained from https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
 
 var express = require('express'); // Express web server framework
+var session = require('express-session'); //Express Session Module
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/spot_on";
+
 
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
 var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
@@ -32,6 +34,7 @@ var app = express();
 
 app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
+   .use(session({secret: rory&charlie}));
 
 //Initialise the database connection
 var db;
