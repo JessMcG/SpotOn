@@ -9,9 +9,9 @@ const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/spot_on";
 
 
-var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
-var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
-var redirect_uri = 'http://absurd-pamela-8080.codio.io/callback/'; // Your redirect uri
+var client_id = 'ca4b921b3f414f7093ebeb74cca2b128'; // Your client id
+var client_secret = 'f379d91708a14bd2880e1c4456bd9e8d'; // Your secret
+var redirect_uri = 'http://catalog-alabama-8080.codio.io/callback/'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -169,6 +169,22 @@ app.get('/refresh_token', function(req, res) {
       });
     }
   });
+});
+
+
+/**
+ * Search for artist or track
+ * name = artist_name or song_title
+ * type = artist or track
+ */
+app.get('/search', function(req, res) {
+  var access_token = req.query_accesstoken;
+  var searchQuery = {
+    url: 'https://api.spotify.com/v1/search',
+    headers: {'Authorization':  },
+    json: true
+  };
+  res.send("Hi there");
 });
 
 console.log('Listening on 8080');
