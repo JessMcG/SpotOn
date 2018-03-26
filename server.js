@@ -1,11 +1,13 @@
 //Login function obtained from https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
 
 var express = require('express'); // Express web server framework
+var session = require('express-session'); //Express Session Module
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/spot_on";
+
 
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
 var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
@@ -32,6 +34,7 @@ var app = express();
 
 app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
+   //.use(session(generateRandomString(16)));
 
 //Initialise the database connection
 var db;
@@ -74,9 +77,9 @@ app.get('/callback/', function(req, res) {
 
   if (state === null || state !== storedState) {
     res.redirect('/#' +
-      querystring.stringify({
-        error: 'state_mismatch'
-      }));
+    querystring.stringify({
+      error: 'state_mismatch'
+    }));
   } else {
     res.clearCookie(stateKey);
     var authOptions = {
@@ -96,7 +99,7 @@ app.get('/callback/', function(req, res) {
       if (!error && response.statusCode === 200) {
 
         var access_token = body.access_token,
-            refresh_token = body.refresh_token;
+        refresh_token = body.refresh_token;
 
         var options = {
           url: 'https://api.spotify.com/v1/me',
@@ -107,28 +110,37 @@ app.get('/callback/', function(req, res) {
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           console.log(body);
-          //Add user account to database with access & refresh tokens
-          db.collection('users').save({user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
+          //Search database for the current user ID
+          db.collection('users').find({user_id: body.id}).toArray(function(err, result) {
             if (err) throw err;
-            console.log('Saved to Database');
-            res.redirect('/');
+            //If user_id already exists, update the database
+            if (result.length>0){
+              db.collection('users').update({user_id: body.id},{user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
+                if (err) throw err;
+                console.log('Saved to Database');
+                res.redirect('/');
+              });
+            }
+            //otherwise create a new user account
+            else {
+              db.collection('users').insert({user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
+                if (err) throw err;
+                console.log('Saved to Database');
+                res.redirect('/');
+              });
+            }
+
           });
         });
 
         //Change Login Button to Logout
 
 
-        // we can also pass the token to the browser to make requests from there
-        /*res.redirect('/#' +
-          querystring.stringify({
-            access_token: access_token,
-            refresh_token: refresh_token
-          }));*/
       } else {
         res.redirect('/#' +
-          querystring.stringify({
-            error: 'invalid_token'
-          }));
+        querystring.stringify({
+          error: 'invalid_token'
+        }));
       }
     });
   }
