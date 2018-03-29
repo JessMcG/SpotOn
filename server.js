@@ -178,13 +178,31 @@ app.get('/refresh_token', function(req, res) {
  * type = artist or track
  */
 app.get('/search', function(req, res) {
+  //TODO: get access_token from database
   var access_token = req.query_accesstoken;
-  var searchQuery = {
-    url: 'https://api.spotify.com/v1/search',
-    headers: {'Authorization':  },
+  var query = req.query.q;
+  var type = req.query.type;
+  var searchoptions = {
+    url: 'https://api.spotify.com/v1/search?' +
+    querystring.stringify({
+      q: query,
+      type: type,
+      limit: 8
+    }),
+    headers: { 'Authorization': 'Bearer ' + access_token },
     json: true
   };
   res.send("Hi there");
+
+  request.post(searchoptions, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      // TODO: store search in Database
+      var access_token = body.access_token;
+      console.log("/Search request.post status" + response.StatusCode);
+    } else {
+      console.log("StatusCode: " + response.statusCode);
+    }
+  });
 });
 
 console.log('Listening on 8080');
