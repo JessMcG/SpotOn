@@ -34,7 +34,7 @@ var app = express();
 
 app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
-   //.use(session(generateRandomString(16)));
+   .use(session());
 
 //Initialise the database connection
 var db;
@@ -133,6 +133,18 @@ app.get('/callback/', function(req, res) {
           });
         });
 
+        //Get user details from DB
+        db.collection('users').find({user_id: body.id}).toArray(function(err, result) {
+          if (err) throw err;
+
+          if (result.length>0){
+            //add user details to current Session
+            req.session.id = result[0].user_id;
+            req.session.access_token = result[0].access_token;
+            console.log('session ID = '+ req.session.id);
+            console.log('session Access Token = '+ req.session.access_token);
+          }
+
         //Change Login Button to Logout
 
 
@@ -168,6 +180,13 @@ app.get('/refresh_token', function(req, res) {
         'access_token': access_token
       });
     }
+  });
+});
+
+
+app.get('/logout', function(req, res) {
+  req.session.destroy(function(err) {
+    //no more session
   });
 });
 
