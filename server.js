@@ -119,9 +119,10 @@ app.get('/callback/', function(req, res) {
                 if (err) throw err;
                 console.log('Saved to Database');
                 //add user details to current Session
-                req.session.id = body.id;
+                req.session.user_id = body.id;
                 req.session.access_token = access_token;
                 console.log('session ID = '+ req.session.id);
+                console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
                 //redirect to home
                 res.redirect('/');
@@ -133,9 +134,10 @@ app.get('/callback/', function(req, res) {
                 if (err) throw err;
                 console.log('Saved to Database');
                 //add user details to current Session
-                req.session.id = body.id;
+                req.session.user_id = body.id;
                 req.session.access_token = access_token;
                 console.log('session ID = '+ req.session.id);
+                console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
                 //redirect to home
                 res.redirect('/');
