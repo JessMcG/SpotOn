@@ -118,6 +118,12 @@ app.get('/callback/', function(req, res) {
               db.collection('users').update({user_id: body.id},{user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
                 if (err) throw err;
                 console.log('Saved to Database');
+                //add user details to current Session
+                req.session.id = body.id;
+                req.session.access_token = access_token;
+                console.log('session ID = '+ req.session.id);
+                console.log('session Access Token = '+ req.session.access_token);
+                //redirect to home
                 res.redirect('/');
               });
             }
@@ -126,6 +132,12 @@ app.get('/callback/', function(req, res) {
               db.collection('users').insert({user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
                 if (err) throw err;
                 console.log('Saved to Database');
+                //add user details to current Session
+                req.session.id = body.id;
+                req.session.access_token = access_token;
+                console.log('session ID = '+ req.session.id);
+                console.log('session Access Token = '+ req.session.access_token);
+                //redirect to home
                 res.redirect('/');
               });
             }
@@ -133,7 +145,7 @@ app.get('/callback/', function(req, res) {
           });
         });
 
-        //Get user details from DB
+        /*//Get user details from DB
         db.collection('users').find({user_id: body.id}).toArray(function(err, result) {
           if (err) throw err;
 
@@ -144,7 +156,7 @@ app.get('/callback/', function(req, res) {
             console.log('session ID = '+ req.session.id);
             console.log('session Access Token = '+ req.session.access_token);
           }
-        });
+        });*/
 
         //Change Login Button to Logout
 
