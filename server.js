@@ -34,7 +34,7 @@ var app = express();
 
 app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
-app.use(session());
+app.use(session({secret: 'rory_and_charlie'}));
 
 //Initialise the database connection
 var db;
