@@ -11,6 +11,23 @@ $(document).ready(function(){
 		$("#profileSongSwitch").show();
 		
 	});
+	$("#example").hide();
+	$("#closeRecentResults, #example").click(function(){
+			
+		$("#example2").animate({marginLeft: '-700px'},300);
+		$("#example").delay(300).fadeOut("fast");
+		
+		
+	});
+	
+	$("#exampleSearchResult").click(function(){
+			
+		$("#example2").delay(100).animate({marginLeft: '0px'},300);
+		$("#example").fadeIn("fast");
+		
+		
+	});
+	
 	$(".myPlaylists").click(function(){
 		
 		$(".myPlaylists").addClass( "activeInner" );
