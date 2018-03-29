@@ -9,7 +9,7 @@ const url = "mongodb://localhost:27017/spot_on";
 
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
 var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
-var redirect_uri = 'http://absurd-pamela-8080.codio.io/callback/'; // Your redirect uri
+var redirect_uri = 'http://small-limbo-8080.codio.io/callback/'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -158,6 +158,49 @@ app.get('/refresh_token', function(req, res) {
     }
   });
 });
+
+
+<!-- Playlist functions -->
+
+app.post('/create_pl', function(req, res) {
+  var newpl = {
+    name: "New Playlist",
+    description: "New playlist description",
+    public: false
+  }
+  // POST https://api.spotify.com/v1/users/{user_id}/playlists
+  // take newpl and add to user_id's playlists
+  res.send("...")
+});
+
+app.get('/get_pl', function(req, res) {
+  // GET https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}
+  // user_id to find playlist_id
+});
+
+app.get('/addto_pl', function(req, res) {
+  // POST https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks
+  // get_pl, using user_id, then POST track uri(s) to res
+});
+
+app.get('/rm_song', function(req, res) {
+  // DELETE https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks
+  // get_pl, using user_id, then DELETE track in req?
+});
+
+app.get('/edit_detail', function(req, res) {
+  // PUT https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}
+  // get_pl then PUT newdeets in playlist_id
+  var newdeets = {
+  name: "Updated Playlist Name",
+  description: "Updated playlist description",
+  public: false
+  }
+});
+
+//new route
+//app.get('', function(req, res) {
+//});
 
 console.log('Listening on 8080');
 app.listen(8080);
