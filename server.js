@@ -144,6 +144,7 @@ app.get('/callback/', function(req, res) {
             console.log('session ID = '+ req.session.id);
             console.log('session Access Token = '+ req.session.access_token);
           }
+        }
 
         //Change Login Button to Logout
 
