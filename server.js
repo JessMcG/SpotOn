@@ -35,7 +35,6 @@ var app = express();
 app.use(express.static(__dirname + '/public'))
    .use(cookieParser());
    //.use(session(generateRandomString(16)));
-
 //Initialise the database connection
 var db;
 
@@ -43,7 +42,7 @@ MongoClient.connect(url, function(err, database){
   if(err) throw err;
   db = database;
   //app.listen(8080);
- });
+});
 
 // /login
 app.get('/login', function(req, res) {
@@ -132,10 +131,7 @@ app.get('/callback/', function(req, res) {
 
           });
         });
-
         //Change Login Button to Logout
-
-
       } else {
         res.redirect('/#' +
         querystring.stringify({
@@ -180,14 +176,19 @@ app.post('/create_pl', function(req, res) {
     description: "New playlist description",
     public: false
   }
-  // POST https://api.spotify.com/v1/users/{user_id}/playlists
-  // take newpl and add to user_id's playlists
+
+  $.getJSON({
+    url: https: api.spotify.com/v1/users/{ user_id }/playlists
+    function(){
+      // take newpl and add to user_id's playlists??
+    }
+  })
   res.send("...")
 });
 
 app.get('/get_pl', function(req, res) {
   // GET https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}
-  // user_id to find playlist_id
+  // user_id to find playlist_id??
 });
 
 app.get('/addto_pl', function(req, res) {
