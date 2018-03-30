@@ -8,6 +8,15 @@ var cookieParser = require('cookie-parser');
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/spot_on";
 
+var jquery = require("jsdom").env("", function(err, window) {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+    var $ = require("jquery")(window);
+});
+
 
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
 var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
@@ -136,6 +145,7 @@ app.get('/callback/', function(req, res) {
                 //add user details to current Session
                 req.session.user_id = body.id;
                 req.session.access_token = access_token;
+                req.session.loggedin = true;
                 console.log('session ID = '+ req.session.id);
                 console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
@@ -147,21 +157,11 @@ app.get('/callback/', function(req, res) {
           });
         });
 
-        /*//Get user details from DB
-        db.collection('users').find({user_id: body.id}).toArray(function(err, result) {
-          if (err) throw err;
-
-          if (result.length>0){
-            //add user details to current Session
-            req.session.id = result[0].user_id;
-            req.session.access_token = result[0].access_token;
-            console.log('session ID = '+ req.session.id);
-            console.log('session Access Token = '+ req.session.access_token);
-          }
-        });*/
-
         //Change Login Button to Logout
-
+        $(".loginButton").click(function(){
+    		    $(".loginButton").hide();
+    		    $(".logoutButton").show();
+      });
 
       } else {
         res.redirect('/#' +
@@ -198,10 +198,90 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
+app.get('/profile', function(req, res) {
+  //redirect if not logged in
+  if(!req.session.loggedin){res.redirect('/login');return;}
+
+  //Get User profile details from Spotify
+  request.post(authOptions, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+
+      var access_token = req.session.access_token;
+
+      var options = {
+        url: 'https://api.spotify.com/v1/me',
+        headers: { 'Authorization': 'Bearer ' + access_token },
+        json: true
+      };
+
+      // use the access token to access the Spotify Web API
+      request.get(options, function(error, response, body) {
+        console.log(body);
+
+        //Parse JSON to get user profile details
+        var display_name = body.display_name; //add function for null display name?
+        var image_url = body.images.url;
+      });
+    }
+  });
+
+  //Get User playlists from Spotify
+  request.post(authOptions, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+
+      var access_token = req.session.access_token;
+      var user_id = req.session.user_id;
+
+      var options = {
+        url: 'https://api.spotify.com/v1/users/'+req.session.user_id+'/playlists',
+        headers: { 'Authorization': 'Bearer ' + access_token },
+        json: true
+      };
+
+      // use the access token to access the Spotify Web API
+      request.get(options, function(error, response, body) {
+        console.log(body);
+
+        //Parse JSON to get user playlist details
+        var playlist_name = body.name;
+        var playlist_tracks = body.tracks.total;
+        var playlist_image = body.images.url;
+      });
+    }
+  });
+
+  //Get User Tracks from Spotify
+  	//https://api.spotify.com/v1/me/tracks
+
+  //Get User Searches from Mongo
+  db.collection('users').find({user_id: req.session.user_id}).toArray(function(err, result) {
+    if (err) throw err;
+    //Get user's searches from DB
+    if (result.length>0){
+      db.collection('users')., function(err, result) {
+        if (err) throw err;
+        var searches = result.searches;
+        console.log('Searches: '+searches);
+        //Display searches on page
+        for (var i = 0; i < searches.length; i++) {
+          var type = searches[i].type;
+          var name = searches[i].name;
+        }
+      });
+    }
+  });
+
+});
+
 
 app.get('/logout', function(req, res) {
+  req.session.loggedin = false;
   req.session.destroy(function(err) {
     //no more session
+    //change back to login Button
+    $(".logoutButton").click(function(){
+		    $(".logoutButton").hide();
+		    $(".loginButton").show();
   });
 });
 
