@@ -171,34 +171,76 @@ app.get('/refresh_token', function(req, res) {
 <!-- Playlist functions -->
 
 app.post('/create_pl', function(req, res) {
-  var newpl = {
-    name: "New Playlist",
-    description: "New playlist description",
-    public: false
-  }
-
-  $.getJSON({
-    url: https: api.spotify.com/v1/users/{ user_id }/playlists
-    function(){
-      // take newpl and add to user_id's playlists??
-    }
-  })
+  request.post(authOptions, function(err, res, body) {
+    if(!error && response.statusCode === 200){
+      var newpl = {
+        name: "New Playlist",
+        description: "New playlist description",
+        public: false
+      };
+  $.ajax({
+    type: 'POST',
+    url: 'https://api.spotify.com/v1/users/{'+req.esssion.user_id+'}/playlists',
+    dataType: 'json',
+    data: ~jsonData~
+    headers: {
+      "name": "New Playlist",
+      "description": "New playlist description",
+      "public": false
+    } else {
+      console.log(err);
+    });
   res.send("...")
 });
 
 app.get('/get_pl', function(req, res) {
   // GET https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}
-  // user_id to find playlist_id??
+  request.post(authOptions, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+
+      var access_token = req.session.access_token;
+      var user_id = req.session.user_id;
+
+      var options = {
+        url: 'https://api.spotify.com/v1/users/'+req.session.user_id+'/playlists',
+        headers: { 'Authorization': 'Bearer ' + access_token },
+        json: true
+      };
+
+      // use the access token to access the Spotify Web API
+      request.get(options, function(error, response, body) {
+        console.log(body);
+
+        //Parse JSON to get user playlist details
+        var playlist_name = body.name;
+        var playlist_tracks = body.tracks.total;
+        var playlist_image = body.images.url;
+      });
+    }
+  });
 });
 
 app.get('/addto_pl', function(req, res) {
   // POST https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks
   // get_pl, using user_id, then POST track uri(s) to res
+  request.post(authOptions, function(err, res, body) {
+    if () {
+
+    } else {
+      console.log(err);
+    });
+  });
 });
 
 app.get('/rm_song', function(req, res) {
   // DELETE https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks
-  // get_pl, using user_id, then DELETE track in req?
+  // get_pl, using user_id, then DELETE track in req?  request.post(authOptions, function(err, res, body) {
+    if () {
+
+    } else {
+      console.log(err);
+    });
+  });
 });
 
 app.get('/edit_detail', function(req, res) {
