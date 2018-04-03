@@ -224,7 +224,7 @@ app.get('/addto_pl', function(req, res) {
   // POST https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks
   // get_pl, using user_id, then POST track uri(s) to res
   request.post(authOptions, function(err, res, body) {
-    if () {
+    if ((!error && response.statusCode === 200) {
 
     } else {
       console.log(err);
@@ -235,7 +235,7 @@ app.get('/addto_pl', function(req, res) {
 app.get('/rm_song', function(req, res) {
   // DELETE https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks
   // get_pl, using user_id, then DELETE track in req?  request.post(authOptions, function(err, res, body) {
-    if () {
+    if ((!error && response.statusCode === 200) {
 
     } else {
       console.log(err);
