@@ -225,7 +225,15 @@ app.get('/addto_pl', function(req, res) {
   // get_pl, using user_id, then POST track uri(s) to res
   request.post(authOptions, function(err, res, body) {
     if ((!error && response.statusCode === 200) {
-
+      $.ajax({
+        dataType: 'text',
+        type: 'post',
+        url: 'https://api.spotify.com/v1/users/'+req.session.user_id+'/playlists/'+##PLAYLISTID##+'/tracks'
+        headers: { 'Authorization': 'Bearer ' + access_token },
+        success: function(response) {
+          console.log(response);
+        }
+      });
     } else {
       console.log(err);
     });
@@ -236,7 +244,15 @@ app.get('/rm_song', function(req, res) {
   // DELETE https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks
   // get_pl, using user_id, then DELETE track in req?  request.post(authOptions, function(err, res, body) {
     if ((!error && response.statusCode === 200) {
-
+      $.ajax({
+        dataType: 'text',
+        type: 'delete',
+        url: 'https://api.spotify.com/v1/users/'+req.session.user_id+'/playlists/'+##PLAYLISTID##+'/tracks'
+        headers: { 'Authorization': 'Bearer ' + access_token },
+        success: function(response) {
+          console.log(response);
+        }
+      });
     } else {
       console.log(err);
     });
