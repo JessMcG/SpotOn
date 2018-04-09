@@ -409,9 +409,9 @@ app.get('/logout', function(req, res) {
     $(".logoutButton").click(function(){
 		    $(".logoutButton").hide();
 		    $(".loginButton").show();
+      });
+
   });
-
 });
-
 console.log('Listening on 8080');
 app.listen(8080);
