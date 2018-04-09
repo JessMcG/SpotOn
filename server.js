@@ -278,14 +278,40 @@ app.get('/profile', function(req, res) {
  * type = artist or track
  */
 app.get('/search', function(req, res) {
-  var access_token = req.query_accesstoken;
-  var searchQuery = {
-    url: 'https://api.spotify.com/v1/search',
-    headers: {'Authorization':  },
+
+  //TODO: Check if logged in
+  // if(!req.session.loggedin){res.redirect('/login'); return;}
+
+  var access_token = req.session.acces_token;
+  var query = req.query.q;
+  var type = req.query.type;
+  var searchoptions = {
+    url: 'https://api.spotify.com/v1/search?' +
+    querystring.stringify({
+      q: query,
+      type: type,
+      limit: 8
+    }),
+    headers: { 'Authorization': 'Bearer ' + access_token },
     json: true
   };
-  res.send("Hi there");
 
+  request.post(authOptions, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      res.send("Status 200 it worked");
+
+      console.log(response.jsonData);
+
+      request.get(searchoptions, function(error, response, body) {
+        console.log(body);
+        console.log("SEARCH RESULTS \n" + "\tARTIST: " + body.artis + "\n\TRACK": body.track);
+      });
+    }
+  });
+
+/**
+  * End of Search and Recommendations
+  */
 
 //Playlist functions
 
