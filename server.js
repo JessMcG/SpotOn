@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser');
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/spot_on";
 
-var jquery = require("node-jsdom");
+/*var jquery = require("node-jsdom");
 jquery.env("", function(err, window) {
     if (err) {
         console.error(err);
@@ -16,7 +16,7 @@ jquery.env("", function(err, window) {
     }
 
     var $ = require("jquery")(window);
-});
+});*/
 
 
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
@@ -159,10 +159,10 @@ app.get('/callback/', function(req, res) {
         });
         //Change Login Button to Logout
 
-        $(".loginButton").click(function(){
+      /*  $(".loginButton").click(function(){
     		    $(".loginButton").hide();
     		    $(".logoutButton").show();
-      });
+      });*/
       } else {
         res.redirect('/#' +
         querystring.stringify({
@@ -408,10 +408,10 @@ app.get('/logout', function(req, res) {
   req.session.destroy(function(err) {
     //no more session
     //change back to login Button
-    $(".logoutButton").click(function(){
+    /* $(".logoutButton").click(function(){
 		    $(".logoutButton").hide();
 		    $(".loginButton").show();
-      });
+      }); */
   });
 });
 
