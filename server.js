@@ -219,7 +219,12 @@ app.get('/profile', function(req, res) {
         console.log(body);
 
         //Parse JSON to get user profile details
-        var display_name = body.display_name; //add function for null display name?
+        if(body.display_name!=null){
+          var display_name = body.display_name;
+        }
+        else {
+          var display_name = body.id;
+        }
         var image_url = body.images.url;
       });
     }
@@ -281,7 +286,7 @@ app.get('/search', function(req, res) {
   //TODO: Check if logged in
   // if(!req.session.loggedin){res.redirect('/login'); return;}
 
-  var access_token = req.session.acces_token;
+  var access_token = req.session.access_token;
   var query = req.query.q;
   var type = req.query.type;
   var searchoptions = {
@@ -303,7 +308,7 @@ app.get('/search', function(req, res) {
 
       request.get(searchoptions, function(error, response, body) {
         console.log(body);
-        console.log("SEARCH RESULTS \n" + "\tARTIST: " + body.artis + "\n\TRACK": body.track);
+        //console.log("SEARCH RESULTS \n" + "\tARTIST: " + body.artists + "\n\TRACK": body.track);
       });
     }
   });
