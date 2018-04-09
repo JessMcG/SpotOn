@@ -168,7 +168,7 @@ app.get('/refresh_token', function(req, res) {
 });
 
 
-<!-- Playlist functions -->
+//<!-- Playlist functions -->
 
 app.post('/create_pl', function(req, res) {
   request.post(authOptions, function(err, res, body) {
