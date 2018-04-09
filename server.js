@@ -312,6 +312,7 @@ app.get('/search', function(req, res) {
       });
     }
   });
+});
 
 /**
   * End of Search and Recommendations
@@ -410,8 +411,8 @@ app.get('/logout', function(req, res) {
 		    $(".logoutButton").hide();
 		    $(".loginButton").show();
       });
-
   });
 });
+
 console.log('Listening on 8080');
 app.listen(8080);
