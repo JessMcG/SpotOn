@@ -318,7 +318,7 @@ app.get('/search', function(req, res) {
   */
 
 //Playlist functions
-
+/*
 app.post('/create_pl', function(req, res) {
   request.post(authOptions, function(err, res, body) {
     if(!error && response.statusCode === 200){
@@ -397,6 +397,8 @@ app.get('/edit_detail', function(req, res) {
 //new route
 //app.get('', function(req, res) {
 //});
+
+*/
 
 
 app.get('/logout', function(req, res) {
