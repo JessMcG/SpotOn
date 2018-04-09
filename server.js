@@ -20,7 +20,7 @@ var jquery = require("jsdom").env("", function(err, window) {
 
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
 var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
-var redirect_uri = 'http://absurd-pamela-8080.codio.io/callback/'; // Your redirect uri
+var redirect_uri = 'http://small-limbo-8080.codio.io/callback/'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -52,7 +52,7 @@ MongoClient.connect(url, function(err, database){
   if(err) throw err;
   db = database;
   //app.listen(8080);
- });
+});
 
 // /login
 app.get('/login', function(req, res) {
@@ -156,13 +156,12 @@ app.get('/callback/', function(req, res) {
 
           });
         });
-
         //Change Login Button to Logout
+
         $(".loginButton").click(function(){
     		    $(".loginButton").hide();
     		    $(".logoutButton").show();
       });
-
       } else {
         res.redirect('/#' +
         querystring.stringify({
@@ -197,6 +196,7 @@ app.get('/refresh_token', function(req, res) {
     }
   });
 });
+
 
 app.get('/profile', function(req, res) {
   //redirect if not logged in
@@ -272,6 +272,88 @@ app.get('/profile', function(req, res) {
   });
 
 });
+
+
+//Playlist functions
+
+app.post('/create_pl', function(req, res) {
+  request.post(authOptions, function(err, res, body) {
+    if(!error && response.statusCode === 200){
+      var newpl = {
+        name: "New Playlist",
+        description: "New playlist description",
+        public: false
+      };
+  $.ajax({
+    type: 'POST',
+    url: 'https://api.spotify.com/v1/users/{'+req.esssion.user_id+'}/playlists',
+    dataType: 'json',
+    data: ~jsonData~
+    headers: {
+      "name": "New Playlist",
+      "description": "New playlist description",
+      "public": false
+    } else {
+      console.log(err);
+    });
+  res.send("...")
+});
+
+app.get('/get_pl', function(req, res) {
+  // GET https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}});
+
+app.get('/addto_pl', function(req, res) {
+  // POST https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks
+  // get_pl, using user_id, then POST track uri(s) to res
+  request.post(authOptions, function(err, res, body) {
+    if ((!error && response.statusCode === 200) {
+      $.ajax({
+        dataType: 'text',
+        type: 'post',
+        url: 'https://api.spotify.com/v1/users/'+req.session.user_id+'/playlists/'+##PLAYLISTID##+'/tracks'
+        headers: { 'Authorization': 'Bearer ' + access_token },
+        success: function(response) {
+          console.log(response);
+        }
+      });
+    } else {
+      console.log(err);
+    });
+  });
+});
+
+app.get('/rm_song', function(req, res) {
+  // DELETE https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks
+  // get_pl, using user_id, then DELETE track in req?  request.post(authOptions, function(err, res, body) {
+    if ((!error && response.statusCode === 200) {
+      $.ajax({
+        dataType: 'text',
+        type: 'delete',
+        url: 'https://api.spotify.com/v1/users/'+req.session.user_id+'/playlists/'+##PLAYLISTID##+'/tracks'
+        headers: { 'Authorization': 'Bearer ' + access_token },
+        success: function(response) {
+          console.log(response);
+        }
+      });
+    } else {
+      console.log(err);
+    });
+  });
+});
+
+app.get('/edit_detail', function(req, res) {
+  // PUT https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}
+  // get_pl then PUT newdeets in playlist_id
+  var newdeets = {
+  name: "Updated Playlist Name",
+  description: "Updated playlist description",
+  public: false
+  }
+});
+
+//new route
+//app.get('', function(req, res) {
+//});
 
 
 app.get('/logout', function(req, res) {
