@@ -266,8 +266,7 @@ app.get('/profile', function(req, res) {
           var type = searches[i].type;
           var name = searches[i].name;
         }
-      });
-    }
+      }
   });
 
 });
