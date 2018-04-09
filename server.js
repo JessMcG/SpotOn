@@ -20,7 +20,7 @@ var jquery = require("jsdom").env("", function(err, window) {
 
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
 var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
-var redirect_uri = 'http://small-limbo-8080.codio.io/callback/'; // Your redirect uri
+var redirect_uri = req.protocol + '://' +req.get('host') + '/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -197,6 +197,7 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
+//Profile Page
 app.get('/profile', function(req, res) {
   //redirect if not logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
@@ -242,9 +243,10 @@ app.get('/profile', function(req, res) {
         console.log(body);
 
         //Parse JSON to get user playlist details
-        var playlist_name = body.name;
+        var playlists = body;
+        /*var playlist_name = body.name;
         var playlist_tracks = body.tracks.total;
-        var playlist_image = body.images.url;
+        var playlist_image = body.images.url;*/
       });
     }
   });
