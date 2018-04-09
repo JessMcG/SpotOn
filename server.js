@@ -259,7 +259,7 @@ app.get('/profile', function(req, res) {
     if (err) throw err;
     //Get user's searches from DB
     if (result.length>0){
-      db.collection('users')., function(err, result) {
+      db.collection('users').function(err, result) {
         if (err) throw err;
         var searches = result.searches;
         console.log('Searches: '+searches);
