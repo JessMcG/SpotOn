@@ -197,7 +197,6 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-
 app.get('/profile', function(req, res) {
   //redirect if not logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
@@ -272,6 +271,20 @@ app.get('/profile', function(req, res) {
   });
 
 });
+
+/**
+ * Search for artist or track
+ * name = artist_name or song_title
+ * type = artist or track
+ */
+app.get('/search', function(req, res) {
+  var access_token = req.query_accesstoken;
+  var searchQuery = {
+    url: 'https://api.spotify.com/v1/search',
+    headers: {'Authorization':  },
+    json: true
+  };
+  res.send("Hi there");
 
 
 //Playlist functions
@@ -365,6 +378,7 @@ app.get('/logout', function(req, res) {
 		    $(".logoutButton").hide();
 		    $(".loginButton").show();
   });
+
 });
 
 console.log('Listening on 8080');
