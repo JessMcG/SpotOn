@@ -348,13 +348,12 @@ app.post('/create_pl', function(req, res) {
 app.post('/addto_pl', function(req, res) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
+  var playlist_id =
   var newsong = {
-//    uris:[
-//      spotify:track:???,
-//    "spotify:track:1301WleyT98MSxVHPZCA6M"]}
+    uris: 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh'
   }
   var options = {
-    url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
+    url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks',
     headers: { 'Authorization': 'Bearer ' + access_token },
     body:newsong
     json: true
@@ -379,7 +378,7 @@ app.delete('/rm_song', function(req, res) {
         "spotify:track:1301WleyT98MSxVHPZCA6M"]}
     }]}
   var options = {
-    url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
+    url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks',
     headers: { 'Authorization': 'Bearer ' + access_token },
     body:delsong
     json: true
