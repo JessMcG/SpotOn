@@ -282,6 +282,7 @@ app.get('/profile', function(req, res) {
   	//https://api.spotify.com/v1/me/tracks
 
   //Get User Searches from Mongo
+  //TODO Catch if no searches
   db.collection('users').find({user_id: req.session.user_id}).toArray(function(err, result) {
     if (err) throw err;
     //Get user's searches from DB
