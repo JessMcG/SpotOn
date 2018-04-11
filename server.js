@@ -185,6 +185,7 @@ app.get('/refresh_token', function(req, res) {
 
   // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
+
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
@@ -209,6 +210,7 @@ app.get('/refresh_token', function(req, res) {
 app.get('/profile', function(req, res) {
   //redirect if not logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
+  var code = req.query.code || null;
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     form: {
