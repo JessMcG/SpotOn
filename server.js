@@ -331,11 +331,11 @@ app.get('/search', function(req, res) {
 
         console.log("\nSEARCH RESULTS \n");
         if (body.artists) {
-          for (var i = 0; < body.artists.items.length; i++) {
+          for (var i = 0; i < body.artists.items.length; i++) {
             console.log("\t ARTIST: " + body.artists.items[i].name);
           }
         } else if (body.tracks) {
-          for (var i = 0; < body.tracks.items.length; i++) {
+          for (var i = 0; i < body.tracks.items.length; i++) {
             console.log("\t ARTIST: " + body.artists.items[i].name);
           }
         }
