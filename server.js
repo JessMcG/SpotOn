@@ -84,8 +84,8 @@ app.get('/callback/', function(req, res) {
   // your application requests refresh and access tokens
   // after checking the state parameter
 
-  var redirect_uri = req.protocol + '://' +req.get('host') + '/callback/';
-  console.log(redirect_uri);
+  //var redirect_uri = req.protocol + '://' +req.get('host') + '/callback/';
+  //console.log(redirect_uri);
 
   var code = req.query.code || null;
   var state = req.query.state || null;
@@ -102,7 +102,7 @@ app.get('/callback/', function(req, res) {
       url: 'https://accounts.spotify.com/api/token',
       form: {
         code: code,
-        redirect_uri: redirect_uri,
+        redirect_uri: req.protocol + '://' +req.get('host') + '/callback/',
         grant_type: 'authorization_code'
       },
       headers: {
@@ -209,7 +209,19 @@ app.get('/refresh_token', function(req, res) {
 app.get('/profile', function(req, res) {
   //redirect if not logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
-
+  var authOptions = {
+    url: 'https://accounts.spotify.com/api/token',
+    form: {
+      code: code,
+      redirect_uri: req.protocol + '://' +req.get('host') + '/callback/',
+      grant_type: 'authorization_code'
+    },
+    headers: {
+      'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+    },
+    json: true
+  };
+  
   //Get User profile details from Spotify
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
@@ -300,7 +312,7 @@ app.get('/search', function(req, res) {
   var searchoptions = {
     url: 'https://api.spotify.com/v1/search?' +
     querystring.stringify({
-      q: query,
+      query: query,
       type: type,
       limit: 8
     }),
@@ -316,7 +328,20 @@ app.get('/search', function(req, res) {
 
       request.get(searchoptions, function(error, response, body) {
         console.log(body);
+<<<<<<< HEAD
+        console.log("\nSEARCH RESULTS \n");
+        if (body.artists) {
+          for (var i = 0; < body.artists.items.length; i++) {
+            console.log("\t ARTIST: " + body.artists.items[i].name);
+          }
+        } else if (body.tracks) {
+          for (var i = 0; < body.tracks.items.length; i++) {
+            console.log("\t ARTIST: " + body.artists.items[i].name);
+          }
+        }
+=======
         //console.log("SEARCH RESULTS \n" + "\tARTIST: " + body.artists + "\n\TRACK": body.track);
+>>>>>>> ac65cc00feb7d32f9724e36c500ca4e9f389a3b7
       });
     }
   });
