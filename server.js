@@ -59,6 +59,7 @@ MongoClient.connect(url, function(err, database){
 app.get('/login', function(req, res) {
 
   var redirect_uri = req.protocol + '://' +req.get('host') + '/callback/';
+  console.log(redirect_uri);
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -82,6 +83,9 @@ app.get('/callback/', function(req, res) {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
+
+  var redirect_uri = req.protocol + '://' +req.get('host') + '/callback/';
+  console.log(redirect_uri);
 
   var code = req.query.code || null;
   var state = req.query.state || null;
