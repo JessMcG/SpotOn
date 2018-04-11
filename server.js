@@ -84,8 +84,8 @@ app.get('/callback/', function(req, res) {
   // your application requests refresh and access tokens
   // after checking the state parameter
 
-  var redirect_uri = req.protocol + '://' +req.get('host') + '/callback/';
-  console.log(redirect_uri);
+  //var redirect_uri = req.protocol + '://' +req.get('host') + '/callback/';
+  //console.log(redirect_uri);
 
   var code = req.query.code || null;
   var state = req.query.state || null;
@@ -102,7 +102,7 @@ app.get('/callback/', function(req, res) {
       url: 'https://accounts.spotify.com/api/token',
       form: {
         code: code,
-        redirect_uri: redirect_uri,
+        redirect_uri: req.protocol + '://' +req.get('host') + '/callback/',
         grant_type: 'authorization_code'
       },
       headers: {
@@ -209,7 +209,19 @@ app.get('/refresh_token', function(req, res) {
 app.get('/profile', function(req, res) {
   //redirect if not logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
-
+  var authOptions = {
+    url: 'https://accounts.spotify.com/api/token',
+    form: {
+      code: code,
+      redirect_uri: req.protocol + '://' +req.get('host') + '/callback/',
+      grant_type: 'authorization_code'
+    },
+    headers: {
+      'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+    },
+    json: true
+  };
+  
   //Get User profile details from Spotify
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
