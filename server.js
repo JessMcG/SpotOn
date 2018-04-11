@@ -58,7 +58,7 @@ MongoClient.connect(url, function(err, database){
 // /login
 app.get('/login', function(req, res) {
 
-  var redirect_uri = req.protocol + '://' +req.get('host') + '/callback';
+  var redirect_uri = req.protocol + '://' +req.get('host') + '/callback/';
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -345,10 +345,10 @@ app.post('/create_pl', function(req, res) {
   });
 });
 
-app.post('/addto_pl', function(req, res) {
+/*app.post('/addto_pl', function(req, res) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  var playlist_id =
+  //var playlist_id =
   //var newsong = uris: 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh'
 
   var options = {
@@ -358,7 +358,7 @@ app.post('/addto_pl', function(req, res) {
       'uris': '4iV5W9uYEdYUVa79Axb7Rh'
     },
     json: true
-    };
+  };
   request.post(options, function(err, res, body) {
     if(!error && response.statusCode === 200){
     console.log(body);
@@ -416,7 +416,7 @@ app.get('/edit_detail', function(req, res) {
     }
   });
 });
-
+*/
 
 
 app.get('/logout', function(req, res) {
