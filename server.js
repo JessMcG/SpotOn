@@ -137,6 +137,7 @@ app.get('/callback/', function(req, res) {
                 //add user details to current Session
                 req.session.user_id = body.id;
                 req.session.access_token = access_token;
+                req.session.loggedin = true;
                 console.log('session ID = '+ req.session.id);
                 console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
