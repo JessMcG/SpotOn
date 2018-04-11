@@ -1,0 +1,83 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SpotOn</title>
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="icon" type="image/gif" href="favicon.gif" />
+	<link rel="icon" type="image/png" href="img/favicon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="js/script.js"></script>
+</head>
+<body>
+
+	<div id="container">
+
+		<div id="nav">
+			<a href="index.html"><img id="logo" src="img/SpotOnLogo.png" alt="logo" /></a>
+
+			<ul id="normalMenu">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="profile.html">Profile</a></li>
+				<li><a href="player.html">Media Player</a></li>
+			</ul>
+    </div>
+
+    <div id="header">
+			<img src=image_url id="profilePicture" alt="User Profile Picture" />
+			<h3><%= display_name %></h3> <!-- Spotify Display Name -->
+			<h4>Playlists - <span>3</span> Songs - <span>19</span></h4>
+		</div>
+
+		<div id="clear-box">
+
+		</div>
+
+		<div id="profileInfo">
+			<div class="profileCols">
+				<h2>My Playlists</h2>
+
+        <% playlists.forEach(function(playlist) { %>
+          <div class="searchResultProfile">
+  					<img class="searchResultImage" src=playlist.images.url />
+  					<h3><%= playlist.name %><br /> <span><%= playlist.tracks.total %></span></h3>
+  					<div class="addTrackProfile addSearchedTrack">
+  						<img src="img/close.png" alt="add track" />
+  					</div>
+  					<div class="addTrackProfile playSearchedTrack">
+  						<img src="img/play.png" alt="play track" />
+  					</div>
+  				</div>
+        <% }); %>
+			</div>
+
+
+			<div class="profileCols">
+				<h2>Tracks</h2>
+				<div id="profileSongs">
+					<ol>
+            <% tracks.forEach(function(track) { %>
+              <li class="trackOnProfile">
+  							<p>Track title <span>3 min 31</span></p>
+  							<div class="playTrackProfile">
+  								<img src="img/play.png" alt="play track" />
+  							</div>
+  						</li>
+            <% }); %>
+					</ol>
+				</div>
+			</div>
+
+		</div>
+
+
+		<div id="footer">
+
+
+
+		</div>
+
+	</div>
+</body>
+</html>
