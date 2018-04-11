@@ -221,7 +221,7 @@ app.get('/profile', function(req, res) {
     },
     json: true
   };
-  
+
   //Get User profile details from Spotify
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
@@ -328,7 +328,7 @@ app.get('/search', function(req, res) {
 
       request.get(searchoptions, function(error, response, body) {
         console.log(body);
-<<<<<<< HEAD
+
         console.log("\nSEARCH RESULTS \n");
         if (body.artists) {
           for (var i = 0; < body.artists.items.length; i++) {
@@ -339,9 +339,9 @@ app.get('/search', function(req, res) {
             console.log("\t ARTIST: " + body.artists.items[i].name);
           }
         }
-=======
+//=======
         //console.log("SEARCH RESULTS \n" + "\tARTIST: " + body.artists + "\n\TRACK": body.track);
->>>>>>> ac65cc00feb7d32f9724e36c500ca4e9f389a3b7
+//>>>>>>> ac65cc00feb7d32f9724e36c500ca4e9f389a3b7
       });
     }
   });
