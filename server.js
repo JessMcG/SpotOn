@@ -349,13 +349,14 @@ app.post('/addto_pl', function(req, res) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
   var playlist_id =
-  var newsong = {
-    uris: 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh'
-  }
+  //var newsong = uris: 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh'
+
   var options = {
     url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks',
     headers: { 'Authorization': 'Bearer ' + access_token },
-    body:newsong
+    body:{
+      'uris': '4iV5W9uYEdYUVa79Axb7Rh'
+    },
     json: true
     };
   request.post(options, function(err, res, body) {
