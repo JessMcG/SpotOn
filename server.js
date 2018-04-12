@@ -154,7 +154,7 @@ app.get('/callback/', function(req, res) {
             }
             //otherwise create a new user account
             else {
-              db.collection('users').insert({user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
+              db.collection('users').insert({user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
                 if (err) throw err;
                 console.log('Saved to Database');
                 //add user details to current Session
@@ -217,6 +217,8 @@ app.get('/refresh_token', function(req, res) {
 app.get('/profile', function(req, res) {
   //redirect if not logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
+
+
   var code = req.query.code || null;
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
@@ -303,7 +305,8 @@ app.get('/profile', function(req, res) {
         }*/
       }
   });
-
+  //render the template with the content added
+  res.render('/views/pages/test_profile');
 });
 
 /**
