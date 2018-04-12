@@ -394,7 +394,6 @@ app.get('/search', function(req, res) {
     db.collection('users').find( {search:{uris:'spotify:track:1301WleyT98MSxVHPZCA6m'}}).toArray(function(err, result) {
       if (err) console.log(error);
       result = newsong
-    }
   var options = {
     url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks',
     headers: { 'Authorization': 'Bearer ' + access_token },
