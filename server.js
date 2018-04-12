@@ -290,10 +290,10 @@ app.get('/profile', function(req, res) {
         var searches = result.searches;
         console.log('Searches: '+searches);
         //Display searches on page
-        for (var i = 0; i < searches.length; i++) {
+        /*for (var i = 0; i < searches.length; i++) {
           var type = searches[i].type;
           var name = searches[i].name;
-        }
+        }*/
       }
   });
 
