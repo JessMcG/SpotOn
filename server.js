@@ -138,7 +138,7 @@ app.get('/callback/', function(req, res) {
             if (err) throw err;
             //If user_id already exists, update the database
             if (result.length>0){
-              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
+              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search:{ uris:'spotify:track:1301WleyT98MSxVHPZCA6m'}}, function(err, result) {
                 if (err) throw err;
                 console.log('Saved to Database');
                 //add user details to current Session
@@ -391,7 +391,7 @@ app.get('/search', function(req, res) {
   app.post('/addto_pl', function(req, res) {
     var access_token = req.session.access_token;
     var user_id = req.session.user_id;
-    db.collection('users').find({: .}).toArray(function(err, result) {
+    db.collection('users').find( {search:{uris:'spotify:track:1301WleyT98MSxVHPZCA6m'}}).toArray(function(err, result) {
       if (err) console.log(error);
       result = newsong
     }
