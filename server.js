@@ -306,7 +306,7 @@ app.get('/profile', function(req, res) {
       }
   });
   //render the template with the content added
-  res.render('/views/pages/test_profile');
+  res.render('/pages/test_profile');
 });
 
 /**
