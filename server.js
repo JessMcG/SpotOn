@@ -366,7 +366,7 @@ app.get('/search', function(req, res) {
   */
   // Playlist functions
 app.get('/seedpl', function(req, res) {
-  db.collection('users').update({user_id: body.id},{search}, function(err, result) {
+  db.collection('users').update({user_id: body.id},{search}), function(err, result) {
     if (err) throw err;
     var output = result.tracks
   };
