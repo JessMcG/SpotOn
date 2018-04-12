@@ -138,7 +138,7 @@ app.get('/callback/', function(req, res) {
             if (err) throw err;
             //If user_id already exists, update the database
             if (result.length>0){
-              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search:{tracks:'1301WleyT98MSxVHPZCA6m'}}, function(err, result) {
+              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search:{track:'1301WleyT98MSxVHPZCA6m'}}, function(err, result) {
                 if (err) throw err;
                 console.log('Saved to Database');
                 //add user details to current Session
@@ -366,9 +366,10 @@ app.get('/search', function(req, res) {
   */
   // Playlist functions
 app.get('/seedpl', function(req, res) {
-  var output = ''
-  db.collection('users').update({user_id: body.id},{search}), function(err, result) {
+  var query = {search:{track:'1301WleyT98MSxVHPZCA6m'}}
+  db.collection('users').find(query).toArray, function(err, result) {
     if (err) throw err;
+    console.log(result);
     output = result.tracks;
     console.log(output);
   };
