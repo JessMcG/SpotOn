@@ -297,6 +297,8 @@ app.get('/profile', function(req, res) {
     //Get user's searches from DB
     if (result.length>0){
         var searches = result.searches;
+        var display_name = result.display_name;
+        var image_url = result.image_url;
         console.log('Searches: '+searches);
         //Display searches on page
         /*for (var i = 0; i < searches.length; i++) {
