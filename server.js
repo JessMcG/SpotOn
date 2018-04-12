@@ -369,14 +369,14 @@ app.get('/seedpl', function(req, res) {
   var output = ''
   db.collection('users').update({user_id: body.id},{search}), function(err, result) {
     if (err) throw err;
-    output = result.tracks
+    output = result.tracks;
   };
-  var access_token = req.session.access_token
-  var user_id = req.session.user_id
+  var access_token = req.session.access_token;
+  var user_id = req.session.user_id;
   var query = {
     limit: '25',
-    seed_tracks: output
-  };
+    seed_tracks: output;
+  }
   var options = {
     url: 'https://api.spotify.com/v1/recommendations',
     headers: { 'Authorization': 'Bearer ' + access_token },
