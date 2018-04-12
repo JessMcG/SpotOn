@@ -380,13 +380,11 @@ app.get('/seedpl', function(req, res) {
     limit: '25',
     seed_tracks: output
   };
-  console.log('query: '+query);
   var options = {
     url: 'https://api.spotify.com/v1/recommendations',
     headers: { 'Authorization': 'Bearer ' + access_token },
     query: query
   };
-  console.log(options);
   request.post(options, function(err, res, body) {
     if(!err && res.statusCode === 200){
       console.log('body: '+body);
