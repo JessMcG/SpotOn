@@ -408,7 +408,7 @@ app.post('/create_pl', function(req, res) {
     }
     });
   });
-
+/*
 app.post('/addto_pl', function(req, res) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
@@ -432,6 +432,7 @@ app.post('/addto_pl', function(req, res) {
     });
   });
 
+*/
 
 app.get('/logout', function(req, res) {
   req.session.loggedin = false;
