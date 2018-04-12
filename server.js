@@ -221,6 +221,11 @@ app.get('/profile', function(req, res) {
 
   console.log('User ID from Session: ' +req.session.user_id);
 
+  //Initialising variables for profile
+  var searches;
+  var display_name;
+  var image_url;
+
   var code = req.query.code || null;
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
@@ -300,9 +305,9 @@ app.get('/profile', function(req, res) {
     if (result.length>0){
       for (var i = 0; i < result.length; i++) {
         console.log('Search Results: '+result[i]);
-        var searches = result[i].searches;
-        var display_name = result[i].display_name;
-        var image_url = result[i].image_url;
+        searches = result[i].searches;
+        display_name = result[i].display_name;
+        image_url = result[i].image_url;
       }
 
         console.log('Searches: '+searches);
