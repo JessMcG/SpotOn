@@ -366,9 +366,10 @@ app.get('/search', function(req, res) {
   */
   // Playlist functions
 app.get('/seedpl', function(req, res) {
+  var output = ''
   db.collection('users').update({user_id: body.id},{search}), function(err, result) {
     if (err) throw err;
-    var output = result.tracks
+    output = result.tracks
   };
   var access_token = req.session.access_token
   var user_id = req.session.user_id
