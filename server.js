@@ -367,18 +367,18 @@ app.get('/search', function(req, res) {
   // Playlist functions
 app.get('/seedpl', function(req, res) {
   searchrec = db.collection('users').update({user_id: body.id},{search:{ uris:'spotify:track:1301WleyT98MSxVHPZCA6m'}, function(err, result) {
-  result = seedsong
+  result = seed_tracks
   var access_token = req.session.access_token
   var user_id = req.session.user_id
   var query = {
     limit: '25'
-    seed_tracks: seedsong
+    seed_tracks: seed_tracks
   };
   var options = {
     url: 'https://api.spotify.com/v1/recommendations',
     headers: { 'Authorization': 'Bearer ' + access_token },
     query: query
-  };  
+  };
   request.post(options, function(err, res, body) {
     if(!error && response.statusCode === 200){
       console.log(body);
