@@ -18,7 +18,6 @@ jquery.env("", function(err, window) {
     var $ = require("jquery")(window);
 });*/
 
-
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
 var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
 // var redirect_uri = req.protocol + '://' +req.get('host') + '/callback'; // Your redirect uri
@@ -45,6 +44,7 @@ var app = express();
 app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
 app.use(session({secret: 'rory_and_charlie'}));
+app.set('view engine', 'ejs');
 
 //Initialise the database connection
 var db;
