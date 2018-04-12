@@ -305,7 +305,9 @@ app.get('/profile', function(req, res) {
  * type = artist or track
  */
 app.get('/search', function(req, res) {
-
+  console.log("Searching....");
+  console.log("Session: " + req.session.session_id);
+  console.log("Access Tokekn: " + req.session.access_token);
 
   //TODO: Check if logged in
   // if(!req.session.loggedin){res.redirect('/login'); return;}
