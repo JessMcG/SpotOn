@@ -377,7 +377,6 @@ app.get('/search', function(req, res) {
     url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
     headers: { 'Authorization': 'Bearer ' + access_token },
     body:newpl
-    //json: true
     };
   request.post(options, function(err, res, body) {
     if(!error && response.statusCode === 200){
@@ -388,13 +387,11 @@ app.get('/search', function(req, res) {
     }
     });
   });
-
+/*
   app.post('/addto_pl', function(req, res) {
     var access_token = req.session.access_token;
     var user_id = req.session.user_id;
-    var playlist_id = ''
-    var newsong = ''
-    db.collection('').find({: .}).toArray(function(err, result) {
+    db.collection('users').find({: .}).toArray(function(err, result) {
       if (err) console.log(error);
       result = newsong
     }
