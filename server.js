@@ -298,10 +298,13 @@ app.get('/profile', function(req, res) {
     if (err) throw err;
     //Get user's details from DB
     if (result.length>0){
-        console.log('Search Results: '+result);
-        var searches = result.searches;
-        var display_name = result.display_name;
-        var image_url = result.image_url;
+      for (var i = 0; i < result.length; i++) {
+        console.log('Search Results: '+result[i]);
+        var searches = result[i].searches;
+        var display_name = result[i].display_name;
+        var image_url = result[i].image_url;
+      }
+
         console.log('Searches: '+searches);
         console.log('display_name: '+display_name);
         console.log('image_url: '+image_url);
