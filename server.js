@@ -366,7 +366,7 @@ app.get('/search', function(req, res) {
   */
   // Playlist functions
 app.get('/seedpl', function(req, res) {
-  var output 
+  var output
   var query = {search:{track:'1301WleyT98MSxVHPZCA6m'}}
   db.collection('users').find(query).toArray, function(err, result) {
     if (err) throw err;
@@ -388,11 +388,11 @@ app.get('/seedpl', function(req, res) {
   };
   console.log(options);
   request.post(options, function(err, res, body) {
-    if(!error && response.statusCode === 200){
+    if(!err && response.statusCode === 200){
       console.log(body);
     }
     else{
-      console.log(error);
+      console.log(err);
     }
   });
 });
