@@ -369,10 +369,14 @@ app.get('/seedpl', function(req, res) {
   var output
   var query = {search:{track:'1301WleyT98MSxVHPZCA6m'}}
   db.collection('users').find(query).toArray, function(err, result) {
-    if (err) console.log('err: '+err);
-    console.log('result: '+result);
-    output = result.tracks;
-    console.log('output: '+output);
+    if(!err){
+      console.log('result: '+result);
+      output = result.tracks;
+      console.log('output: '+output);
+    }
+    else{
+      console.log('err: '+err);
+    }
   };
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
