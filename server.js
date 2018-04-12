@@ -366,7 +366,7 @@ app.get('/search', function(req, res) {
   */
   // Playlist functions
 app.get('/seedpl', function(req, res) {
-  searchrec = db.collection('users').update({user_id: body.id},{search:{tracks:'1301WleyT98MSxVHPZCA6m'}, function(err, result) {
+  searchrec = db.collection('users').update({user_id: body.id},{search:{tracks:'1301WleyT98MSxVHPZCA6m'}, function(err, result) {};
   var access_token = req.session.access_token
   var user_id = req.session.user_id
   var query = {
@@ -386,7 +386,6 @@ app.get('/seedpl', function(req, res) {
       console.log(error);
     }
   });
-  };
 });
 
 /*
