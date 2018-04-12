@@ -365,14 +365,35 @@ app.get('/search', function(req, res) {
   * End of Search and Recommendations
   */
   // Playlist functions
-  app.post('/create_pl', function(req, res) {
-    var access_token = req.session.access_token;
-    var user_id = req.session.user_id;
-    var newpl = {
-      name: "New Playlist",
-      description: "New playlist description",
-      public: false
+app.get('/seedpl', function(req, res) {
+  seedsong = db.collection('users').update({user_id: body.id},{search:{ uris:'spotify:track:1301WleyT98MSxVHPZCA6m'}
+  var access_token = req.session.access_token;
+  var user_id = req.session.user_id;
+  var query = {
+    limit: '25'
+    seed_tracks: seedsong
+  };
+  var options = {
+    url: 'https://api.spotify.com/v1/recommendations',
+    headers: { 'Authorization': 'Bearer ' + access_token },
+    query: query
     };
+  request.post(options, function(err, res, body) {
+    if(!error && response.statusCode === 200){
+      console.log(body);
+    }
+    else{
+      console.log(error);
+    }
+  });
+});
+
+app.post('/create_pl', function(req, res) {
+  var access_token = req.session.access_token;
+  var user_id = req.session.user_id;
+  var newpl = {
+    // new pl from seedpl
+  };
   var options = {
     url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
     headers: { 'Authorization': 'Bearer ' + access_token },
@@ -388,17 +409,16 @@ app.get('/search', function(req, res) {
     });
   });
 
-  app.post('/addto_pl', function(req, res) {
-    var access_token = req.session.access_token;
-    var user_id = req.session.user_id;
-    db.collection('users').find( {search:{uris:'spotify:track:1301WleyT98MSxVHPZCA6m'}}).toArray(function(err, result) {
-      if (err) console.log(error);
-      result = newsong
+app.post('/addto_pl', function(req, res) {
+  var access_token = req.session.access_token;
+  var user_id = req.session.user_id;
+
+
   var options = {
     url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks',
     headers: { 'Authorization': 'Bearer ' + access_token },
     body:{
-      uris: newsong
+      uris:
     },
     json: true
   };
@@ -412,55 +432,6 @@ app.get('/search', function(req, res) {
     });
   });
 
-app.delete('/rm_song', function(req, res) {
-  var access_token = req.session.access_token;
-  var user_id = req.session.user_id;
-  var playlist_id =
-  var delsong = {
-    tracks: [{
-      uris:[
-        "spotify:track:4iV5W9uYEdYUVa79Axb7Rh",
-        "spotify:track:1301WleyT98MSxVHPZCA6M"]}
-    }]}
-  var options = {
-    url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks',
-    headers: { 'Authorization': 'Bearer ' + access_token },
-    body:delsong
-    json: true
-    };
-  request.post(options, function(err, res, body) {
-    if(!error && response.statusCode === 200){
-      console.log(body);
-    }
-    else{
-      console.log(error);
-    }
-    });
-  });
-
-  app.get('/edit_detail', function(req, res) {
-  var access_token = req.session.access_token;
-  var user_id = req.session.user_id;
-  var newdetail = {
-    name: "PlaylistName",
-    description: "New playlist description",
-  }
-  var options = {
-    url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
-    headers: { 'Authorization': 'Bearer ' + access_token },
-    body:delsong
-    json: true
-    };
-  request.post(options, function(err, res, body) {
-    if(!error && response.statusCode === 200){
-      console.log(body);
-    }
-    else{
-      console.log(error);
-    }
-    });
-  });
-  */
 
 app.get('/logout', function(req, res) {
   req.session.loggedin = false;
@@ -470,7 +441,7 @@ app.get('/logout', function(req, res) {
     /* $(".logoutButton").click(function(){
 		    $(".logoutButton").hide();
 		    $(".loginButton").show();
-      }); */
+      });
   });
 
 });
