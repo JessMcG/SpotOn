@@ -38,7 +38,7 @@
 			<div class="profileCols">
 				<h2>My Playlists</h2>
 
-        <% playlists.forEach(function(playlist) { %>
+        <% if(playlists){playlists.forEach(function(playlist) { %>
           <div class="searchResultProfile">
   					<img class="searchResultImage" src=playlist.images.url />
   					<h3><%= playlist.name %><br /> <span><%= playlist.tracks.total %></span></h3>
@@ -49,7 +49,7 @@
   						<img src="img/play.png" alt="play track" />
   					</div>
   				</div>
-        <% }); %>
+        <% }); }%>
 			</div>
 
 
@@ -57,14 +57,14 @@
 				<h2>Tracks</h2>
 				<div id="profileSongs">
 					<ol>
-            <% tracks.forEach(function(track) { %>
+            <% if(tracks){tracks.forEach(function(track) { %>
               <li class="trackOnProfile">
   							<p>Track title <span>3 min 31</span></p>
   							<div class="playTrackProfile">
   								<img src="img/play.png" alt="play track" />
   							</div>
   						</li>
-            <% }); %>
+            <% }); }%>
 					</ol>
 				</div>
 			</div>
