@@ -300,6 +300,8 @@ app.get('/profile', function(req, res) {
         var display_name = result.display_name;
         var image_url = result.image_url;
         console.log('Searches: '+searches);
+        console.log('display_name: '+display_name);
+        console.log('image_url: '+image_url);
         //Display searches on page
         /*for (var i = 0; i < searches.length; i++) {
           var type = searches[i].type;
@@ -308,7 +310,12 @@ app.get('/profile', function(req, res) {
       }
   });
   //render the template with the content added
-  res.render('pages/test_profile');
+  res.render('pages/test_profile', {
+    display_name: display_name,
+    image_url: image_url,
+    searches: searches,
+    playlists: playlists
+  });
 });
 
 /**
