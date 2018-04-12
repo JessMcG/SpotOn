@@ -387,7 +387,7 @@ app.get('/search', function(req, res) {
     }
     });
   });
-/*
+
   app.post('/addto_pl', function(req, res) {
     var access_token = req.session.access_token;
     var user_id = req.session.user_id;
@@ -412,8 +412,8 @@ app.get('/search', function(req, res) {
     }
     });
   });
-  /*
-  app.delete('/rm_song', function(req, res) {
+
+app.delete('/rm_song', function(req, res) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
   var playlist_id =
