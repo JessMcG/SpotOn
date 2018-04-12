@@ -367,8 +367,8 @@ app.get('/search', function(req, res) {
   // Playlist functions
 app.get('/seedpl', function(req, res) {
   seedsong = db.collection('users').update({user_id: body.id},{search:{ uris:'spotify:track:1301WleyT98MSxVHPZCA6m'}
-  var access_token = req.session.access_token;
-  var user_id = req.session.user_id;
+  var access_token = req.session.access_token
+  var user_id = req.session.user_id
   var query = {
     limit: '25'
     seed_tracks: seedsong
