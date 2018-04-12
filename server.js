@@ -366,7 +366,8 @@ app.get('/search', function(req, res) {
   */
   // Playlist functions
 app.get('/seedpl', function(req, res) {
-  seedsong = db.collection('users').update({user_id: body.id},{search:{ uris:'spotify:track:1301WleyT98MSxVHPZCA6m'}
+  searchrec = db.collection('users').update({user_id: body.id},{search:{ uris:'spotify:track:1301WleyT98MSxVHPZCA6m'}, function(err, result) {
+  result = seedsong
   var access_token = req.session.access_token
   var user_id = req.session.user_id
   var query = {
@@ -377,7 +378,7 @@ app.get('/seedpl', function(req, res) {
     url: 'https://api.spotify.com/v1/recommendations',
     headers: { 'Authorization': 'Bearer ' + access_token },
     query: query
-    };
+  };  
   request.post(options, function(err, res, body) {
     if(!error && response.statusCode === 200){
       console.log(body);
@@ -386,29 +387,35 @@ app.get('/seedpl', function(req, res) {
       console.log(error);
     }
   });
+  };
 });
 
+/*
 app.post('/create_pl', function(req, res) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
   var newpl = {
-    // new pl from seedpl
-  };
+    name: "New Playlist",
+    description: "New playlist description",
+    public: false
+    }
   var options = {
     url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
     headers: { 'Authorization': 'Bearer ' + access_token },
-    body:newpl
+    body: newpl
     };
   request.post(options, function(err, res, body) {
     if(!error && response.statusCode === 200){
       console.log(body);
+      db.collection('users').update({user_id: body.id},// json 4 playlist, function(err, result) {
+        if (err) throw err;
     }
     else{
       console.log(error);
     }
     });
   });
-/*
+
 app.post('/addto_pl', function(req, res) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
@@ -418,7 +425,7 @@ app.post('/addto_pl', function(req, res) {
     url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks',
     headers: { 'Authorization': 'Bearer ' + access_token },
     body:{
-      uris:
+      uris: //
     },
     json: true
   };
