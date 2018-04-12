@@ -241,87 +241,16 @@ app.get('/profile', function(req, res) {
     json: true
   };
 
-  //Get User profile details from Spotify - Getting details on login
-  /*request.post(authOptions, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
+    //Call profile_playlist.js
+    //return playlists
 
-      var access_token = req.session.access_token;
+    //Call profile_tracks.js
+    //return tracks
 
-      var options = {
-        url: 'https://api.spotify.com/v1/me',
-        headers: { 'Authorization': 'Bearer ' + access_token },
-        json: true
-      };
+    //Call profile_db.js
+    //return display_name, image_url, searches
 
-      // use the access token to access the Spotify Web API
-      request.get(options, function(error, response, body) {
-        console.log(body);
 
-        //Parse JSON to get user profile details
-        if(body.display_name!=null){
-          var display_name = body.display_name;
-        }
-        else {
-          var display_name = body.id;
-        }
-        var image_url = body.images.url;
-      });
-    }
-  });*/
-
-  //Get User playlists from Spotify
-  request.post(authOptions, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-
-      var access_token = req.session.access_token;
-      var user_id = req.session.user_id;
-
-      var options = {
-        url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
-        headers: { 'Authorization': 'Bearer ' + access_token },
-        json: true
-      };
-
-      // use the access token to access the Spotify Web API
-      request.get(options, function(error, response, body) {
-        console.log(body);
-
-        //Parse JSON to get user playlist details
-        playlists = body;
-        /*var playlist_name = body.name;
-        var playlist_tracks = body.tracks.total;
-        var playlist_image = body.images.url;*/
-      });
-    }
-  });
-
-  //Get User Tracks from Spotify
-  	//https://api.spotify.com/v1/me/tracks
-    //tracks = tracks;
-
-  //Get User Searches from Mongo
-  //TODO Catch if no searches
-  db.collection('users').find({user_id: req.session.user_id}).toArray(function(err, result) {
-    if (err) throw err;
-    //Get user's details from DB
-    if (result.length>0){
-      for (var i = 0; i < result.length; i++) {
-        console.log('Search Results: '+result[i]);
-        searches = result[i].searches;
-        display_name = result[i].display_name;
-        image_url = result[i].image_url;
-      }
-
-        console.log('Searches: '+searches);
-        console.log('display_name: '+display_name);
-        console.log('image_url: '+image_url);
-        //Display searches on page
-        /*for (var i = 0; i < searches.length; i++) {
-          var type = searches[i].type;
-          var name = searches[i].name;
-        }*/
-      }
-  });
   //render the template with the content added
   res.render('pages/test_profile', {
     display_name: display_name,
@@ -330,6 +259,7 @@ app.get('/profile', function(req, res) {
     playlists: playlists,
     tracks: tracks
   });
+
 });
 
 /**
