@@ -225,6 +225,7 @@ app.get('/profile', function(req, res) {
   var searches;
   var display_name;
   var image_url;
+  var playlists;
 
   var code = req.query.code || null;
   var authOptions = {
@@ -286,7 +287,7 @@ app.get('/profile', function(req, res) {
         console.log(body);
 
         //Parse JSON to get user playlist details
-        var playlists = body;
+        playlists = body;
         /*var playlist_name = body.name;
         var playlist_tracks = body.tracks.total;
         var playlist_image = body.images.url;*/
