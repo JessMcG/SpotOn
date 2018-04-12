@@ -388,7 +388,7 @@ app.get('/seedpl', function(req, res) {
   };
   console.log(options);
   request.post(options, function(err, res, body) {
-    if(!err && response.statusCode === 200){
+    if(!err && res.statusCode === 200){
       console.log(body);
     }
     else{
@@ -419,7 +419,7 @@ app.post('/create_pl', function(req, res) {
         if (err) throw err;
     }
     else{
-      console.log(error);
+      console.log(err);
     }
     });
   });
