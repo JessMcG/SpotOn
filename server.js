@@ -226,6 +226,7 @@ app.get('/profile', function(req, res) {
   var display_name;
   var image_url;
   var playlists;
+  var tracks;
 
   var code = req.query.code || null;
   var authOptions = {
@@ -297,6 +298,7 @@ app.get('/profile', function(req, res) {
 
   //Get User Tracks from Spotify
   	//https://api.spotify.com/v1/me/tracks
+    //tracks = tracks;
 
   //Get User Searches from Mongo
   //TODO Catch if no searches
@@ -326,7 +328,8 @@ app.get('/profile', function(req, res) {
     display_name: display_name,
     image_url: image_url,
     searches: searches,
-    playlists: playlists
+    playlists: playlists,
+    tracks: tracks
   });
 });
 
