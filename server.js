@@ -317,8 +317,8 @@ app.get('/search', function(req, res) {
   var searchoptions = {
     url: 'https://api.spotify.com/v1/search?' +
     querystring.stringify({
-      query: query,
-      type: type,
+      query: "Muse",
+      type: "artist",
       limit: 8
     }),
     headers: { 'Authorization': 'Bearer ' + access_token },
