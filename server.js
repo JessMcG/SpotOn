@@ -370,6 +370,7 @@ app.get('/seedpl', function(req, res) {
   db.collection('users').update({user_id: body.id},{search}), function(err, result) {
     if (err) throw err;
     output = result.tracks;
+    console.log(output);
   };
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
@@ -377,11 +378,13 @@ app.get('/seedpl', function(req, res) {
     limit: '25',
     seed_tracks: output
   };
+  console.log(query);
   var options = {
     url: 'https://api.spotify.com/v1/recommendations',
     headers: { 'Authorization': 'Bearer ' + access_token },
     query: query
   };
+  console.log(options);
   request.post(options, function(err, res, body) {
     if(!error && response.statusCode === 200){
       console.log(body);
