@@ -449,7 +449,7 @@ app.get('/logout', function(req, res) {
   req.session.destroy(function(err) {
     //no more session
     //change back to login Button
-    /* $(".logoutButton").click(function(){
+    $(".logoutButton").click(function(){
 		    $(".logoutButton").hide();
 		    $(".loginButton").show();
       });
