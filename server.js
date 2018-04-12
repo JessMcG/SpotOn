@@ -313,10 +313,12 @@ app.get('/profile', function(req, res) {
  */
 app.get('/search', function(req, res) {
 
+
   //TODO: Check if logged in
   // if(!req.session.loggedin){res.redirect('/login'); return;}
 
   var access_token = req.session.access_token;
+
   var query = req.query.q;
   var type = req.query.type;
   var searchoptions = {
@@ -330,9 +332,11 @@ app.get('/search', function(req, res) {
     json: true
   };
 
+
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
       res.send("Status 200 it worked");
+
 
       console.log(response.jsonData);
 
@@ -469,6 +473,7 @@ app.get('/logout', function(req, res) {
 		    $(".loginButton").show();
       }); */
   });
+
 });
 
 console.log('Listening on 8080');
