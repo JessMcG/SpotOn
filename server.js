@@ -126,12 +126,19 @@ app.get('/callback/', function(req, res) {
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           console.log(body);
+          if(body.display_name!=null){
+            var display_name = body.display_name;
+          }
+          else {
+            var display_name = body.id;
+          }
+          var image_url = body.images.url;
           //Search database for the current user ID
           db.collection('users').find({user_id: body.id}).toArray(function(err, result) {
             if (err) throw err;
             //If user_id already exists, update the database
             if (result.length>0){
-              db.collection('users').update({user_id: body.id},{user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
+              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
                 if (err) throw err;
                 console.log('Saved to Database');
                 //add user details to current Session
@@ -224,8 +231,8 @@ app.get('/profile', function(req, res) {
     json: true
   };
 
-  //Get User profile details from Spotify
-  request.post(authOptions, function(error, response, body) {
+  //Get User profile details from Spotify - Getting details on login
+  /*request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
 
       var access_token = req.session.access_token;
@@ -250,7 +257,7 @@ app.get('/profile', function(req, res) {
         var image_url = body.images.url;
       });
     }
-  });
+  });*/
 
   //Get User playlists from Spotify
   request.post(authOptions, function(error, response, body) {
@@ -260,7 +267,7 @@ app.get('/profile', function(req, res) {
       var user_id = req.session.user_id;
 
       var options = {
-        url: 'https://api.spotify.com/v1/users/'+req.session.user_id+'/playlists',
+        url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
         headers: { 'Authorization': 'Bearer ' + access_token },
         json: true
       };
@@ -306,10 +313,12 @@ app.get('/profile', function(req, res) {
  */
 app.get('/search', function(req, res) {
 
+
   //TODO: Check if logged in
   // if(!req.session.loggedin){res.redirect('/login'); return;}
 
   var access_token = req.session.access_token;
+
   var query = req.query.q;
   var type = req.query.type;
   var searchoptions = {
@@ -323,9 +332,11 @@ app.get('/search', function(req, res) {
     json: true
   };
 
+
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
       res.send("Status 200 it worked");
+
 
       console.log(response.jsonData);
 
@@ -462,6 +473,7 @@ app.get('/logout', function(req, res) {
 		    $(".loginButton").show();
       }); */
   });
+
 });
 
 console.log('Listening on 8080');
