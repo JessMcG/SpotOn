@@ -374,7 +374,7 @@ app.get('/seedpl', function(req, res) {
   var access_token = req.session.access_token
   var user_id = req.session.user_id
   var query = {
-    limit: '25'
+    limit: '25',
     seed_tracks: output
   };
   var options = {
