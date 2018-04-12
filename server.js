@@ -366,12 +366,15 @@ app.get('/search', function(req, res) {
   */
   // Playlist functions
 app.get('/seedpl', function(req, res) {
-  searchrec = db.collection('users').update({user_id: body.id},{search:{tracks:'1301WleyT98MSxVHPZCA6m'}, function(err, result) {};
+  db.collection('users').update({user_id: body.id},{search}, function(err, result) {
+    if (err) throw err;
+    var output = result.tracks
+  };
   var access_token = req.session.access_token
   var user_id = req.session.user_id
   var query = {
     limit: '25'
-    seed_tracks: searchrec
+    seed_tracks: output
   };
   var options = {
     url: 'https://api.spotify.com/v1/recommendations',
