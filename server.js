@@ -218,6 +218,7 @@ app.get('/profile', function(req, res) {
   //redirect if not logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
 
+  console.log('User ID from Session:' +req.session.user_id);
 
   var code = req.query.code || null;
   var authOptions = {
@@ -296,6 +297,7 @@ app.get('/profile', function(req, res) {
     if (err) throw err;
     //Get user's searches from DB
     if (result.length>0){
+        console.log('Search Results: '+result);
         var searches = result.searches;
         var display_name = result.display_name;
         var image_url = result.image_url;
