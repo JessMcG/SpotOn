@@ -8,19 +8,20 @@ var cookieParser = require('cookie-parser');
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/spot_on";
 
-var jquery = require("jsdom").env("", function(err, window) {
+/*var jquery = require("node-jsdom");
+jquery.env("", function(err, window) {
     if (err) {
         console.error(err);
         return;
     }
 
     var $ = require("jquery")(window);
-});
+});*/
 
 
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
 var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
-var redirect_uri = 'http://small-limbo-8080.codio.io/callback/'; // Your redirect uri
+// var redirect_uri = req.protocol + '://' +req.get('host') + '/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -57,6 +58,9 @@ MongoClient.connect(url, function(err, database){
 // /login
 app.get('/login', function(req, res) {
 
+  var redirect_uri = req.protocol + '://' +req.get('host') + '/callback/';
+  console.log(redirect_uri);
+
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
 
@@ -80,6 +84,9 @@ app.get('/callback/', function(req, res) {
   // your application requests refresh and access tokens
   // after checking the state parameter
 
+  //var redirect_uri = req.protocol + '://' +req.get('host') + '/callback/';
+  //console.log(redirect_uri);
+
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -95,7 +102,7 @@ app.get('/callback/', function(req, res) {
       url: 'https://accounts.spotify.com/api/token',
       form: {
         code: code,
-        redirect_uri: redirect_uri,
+        redirect_uri: req.protocol + '://' +req.get('host') + '/callback/',
         grant_type: 'authorization_code'
       },
       headers: {
@@ -130,6 +137,7 @@ app.get('/callback/', function(req, res) {
                 //add user details to current Session
                 req.session.user_id = body.id;
                 req.session.access_token = access_token;
+                req.session.loggedin = true;
                 console.log('session ID = '+ req.session.id);
                 console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
@@ -158,10 +166,10 @@ app.get('/callback/', function(req, res) {
         });
         //Change Login Button to Logout
 
-        $(".loginButton").click(function(){
+      /*  $(".loginButton").click(function(){
     		    $(".loginButton").hide();
     		    $(".logoutButton").show();
-      });
+      });*/
       } else {
         res.redirect('/#' +
         querystring.stringify({
@@ -177,6 +185,7 @@ app.get('/refresh_token', function(req, res) {
 
   // requesting access token from refresh token
   var refresh_token = req.query.refresh_token;
+
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
@@ -197,9 +206,23 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
+//Profile Page
 app.get('/profile', function(req, res) {
   //redirect if not logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
+  var code = req.query.code || null;
+  var authOptions = {
+    url: 'https://accounts.spotify.com/api/token',
+    form: {
+      code: code,
+      redirect_uri: req.protocol + '://' +req.get('host') + '/callback/',
+      grant_type: 'authorization_code'
+    },
+    headers: {
+      'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+    },
+    json: true
+  };
 
   //Get User profile details from Spotify
   request.post(authOptions, function(error, response, body) {
@@ -218,7 +241,12 @@ app.get('/profile', function(req, res) {
         console.log(body);
 
         //Parse JSON to get user profile details
-        var display_name = body.display_name; //add function for null display name?
+        if(body.display_name!=null){
+          var display_name = body.display_name;
+        }
+        else {
+          var display_name = body.id;
+        }
         var image_url = body.images.url;
       });
     }
@@ -242,9 +270,10 @@ app.get('/profile', function(req, res) {
         console.log(body);
 
         //Parse JSON to get user playlist details
-        var playlist_name = body.name;
+        var playlists = body;
+        /*var playlist_name = body.name;
         var playlist_tracks = body.tracks.total;
-        var playlist_image = body.images.url;
+        var playlist_image = body.images.url;*/
       });
     }
   });
@@ -253,21 +282,19 @@ app.get('/profile', function(req, res) {
   	//https://api.spotify.com/v1/me/tracks
 
   //Get User Searches from Mongo
+  //TODO Catch if no searches
   db.collection('users').find({user_id: req.session.user_id}).toArray(function(err, result) {
     if (err) throw err;
     //Get user's searches from DB
     if (result.length>0){
-      db.collection('users')., function(err, result) {
-        if (err) throw err;
         var searches = result.searches;
         console.log('Searches: '+searches);
         //Display searches on page
-        for (var i = 0; i < searches.length; i++) {
+        /*for (var i = 0; i < searches.length; i++) {
           var type = searches[i].type;
           var name = searches[i].name;
-        }
-      });
-    }
+        }*/
+      }
   });
 
 });
@@ -278,114 +305,155 @@ app.get('/profile', function(req, res) {
  * type = artist or track
  */
 app.get('/search', function(req, res) {
-  //TODO: get access_token from database
-  var access_token = req.query_accesstoken;
+
+
+  //TODO: Check if logged in
+  // if(!req.session.loggedin){res.redirect('/login'); return;}
+
+  var access_token = req.session.access_token;
+
   var query = req.query.q;
   var type = req.query.type;
   var searchoptions = {
     url: 'https://api.spotify.com/v1/search?' +
     querystring.stringify({
-      q: query,
+      query: query,
       type: type,
       limit: 8
     }),
     headers: { 'Authorization': 'Bearer ' + access_token },
     json: true
   };
-  res.send("Hi there");
 
-<<<<<<< HEAD
-  request.post(searchoptions, function(error, response, body) {
+
+  request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
-      // TODO: store search in Database
-      var access_token = body.access_token;
-      console.log("/Search request.post status" + response.StatusCode);
-    } else {
-      console.log("StatusCode: " + response.statusCode);
+      res.send("Status 200 it worked");
+
+
+      console.log(response.jsonData);
+
+      request.get(searchoptions, function(error, response, body) {
+        console.log(body);
+
+        console.log("\nSEARCH RESULTS \n");
+        if (body.artists) {
+          for (var i = 0; i < body.artists.items.length; i++) {
+            console.log("\t ARTIST: " + body.artists.items[i].name);
+          }
+        } else if (body.tracks) {
+          for (var i = 0; i < body.tracks.items.length; i++) {
+            console.log("\t ARTIST: " + body.artists.items[i].name);
+          }
+        }
+//=======
+        //console.log("SEARCH RESULTS \n" + "\tARTIST: " + body.artists + "\n\TRACK": body.track);
+//>>>>>>> ac65cc00feb7d32f9724e36c500ca4e9f389a3b7
+      });
     }
   });
-=======
-
-//Playlist functions
-
-app.post('/create_pl', function(req, res) {
-  request.post(authOptions, function(err, res, body) {
-    if(!error && response.statusCode === 200){
-      var newpl = {
-        name: "New Playlist",
-        description: "New playlist description",
-        public: false
-      };
-  $.ajax({
-    type: 'POST',
-    url: 'https://api.spotify.com/v1/users/{'+req.esssion.user_id+'}/playlists',
-    dataType: 'json',
-    data: ~jsonData~
-    headers: {
-      "name": "New Playlist",
-      "description": "New playlist description",
-      "public": false
-    } else {
-      console.log(err);
-    });
-  res.send("...")
 });
 
-app.get('/get_pl', function(req, res) {
-  // GET https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}});
-
-app.get('/addto_pl', function(req, res) {
-  // POST https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks
-  // get_pl, using user_id, then POST track uri(s) to res
-  request.post(authOptions, function(err, res, body) {
-    if ((!error && response.statusCode === 200) {
-      $.ajax({
-        dataType: 'text',
-        type: 'post',
-        url: 'https://api.spotify.com/v1/users/'+req.session.user_id+'/playlists/'+##PLAYLISTID##+'/tracks'
-        headers: { 'Authorization': 'Bearer ' + access_token },
-        success: function(response) {
-          console.log(response);
-        }
-      });
-    } else {
-      console.log(err);
-    });
+/**
+  * End of Search and Recommendations
+  */
+  // Playlist functions
+app.post('/create_pl', function(req, res) {
+  var access_token = req.session.access_token;
+  var user_id = req.session.user_id;
+  var newpl = {
+    name: "New Playlist",
+    description: "New playlist description",
+    public: false
+  };
+  var options = {
+    url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
+    headers: { 'Authorization': 'Bearer ' + access_token },
+    body:newpl
+    //json: true
+    };
+  request.post(options, function(err, res, body) {
+    if(!error && response.statusCode === 200){
+      console.log(body);
+    }
+    else{
+      console.log(error);
+    }
   });
 });
 
-app.get('/rm_song', function(req, res) {
-  // DELETE https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks
-  // get_pl, using user_id, then DELETE track in req?  request.post(authOptions, function(err, res, body) {
-    if ((!error && response.statusCode === 200) {
-      $.ajax({
-        dataType: 'text',
-        type: 'delete',
-        url: 'https://api.spotify.com/v1/users/'+req.session.user_id+'/playlists/'+##PLAYLISTID##+'/tracks'
-        headers: { 'Authorization': 'Bearer ' + access_token },
-        success: function(response) {
-          console.log(response);
-        }
-      });
-    } else {
-      console.log(err);
-    });
+/*app.post('/addto_pl', function(req, res) {
+  var access_token = req.session.access_token;
+  var user_id = req.session.user_id;
+  //var playlist_id =
+  //var newsong = uris: 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh'
+
+  var options = {
+    url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks',
+    headers: { 'Authorization': 'Bearer ' + access_token },
+    body:{
+      'uris': '4iV5W9uYEdYUVa79Axb7Rh'
+    },
+    json: true
+  };
+  request.post(options, function(err, res, body) {
+    if(!error && response.statusCode === 200){
+    console.log(body);
+    }
+    else{
+      console.log(error);
+    }
+  });
+});
+
+app.delete('/rm_song', function(req, res) {
+  var access_token = req.session.access_token;
+  var user_id = req.session.user_id;
+  var delsong = {
+    tracks: [{
+      uris:[
+        "spotify:track:4iV5W9uYEdYUVa79Axb7Rh",
+        "spotify:track:1301WleyT98MSxVHPZCA6M"]}
+    }]}
+  var options = {
+    url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks',
+    headers: { 'Authorization': 'Bearer ' + access_token },
+    body:delsong
+    json: true
+    };
+  request.post(options, function(err, res, body) {
+    if(!error && response.statusCode === 200){
+      console.log(body);
+    }
+    else{
+      console.log(error);
+    }
   });
 });
 
 app.get('/edit_detail', function(req, res) {
-  // PUT https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}
-  // get_pl then PUT newdeets in playlist_id
-  var newdeets = {
-  name: "Updated Playlist Name",
-  description: "Updated playlist description",
-  public: false
+  var access_token = req.session.access_token;
+  var user_id = req.session.user_id;
+  var newdetail = {
+    name: "PlaylistName",
+    description: "New playlist description",
   }
+  var options = {
+    url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
+    headers: { 'Authorization': 'Bearer ' + access_token },
+    body:delsong
+    json: true
+    };
+  request.post(options, function(err, res, body) {
+    if(!error && response.statusCode === 200){
+      console.log(body);
+    }
+    else{
+      console.log(error);
+    }
+  });
 });
-
-//new route
-//app.get('', function(req, res) {
-//});
+*/
 
 
 app.get('/logout', function(req, res) {
@@ -393,12 +461,12 @@ app.get('/logout', function(req, res) {
   req.session.destroy(function(err) {
     //no more session
     //change back to login Button
-    $(".logoutButton").click(function(){
+    /* $(".logoutButton").click(function(){
 		    $(".logoutButton").hide();
 		    $(".loginButton").show();
+      }); */
   });
 
->>>>>>> 13940a408379e0ee9e366c528be9bd53ff5759be
 });
 
 console.log('Listening on 8080');
