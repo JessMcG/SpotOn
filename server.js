@@ -368,8 +368,7 @@ app.get('/search', function(req, res) {
 app.get('/seedpl', function(req, res) {
   var output = '';
   var query = {'search.track':'1301WleyT98MSxVHPZCA6m'}
-  console.log('fart');
-  db.collection('users').find(query).toArray, function(err, result) {
+  db.collection('users').find(query).toArray, function(err, result, body) {
   console.log('fart');
   console.log('result: '+result);
     if(!err){
