@@ -385,13 +385,9 @@ app.get('/recommend', function(req, res) {
     console.log(body);
 
     console.log("RECOMMENDATIONS \n");
-    if (body.artists) {
-      for (var i = 0; i < body.artists.items.length; i++) {
-        console.log("\t ARTIST: " + body.artists.items[i].name);
-      }
-    } else if (body.tracks) {
-      for (var i = 0; i < body.tracks.items.length; i++) {
-        console.log("\t TRACK: " + body.tracks.items[i].name);
+    if (body.tracks) {
+      for (var i = 0; i < body.tracks.length; i++) {
+        console.log("\t TRACK: " + body.track[i].name + ", by " + body.tracks[i].artists.name);
       }
     }
   });
