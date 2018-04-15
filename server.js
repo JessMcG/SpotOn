@@ -387,7 +387,7 @@ app.get('/recommend', function(req, res) {
     console.log("RECOMMENDATIONS \n");
     if (body.tracks) {
       for (var i = 0; i < body.tracks.length; i++) {
-        console.log("\t TRACK: " + body.track[i].name + ", by " + body.tracks[i].artists.name);
+        console.log("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists.name);
       }
     }
   });
