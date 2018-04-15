@@ -314,11 +314,11 @@ app.get('/search', function(req, res) {
 
   var access_token = req.session.access_token;
 
-  db.collection('users').find({user_id: nickytermaat}).toArray(function(err, result) {
+  db.collection('users').find().toArray(function(err, result) {
     if (err) throw err;
     //If user_id already exists, update the database
     if (result.length>0){
-      console.log(db.collection('users').find());
+      console.log(db.collection('users').find(user_id: "nickytermaat"));
 
       // db.collection('users').update({user_id: body.id},{user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
       //   if (err) throw err;
@@ -370,33 +370,33 @@ app.get('/search', function(req, res) {
   //>>>>>>> ac65cc00feb7d32f9724e36c500ca4e9f389a3b7
   });
 
-  request.post(authOptions, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-      res.send("Status 200 it worked");
-
-      request.get(searchoptions, function(error, response, body) {
-        console.log(body);
-
-        console.log("\nSEARCH RESULTS \n");
-        if (body.artists) {
-          for (var i = 0; i < body.artists.items.length; i++) {
-            console.log("\t ARTIST: " + body.artists.items[i].name);
-          }
-        } else if (body.tracks) {
-          for (var i = 0; i < body.tracks.items.length; i++) {
-            console.log("\t ARTIST: " + body.artists.items[i].name);
-          }
-        }
-      //=======
-        //console.log("SEARCH RESULTS \n" + "\tARTIST: " + body.artists + "\n\TRACK": body.track);
-      //>>>>>>> ac65cc00feb7d32f9724e36c500ca4e9f389a3b7
-      });
-
-      console.log(response.jsonData);
-
-
-    }
-  });
+  // request.post(authOptions, function(error, response, body) {
+  //   if (!error && response.statusCode === 200) {
+  //     res.send("Status 200 it worked");
+  //
+  //     request.get(searchoptions, function(error, response, body) {
+  //       console.log(body);
+  //
+  //       console.log("\nSEARCH RESULTS \n");
+  //       if (body.artists) {
+  //         for (var i = 0; i < body.artists.items.length; i++) {
+  //           console.log("\t ARTIST: " + body.artists.items[i].name);
+  //         }
+  //       } else if (body.tracks) {
+  //         for (var i = 0; i < body.tracks.items.length; i++) {
+  //           console.log("\t ARTIST: " + body.artists.items[i].name);
+  //         }
+  //       }
+  //     //=======
+  //       //console.log("SEARCH RESULTS \n" + "\tARTIST: " + body.artists + "\n\TRACK": body.track);
+  //     //>>>>>>> ac65cc00feb7d32f9724e36c500ca4e9f389a3b7
+  //     });
+  //
+  //     console.log(response.jsonData);
+  //
+  //
+  //   }
+  // });
 });
 
 /**
