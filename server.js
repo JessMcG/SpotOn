@@ -300,20 +300,25 @@ app.get('/profile', function(req, res) {
 });
 
 /**
+ * Searching and recommendatoins
+ * Author: Nicky ter Maat
+ */
+
+/**
  * Search for artist or track
  * name = artist_name or song_title
  * type = artist or track
  */
 app.get('/search', function(req, res) {
   console.log("Searching....");
-  console.log("Session: " + req.session.session_id);
-  console.log("Access Token: " + req.session.access_token);
 
   //TODO: Check if logged in
   // if(!req.session.loggedin){res.redirect('/login'); return;}
+  console.log("Session: " + req.session.session_id);
+  console.log("Access Token: " + req.session.access_token);
 
+  // Fill api call details
   var access_token = req.session.access_token;
-
   var query = req.query.q;
   var type = req.query.type;
   if (access_token != null) {
@@ -329,6 +334,7 @@ app.get('/search', function(req, res) {
     };
   }
 
+  // GET request for /search
   request.get(searchoptions, function(error, response, body) {
     console.log(body);
 
@@ -342,45 +348,59 @@ app.get('/search', function(req, res) {
         console.log("\t TRACK: " + body.tracks.items[i].name);
       }
     }
-
-    console.log(response.jsonData);
-  //=======
-    //console.log("SEARCH RESULTS \n" + "\tARTIST: " + body.artists + "\n\TRACK": body.track);
-  //>>>>>>> ac65cc00feb7d32f9724e36c500ca4e9f389a3b7
   });
 
-  // request.post(authOptions, function(error, response, body) {
-  //   if (!error && response.statusCode === 200) {
-  //     res.send("Status 200 it worked");
-  //
-  //     request.get(searchoptions, function(error, response, body) {
-  //       console.log(body);
-  //
-  //       console.log("\nSEARCH RESULTS \n");
-  //       if (body.artists) {
-  //         for (var i = 0; i < body.artists.items.length; i++) {
-  //           console.log("\t ARTIST: " + body.artists.items[i].name);
-  //         }
-  //       } else if (body.tracks) {
-  //         for (var i = 0; i < body.tracks.items.length; i++) {
-  //           console.log("\t ARTIST: " + body.artists.items[i].name);
-  //         }
-  //       }
-  //     //=======
-  //       //console.log("SEARCH RESULTS \n" + "\tARTIST: " + body.artists + "\n\TRACK": body.track);
-  //     //>>>>>>> ac65cc00feb7d32f9724e36c500ca4e9f389a3b7
-  //     });
-  //
-  //     console.log(response.jsonData);
-  //
-  //
-  //   }
-  // });
+  // TODO: add searches do DB
+  // type artist or tracks
+  // q: artist_name or song_title
+  // seed_id: seed_artists or seed_tracks
+});
+
+app.get('/recommend', function(req, res) {
+  console.log("Getting recommendations....");
+
+  //TODO: Check if logged in
+  // if(!req.session.loggedin){res.redirect('/login'); return;}
+  console.log("Session: " + req.session.session_id);
+  console.log("Access Token: " + req.session.access_token);
+
+  var access_token = req.session.access_token;
+  var query = req.query.q;
+  var type = req.query.type;
+  if (access_token != null) {
+    var recommendOptions = {
+      url: 'https://api.spotify.com/v1/recommendations?' +
+      querystring.stringify({
+        seed_artists: "1hkC9kHG980jEfkTmQYB7t",
+        seed_tracks: "0c6xIDDpzE81m2q797ordA",
+        limit: 8
+      }),
+      headers: { 'Authorization': 'Bearer ' + access_token },
+      json: true
+    };
+  }
+
+  // GET request for /search
+  request.get(recommendOptions, function(error, response, body) {
+    console.log(body);
+
+    console.log("RECOMMENDATIONS \n");
+    if (body.artists) {
+      for (var i = 0; i < body.artists.items.length; i++) {
+        console.log("\t ARTIST: " + body.artists.items[i].name);
+      }
+    } else if (body.tracks) {
+      for (var i = 0; i < body.tracks.items.length; i++) {
+        console.log("\t TRACK: " + body.tracks.items[i].name);
+      }
+    }
+  });
 });
 
 /**
   * End of Search and Recommendations
-  */
+*/
+
   // Playlist functions
 app.post('/create_pl', function(req, res) {
   var access_token = req.session.access_token;
