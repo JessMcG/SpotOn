@@ -334,8 +334,7 @@ app.get('/search', function(req, res) {
       //   res.redirect('/');
     } else {
       console.log("nickytermaat not found");
-    });
-    }
+    }});
 
 
   var query = req.query.q;
