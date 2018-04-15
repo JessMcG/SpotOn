@@ -366,7 +366,6 @@ app.get('/search', function(req, res) {
   */
   // Playlist functions
 app.get('/seedpl', function(req, res, body) {
-  console.log('Search term: ' +body);
   var output = '';
   // var query = users.search.track
   var query = {'search':'1301WleyT98MSxVHPZCA6m'};
