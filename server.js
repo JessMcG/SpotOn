@@ -365,9 +365,10 @@ app.get('/search', function(req, res) {
   * End of Search and Recommendations
   */
   // Playlist functions
-app.get('/seedpl', function(req, res) {
+app.get('/seedpl', function(req, res, body) {
+  console.log(body);
   var output = '';
-  var query = {'search.track':'1301WleyT98MSxVHPZCA6m'}
+  var query = {'search.track':'1301WleyT98MSxVHPZCA6m'};
   db.collection('users').find(query).toArray, function(err, result, body) {
   console.log('fart');
   console.log('result: '+result);
