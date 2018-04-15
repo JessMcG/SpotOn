@@ -314,41 +314,21 @@ app.get('/search', function(req, res) {
 
   var access_token = req.session.access_token;
 
-  db.collection('users').find().toArray(function(err, result) {
-    if (err) throw err;
-    //If user_id already exists, update the database
-    if (result.length>0){
-      console.log(db.collection('users').find({user_id: "nickytermaat"}));
-
-      // db.collection('users').update({user_id: body.id},{user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
-      //   if (err) throw err;
-      //   console.log('Saved to Database');
-      //   //add user details to current Session
-      //   req.session.user_id = body.id;
-      //   req.session.access_token = access_token;
-      //   req.session.loggedin = true;
-      //   console.log('session ID = '+ req.session.id);
-      //   console.log('session User ID = '+ req.session.user_id);
-      //   console.log('session Access Token = '+ req.session.access_token);
-      //   //redirect to home
-      //   res.redirect('/');
-    } else {
-      console.log("nickytermaat not found");
-    }});
-
-
   var query = req.query.q;
   var type = req.query.type;
-  var searchoptions = {
-    url: 'https://api.spotify.com/v1/search?' +
-    querystring.stringify({
-      query: "Muse",
-      type: "artist",
-      limit: 8
-    }),
-    headers: { 'Authorization': 'Bearer ' + access_token },
-    json: true
-  };
+  if (access_token != null) {
+    var searchoptions = {
+      url: 'https://api.spotify.com/v1/search?' +
+      querystring.stringify({
+        q: "Muse",
+        type: "track",
+        limit: 8
+      }),
+      headers: { 'Authorization': 'Bearer ' + access_token },
+      json: true
+    };
+  }
+
 
   request.get(searchoptions, function(error, response, body) {
     console.log(body);
