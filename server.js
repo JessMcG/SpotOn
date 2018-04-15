@@ -329,7 +329,6 @@ app.get('/search', function(req, res) {
     };
   }
 
-
   request.get(searchoptions, function(error, response, body) {
     console.log(body);
 
@@ -340,7 +339,7 @@ app.get('/search', function(req, res) {
       }
     } else if (body.tracks) {
       for (var i = 0; i < body.tracks.items.length; i++) {
-        console.log("\t ARTIST: " + body.artists.items[i].name);
+        console.log("\t TRACK: " + body.tracks.items[i].name);
       }
     }
 
