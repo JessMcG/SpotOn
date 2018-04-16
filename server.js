@@ -430,8 +430,8 @@ app.get('/create_pl', function(req, res, body) {
       console.log(body);};
     console.log('failed');
     });
+    console.log('login required');
   };
-  console.log('login requires');
 });
 /*
 app.post('/addto_pl', function(req, res) {
