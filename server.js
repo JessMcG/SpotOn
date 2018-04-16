@@ -378,6 +378,7 @@ app.get('/seedpl', function(req, res, body) {
   db.collection('users').find(qry).toArray, function(err, result, body) {
     console.log();
     console.log('result: '+result);
+    result = otpt;
     /*if(!err){
       console.log('otpt: '+otpt);
     }
