@@ -379,7 +379,7 @@ app.post('/create_pl', function(req, res) {
   if (access_token != null) {
     var createPlaylistOptions = {
       url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists',
-      --data: "{\"name\":\"SpotOn new Playlist test call\",\"description\":\"New playlist description\",\"public\":false}",
+      --data: {\"name\":\"SpotOn new Playlist test call\",\"description\":\"New-playlist-description\",\"public\":false"},
       headers: { 'Authorization': 'Bearer ' + access_token },
       json: true
     };
