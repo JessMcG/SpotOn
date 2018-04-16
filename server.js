@@ -434,30 +434,32 @@ app.get('/create_pl', function(req, res, body) {
   };
 });
 
-
-/*
 app.post('/addto_pl', function(req, res) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  var options = {
-    url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks',
-    headers: { 'Authorization': 'Bearer ' + access_token },
-    body:{
-      uris: //
-    },
-    json: true
-  };
-  request.post(options, function(err, res, body) {
-    if(!error && response.statusCode === 200){
-    console.log(body);
-    }
-    else{
-      console.log(error);
-    }
+  var playlist_id = '4dCEnT0mbnXOQ0cgyC8mRn' //dynamically get playlist ID
+  if(access_token!=null){
+    var headers = {
+      'Authorization': 'Bearer '+ access_token
+    };
+    var uris = 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh, spotify:track:1301WleyT98MSxVHPZCA6M' // pulled seeded list
+    var options = {
+      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks?position=0&uris='+uris,
+      headers: { 'Authorization': 'Bearer ' + access_token },
+      method: 'POST',
+      json: true
+    };
+    request.post(options, function(err, res, body) {
+      if(!err && res.statusCode === 201){
+        console.log('success ' + res.statusCode + ' ' + body);
+      } else {
+        console.log('failed ' + res.statusCode);
+      };
     });
-  });
-
-*/
+  } else {
+    console.log('login required');
+  };
+});
 
 app.get('/logout', function(req, res) {
   req.session.loggedin = false;
