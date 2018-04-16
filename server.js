@@ -370,7 +370,7 @@ app.get('/seedpl', function(req, res, body) {
   var access_token = req.session.access_token;
   var otpt = '';
   // var query = users.search.track
-  var qry = {search:  };
+  var qry = {search: '**'};
   var user_id = req.session.user_id;
   console.log('fart');
   db.collection('users').find(qry).toArray, function(err, result, body) {
