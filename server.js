@@ -366,21 +366,22 @@ app.get('/search', function(req, res) {
 
   // Playlist functions
 app.get('/seedpl', function(req, res, body) {
-  var output = '';
+  var access_token = req.session.access_token;
+  var otpt = '';
   // var query = users.search.track
-  var query = {search: /^S/ };
+  var qry = {search: '**' };
+  var user_id = req.session.user_id;
   console.log('fart');
-  db.collection('users').find(query).toArray, function(err, result, body) {
+  db.collection('users').find(qry).toArray, function(err, result, body) {
     console.log('fart2');
     console.log('result: '+result);
     /*if(!err){
-      console.log('output: '+output);
+      console.log('otpt: '+otpt);
     }
     else{
       console.log('err: '+err);
     }*/
-  var access_token = req.session.access_token;
-  var user_id = req.session.user_id;
+  };
   var query = {
     limit: '25',
     seed_tracks: output
@@ -398,7 +399,6 @@ app.get('/seedpl', function(req, res, body) {
       console.log('lol: '+err);
     }
   });
-  };
 });
 
 /*
