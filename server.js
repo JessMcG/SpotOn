@@ -313,7 +313,6 @@ app.get('/search', function(req, res) {
       for (var i = 0; i < body.tracks.items.length; i++) {
         console.log("\t TRACK: " + body.tracks.items[i].name);
         //document.getElementbyId("searchResults").append("TRACK Body: " + body);
-        response.send(body);
       }
     }
 
