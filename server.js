@@ -307,12 +307,12 @@ app.get('/search', function(req, res) {
     if (body.artists) {
       for (var i = 0; i < body.artists.items.length; i++) {
         console.log("\t ARTIST: " + body.artists.items[i].name);
-        $("#test").append("ARTIST Body: " + body);
+        $("#searchResults").append("ARTIST Body: " + body);
       }
     } else if (body.tracks) {
       for (var i = 0; i < body.tracks.items.length; i++) {
         console.log("\t TRACK: " + body.tracks.items[i].name);
-        $("#test").append("TRACK Body: " + body);
+        $("#searchResults").append("TRACK Body: " + body);
       }
     }
   });
