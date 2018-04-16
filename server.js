@@ -446,7 +446,7 @@ app.get('/addto_pl', function(req, res) {
     var options = {
       url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks?position=0',
       headers: { 'Authorization': 'Bearer ' + access_token },
-      body: body
+      body: body,
       method: 'POST',
       json: true
     };
