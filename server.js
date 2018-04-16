@@ -385,12 +385,13 @@ app.get('/seedpl', function(req, res, body) {
     }
   };
   */
-  var otpt = '1301WleyT98MSxVHPZCA6m';
+  var search = '1301WleyT98MSxVHPZCA6m';
   var query = {
     limit: '25',
     seed_tracks: otpt
   };
   console.log(query);
+
   var options = {
     url: 'https://api.spotify.com/v1/recommendations',
     headers: { 'Authorization': 'Bearer ' + access_token },
@@ -407,8 +408,8 @@ app.get('/seedpl', function(req, res, body) {
   });
 });
 
-/*
 app.post('/create_pl', function(req, res, body) {
+  console.log('Creating Playlist');
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
   var newpl = {
@@ -418,10 +419,11 @@ app.post('/create_pl', function(req, res, body) {
     }
   var options = {
     url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
+    method: 'POST'
     headers: { 'Authorization': 'Bearer ' + access_token },
     body: newpl
     };
-  request.post(options, function(err, res, body) {
+    request.post(options, function(err, res, body) {
     if(!error && response.statusCode === 200){
       console.log(body);
       db.collection('users').find({playlistid:'3cEYpjA9oz9GiPac4AsH4n'}, function(err, result) {
