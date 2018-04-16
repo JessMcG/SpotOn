@@ -419,7 +419,7 @@ app.post('/create_pl', function(req, res, body) {
     }
   var options = {
     url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
-    method: 'POST'
+    method: 'POST',
     headers: { 'Authorization': 'Bearer ' + access_token },
     body: newpl
     };
@@ -434,7 +434,7 @@ app.post('/create_pl', function(req, res, body) {
     }
     });
   });
-
+/*
 app.post('/addto_pl', function(req, res) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
