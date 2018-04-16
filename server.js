@@ -8,14 +8,14 @@ var cookieParser = require('cookie-parser');
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/spot_on";
 
-var jquery = require("node-jsdom");
-jquery.env("", function(err, window) {
-    if (err) {
-        console.error(err);
-        return;
-    }
-    var $ = require("jquery")(window);
-});
+// var jquery = require("node-jsdom");
+// jquery.env("", function(err, window) {
+//     if (err) {
+//         console.error(err);
+//         return;
+//     }
+//     var $ = require("jquery")(window);
+// });
 
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
 var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
@@ -306,12 +306,12 @@ app.get('/search', function(req, res) {
     if (body.artists) {
       for (var i = 0; i < body.artists.items.length; i++) {
         console.log("\t ARTIST: " + body.artists.items[i].name);
-        $("#searchResults").append("ARTIST Body: " + body);
+        document.getElementbyId("searchResults").append("ARTIST Body: " + body);
       }
     } else if (body.tracks) {
       for (var i = 0; i < body.tracks.items.length; i++) {
         console.log("\t TRACK: " + body.tracks.items[i].name);
-        $("#searchResults").append("TRACK Body: " + body);
+        document.getElementbyId("searchResults").append("TRACK Body: " + body);
       }
     }
   });
