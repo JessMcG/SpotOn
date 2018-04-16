@@ -451,7 +451,7 @@ app.get('/addto_pl', function(req, res) {
       json: true
     };
     request.post(options, function(err, res, body) {
-      if(!err && res.statusCode === 200){
+      if(!err && res.statusCode === 201){
         console.log('success ' + res.statusCode + ' ' + body);
       } else {
         console.log('failed ' + res.statusCode);
