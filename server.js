@@ -138,14 +138,15 @@ app.get('/callback/', function(req, res) {
             if (err) throw err;
             //If user_id already exists, update the database
             if (result.length>0){
-              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search:'1301WleyT98MSxVHPZCA6m'}, function(err, result) {
-                console.log(result);
+              search = '1301WleyT98MSxVHPZCA6m';
+              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search: search}, function(err, result) {
                 if (err) throw err;
                 console.log('Saved to Database');
                 //add user details to current Session
                 req.session.user_id = body.id;
                 req.session.access_token = access_token;
                 req.session.loggedin = true;
+                req.session.search = search
                 console.log('session ID = '+ req.session.id);
                 console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
