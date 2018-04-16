@@ -396,7 +396,7 @@ app.get('/seedpl', function(req, res, body) {
       console.log('body: '+body);
     }
     else{
-      console.log('err: '+err);
+      console.log('lol: '+err);
     }
   });
 });
