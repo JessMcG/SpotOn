@@ -442,15 +442,16 @@ app.get('/addto_pl', function(req, res) {
     var headers = {
       'Authorization': 'Bearer '+ access_token
     };
-    var uris = 'spotify:track:4iV5W9uYEdYUVa79Axb7Rh, spotify:track:1301WleyT98MSxVHPZCA6M' // pulled seeded list
+    var body = {"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"]} // pulled seeded list
     var options = {
-      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks?position=0&uris='+uris,
+      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks?position=0',
       headers: { 'Authorization': 'Bearer ' + access_token },
+      body: body
       method: 'POST',
       json: true
     };
     request.post(options, function(err, res, body) {
-      if(!err && res.statusCode === 201){
+      if(!err && res.statusCode === 200){
         console.log('success ' + res.statusCode + ' ' + body);
       } else {
         console.log('failed ' + res.statusCode);
