@@ -423,7 +423,7 @@ app.get('/create_pl', function(req, res, body) {
     headers: { 'Authorization': 'Bearer ' + access_token },
     body: newpl
     };
-    req.post(options, function(err, res, body) {
+    request.post(options, function(err, res, body) {
     if(!err && res.statusCode === 200){
       console.log(body);
       }
