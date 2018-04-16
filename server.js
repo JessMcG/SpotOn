@@ -423,11 +423,11 @@ app.get('/create_pl', function(req, res, body) {
     headers: { 'Authorization': 'Bearer ' + access_token },
     body: newpl
     };
-    request.post(options, function(err, res, body) {
-    if(!err && response.statusCode === 200){
+    res.post(options, function(err, res, body) {
+    if(!err && res.statusCode === 200){
       console.log(body);
       }
-    console.log('failed' + response.statusCode);
+    console.log('failed' + res.statusCode);
     });
   });
 /*
