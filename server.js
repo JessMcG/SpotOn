@@ -373,7 +373,7 @@ app.get('/seedpl', function(req, res, body) {
   var user_id = req.session.user_id;
   var otpt = '';
   // var query = users.search.track
-  var qry = ({{user_id:user_id},{search:1});
+  var qry = ({user_id:user_id},{search:1});
   console.log('fart');
   db.collection('users').find(qry).toArray, function(err, result, body) {
     console.log('fart2');
