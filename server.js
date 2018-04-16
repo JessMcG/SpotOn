@@ -59,6 +59,7 @@ MongoClient.connect(url, function(err, database){
 app.get('/login', function(req, res) {
 
   var redirect_uri = req.protocol + '://' +req.get('host') + '/callback/';
+  console.log("Welcome...");
   console.log(redirect_uri);
 
   var state = generateRandomString(16);
@@ -387,7 +388,7 @@ app.get('/recommend', function(req, res) {
     console.log("RECOMMENDATIONS \n");
     if (body.tracks) {
       for (var i = 0; i < body.tracks.length; i++) {
-        console.log("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists[4]);
+        console.log("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists);
       }
     }
   });
