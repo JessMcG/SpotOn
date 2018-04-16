@@ -368,10 +368,10 @@ app.get('/search', function(req, res) {
 app.get('/seedpl', function(req, res, body) {
   var output = '';
   // var query = users.search.track
-  var query = {search: 1};
+  var query = {search: /^S/ };
   console.log('fart');
   db.collection('users').find(query).toArray, function(err, result, body) {
-    console.log('fart');
+    console.log('fart2');
     console.log('result: '+result);
     if(!err){
       console.log('output: '+output);
