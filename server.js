@@ -442,7 +442,7 @@ app.get('/create_pl', function(req, res, body) {
       'Authorization': 'Bearer '+ user_id,
   }
   data = '{"name":"Playlist Name","description":"Playlist description","public":false}'
-  response = requests.put('https://api.spotify.com/v1/users/+user_id+/playlists/', headers=headers, data=data)
+  response = request.put('https://api.spotify.com/v1/users/+user_id+/playlists/', headers=headers, data=data)
 });
 
 
