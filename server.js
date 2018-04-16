@@ -375,16 +375,17 @@ app.get('/seedpl', function(req, res, body) {
   // var query = users.search.track
   var qry = ({search:search},{search:1});
   console.log('fart');
-  db.collection('users').find(qry).toArray, function(err, result, body) {
+  /*db.collection('users').find(qry).toArray, function(err, result, body) {
     console.log('result: '+result);
-    /*if(!err){
+    if(!err){
       console.log('otpt: '+otpt);
     }
     else{
       console.log('err: '+err);
-    }*/
+    }
   };
-  var otpt = result;
+  */
+  var otpt = '1301WleyT98MSxVHPZCA6m';
   var query = {
     limit: '25',
     seed_tracks: otpt
