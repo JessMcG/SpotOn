@@ -301,6 +301,7 @@ app.get('/search', function(req, res) {
   // GET request for /search
   request.get(searchoptions, function(error, response, body) {
     console.log(body);
+    console.write(body);
 
     console.log("\nSEARCH RESULTS \n");
     if (body.artists) {
