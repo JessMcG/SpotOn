@@ -424,7 +424,7 @@ app.get('/create_pl', function(req, res, body) {
     body: newpl
     };
     request.post(options, function(err, res, body) {
-    if(!error && response.statusCode === 200){
+    if(!err && response.statusCode === 200){
       console.log(body);
       }
     console.log('failed');
