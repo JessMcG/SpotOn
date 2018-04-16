@@ -408,6 +408,7 @@ app.get('/seedpl', function(req, res, body) {
   };
 });
 
+var reqsessionplaylist_id = ''
 app.get('/create_pl', function(req, res, body) {
   console.log('Creating Playlist');
   var access_token = req.session.access_token;
@@ -427,7 +428,7 @@ app.get('/create_pl', function(req, res, body) {
       if(!err && res.statusCode === 201){
         console.log('success ' + res.statusCode + ' ' + body);
         // assign the body.id to req.session.playlist_id
-        var req.session.playlist_id = body.id
+        reqsessionplaylist_id = body.id
       } else {
         console.log('failed ' + res.statusCode);
       };
@@ -441,16 +442,15 @@ app.get('/addto_pl', function(req, res) {
   console.log('Adding To Playlist');
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  var id = req.session.playlist_id;
-  console.log(id);
-  var playlist_id = '4dCEnT0mbnXOQ0cgyC8mRn' //dynamically taken from req.session.playlist_id
+  var playlist_id = reqsessionplaylist_id;
+  console.log(playlist_id);
   if(access_token!=null){
     var headers = {
       'Authorization': 'Bearer '+ access_token
     };
     var body = {"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"]} // dynamically taken from
     var options = {
-      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+id+'/tracks?position=0',
+      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks?position=0',
       headers: { 'Authorization': 'Bearer ' + access_token },
       body: body,
       method: 'POST',
