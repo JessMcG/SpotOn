@@ -385,7 +385,6 @@ app.get('/seedpl', function(req, res, body) {
     else{
       console.log('err: '+err);
     }*/
-  };
   var query = {
     limit: '25',
     seed_tracks: otpt
@@ -395,6 +394,7 @@ app.get('/seedpl', function(req, res, body) {
     url: 'https://api.spotify.com/v1/recommendations',
     headers: { 'Authorization': 'Bearer ' + access_token },
     query: query
+  };
   };
   console.log(options);
   request.post(options, function(err, res, body) {
