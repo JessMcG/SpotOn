@@ -411,6 +411,7 @@ app.get('/create_pl', function(req, res, body) {
   console.log('Creating Playlist');
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
+  console.log(user_id + '' + access_token);
   if(access_token!=null){
     var data = {
         "name": "SpotOn Playlist",
