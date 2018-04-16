@@ -18,7 +18,6 @@ jquery.env("", function(err, window) {
     var $ = require("jquery")(window);
 });*/
 
-
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
 var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
 // var redirect_uri = req.protocol + '://' +req.get('host') + '/callback'; // Your redirect uri
@@ -45,6 +44,7 @@ var app = express();
 app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
 app.use(session({secret: 'rory_and_charlie'}));
+app.set('view engine', 'ejs');
 
 //Initialise the database connection
 var db;
@@ -127,12 +127,19 @@ app.get('/callback/', function(req, res) {
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           console.log(body);
+          if(body.display_name!=null){
+            var display_name = body.display_name;
+          }
+          else {
+            var display_name = body.id;
+          }
+          var image_url = body.images.url;
           //Search database for the current user ID
           db.collection('users').find({user_id: body.id}).toArray(function(err, result) {
             if (err) throw err;
             //If user_id already exists, update the database
             if (result.length>0){
-              db.collection('users').update({user_id: body.id},{user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
+              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
                 if (err) throw err;
                 console.log('Saved to Database');
                 //add user details to current Session
@@ -148,7 +155,7 @@ app.get('/callback/', function(req, res) {
             }
             //otherwise create a new user account
             else {
-              db.collection('users').insert({user_id: body.id, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
+              db.collection('users').insert({user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
                 if (err) throw err;
                 console.log('Saved to Database');
                 //add user details to current Session
@@ -211,6 +218,16 @@ app.get('/refresh_token', function(req, res) {
 app.get('/profile', function(req, res) {
   //redirect if not logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
+
+  console.log('User ID from Session: ' +req.session.user_id);
+
+  //Initialising variables for profile
+  var searches;
+  var display_name;
+  var image_url;
+  var playlists;
+  var tracks;
+
   var code = req.query.code || null;
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
@@ -225,77 +242,23 @@ app.get('/profile', function(req, res) {
     json: true
   };
 
-  //Get User profile details from Spotify
-  request.post(authOptions, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
+    //Call profile_playlist.js
+    //return playlists
 
-      var access_token = req.session.access_token;
+    //Call profile_tracks.js
+    //return tracks
 
-      var options = {
-        url: 'https://api.spotify.com/v1/me',
-        headers: { 'Authorization': 'Bearer ' + access_token },
-        json: true
-      };
+    //Call profile_db.js
+    //return display_name, image_url, searches
 
-      // use the access token to access the Spotify Web API
-      request.get(options, function(error, response, body) {
-        console.log(body);
 
-        //Parse JSON to get user profile details
-        if(body.display_name!=null){
-          var display_name = body.display_name;
-        }
-        else {
-          var display_name = body.id;
-        }
-        var image_url = body.images.url;
-      });
-    }
-  });
-
-  //Get User playlists from Spotify
-  request.post(authOptions, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-
-      var access_token = req.session.access_token;
-      var user_id = req.session.user_id;
-
-      var options = {
-        url: 'https://api.spotify.com/v1/users/'+req.session.user_id+'/playlists',
-        headers: { 'Authorization': 'Bearer ' + access_token },
-        json: true
-      };
-
-      // use the access token to access the Spotify Web API
-      request.get(options, function(error, response, body) {
-        console.log(body);
-
-        //Parse JSON to get user playlist details
-        var playlists = body;
-        /*var playlist_name = body.name;
-        var playlist_tracks = body.tracks.total;
-        var playlist_image = body.images.url;*/
-      });
-    }
-  });
-
-  //Get User Tracks from Spotify
-  	//https://api.spotify.com/v1/me/tracks
-
-  //Get User Searches from Mongo
-  //TODO Catch if no searches
-  db.collection('users').find({user_id: req.session.user_id}).toArray(function(err, result) {
-    if (err) throw err;
-    //Get user's searches from DB
-    if (result.length>0){
-        var searches = result.searches;
-        console.log('Searches: '+searches);
-        //Display searches on page
-        /*for (var i = 0; i < searches.length; i++) {
-          var type = searches[i].type;
-          var name = searches[i].name;
-        }*/
-      }
+  //render the template with the content added
+  res.render('pages/test_profile', {
+    display_name: display_name,
+    image_url: image_url,
+    searches: searches,
+    playlists: playlists,
+    tracks: tracks
   });
 
 });
