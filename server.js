@@ -306,12 +306,14 @@ app.get('/search', function(req, res) {
     if (body.artists) {
       for (var i = 0; i < body.artists.items.length; i++) {
         console.log("\t ARTIST: " + body.artists.items[i].name);
-        document.getElementbyId("searchResults").append("ARTIST Body: " + body);
+        //document.getElementbyId("searchResults").append("ARTIST Body: " + body);
+        response.send(body);
       }
     } else if (body.tracks) {
       for (var i = 0; i < body.tracks.items.length; i++) {
         console.log("\t TRACK: " + body.tracks.items[i].name);
-        document.getElementbyId("searchResults").append("TRACK Body: " + body);
+        //document.getElementbyId("searchResults").append("TRACK Body: " + body);
+        response.send(body);
       }
     }
   });
