@@ -434,7 +434,7 @@ app.get('/create_pl', function(req, res, body) {
   };
 });
 
-app.post('/addto_pl', function(req, res) {
+app.get('/addto_pl', function(req, res) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
   var playlist_id = '4dCEnT0mbnXOQ0cgyC8mRn' //dynamically get playlist ID
