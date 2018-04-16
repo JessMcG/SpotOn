@@ -316,9 +316,7 @@ app.get('/search', function(req, res) {
         response.send(body);
       }
     }
-    res.render('public/search.html', {
-      
-    });
+
   });
 
   // TODO: add searches do DB
@@ -361,6 +359,38 @@ app.get('/recommend', function(req, res) {
         console.log("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists);
       }
     }
+  });
+});
+
+/**
+ * Create playlist example
+ */
+app.post('/create_pl', function(req, res) {
+  console.log("Creating playlist....");
+
+  //TODO: Check if logged in
+  // if(!req.session.loggedin){res.redirect('/login'); return;}
+  console.log("Session: " + req.session.session_id);
+  console.log("Access Token: " + req.session.access_token);
+
+  var access_token = req.session.access_token;
+  var user_id = req.session.user_id;
+
+  if (access_token != null) {
+    var createPlaylistOptions = {
+      url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists',
+      --data: "{\"name\":\"SpotOn new Playlist test call\",\"description\":\"New playlist description\",\"public\":false}",
+      headers: { 'Authorization': 'Bearer ' + access_token },
+      json: true
+    };
+  }
+  // POST request for /create_pl
+  request.post(createPlaylistOptions, function(error, response, body) {
+    console.log(body);
+
+    console.log("PLAYLIST \n");
+    console.log(body.name + " playlist of " + body.owner.id);
+
   });
 });
 
