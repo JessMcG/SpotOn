@@ -428,7 +428,7 @@ app.get('/create_pl', function(req, res, body) {
       json: true
     };
     request.post(options, function(err, res, body) {
-      if(!err && res.statusCode === 200){
+      if(!err && res.statusCode === 201){
         console.log('success' + res.statusCode + ' ' + body);
       };
       console.log('failed ' + res.statusCode);
