@@ -280,16 +280,17 @@ app.get('/search', function(req, res) {
   console.log("Session: " + req.session.session_id);
   console.log("Access Token: " + req.session.access_token);
 
-  // Fill api call details
+  // Api call details
   var access_token = req.session.access_token;
-  var query = req.query.q;
-  var type = req.query.type;
+  var query = "Muse"; //req.query.q;
+  var type = "artist"; // req.query.type;
+
   if (access_token != null) {
-    var searchoptions = {
+    var searchOptions = {
       url: 'https://api.spotify.com/v1/search?' +
       querystring.stringify({
-        q: "Muse",
-        type: "artist",
+        q: query,
+        type: type,
         limit: 8
       }),
       headers: { 'Authorization': 'Bearer ' + access_token },
@@ -298,24 +299,23 @@ app.get('/search', function(req, res) {
   }
 
   // GET request for /search
-  request.get(searchoptions, function(error, response, body) {
+  request.get(searchOptions, function(error, response, body) {
     console.log(body);
-    //document.getElementbyId(test).append(body);
 
-    console.log("\nSEARCH RESULTS \n");
-    if (body.artists) {
-      for (var i = 0; i < body.artists.items.length; i++) {
-        console.log("\t ARTIST: " + body.artists.items[i].name);
-        //document.getElementbyId("searchResults").append("ARTIST Body: " + body);
-
+    if (!error && response.statusCode === 200) {
+      console.log("\nSEARCH RESULTS \n");
+      if (body.artists) {
+        for (var i = 0; i < body.artists.items.length; i++) {
+          console.log("\t ARTIST: " + body.artists.items[i].name);
+        }
+      } else if (body.tracks) {
+        for (var i = 0; i < body.tracks.items.length; i++) {
+          console.log("\t TRACK: " + body.tracks.items[i].name);
+        }
       }
-    } else if (body.tracks) {
-      for (var i = 0; i < body.tracks.items.length; i++) {
-        console.log("\t TRACK: " + body.tracks.items[i].name);
-        //document.getElementbyId("searchResults").append("TRACK Body: " + body);
-      }
+    } else {
+      console.log(response.statusCode + " " + error);
     }
-
   });
 
   // TODO: add searches do DB
@@ -332,32 +332,38 @@ app.get('/recommend', function(req, res) {
   console.log("Session: " + req.session.session_id);
   console.log("Access Token: " + req.session.access_token);
 
+  // Api call details
   var access_token = req.session.access_token;
-  var query = req.query.q;
-  var type = req.query.type;
+  var seed_artists = "1hkC9kHG980jEfkTmQYB7t";
+  var seed_tracks = "0c6xIDDpzE81m2q797ordA";
+
   if (access_token != null) {
     var recommendOptions = {
       url: 'https://api.spotify.com/v1/recommendations?' +
       querystring.stringify({
-        seed_artists: "1hkC9kHG980jEfkTmQYB7t",
-        seed_tracks: "0c6xIDDpzE81m2q797ordA",
+        seed_artists: seed_artists,
+        seed_tracks: seed_tracks,
         limit: 8
       }),
       headers: { 'Authorization': 'Bearer ' + access_token },
       json: true
     };
+  } else {
+    console.log("Log in first");
   }
 
-  // GET request for /search
+  // GET request for /recommend
   request.get(recommendOptions, function(error, response, body) {
     console.log(body);
-
-    console.log("RECOMMENDATIONS \n");
-    if (body.tracks) {
-      for (var i = 0; i < body.tracks.length; i++) {
-        console.log("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists);
-      }
-    }
+    if (!error && response.statusCode === 200) {
+      console.log("RECOMMENDATIONS \n");
+      if (body.tracks) {
+        for (var i = 0; i < body.tracks.length; i++) {
+          console.log("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists);
+        }
+    } else {
+      console.log(response.statusCode + " " + error);
+    }}
   });
 });
 /**
