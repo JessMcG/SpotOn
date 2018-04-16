@@ -1,0 +1,37 @@
+
+			setTimeout(doSomething, 1000);
+
+			function doSomething() {
+
+				$("#showSongs").click(function(){
+
+					$(".sr1").fadeOut(200);
+					$(".sr2").delay(200).fadeIn(200);
+					
+					
+					$.ajax({
+						url: 'museTracks.json',
+						dataType: 'json',
+						type: 'get',
+						cashe: false,
+						success: function(data){
+							
+							$(data.tracks).each(function(index, value){
+
+								var museTracks = "<article class='searchResult sr2'><img class='searchResultImage' src='" + value.album.images[0].url +"'alt=''/><h3>" + value.album.name + "</h3><div class='addTrack playSearchedTrack' data-artist-id='" + "hello" + "' id='showSongs'><img src='img/next.png' alt='play track' /></div></article>";
+
+								$("#searchResults").append(museTracks);  
+
+							});
+
+						}
+
+
+
+
+					});
+
+				});
+
+			}
+		
