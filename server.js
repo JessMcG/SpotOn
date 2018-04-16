@@ -150,6 +150,7 @@ app.get('/callback/', function(req, res) {
                 console.log('session ID = '+ req.session.id);
                 console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
+                console.log('search '+ req.session.search);
                 //redirect to home
                 res.redirect('/');
               });
