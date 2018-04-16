@@ -307,7 +307,7 @@ app.get('/search', function(req, res) {
       for (var i = 0; i < body.artists.items.length; i++) {
         console.log("\t ARTIST: " + body.artists.items[i].name);
         //document.getElementbyId("searchResults").append("ARTIST Body: " + body);
-        response.send(body);
+
       }
     } else if (body.tracks) {
       for (var i = 0; i < body.tracks.items.length; i++) {
@@ -316,6 +316,9 @@ app.get('/search', function(req, res) {
         response.send(body);
       }
     }
+    res.render('public/search.html', {
+      
+    });
   });
 
   // TODO: add searches do DB
