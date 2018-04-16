@@ -411,7 +411,7 @@ app.get('/create_pl', function(req, res, body) {
   console.log('Creating Playlist');
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  console.log(user_id + '' + access_token);
+  console.log(user_id + ' ' + access_token);
   if(access_token!=null){
     var data = {
         "name": "SpotOn Playlist",
@@ -421,7 +421,7 @@ app.get('/create_pl', function(req, res, body) {
     var headers = {'Authorization': 'Bearer'+ access_token};
     var options = {
         url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
-        method: 'POST',
+        //method: 'POST',
         headers: headers,
         body: data,
         json: true
