@@ -379,7 +379,6 @@ app.get('/seedpl', function(req, res, body) {
     else{
       console.log('err: '+err);
     }*/
-  };
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
   var query = {
@@ -399,6 +398,7 @@ app.get('/seedpl', function(req, res, body) {
       console.log('lol: '+err);
     }
   });
+  };
 });
 
 /*
