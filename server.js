@@ -384,7 +384,7 @@ app.get('/seedpl', function(req, res, body) {
   };
   var query = {
     limit: '25',
-    seed_tracks: output
+    seed_tracks: otpt
   };
   var options = {
     url: 'https://api.spotify.com/v1/recommendations',
