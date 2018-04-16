@@ -373,8 +373,9 @@ app.get('/seedpl', function(req, res, body) {
   var user_id = req.session.user_id;
   var otpt = '';
   // var query = users.search.track
+  var qry = ({user_id:user_id},{search:1});
   console.log('fart');
-  db.collection('users').find({user_id:user_id},{search:1}).toArray, function(err, result, body) {
+  db.collection('users').find(qry).toArray, function(err, result, body) {
     console.log();
     console.log('result: '+result);
     /*if(!err){
@@ -388,11 +389,13 @@ app.get('/seedpl', function(req, res, body) {
     limit: '25',
     seed_tracks: otpt
   };
+  console.log(query);
   var options = {
     url: 'https://api.spotify.com/v1/recommendations',
     headers: { 'Authorization': 'Bearer ' + access_token },
     query: query
   };
+  console.log(options);
   request.post(options, function(err, res, body) {
     if(!err && res.statusCode === 200){
       console.log('body: '+body);
