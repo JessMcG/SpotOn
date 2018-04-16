@@ -426,12 +426,8 @@ app.post('/create_pl', function(req, res, body) {
     request.post(options, function(err, res, body) {
     if(!error && response.statusCode === 200){
       console.log(body);
-      db.collection('users').find({playlistid:'3cEYpjA9oz9GiPac4AsH4n'}, function(err, result) {
-        if (err) throw err;
-    }
-    else{
-      console.log(err);
-    }
+      }
+    console.log('failed');
     });
   });
 /*
