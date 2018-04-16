@@ -371,14 +371,14 @@ app.get('/search', function(req, res) {
 app.get('/seedpl', function(req, res, body) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  
+
   // var query = users.search.track
   var qry = ({user_id:user_id},{search:1});
   console.log('fart');
   db.collection('users').find(qry).toArray, function(err, result, body) {
     console.log();
     console.log('result: '+result);
-    result = otpt;
+    var otpt = result;
     /*if(!err){
       console.log('otpt: '+otpt);
     }
