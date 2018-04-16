@@ -139,6 +139,7 @@ app.get('/callback/', function(req, res) {
             //If user_id already exists, update the database
             if (result.length>0){
               db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search:'1301WleyT98MSxVHPZCA6m'}, function(err, result) {
+                console.log(result);
                 if (err) throw err;
                 console.log('Saved to Database');
                 //add user details to current Session
@@ -369,7 +370,7 @@ app.get('/seedpl', function(req, res, body) {
   var access_token = req.session.access_token;
   var otpt = '';
   // var query = users.search.track
-  var qry = {search: '**' };
+  var qry = {search:  };
   var user_id = req.session.user_id;
   console.log('fart');
   db.collection('users').find(qry).toArray, function(err, result, body) {
