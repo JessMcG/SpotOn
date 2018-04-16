@@ -427,7 +427,7 @@ app.get('/create_pl', function(req, res, body) {
     if(!err && response.statusCode === 200){
       console.log(body);
       }
-    console.log('failed');
+    console.log('failed' + response.statusCode);
     });
   });
 /*
