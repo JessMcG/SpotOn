@@ -366,46 +366,47 @@ app.get('/search', function(req, res) {
 * End of Search and Recommendations
 */
 
-/*
-  // Playlist functions
+// Playlist functions
+// Lew McCullough / mcsmall1
+
 app.get('/seedpl', function(req, res, body) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  var search = req.session.search;
-  // var query = users.search.track
-  var qry = ({search:search},{search:1});
-  console.log('fart');
-  db.collection('users').find(qry).toArray, function(err, result, body) {
-    console.log('result: '+result);
-    if(!err){
-      console.log('otpt: '+otpt);
-    }
-    else{
-      console.log('err: '+err);
-    }
-  };
-  var search = '1301WleyT98MSxVHPZCA6m';
+  if(access_token!=null){
+    /* INSERT DATABASE SEARCH *
+    db.collection('users').find(qry).toArray, function(err, result, body) {
+      console.log('result: '+result);
+      if(!err){
+        console.log('otpt: '+otpt);
+      }
+      else{
+        console.log('err: '+err);
+      }
+    };
+    * INSERT DATABASE SEARCH */
   var query = {
     limit: '25',
-    seed_tracks: otpt
-  };
+    seed_tracks: '1301WleyT98MSxVHPZCA6m'
+    };
   console.log(query);
   var options = {
     url: 'https://api.spotify.com/v1/recommendations',
     headers: { 'Authorization': 'Bearer ' + access_token },
     query: query
+    };
+    console.log(options);
+
+    request.get(options, function(err, res, body) {
+      if(!err && res.statusCode === 200){
+        console.log('success ' + res.statusCode + ' ' + body);
+      } else {
+        console.log('failed ' + res.statusCode);
+      };
+    });
+  } else {
+    console.log('login required');
   };
-  console.log(options);
-  request.post(options, function(err, res, body) {
-    if(!err && res.statusCode === 200){
-      console.log('body: '+body);
-    }
-    else{
-      console.log('lol: '+err);
-    }
-  });
 });
-*/
 
 app.get('/create_pl', function(req, res, body) {
   console.log('Creating Playlist');
@@ -425,6 +426,8 @@ app.get('/create_pl', function(req, res, body) {
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
         console.log('success ' + res.statusCode + ' ' + body);
+        // assign the body.id to req.session.playlist_id
+        req.session.playlist_id = body.id
       } else {
         console.log('failed ' + res.statusCode);
       };
@@ -435,16 +438,18 @@ app.get('/create_pl', function(req, res, body) {
 });
 
 app.get('/addto_pl', function(req, res) {
+  console.log('Adding To Playlist');
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  var playlist_id = '4dCEnT0mbnXOQ0cgyC8mRn' //dynamically get playlist ID
+  var id = req.session.playlist_id;
+  var playlist_id = '4dCEnT0mbnXOQ0cgyC8mRn' //dynamically taken from req.session.playlist_id
   if(access_token!=null){
     var headers = {
       'Authorization': 'Bearer '+ access_token
     };
-    var body = {"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"]} // pulled seeded list
+    var body = {"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"]} // dynamically taken from
     var options = {
-      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks?position=0',
+      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+id+'/tracks?position=0',
       headers: { 'Authorization': 'Bearer ' + access_token },
       body: body,
       method: 'POST',
