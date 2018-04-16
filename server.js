@@ -373,12 +373,12 @@ app.get('/seedpl', function(req, res, body) {
   db.collection('users').find(query).toArray, function(err, result, body) {
     console.log('fart2');
     console.log('result: '+result);
-    if(!err){
+    /*if(!err){
       console.log('output: '+output);
     }
     else{
       console.log('err: '+err);
-    }
+    }*/
   };
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
