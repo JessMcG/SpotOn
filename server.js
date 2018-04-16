@@ -442,6 +442,7 @@ app.get('/addto_pl', function(req, res) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
   var id = req.session.playlist_id;
+  console.log(id);
   var playlist_id = '4dCEnT0mbnXOQ0cgyC8mRn' //dynamically taken from req.session.playlist_id
   if(access_token!=null){
     var headers = {
