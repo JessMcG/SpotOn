@@ -322,6 +322,42 @@ app.get('/search', function(req, res) {
   // type artist or tracks
   // q: artist_name or song_title
   // seed_id: seed_artists or seed_tracks
+
+  // Add searches to user_id
+  // if (req.session.user_id != null) {    // Requirement: valid user id in session
+  //   db.collection('users').find({user_id: req.session.user_id}).toArray(function(err, result) {
+  //     if (result.length > 0) {
+  //       console.log("User exists: " + db.collection('users').find({user_id: req.session.user_id}));
+  //
+  //       db.collection('users').update({user_id: req.session.user_id})
+  //     }
+  //   } else {
+  //     console.log("User " + req.session.user_id + " does not exist in users collection");
+  //   });
+  // } else {
+  //   console.log("Invalid req.session.user_id");
+  // }
+
+
+
+
+  // db.collection('users').find({user_id: body.id}).toArray(function(err, result) {
+  //   if (err) throw err;
+  //   //If user_id already exists, update the database
+  //   if (result.length>0){
+  //     db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
+  //       if (err) throw err;
+  //       console.log('Saved to Database');
+  //       //add user details to current Session
+  //       req.session.user_id = body.id;
+  //       req.session.access_token = access_token;
+  //       req.session.loggedin = true;
+  //       console.log('session ID = '+ req.session.id);
+  //       console.log('session User ID = '+ req.session.user_id);
+  //       console.log('session Access Token = '+ req.session.access_token);
+  //       //redirect to home
+  //       res.redirect('/');
+  //     });
 });
 
 app.get('/recommend', function(req, res) {
