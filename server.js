@@ -266,7 +266,7 @@ app.get('/profile', function(req, res) {
  * Searching and recommendatoins
  * Author: Nicky ter Maat
  */
-
+var data = "";
 /**
  * Search for artist or track
  * name = artist_name or song_title
@@ -298,7 +298,7 @@ app.get('/search', function(req, res) {
       json: true
     };
   }
-  var data;
+
   // GET request for /search
   request.get(searchOptions, function(error, response, body) {
     console.log(body);
@@ -309,21 +309,21 @@ app.get('/search', function(req, res) {
         for (var i = 0; i < body.artists.items.length; i++) {
           console.log("\t ARTIST: " + body.artists.items[i].name + " id: " + body.artists.items[i].id);
         }
-        data = "DATA: " + body.artists;
+        data += "DATA: " + body.artists;
       } else if (body.tracks) {
         for (var i = 0; i < body.tracks.items.length; i++) {
           console.log("\t TRACK: " + body.tracks.items[i].name + " track_id: " + body.tracks.items[i].id + " artist: " + body.tracks.items[i].artists.name + " artist_id: " + body.tracks.items[i].artists.id);
         }
-        data = "DATA: " + body.tracks;
+        data += "DATA: " + body.tracks;
       } else {
-        data = "DATA: " + error;
+        data += "DATA: " + error;
       }
     } else {
       console.log(statusCode + " " + error);
     }
 
   });
-  res.send("Hello world" + data);
+  res.send("Search: " + data);
   // TODO: add searches do DB
   // type artist or tracks
   // q: artist_name or song_title
@@ -397,14 +397,18 @@ app.get('/top_tracks', function(req, res) {
     if (!error && response.statusCode === 200) {
       if (body.tracks.length > 0) {
         console.log("TOP TRACKS \n");
+        data += "TOP TRACKS \n";
         for (var i = 0; i < body.tracks.length; i++) {
-          console.log("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists);
+          data += ("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists.name);
+          console.log("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists.name);
         }
       }
     } else {
       console.log(response.statusCode + " " + error);
+      data += response.statusCode + " " + error;
     }
   });
+  res.send("Top tracks: " + data);
 });
 
 app.get('/recommend', function(req, res) {
@@ -439,15 +443,19 @@ app.get('/recommend', function(req, res) {
   request.get(recommendOptions, function(error, response, body) {
     console.log(body);
     if (!error && response.statusCode === 200) {
+      data += "RECOMMENDATIONS \n";
       console.log("RECOMMENDATIONS \n");
       if (body.tracks) {
         for (var i = 0; i < body.tracks.length; i++) {
+          data += ("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists);
           console.log("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists);
         }
     } else {
+      data += (response.statusCode + " " + error);
       console.log(response.statusCode + " " + error);
     }}
   });
+  res.send("Recommendations: " + data);
 });
 /**
   * End of Search and Recommendations
