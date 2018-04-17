@@ -332,10 +332,11 @@ app.get('/search', function(req, res) {
   // seed_id: seed_artists or seed_tracks
 
   // Add searches to user_id
-  if (req.session.user_id != null) {    // Requirement: valid user id in session
-    db.collection('users').find({user_id: req.session.user_id}).toArray(function(err, result) {
+  var user_id = req.session.user_id;
+  if (user_id != null) {    // Requirement: valid user id in session
+    db.collection('users').find({user_id: user_id}).toArray(function(err, result) {
       if (result.length > 0) {
-        console.log("User exists: " + db.collection('users').find({user_id: req.session.user_id}));
+        console.log("User exists: " + db.collection('users').find());
 
         db.collection('users').update({user_id: req.session.user_id})
       } else {
