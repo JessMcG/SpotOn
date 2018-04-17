@@ -309,14 +309,14 @@ app.get('/search', function(req, res) {
         for (var i = 0; i < body.artists.items.length; i++) {
           console.log("\t ARTIST: " + body.artists.items[i].name + " id: " + body.artists.items[i].id);
         }
-        data = body.artists;
+        data = "DATA: " + body.artists;
       } else if (body.tracks) {
         for (var i = 0; i < body.tracks.items.length; i++) {
           console.log("\t TRACK: " + body.tracks.items[i].name + " track_id: " + body.tracks.items[i].id + " artist: " + body.tracks.items[i].artists.name + " artist_id: " + body.tracks.items[i].artists.id);
         }
-        data = body.tracks;
+        data = "DATA: " + body.tracks;
       } else {
-        data = error;
+        data = "DATA: " + error;
       }
     } else {
       console.log(statusCode + " " + error);
@@ -391,7 +391,7 @@ app.get('/top_tracks', function(req, res) {
     console.log("Log in first");
   }
 
-  // GET request for /recommend
+  // GET request for /top tracks
   request.get(topTrackOptions, function(error, response, body) {
     console.log(body);
     if (!error && response.statusCode === 200) {
