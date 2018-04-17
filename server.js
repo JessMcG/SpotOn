@@ -433,7 +433,7 @@ app.get('/create_pl', function(req, res, body) {
         // req.session.playlist_id = body.id
         var parsedData = JSON.parse(body);
         var pl_id = parsedData.id;
-        req.session.playlist_id = pl_id;
+        pl_id = req.session.playlist_id;
         console.log('playlist_id: '+ pl_id);
       } else {
         console.log('failed: ' + res.statusCode);
@@ -448,7 +448,7 @@ app.get('/addto_pl', function(req, res) {
   console.log('Adding To Playlist');
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  var playlist_id = '796LadQ8Betl7KloVobTpz';
+  var playlist_id = '796LadQ8Betl7KloVobTpz' //req.session.playlist_id ;
   console.log(playlist_id);
   if(access_token!=null){
     var headers = {
@@ -464,7 +464,7 @@ app.get('/addto_pl', function(req, res) {
     };
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
-        console.log('success: ' + res.statusCode + ' ' + body);
+        console.log('success: ' + res.statusCode);
       } else {
         console.log('failed: ' + res.statusCode);
       };
