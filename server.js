@@ -429,8 +429,8 @@ app.get('/create_pl', function(req, res, body) {
       if(!err && res.statusCode === 201){
         console.log('success ' + res.statusCode + ' ' + body);
         // assign the body.id to req.session.playlist_id
-        req.session.playlist_id = body.id
-        console.log('playlist_id '+ req.session.playlist_id);
+        // req.session.playlist_id = body.id
+        console.log('playlist_id '+ body.id);
       } else {
         console.log('failed ' + res.statusCode);
       };
