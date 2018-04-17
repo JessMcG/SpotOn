@@ -336,7 +336,7 @@ app.get('/search', function(req, res) {
   if (user_id != null) {    // Requirement: valid user id in session
     db.collection('users').find({user_id: user_id}).toArray(function(err, result) {
       if (result.length > 0) {
-        console.log("User exists: " + collection('users').find().toArray());
+        console.log("User exists: " + db.collection('users'));
 
         db.collection('users').update({user_id: req.session.user_id})
       } else {
