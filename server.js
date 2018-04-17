@@ -447,8 +447,8 @@ app.get('/recommend', function(req, res) {
       console.log("RECOMMENDATIONS \n");
       if (body.tracks) {
         for (var i = 0; i < body.tracks.length; i++) {
-          data += ("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks.artists.name);
-          console.log("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks.artists.name);
+          data += ("\t TRACK: " + body.tracks[i].name + ",\t by " + body.tracks[i].artists[4]);
+          console.log("\t TRACK: " + body.tracks[i].name + ",\t by " + body.tracks[i].artists[4]);
         }
     } else {
       data = (response.statusCode + " " + error);
