@@ -434,6 +434,7 @@ app.get('/create_pl', function(req, res, body) {
         var playlist_id = parsedData.id;
         db.collection('users').findAndModify({query: {user_id: {$eq: user_id}}, update:{playlist_id: playlist_id}, new: 1, upsert: 1}, function(err, result) {
           console.log(result);
+          result = playlist_id
         });
         console.log('playlist_id: '+ playlist_id);
       } else {
