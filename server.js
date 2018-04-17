@@ -436,7 +436,7 @@ app.get('/create_pl', function(req, res, body) {
         var newval = {$set:{playlist_id: playlist_id}};
         db.collection('users').update(query, newval, function(err, result){
           if(err)throw err;
-          console.log('Database res: ' result);
+          console.log('Database res: '+ result);
         });
         console.log('playlist_id: '+ playlist_id);
       } else {
