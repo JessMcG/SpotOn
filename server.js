@@ -435,7 +435,7 @@ app.get('/create_pl', function(req, res, body) {
         var playlist_id = parsedData.id;
         db.collection('users').update({user_id: user_id},{playlists: {playlist_id: playlist_id}}, function(err, result) {
           req.session.playlist_id = pl_id;
-        )};
+        });
         console.log(req.session.playlist_id);
         console.log('playlist_id: '+ pl_id);
       } else {
