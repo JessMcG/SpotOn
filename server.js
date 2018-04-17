@@ -304,19 +304,20 @@ app.get('/search', function(req, res) {
     console.log(body);
 
     if (!error && response.statusCode === 200) {
+      data = "\nSEARCH RESULTS \n";
       console.log("\nSEARCH RESULTS \n");
       if (body.artists) {
         for (var i = 0; i < body.artists.items.length; i++) {
+          data += ("\t ARTIST: " + body.artists.items[i].name + " id: " + body.artists.items[i].id);
           console.log("\t ARTIST: " + body.artists.items[i].name + " id: " + body.artists.items[i].id);
         }
-        data += "DATA: " + body.artists;
       } else if (body.tracks) {
         for (var i = 0; i < body.tracks.items.length; i++) {
+          data += ("\t TRACK: " + body.tracks.items[i].name + " track_id: " + body.tracks.items[i].id + " artist: " + body.tracks.items[i].artists.name + " artist_id: " + body.tracks.items[i].artists.id);
           console.log("\t TRACK: " + body.tracks.items[i].name + " track_id: " + body.tracks.items[i].id + " artist: " + body.tracks.items[i].artists.name + " artist_id: " + body.tracks.items[i].artists.id);
         }
-        data += "DATA: " + body.tracks;
       } else {
-        data += "DATA: " + error;
+        data = "DATA: " + error;
       }
     } else {
       console.log(statusCode + " " + error);
@@ -324,6 +325,7 @@ app.get('/search', function(req, res) {
 
   });
   res.send("Search: " + data);
+  data = "";
   // TODO: add searches do DB
   // type artist or tracks
   // q: artist_name or song_title
@@ -397,18 +399,19 @@ app.get('/top_tracks', function(req, res) {
     if (!error && response.statusCode === 200) {
       if (body.tracks.length > 0) {
         console.log("TOP TRACKS \n");
-        data += "TOP TRACKS \n";
+        data = "TOP TRACKS \n";
         for (var i = 0; i < body.tracks.length; i++) {
-          data += ("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists.name);
-          console.log("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists.name);
+          data += ("\t TRACK: " + body.tracks[i].name);
+          console.log("\t TRACK: " + body.tracks[i].name);
         }
       }
     } else {
       console.log(response.statusCode + " " + error);
-      data += response.statusCode + " " + error;
+      data = response.statusCode + " " + error;
     }
   });
   res.send("Top tracks: " + data);
+  data = "";
 });
 
 app.get('/recommend', function(req, res) {
@@ -443,12 +446,12 @@ app.get('/recommend', function(req, res) {
   request.get(recommendOptions, function(error, response, body) {
     console.log(body);
     if (!error && response.statusCode === 200) {
-      data += "RECOMMENDATIONS \n";
+      data = "RECOMMENDATIONS \n";
       console.log("RECOMMENDATIONS \n");
       if (body.tracks) {
         for (var i = 0; i < body.tracks.length; i++) {
-          data += ("\t TRACK: " + body.tracks[i].name + ",\t by " + body.tracks[i].artists);
-          console.log("\t TRACK: " + body.tracks[i].name + ",\t by " + body.tracks[i].artists);
+          data += ("\t TRACK: " + body.tracks[i].name);
+          console.log("\t TRACK: " + body.tracks[i].name);
         }
     } else {
       data = (response.statusCode + " " + error);
@@ -462,30 +465,30 @@ app.get('/recommend', function(req, res) {
   * End of Search and Recommendations
 */
 
-  // Playlist functions
-app.post('/create_pl', function(req, res) {
-  var access_token = req.session.access_token;
-  var user_id = req.session.user_id;
-  var newpl = {
-    name: "New Playlist",
-    description: "New playlist description",
-    public: false
-  };
-  var options = {
-    url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
-    headers: { 'Authorization': 'Bearer ' + access_token },
-    body:newpl
-    //json: true
-    };
-  request.post(options, function(err, res, body) {
-    if(!error && response.statusCode === 200){
-      console.log(body);
-    }
-    else{
-      console.log(error);
-    }
-  });
-});
+//   // Playlist functions
+// app.post('/create_pl', function(req, res) {
+//   var access_token = req.session.access_token;
+//   var user_id = req.session.user_id;
+//   var newpl = {
+//     name: "New Playlist",
+//     description: "New playlist description",
+//     public: false
+//   };
+//   var options = {
+//     url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
+//     headers: { 'Authorization': 'Bearer ' + access_token },
+//     body:newpl
+//     //json: true
+//     };
+//   request.post(options, function(err, res, body) {
+//     if(!error && response.statusCode === 200){
+//       console.log(body);
+//     }
+//     else{
+//       console.log(error);
+//     }
+//   });
+// });
 
 /*app.post('/addto_pl', function(req, res) {
   var access_token = req.session.access_token;
