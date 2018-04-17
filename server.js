@@ -432,10 +432,10 @@ app.get('/create_pl', function(req, res, body) {
         // req.session.playlist_id = body.id
         var parsedData = JSON.parse(body);
         var playlist_id = parsedData.id;
-        db.collection('users').update(query: {user_id: {$eq: user_id}}, update:{playlist_id: playlist_id}, function(err, result){
+        db.collection('users').update(query: {user_id: {$eq: user_id}}, update:{playlist_id: playlist_id}), function(err, result){
           console.log(result);
           result = playlist_id
-        });
+        };
         console.log('playlist_id: '+ playlist_id);
       } else {
         console.log('failed: ' + res.statusCode);
