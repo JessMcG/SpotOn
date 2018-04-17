@@ -433,7 +433,7 @@ app.get('/create_pl', function(req, res, body) {
         // req.session.playlist_id = body.id
         var parsedData = JSON.parse(body);
         var pl_id = parsedData.id;
-        pl_id = req.session.playlist_id;
+        req.session.playlist_id = pl_id;
         console.log('playlist_id: '+ pl_id);
       } else {
         console.log('failed: ' + res.statusCode);
