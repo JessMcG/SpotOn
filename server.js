@@ -427,10 +427,10 @@ app.get('/create_pl', function(req, res, body) {
     };
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
-        console.log('success ' + res.statusCode + ' ' + body;
+        console.log('success ' + res.statusCode + ' ' + body);
         // assign the body.id to req.session.playlist_id
         req.session.playlist_id = body.id
-        console.log('playlist_id: '+ req.session.playlist_id);
+        console.log('playlist_id '+ req.session.playlist_id);
       } else {
         console.log('failed ' + res.statusCode);
       };
@@ -445,7 +445,7 @@ app.get('/addto_pl', function(req, res) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
   var playlist_id = req.session.playlist_id;
-  console.log('playlist_id: '+ playlist_id);
+  console.log(playlist_id);
   if(access_token!=null){
     var headers = {
       'Authorization': 'Bearer '+ access_token
