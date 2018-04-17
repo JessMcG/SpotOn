@@ -429,12 +429,11 @@ app.get('/create_pl', function(req, res, body) {
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
         console.log('success: ' + res.statusCode + ' ' + body);
-        var parsedData = JSON.parse(body);
-        console.log(parsedData);
-        var pl_id = parsedData.id;
-        console.log(parsedData["id"]);
         // assign the body.id to req.session.playlist_id
         // req.session.playlist_id = body.id
+        var parsedData = JSON.parse(body);
+        var pl_id = parsedData.id;
+        req.session.playlist_id = pl_id;
         console.log('playlist_id: '+ pl_id);
       } else {
         console.log('failed: ' + res.statusCode);
