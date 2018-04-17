@@ -140,7 +140,7 @@ app.get('/callback/', function(req, res) {
             if (result.length>0){
               playlist_id = 'Playlist_idPlaylistErr1'
               search = '1301WleyT98MSxVHPZCA6m';
-              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search: search, {playlist_id: playlist_id}, function(err, result) {
+              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search: search, playlist_id: playlist_id}, function(err, result) {
                 if (err) throw err;
                 console.log('Saved to Database');
                 //add user details to current Session
