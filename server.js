@@ -278,6 +278,7 @@ app.get('/search', function(req, res) {
   //TODO: Check if logged in
   // if(!req.session.loggedin){res.redirect('/login'); return;}
   console.log("Session: " + req.session.session_id);
+  console.log("Session user_id: " + req.session.user_id);
   console.log("Access Token: " + req.session.access_token);
 
   // Api call details
@@ -306,12 +307,17 @@ app.get('/search', function(req, res) {
       console.log("\nSEARCH RESULTS \n");
       if (body.artists) {
         for (var i = 0; i < body.artists.items.length; i++) {
-          console.log("\t ARTIST: " + body.artists.items[i].name);
+          console.log("\t ARTIST: " + body.artists.items[i].name + " id: " + body.artists.items[i].id);
         }
+        response.send(body.artists);
+
       } else if (body.tracks) {
         for (var i = 0; i < body.tracks.items.length; i++) {
-          console.log("\t TRACK: " + body.tracks.items[i].name);
+          console.log("\t TRACK: " + body.tracks.items[i].name + " track_id: " + body.tracks.items[i].id + " artist: " + body.tracks.items[i].artists.name + " artist_id: " + body.tracks.items[i].artists.id);
         }
+        response.send(body.tracks);
+      } else {
+        response.send(error);
       }
     } else {
       console.log(response.statusCode + " " + error);
@@ -340,7 +346,7 @@ app.get('/search', function(req, res) {
 
 
 
-
+// Sample from login
   // db.collection('users').find({user_id: body.id}).toArray(function(err, result) {
   //   if (err) throw err;
   //   //If user_id already exists, update the database
@@ -358,6 +364,47 @@ app.get('/search', function(req, res) {
   //       //redirect to home
   //       res.redirect('/');
   //     });
+});
+
+// Top tracks for selected artist
+app.get('/top_tracks', function(req, res) {
+  console.log("Getting artist....");
+
+  //TODO: Check if logged in
+  // if(!req.session.loggedin){res.redirect('/login'); return;}
+  console.log("Session: " + req.session.session_id);
+  console.log("Access Token: " + req.session.access_token);
+
+  // Api call details
+  var access_token = req.session.access_token;
+  var seed_artists = "12Chz98pHFMPJEknJQMWvI";
+  var country_artists = "NL";
+
+  if (access_token != null) {
+    var topTrackOptions = {
+      //12Chz98pHFMPJEknJQMWvI/top-tracks?country=NL
+      url: 'https://api.spotify.com/v1/artists/' + seed_artists + '/top-tracks?' + 'country=' + country_artists,
+      headers: { 'Authorization': 'Bearer ' + access_token },
+      json: true
+    };
+  } else {
+    console.log("Log in first");
+  }
+
+  // GET request for /recommend
+  request.get(topTrackOptions, function(error, response, body) {
+    console.log(body);
+    if (!error && response.statusCode === 200) {
+      if (body.tracks.length > 0) {
+        console.log("TOP TRACKS \n");
+        for (var i = 0; i < body.tracks.length; i++) {
+          console.log("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists);
+        }
+      }
+    } else {
+      console.log(response.statusCode + " " + error);
+    }}
+  });
 });
 
 app.get('/recommend', function(req, res) {
