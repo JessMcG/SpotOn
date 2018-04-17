@@ -138,7 +138,7 @@ app.get('/callback/', function(req, res) {
             if (err) throw err;
             //If user_id already exists, update the database
             if (result.length>0){
-              playlist_id = 'playlist_idplaylist_id1'
+              playlist_id = 'Playlist_idPlaylistErr1'
               search = '1301WleyT98MSxVHPZCA6m';
               db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search: search, playlists: {playlist_id: playlist_id}}, function(err, result) {
                 if (err) throw err;
@@ -433,10 +433,8 @@ app.get('/create_pl', function(req, res, body) {
         // req.session.playlist_id = body.id
         var parsedData = JSON.parse(body);
         var playlist_id = parsedData.id;
-        db.collection('users').update({user_id: user_id},{playlists: {playlist_id: playlist_id}}, function(err, result) {
-          req.session.playlist_id = playlist_id;
-        });
-        console.log(req.session.playlist_id);
+        db.collection('users').update({user_id: user_id},{playlists: {playlist_id: playlist_id}}, function(err, result) {});
+        console.log(result);
         console.log('playlist_id: '+ playlist_id);
       } else {
         console.log('failed: ' + res.statusCode);
@@ -451,8 +449,14 @@ app.get('/addto_pl', function(req, res) {
   console.log('Adding To Playlist');
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  var playlist_id = /* '796LadQ8Betl7KloVobTpz' */ req.session.playlist_id ;
+  var playlist_id = req.session.playlist_id;
   console.log(playlist_id);
+
+  db.collection('users').find({user_id: user_id}, {playlists: {playlist_id: 1}}).toArray(function(err, result) {
+    result = playlist_id
+  };
+  console.log(playlist_id);
+
   if(access_token!=null){
     var headers = {
       'Authorization': 'Bearer '+ access_token
