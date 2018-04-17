@@ -454,7 +454,7 @@ app.get('/addto_pl', function(req, res) {
 
   db.collection('users').find({user_id: user_id}, {playlists: {playlist_id: 1}}).toArray(function(err, result) {
     result = playlist_id
-  };
+  });
   console.log(playlist_id);
 
   if(access_token!=null){
