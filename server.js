@@ -455,7 +455,11 @@ app.get('/addto_pl', function(req, res) {
   var query = {user_id: user_id};
   //var proj = {playlist_id: true};
   db.collection('users').find(query).toArray(function(err, result) {
-    console.log('db .find res: '+ result); // + ' = playlist_id '+ playlist_id);
+    if (result!=null){
+      console.log('db .find res: '+ result); // + ' = playlist_id '+ playlist_id);
+    } else {
+      console.log('No db.find result');
+    }
   });
   playlist_id = result;
   if(access_token!=null){
