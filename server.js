@@ -437,7 +437,7 @@ app.get('/create_pl', function(req, res, body) {
           req.session.playlist_id = pl_id;
         });
         console.log(req.session.playlist_id);
-        console.log('playlist_id: '+ pl_id);
+        console.log('playlist_id: '+ playlist_id);
       } else {
         console.log('failed: ' + res.statusCode);
       };
