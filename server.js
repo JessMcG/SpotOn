@@ -432,7 +432,7 @@ app.get('/create_pl', function(req, res, body) {
         // req.session.playlist_id = body.id
         var parsedData = JSON.parse(body);
         var playlist_id = parsedData.id;
-        db.collection('users').update({user_id: user_id},{playlists: {playlist_id: playlist_id}}, function(err, result) {console.log(result);});
+        db.collection('users').update({user_id: user_id},{user_id: user_id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search: search, playlists: {playlist_id: playlist_id}}, function(err, result) {console.log(result);});
         console.log('playlist_id: '+ playlist_id);
       } else {
         console.log('failed: ' + res.statusCode);
@@ -449,7 +449,6 @@ app.get('/addto_pl', function(req, res) {
   var user_id = req.session.user_id;
   var playlist_id = req.session.playlist_id;
   console.log(playlist_id);
-
   db.collection('users').find({user_id: user_id}, {playlists: {playlist_id: 1}}).toArray(function(err, result) {
     result = playlist_id
   });
