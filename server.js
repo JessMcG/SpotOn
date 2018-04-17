@@ -138,15 +138,17 @@ app.get('/callback/', function(req, res) {
             if (err) throw err;
             //If user_id already exists, update the database
             if (result.length>0){
+              playlist_id = 'playlist_idplaylist_id1'
               search = '1301WleyT98MSxVHPZCA6m';
-              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search: search}, function(err, result) {
+              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search: search, playlist_id: playlist_id}, function(err, result) {
                 if (err) throw err;
                 console.log('Saved to Database');
                 //add user details to current Session
                 req.session.user_id = body.id;
                 req.session.access_token = access_token;
                 req.session.loggedin = true;
-                req.session.search = search
+                req.session.search = search;
+                req.session.playlist_id = playlist_id;
                 console.log('session ID = '+ req.session.id);
                 console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
@@ -408,7 +410,6 @@ app.get('/seedpl', function(req, res, body) {
   };
 });
 
-var reqsessionplaylist_id = ''
 app.get('/create_pl', function(req, res, body) {
   console.log('Creating Playlist');
   var access_token = req.session.access_token;
@@ -428,7 +429,8 @@ app.get('/create_pl', function(req, res, body) {
       if(!err && res.statusCode === 201){
         console.log('success ' + res.statusCode + ' ' + body);
         // assign the body.id to req.session.playlist_id
-        reqsessionplaylist_id = body.id
+        req.session.playlist_id = body.id
+        console.log('playlist_id: '+ req.session.playlist_id);
       } else {
         console.log('failed ' + res.statusCode);
       };
@@ -442,8 +444,8 @@ app.get('/addto_pl', function(req, res) {
   console.log('Adding To Playlist');
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  var playlist_id = reqsessionplaylist_id;
-  console.log(playlist_id);
+  var playlist_id = req.session.playlist_id;
+  console.log('playlist_id: '+ playlist_id);
   if(access_token!=null){
     var headers = {
       'Authorization': 'Bearer '+ access_token
