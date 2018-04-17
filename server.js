@@ -452,14 +452,13 @@ app.get('/addto_pl', function(req, res) {
   console.log('Adding To Playlist');
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  var playlist_id = req.session.playlist_id;
   var query = {user_id: user_id};
   var proj = {playlist_id: true};
   db.collection('users').find(query, proj).toArray(function(err, result) {
     console.log('db .find res: '+ result + ' = playlist_id '+ playlist_id);
-    playlist_id = result;
+    return result
   });
-
+  playlist_id = result;
   if(access_token!=null){
     var headers = {
       'Authorization': 'Bearer '+ access_token
