@@ -321,11 +321,9 @@ app.get('/search', function(req, res) {
     } else {
       console.log(statusCode + " " + error);
     }
-  }
 
+  });
   res.send(data);
-);
-
   // TODO: add searches do DB
   // type artist or tracks
   // q: artist_name or song_title
