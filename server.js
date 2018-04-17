@@ -5,6 +5,9 @@ var session = require('express-session'); //Express Session Module
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+var profile_playlist = require('js/profile_playlist');
+var profile_tracks = require('js/profile_tracks');
+var profile_db = require('js/profile_db');
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/spot_on";
 
@@ -242,12 +245,15 @@ app.get('/profile', function(req, res) {
   };
 
     //Call profile_playlist.js
+    profile_playlist.getPlaylists(req.session.user_id, req.session.access_token);
     //return playlists
 
     //Call profile_tracks.js
+    profile_tracks.getTracks(req.session.user_id, req.session.access_token);
     //return tracks
 
     //Call profile_db.js
+    profile_db.getUser(req.session.user_id);
     //return display_name, image_url, searches
 
 
