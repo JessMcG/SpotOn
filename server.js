@@ -140,7 +140,7 @@ app.get('/callback/', function(req, res) {
             if (result.length>0){
               playlist_id = 'playlist_idplaylist_id1'
               search = '1301WleyT98MSxVHPZCA6m';
-              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search: search, playlist_id: playlist_id}, function(err, result) {
+              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search: search, playlists: {playlist_id: playlist_id}}, function(err, result) {
                 if (err) throw err;
                 console.log('Saved to Database');
                 //add user details to current Session
@@ -148,7 +148,7 @@ app.get('/callback/', function(req, res) {
                 req.session.access_token = access_token;
                 req.session.loggedin = true;
                 req.session.search = search;
-                req.session.playlist_id = playlist_id;
+                req.session.playlist_id = playlists.playlist_id;
                 console.log('session ID = '+ req.session.id);
                 console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
@@ -433,7 +433,11 @@ app.get('/create_pl', function(req, res, body) {
         // req.session.playlist_id = body.id
         var parsedData = JSON.parse(body);
         var pl_id = parsedData.id;
-        req.session.playlist_id = pl_id;
+        req.session.playlist_id = playlists.playlist_id;
+        db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search: search playlists: {playlist_id: pl_id}}, function(err, result) {
+          req.session.playlist_id = pl_id;
+        )};
+        console.log(req.session.playlist_id);
         console.log('playlist_id: '+ pl_id);
       } else {
         console.log('failed: ' + res.statusCode);
