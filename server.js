@@ -372,8 +372,11 @@ app.get('/search', function(req, res) {
 // Lew McCullough / mcsmall1
 
 app.get('/seedpl', function(req, res, body) {
+  console.log('Seeding Playlist');
+  // get global access token and user id
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
+
   if(access_token!=null){
     /* INSERT DATABASE SEARCH *
     db.collection('users').find(qry).toArray, function(err, result, body) {
@@ -384,22 +387,21 @@ app.get('/seedpl', function(req, res, body) {
       else{
         console.log('err: '+err);
       }
-    };
     * INSERT DATABASE SEARCH */
+    };
+  // build request parameters
   var query = {
     limit: '25',
     seed_tracks: '1301WleyT98MSxVHPZCA6m'
     };
-  console.log(query);
   var options = {
     url: 'https://api.spotify.com/v1/recommendations',
     headers: { 'Authorization': 'Bearer ' + access_token },
     query: query
     };
-    console.log(options);
-
     request.get(options, function(err, res, body) {
       if(!err && res.statusCode === 200){
+        // add json response to global variable for use in addto_pl
         console.log('success ' + res.statusCode + ' ' + body);
       } else {
         console.log('failed ' + res.statusCode);
@@ -412,9 +414,11 @@ app.get('/seedpl', function(req, res, body) {
 
 app.get('/create_pl', function(req, res, body) {
   console.log('Creating Playlist');
+  // get global access token and user id
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
   if(access_token!=null){
+    // build request parameters
     var headers = {
       'Authorization': 'Bearer '+ access_token
     };
@@ -428,8 +432,7 @@ app.get('/create_pl', function(req, res, body) {
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
         console.log('success: ' + res.statusCode + ' ' + body);
-        // assign the body.id to req.session.playlist_id
-        // req.session.playlist_id = body.id
+        // parse and save playlist_id to db
         var parsedData = JSON.parse(body);
         var playlist_id = parsedData.id;
         var query = {user_id: user_id};
@@ -450,6 +453,7 @@ app.get('/create_pl', function(req, res, body) {
 
 app.get('/addto_pl', function(req, res) {
   console.log('Adding To Playlist');
+  // get global access token and user id
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
   var query = {user_id: user_id};
