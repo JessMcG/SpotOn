@@ -340,7 +340,7 @@ app.get('/search', function(req, res) {
         db.collection('users').update({user_id: req.session.user_id})
       } else {
       console.log("User " + req.session.user_id + " does not exist in users collection");
-    });
+    }});
   } else {
     console.log("Invalid req.session.user_id");
   }
