@@ -338,8 +338,7 @@ app.get('/search', function(req, res) {
         console.log("User exists: " + db.collection('users').find({user_id: req.session.user_id}));
 
         db.collection('users').update({user_id: req.session.user_id})
-      }
-    } else {
+      } else {
       console.log("User " + req.session.user_id + " does not exist in users collection");
     });
   } else {
