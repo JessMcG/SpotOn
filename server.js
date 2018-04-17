@@ -298,7 +298,7 @@ app.get('/search', function(req, res) {
       json: true
     };
   }
-
+  var data;
   // GET request for /search
   request.get(searchOptions, function(error, response, body) {
     console.log(body);
@@ -309,20 +309,22 @@ app.get('/search', function(req, res) {
         for (var i = 0; i < body.artists.items.length; i++) {
           console.log("\t ARTIST: " + body.artists.items[i].name + " id: " + body.artists.items[i].id);
         }
-        response.send(body.artists);
-
+        data = body.artists;
       } else if (body.tracks) {
         for (var i = 0; i < body.tracks.items.length; i++) {
           console.log("\t TRACK: " + body.tracks.items[i].name + " track_id: " + body.tracks.items[i].id + " artist: " + body.tracks.items[i].artists.name + " artist_id: " + body.tracks.items[i].artists.id);
         }
-        response.send(body.tracks);
+        data = body.tracks;
       } else {
-        response.send(error);
+        data = error;
       }
     } else {
-      console.log(response.statusCode + " " + error);
+      console.log(statusCode + " " + error));
     }
-  });
+  }
+
+  res.send(data);
+);
 
   // TODO: add searches do DB
   // type artist or tracks
