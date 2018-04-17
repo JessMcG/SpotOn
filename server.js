@@ -455,7 +455,7 @@ app.get('/addto_pl', function(req, res) {
   var query = {user_id: user_id};
   //var proj = {playlist_id: true};
   db.collection('users').find(query).toArray(function(err, result) {
-    console.log('db .find res: '+ result + ' = playlist_id '+ playlist_id);
+    console.log('db .find res: '+ result); // + ' = playlist_id '+ playlist_id);
     return result
   });
   playlist_id = result;
