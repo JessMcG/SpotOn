@@ -432,9 +432,8 @@ app.get('/create_pl', function(req, res, body) {
         // assign the body.id to req.session.playlist_id
         // req.session.playlist_id = body.id
         var parsedData = JSON.parse(body);
-        var pl_id = parsedData.id;
-        req.session.playlist_id = playlists.playlist_id;
-        db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search: search playlists: {playlist_id: pl_id}}, function(err, result) {
+        var playlist_id = parsedData.id;
+        db.collection('users').update({user_id: user_id},{playlists: {playlist_id: playlist_id}}, function(err, result) {
           req.session.playlist_id = pl_id;
         )};
         console.log(req.session.playlist_id);
