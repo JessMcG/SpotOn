@@ -447,15 +447,16 @@ app.get('/recommend', function(req, res) {
       console.log("RECOMMENDATIONS \n");
       if (body.tracks) {
         for (var i = 0; i < body.tracks.length; i++) {
-          data += ("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists);
-          console.log("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks[i].artists);
+          data += ("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks.artists.name);
+          console.log("\t TRACK: " + body.tracks[i].name + ", by " + body.tracks.artists.name);
         }
     } else {
-      data += (response.statusCode + " " + error);
+      data = (response.statusCode + " " + error);
       console.log(response.statusCode + " " + error);
     }}
   });
   res.send("Recommendations: " + data);
+  data = "";
 });
 /**
   * End of Search and Recommendations
