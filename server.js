@@ -148,7 +148,7 @@ app.get('/callback/', function(req, res) {
                 req.session.access_token = access_token;
                 req.session.loggedin = true;
                 req.session.search = search;
-                req.session.playlist_id = playlists.playlist_id;
+                req.session.playlist_id = playlist_id;
                 console.log('session ID = '+ req.session.id);
                 console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
