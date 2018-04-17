@@ -403,7 +403,7 @@ app.get('/top_tracks', function(req, res) {
       }
     } else {
       console.log(response.statusCode + " " + error);
-    }}
+    }
   });
 });
 
