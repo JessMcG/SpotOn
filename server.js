@@ -317,7 +317,7 @@ app.get('/search', function(req, res) {
           console.log("\t TRACK: " + body.tracks.items[i].name + " track_id: " + body.tracks.items[i].id + " artist: " + body.tracks.items[i].artists.name + " artist_id: " + body.tracks.items[i].artists.id);
         }
       } else {
-        data = "DATA: " + error;
+        data = error;
       }
     } else {
       console.log(statusCode + " " + error);
@@ -332,19 +332,19 @@ app.get('/search', function(req, res) {
   // seed_id: seed_artists or seed_tracks
 
   // Add searches to user_id
-  // if (req.session.user_id != null) {    // Requirement: valid user id in session
-  //   db.collection('users').find({user_id: req.session.user_id}).toArray(function(err, result) {
-  //     if (result.length > 0) {
-  //       console.log("User exists: " + db.collection('users').find({user_id: req.session.user_id}));
-  //
-  //       db.collection('users').update({user_id: req.session.user_id})
-  //     }
-  //   } else {
-  //     console.log("User " + req.session.user_id + " does not exist in users collection");
-  //   });
-  // } else {
-  //   console.log("Invalid req.session.user_id");
-  // }
+  if (req.session.user_id != null) {    // Requirement: valid user id in session
+    db.collection('users').find({user_id: req.session.user_id}).toArray(function(err, result) {
+      if (result.length > 0) {
+        console.log("User exists: " + db.collection('users').find({user_id: req.session.user_id}));
+
+        db.collection('users').update({user_id: req.session.user_id})
+      }
+    } else {
+      console.log("User " + req.session.user_id + " does not exist in users collection");
+    });
+  } else {
+    console.log("Invalid req.session.user_id");
+  }
 
 
 
