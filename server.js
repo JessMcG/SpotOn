@@ -432,7 +432,7 @@ app.get('/create_pl', function(req, res, body) {
         // req.session.playlist_id = body.id
         var parsedData = JSON.parse(body);
         var playlist_id = parsedData.id;
-        db.collection('users').findAndModify({query: {user_id: {$eq: user_id}}, update:{playlist_id: playlist_id}, new: 1, upsert: 1}, function(err, result) {
+        db.collection('users').update(query: {user_id: {$eq: user_id}}, update:{playlist_id: playlist_id}, function(err, result){
           console.log(result);
           result = playlist_id
         });
@@ -461,7 +461,7 @@ app.get('/addto_pl', function(req, res) {
     var headers = {
       'Authorization': 'Bearer '+ access_token
     };
-    var body = {"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"]} // dynamically taken from
+    var body = {"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"]} // dynamically taken from search
     var options = {
       url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks?position=0',
       headers: { 'Authorization': 'Bearer ' + access_token },
