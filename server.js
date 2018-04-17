@@ -323,7 +323,7 @@ app.get('/search', function(req, res) {
     }
 
   });
-  res.send(data);
+  res.send("Hello world" + data);
   // TODO: add searches do DB
   // type artist or tracks
   // q: artist_name or song_title
