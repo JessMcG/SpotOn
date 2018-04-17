@@ -152,7 +152,6 @@ app.get('/callback/', function(req, res) {
                 console.log('session ID = '+ req.session.id);
                 console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
-                console.log('search = '+ req.session.search);
                 console.log('dummy playlist = '+ req.session.playlist_id);
                 //redirect to home
                 res.redirect('/');
@@ -433,8 +432,7 @@ app.get('/create_pl', function(req, res, body) {
         // req.session.playlist_id = body.id
         var parsedData = JSON.parse(body);
         var playlist_id = parsedData.id;
-        db.collection('users').update({user_id: user_id},{playlists: {playlist_id: playlist_id}}, function(err, result) {});
-        console.log(result);
+        db.collection('users').update({user_id: user_id},{playlists: {playlist_id: playlist_id}}, function(err, result) {console.log(result);});
         console.log('playlist_id: '+ playlist_id);
       } else {
         console.log('failed: ' + res.statusCode);
