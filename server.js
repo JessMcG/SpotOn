@@ -152,7 +152,8 @@ app.get('/callback/', function(req, res) {
                 console.log('session ID = '+ req.session.id);
                 console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
-                console.log('search '+ req.session.search);
+                console.log('search = '+ req.session.search);
+                console.log('dummy playlist = '+ req.session.playlist_id);
                 //redirect to home
                 res.redirect('/');
               });
@@ -427,12 +428,12 @@ app.get('/create_pl', function(req, res, body) {
     };
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
-        console.log('success ' + res.statusCode + ' ' + body);
+        console.log('success: ' + res.statusCode + ' ' + body);
         // assign the body.id to req.session.playlist_id
         // req.session.playlist_id = body.id
-        console.log('playlist_id '+ body.id);
+        console.log('playlist_id: '+ body.id);
       } else {
-        console.log('failed ' + res.statusCode);
+        console.log('failed: ' + res.statusCode);
       };
     });
   } else {
@@ -460,9 +461,9 @@ app.get('/addto_pl', function(req, res) {
     };
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
-        console.log('success ' + res.statusCode + ' ' + body);
+        console.log('success: ' + res.statusCode + ' ' + body);
       } else {
-        console.log('failed ' + res.statusCode);
+        console.log('failed: ' + res.statusCode);
       };
     });
   } else {
