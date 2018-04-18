@@ -402,7 +402,11 @@ app.get('/seedpl', function(req, res, body) {
 // make GET request to Spotify API for 25 tracks seeded from search
     request.get(options, function(err, res, body) {
       if(!err && res.statusCode === 200){
-// TODO add json response to global variable for use in addto_pl
+
+
+// TODO add json response to db.seed/global for use in addto_pl
+
+
         console.log('success ' + res.statusCode + ' ' + body);
       } else {
         console.log('failed ' + res.statusCode);
@@ -475,6 +479,8 @@ app.get('/addto_pl', function(req, res) {
       };
     });
 
+
+
 /* // TODO: search db and assign output to var uris
 // search db.seed for track uris
     var query = {};
@@ -486,6 +492,8 @@ app.get('/addto_pl', function(req, res) {
       }
     });
 */
+
+
 // tidying var playlist_id into useable string
     var playlist_id_str = new String(playlist_id);
     playlist_id_str = playlist_id_str.slice(47, 77);
