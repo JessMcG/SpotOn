@@ -283,7 +283,7 @@ app.get('/profile_playlists', function(req, res) {
         //Get the details from each playlist and save as a variable
         playlists = body.items;
         for (var i = 0; i < playlists.length; i++) {
-          console.log(playlists[i].images[1].url);
+          console.log(playlists[i].images[0].url);
         }
 
       } else {
