@@ -395,7 +395,7 @@ app.get('/seedpl', function(req, res, body) {
   var options = {
     url: 'https://api.spotify.com/v1/recommendations?'+ querystring,
     headers: { 'Authorization': 'Bearer ' + access_token },
-    query: query
+    query: querystring
     };
     request.get(options, function(err, res, body) {
       if(!err && res.statusCode === 200){
