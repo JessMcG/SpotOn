@@ -395,7 +395,7 @@ app.get('/seedpl', function(req, res, body) {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token
-    },
+    };
   var querystring = ('limit=25' + '&' + searchterm);
   var options = {
     url: 'https://api.spotify.com/v1/recommendations?'+ querystring,
