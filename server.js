@@ -389,7 +389,6 @@ app.get('/seedpl', function(req, res, body) {
         console.log('err: '+err);
       };
     * INSERT DATABASE SEARCH */
-    };
   // build request parameters
   var searchterm = 'seed_tracks=1301WleyT98MSxVHPZCA6m'
   var querystring = ('limit=25' + '&' + searchterm);
