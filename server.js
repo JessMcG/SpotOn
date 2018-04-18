@@ -491,12 +491,10 @@ app.get('/addto_pl', function(req, res) {
     };
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
-        console.log(res);
-        console.log(body);
+        console.log('body: '+body);
         console.log('success: ' + res.statusCode);
       } else {
-        console.log(res);
-        console.log(body);
+        console.log('body: '+body);
         console.log('failed: ' + res.statusCode);
       };
     });
