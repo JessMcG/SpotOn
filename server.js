@@ -379,23 +379,22 @@ app.get('/seedpl', function(req, res, body) {
 
   if(access_token!=null){
     /* INSERT DATABASE SEARCH *
-    db.collection('users').find(qry).toArray, function(err, result, body) {
+    query = {};
+    db.collection('users').find(query).toArray, function(err, result, body) {
       console.log('result: '+result);
       if(!err){
-        console.log('otpt: '+otpt);
-      }
-      else{
+        //~result = searchterm~
+        console.log('otpt: ');
+      }else{
         console.log('err: '+err);
-      }
+      };
     * INSERT DATABASE SEARCH */
     };
   // build request parameters
-  var query = {
-    limit: '25',
-    seed_tracks: '1301WleyT98MSxVHPZCA6m'
-    };
+  var searchterm = 'seed_tracks=1301WleyT98MSxVHPZCA6m'
+  var querystring = ('limit=25' + '&' + searchterm);
   var options = {
-    url: 'https://api.spotify.com/v1/recommendations',
+    url: 'https://api.spotify.com/v1/recommendations?'+ querystring,
     headers: { 'Authorization': 'Bearer ' + access_token },
     query: query
     };
