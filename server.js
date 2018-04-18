@@ -90,6 +90,8 @@ app.get('/callback/', function(req, res) {
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
+  var playlist_id = 'Playlist_idPlaylistErr1'
+  var search = '1301WleyT98MSxVHPZCA6m';
 
   if (state === null || state !== storedState) {
     res.redirect('/#' +
@@ -138,8 +140,6 @@ app.get('/callback/', function(req, res) {
             if (err) throw err;
             //If user_id already exists, update the database
             if (result.length>0){
-              playlist_id = 'Playlist_idPlaylistErr1'
-              search = '1301WleyT98MSxVHPZCA6m';
               db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search: search, playlist_id: playlist_id}, function(err, result) {
                 if (err) throw err;
                 console.log('Saved to Database');
