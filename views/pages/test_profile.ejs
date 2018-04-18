@@ -60,12 +60,26 @@
 						<!-- Dynamically add the user's tracks from Spotify-->
             <% if(tracks){tracks.forEach(function(track) { %>
               <li class="trackOnProfile">
-  							<p><%= track.name %><span>3 min 31</span></p>
+  							<p><%= track.name %><span><%= track.duration_min %></span></p>
   							<div class="playTrackProfile">
   								<img src="img/play.png" alt="play track" />
   							</div>
   						</li>
             <% }); }%>
+					</ol>
+				</div>
+			</div>
+
+			<div class="profileCols">
+				<h1 id="wtf">Recent Searches</h1>
+				<div class="profileSongs">
+					<ol id="recentSearchResults">
+						<!-- Dynamically add the user's searches from Mongo-->
+            <% if(searches){searches.forEach(function(search) { %>
+						<li class="recentSearch">
+							<p><%= search.type %> - <span><%= search.q %></span></p>
+							<div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
+						<% }); }%>
 					</ol>
 				</div>
 			</div>

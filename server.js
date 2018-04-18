@@ -37,6 +37,15 @@ var generateRandomString = function(length) {
   return text;
 };
 
+var msToMins = function(milis) {
+  var minutes = Math.floor(millis / 60000);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+
+  if (seconds == 60) {minutes++};
+  if (seconds < 10) {seconds='0'+seconds};
+  return minutes + ':' + seconds;
+}
+
 var stateKey = 'spotify_auth_state';
 
 var app = express();
@@ -275,13 +284,13 @@ app.get('/profile_playlists', function(req, res) {
 
     // GET Playlists from Spotify
     request.get(options, function(error, response, body) {
-      console.log(body);
       console.log(body.items);
 
       //If no errors from the API request
       if (!error && response.statusCode === 200) {
         //Get the details from each playlist and save as a variable
         playlists = body.items;
+        //TODO Calculate Total Duration of Tracks
         for (var i = 0; i < playlists.length; i++) {
           console.log(playlists[i].images[0].url);
         }
@@ -311,7 +320,6 @@ app.get('/profile_tracks', function(req, res) {
 
     // GET Trackss from Spotify
     request.get(options, function(error, response, body) {
-      console.log(body);
       console.log(body.items);
 
       //If no errors from the API request
@@ -319,7 +327,12 @@ app.get('/profile_tracks', function(req, res) {
         //Get the details from each playlist and save as a variable
         tracks = body.items;
         //TODO Convert milliseconds into minutes:seconds from duration
-
+        for (var i = 0; i < tracks.length; i++) {
+          tracks[i].duration_min = msToMins(tracks[i].duration_ms);
+          console.log(tracks[i].name);
+          console.log(tracks[i].name);
+          console.log(tracks[i].duration_min);
+        }
       } else {
         //Log the error in the console
         console.log(statusCode + " " + error);
