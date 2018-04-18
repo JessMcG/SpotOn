@@ -399,7 +399,7 @@ app.get('/seedpl', function(req, res, body) {
   var querystring = ('limit=25' + '&' + searchterm);
   var options = {
     url: 'https://api.spotify.com/v1/recommendations?'+ querystring,
-    headers: headers
+    headers: headers,
     query: querystring
     };
     request.get(options, function(err, res, body) {
