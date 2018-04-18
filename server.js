@@ -49,6 +49,12 @@ app.use(cookieParser());
 app.use(session({secret: 'rory_and_charlie'}));
 app.set('view engine', 'ejs');
 
+
+/*
+  Log In, Database Creation & Session Creation
+  - Jess McGowan (with Spotify for authorisation)
+*/
+
 //Initialise the database connection
 var db;
 
@@ -216,48 +222,109 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-//Profile Page
+
+/*
+  Profile Page
+  - Jess McGowan
+*/
+
+//Initialising variables for profile
+var searches;
+var display_name;
+var image_url;
+var playlists;
+var tracks;
+
+//Complete the first call for loading profile information from the database
 app.get('/profile', function(req, res) {
   //redirect if not logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
 
   console.log('User ID from Session: ' +req.session.user_id);
 
-  //Initialising variables for profile
-  var searches;
-  var display_name;
-  var image_url;
-  var playlists;
-  var tracks;
+  //Get User Searches from Mongo
+  db.collection('users').find({user_id: user_id}).toArray(function(err, result) {
+    if (err) throw err;
+    //Get user's details from DB
+    if (result.length>0){
+      for (var i = 0; i < result.length; i++) {
+        console.log('Search Results: '+result[i]);
+        searches = result[i].searches;
+        display_name = result[i].display_name;
+        image_url = result[i].image_url;
+      }
+        console.log('Searches: '+searches);
+        console.log('display_name: '+display_name);
+        console.log('image_url: '+image_url);
+      }
 
-  var code = req.query.code || null;
-  var authOptions = {
-    url: 'https://accounts.spotify.com/api/token',
-    form: {
-      code: code,
-      redirect_uri: req.protocol + '://' +req.get('host') + '/callback/',
-      grant_type: 'authorization_code'
-    },
-    headers: {
-      'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
-    },
-    json: true
-  };
+  });
+  //Go to next API call on completion
+  res.redirect('/profile_playlists');
+}
 
-    //Call profile_playlist.js
-    profile_playlist.getPlaylists(req.session.user_id, req.session.access_token);
-    //return playlists
+//Get the user's playlists from Spotify
+app.get('/profile_playlists', function(req, res) {
+  //  Details for the API Call
+  var access_token = req.session.access_token;
 
-    //Call profile_tracks.js
-    profile_tracks.getTracks(req.session.user_id, req.session.access_token);
-    //return tracks
-
-    //Call profile_db.js
-    profile_db.getUser(req.session.user_id);
-    //return display_name, image_url, searches
+  if (access_token != null) {
+    var options = {
+      url: 'https://api.spotify.com/v1/me/playlists',
+      headers: { 'Authorization': 'Bearer ' + access_token },
+      json: true
+    };
 
 
-  //render the template with the content added
+    // GET Playlists from Spotify
+    request.get(options, function(error, response, body) {
+      console.log(body);
+
+      //If no errors from the API request
+      if (!error && response.statusCode === 200) {
+        //Get the details from each playlist and save as a variable
+        playlists = body;
+
+      } else {
+        //Log the error in the console
+        console.log(statusCode + " " + error);
+      }
+    });
+  }
+  //Go to next API call on completion
+  res.redirect('/profile_tracks');
+});
+
+//Get the user's tracks from Spotify
+app.get('/profile_tracks', function(req, res) {
+  //  Details for the API Call
+  var access_token = req.session.access_token;
+
+  if (access_token != null) {
+    var options = {
+      url: 'https://api.spotify.com/v1/me/tracks',
+      headers: { 'Authorization': 'Bearer ' + access_token },
+      json: true
+    };
+
+
+    // GET Playlists from Spotify
+    request.get(options, function(error, response, body) {
+      console.log(body);
+
+      //If no errors from the API request
+      if (!error && response.statusCode === 200) {
+        //Get the details from each playlist and save as a variable
+        playlists = body;
+
+      } else {
+        //Log the error in the console
+        console.log(statusCode + " " + error);
+      }
+    });
+  }
+
+  //render the template with the content added from the previous calls
   res.render('pages/test_profile', {
     display_name: display_name,
     image_url: image_url,
