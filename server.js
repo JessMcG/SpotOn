@@ -261,7 +261,7 @@ app.get('/profile', function(req, res) {
   });
   //Go to next API call on completion
   res.redirect('/profile_playlists');
-}
+});
 
 //Get the user's playlists from Spotify
 app.get('/profile_playlists', function(req, res) {
