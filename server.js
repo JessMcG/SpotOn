@@ -482,17 +482,21 @@ app.get('/addto_pl', function(req, res) {
     // build request parameters
     var headers = {'Authorization': 'Bearer '+ access_token};
     var body = {"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"]} // dynamically taken from seeding
+    var uris = '&uris=spotify%3Atrack%3A4iV5W9uYEdYUVa79Axb7Rh%2Cspotify%3Atrack%3A1301WleyT98MSxVHPZCA6M'
     var options = {
-      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks?position=0',
+      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'//tracks?position=0'+uris,
       headers: { 'Authorization': 'Bearer ' + access_token },
-      body: body,
       method: 'POST',
       json: true
     };
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
+        console.log(res);
+        console.log(body);
         console.log('success: ' + res.statusCode);
       } else {
+        console.log(res);
+        console.log(body);
         console.log('failed: ' + res.statusCode);
       };
     });
