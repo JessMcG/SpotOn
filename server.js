@@ -280,7 +280,7 @@ app.get('/profile_playlists', function(req, res) {
       //If no errors from the API request
       if (!error && response.statusCode === 200) {
         //Get the details from each playlist and save as a variable
-        playlists = body;
+        playlists = body.items;
 
       } else {
         //Log the error in the console
@@ -312,7 +312,8 @@ app.get('/profile_tracks', function(req, res) {
       //If no errors from the API request
       if (!error && response.statusCode === 200) {
         //Get the details from each playlist and save as a variable
-        playlists = body;
+        playlists = body.items;
+        //TODO Convert milliseconds into minutes:seconds from duration
 
       } else {
         //Log the error in the console
