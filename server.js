@@ -282,6 +282,9 @@ app.get('/profile_playlists', function(req, res) {
       if (!error && response.statusCode === 200) {
         //Get the details from each playlist and save as a variable
         playlists = body.items;
+        for (var i = 0; i < playlists.length; i++) {
+          console.log(playlists[i].images[1].url);
+        }
 
       } else {
         //Log the error in the console
