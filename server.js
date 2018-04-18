@@ -376,7 +376,7 @@ app.get('/seedpl', function(req, res, body) {
   // get global access token and user id
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-
+  // check if logged in
   if(access_token!=null){
     /* INSERT DATABASE SEARCH *
     query = {};
@@ -415,6 +415,7 @@ app.get('/create_pl', function(req, res, body) {
   // get global access token and user id
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
+  // check if logged in
   if(access_token!=null){
     // build request parameters
     var headers = {
@@ -454,6 +455,7 @@ app.get('/addto_pl', function(req, res) {
   // get global access token and user id
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
+  // check if logged in
   if(access_token!=null){
     // search db for playlist_id
     var query = {user_id: user_id};
@@ -462,7 +464,7 @@ app.get('/addto_pl', function(req, res) {
         console.log(result);
       } else {
         console.log('No db.find result' +err);
-      }
+      };
     });
 /*
     // (search db)/(parse seed response) for uris for body
