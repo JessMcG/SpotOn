@@ -27,7 +27,7 @@
     <div id="header">
 			<img src=image_url id="profilePicture" alt="User Profile Picture" />
 			<h3><%= display_name %></h3> <!-- Spotify Display Name -->
-			<h4>Playlists - <span>3</span> Songs - <span>19</span></h4>
+			<h4>Playlists - <span><%= playlists.length %></span> Songs - <span>x</span></h4>
 		</div>
 
 		<div id="clear-box">
@@ -40,8 +40,8 @@
 				<!-- Dynamically add the user's playlists from Spotify-->
         <% if(playlists){playlists.forEach(function(playlist) { %>
           <div class="searchResultProfile">
-  					<img class="searchResultImage" src=playlist.images.url />
-  					<h3><%= playlist.name %><br /> <span><%= playlist.tracks.total %></span></h3>
+  					<img class="searchResultImage" src=playlist.images[1].url />
+  					<h3><%= playlist.name %><br /> <span>Tracks: <%= playlist.tracks.total %></span></h3>
   					<div class="addTrackProfile addSearchedTrack">
   						<img src="img/close.png" alt="add track" />
   					</div>
