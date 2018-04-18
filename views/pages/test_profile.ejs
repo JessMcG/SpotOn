@@ -41,7 +41,7 @@
         <% if(playlists){playlists.forEach(function(playlist) { %>
           <div class="searchResultProfile">
   					<img class="searchResultImage" src="<%= playlist.images[0].url %>" />
-  					<h3><%= playlist.name %><br /> <span>Tracks: <%= playlist.tracks.total %></span></h3>
+  					<h3><%= playlist.name %><br /> <span><%= playlist.tracks.total %> songs</span></h3>
   					<div class="addTrackProfile addSearchedTrack">
   						<img src="img/close.png" alt="add track" />
   					</div>

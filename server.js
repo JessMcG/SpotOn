@@ -340,7 +340,12 @@ app.get('/profile_tracks', function(req, res) {
       }
     });
   }
+  //Go to render on completion
+  res.redirect('/profile_page');
+});
 
+//Final profile call
+app.get('/profile_page', function(req, res) {
   //render the template with the content added from the previous calls
   res.render('pages/test_profile', {
     display_name: display_name,
