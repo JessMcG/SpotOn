@@ -454,22 +454,32 @@ app.get('/addto_pl', function(req, res) {
   // get global access token and user id
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  var query = {user_id: user_id};
-  db.collection('users').find(query, {'playlist_id': true}).toArray(function(err, result) {
-    if (result!=null){
-      console.log(result);
-    } else {
-      console.log(result);
-      console.log('No db.find result');
-    }
-  });
   if(access_token!=null){
-    var headers = {
-      'Authorization': 'Bearer '+ access_token
-    };
-    var body = {"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"]} // dynamically taken from search
+    // search db for playlist_id
+    var query = {user_id: user_id};
+    db.collection('users').find(query, {'playlist_id': true}).toArray(function(err, result) {
+      if (result!=null){
+        console.log(result);
+      } else {
+        console.log('No db.find result' +err);
+      }
+    });
+/*
+    // (search db)/(parse seed response) for uris for body
+    var query = {};
+    db.collection('users').find(query).toArray(function(err,result){
+      if (result!=null){
+        console.log(result);
+      } else {
+        console.log('No db.find result' +err);
+      }
+    });
+*/
+    // build request parameters
+    var headers = {'Authorization': 'Bearer '+ access_token};
+    var body = {"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"]} // dynamically taken from seeding
     var options = {
-      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks?position=0',
+      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+'4GtYjwLqmBhPHJmvJmijmL'+'/tracks?position=0',
       headers: { 'Authorization': 'Bearer ' + access_token },
       body: body,
       method: 'POST',
