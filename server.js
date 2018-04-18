@@ -496,8 +496,8 @@ app.get('/addto_pl', function(req, res) {
     };
     var uris = 'spotify%3Atrack%3A4iV5W9uYEdYUVa79Axb7Rh%2Cspotify%3Atrack%3A1301WleyT98MSxVHPZCA6M'  // dynamically picked up from seeding
     var options = {
-      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+'4dXHVSoRU19YNOvRxKH8Xr'+'/tracks?position=0&',
-      //   'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id             +'/tracks?position=0&',
+  //  url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+'playlist_id           '+'/tracks?position=0&'+uris,
+      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+'4dXHVSoRU19YNOvRxKH8Xr'+'/tracks?position=0&uris=spotify%3Atrack%3A4iV5W9uYEdYUVa79Axb7Rh%2Cspotify%3Atrack%3A1301WleyT98MSxVHPZCA6M',
       headers: { 'Authorization': 'Bearer ' + access_token },
       body: uris,
       method: 'POST',
