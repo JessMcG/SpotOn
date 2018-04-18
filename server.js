@@ -240,7 +240,7 @@ app.get('/profile', function(req, res) {
   console.log('User ID from Session: ' +req.session.user_id);
 
   //Get User Searches from Mongo
-  db.collection('users').find({user_id: user_id}).toArray(function(err, result) {
+  db.collection('users').find({user_id: req.session.user_id}).toArray(function(err, result) {
     if (err) throw err;
     //Get user's details from DB
     if (result.length>0){
