@@ -328,7 +328,7 @@ app.get('/profile_tracks', function(req, res) {
         //Get the details from each playlist and save as a variable
         tracks = body.items;
         //TODO Convert milliseconds into minutes:seconds from duration
-        for (var i = 0; i < tracks.track.length; i++) {
+        for (var i = 0; i < tracks.length; i++) {
           tracks[i].track.duration_min = msToMins(tracks[i].track.duration_ms);
           console.log(tracks[i].track.name);
           console.log(tracks[i].track.artists[0].name);
