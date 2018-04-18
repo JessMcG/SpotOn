@@ -492,7 +492,6 @@ app.get('/addto_pl', function(req, res) {
 */
     // neatening up var playlist_id into useable stringify
     var playlist_id_str = new String(playlist_id);
-    [ { _id: 5ad5f118c23e0c0f5abc4443,playlist_id: 'Playlist_idPlaylistErr1' } ]
     playlist_id_str = playlist_id_str.slice(47, 77);
     console.log('playlist_id_str: '+playlist_id_str);
 
