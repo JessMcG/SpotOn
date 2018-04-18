@@ -462,8 +462,7 @@ app.get('/addto_pl', function(req, res) {
     var query = {user_id: user_id};
     db.collection('users').find(query, {'playlist_id': true}).toArray(function(err, result) {
       if (result!=null){
-        console.log(result);
-        playlist_id = result.stringify
+        playlist_id = result
         console.log(playlist_id);
       } else {
         console.log('No db.find result' +err);
