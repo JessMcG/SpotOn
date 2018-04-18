@@ -484,8 +484,9 @@ app.get('/addto_pl', function(req, res) {
     var uris = '&uris=spotify%3Atrack%3A4iV5W9uYEdYUVa79Axb7Rh%2Cspotify%3Atrack%3A1301WleyT98MSxVHPZCA6M'  // dynamically picked up from seeding
     console.log(playlist_id);
     var options = {
-      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+'4dXHVSoRU19YNOvRxKH8Xr'+'//tracks?position=0'+uris,
+      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+'4dXHVSoRU19YNOvRxKH8Xr'+'/tracks?position=0',
       headers: { 'Authorization': 'Bearer ' + access_token },
+      body: uris,
       method: 'POST',
       json: true
     };
