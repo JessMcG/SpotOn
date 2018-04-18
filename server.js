@@ -378,7 +378,8 @@ app.get('/seedpl', function(req, res, body) {
   var user_id = req.session.user_id;
   // check if logged in
   if(access_token!=null){
-    /* INSERT DATABASE SEARCH *
+
+/* TODO INSERT DATABASE SEARCH *
     query = {};
     db.collection('users').find(query).toArray, function(err, result, body) {
       console.log('result: '+result);
@@ -388,7 +389,8 @@ app.get('/seedpl', function(req, res, body) {
       }else{
         console.log('err: '+err);
       };
-    * INSERT DATABASE SEARCH */
+*/
+
   // build request parameters
   var searchterm = 'seed_tracks=1301WleyT98MSxVHPZCA6m'
   var headers = {
@@ -496,8 +498,8 @@ app.get('/addto_pl', function(req, res) {
     };
     var uris = 'spotify%3Atrack%3A4iV5W9uYEdYUVa79Axb7Rh%2Cspotify%3Atrack%3A1301WleyT98MSxVHPZCA6M'  // dynamically picked up from seeding
     var options = {
-  //  url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+'playlist_id           '+'/tracks?position=0&'+uris,
-      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+'4dXHVSoRU19YNOvRxKH8Xr'+'/tracks?position=0&uris=spotify%3Atrack%3A4iV5W9uYEdYUVa79Axb7Rh%2Cspotify%3Atrack%3A1301WleyT98MSxVHPZCA6M',
+  //  url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+'playlist_id           '+'/tracks?position=0&uris='+uris,
+      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+'4dXHVSoRU19YNOvRxKH8Xr'+'/tracks?position=0&uris='+uris,
       headers: { 'Authorization': 'Bearer ' + access_token },
       body: uris,
       method: 'POST',
@@ -505,10 +507,10 @@ app.get('/addto_pl', function(req, res) {
     };
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
-        console.log('body: '+body);
+        var parsedData = JSON.parse(body);
         console.log('success: ' + res.statusCode);
+        //console.log('songs added '+ uris);
       } else {
-        console.log('body: '+body);
         console.log('failed: ' + res.statusCode);
       };
     });
