@@ -90,7 +90,7 @@ app.get('/callback/', function(req, res) {
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
-  var playlist_id = 'Playlist_idPlaylistErr1'
+  var playlist_id = '4dXHVSoRU19YNOvRxKH8Xr'
   var search = '1301WleyT98MSxVHPZCA6m';
 
   if (state === null || state !== storedState) {
@@ -140,7 +140,7 @@ app.get('/callback/', function(req, res) {
             if (err) throw err;
             //If user_id already exists, update the database
             if (result.length>0){
-              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search: search, playlist_id: playlist_id}, function(err, result) {
+              db.collection('users').update({$eq: {user_id: body.id}},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, search: search, playlist_id: playlist_id}, function(err, result) {
                 if (err) throw err;
                 console.log('Saved to Database');
                 //add user details to current Session
@@ -443,6 +443,7 @@ app.get('/create_pl', function(req, res, body) {
         // parse and save playlist_id to db
         var parsedData = JSON.parse(body);
         var playlist_id = parsedData.id;
+        console.log(playlist_id);
         var query = {user_id: user_id};
         var newval = {$set:{playlist_id: playlist_id}};
         db.collection('users').update(query, newval, function(err, result){
@@ -489,6 +490,11 @@ app.get('/addto_pl', function(req, res) {
       }
     });
 */
+    // neatening up var playlist_id into useable stringify
+    var playlist_id_str = new String(playlist_id);
+    [ { _id: 5ad5f118c23e0c0f5abc4443,playlist_id: 'Playlist_idPlaylistErr1' } ]
+    playlist_id_str = playlist_id_str.slice(47, 77);
+    console.log('playlist_id_str: '+playlist_id_str);
 
     // build request parameters
     var headers = {
@@ -496,11 +502,10 @@ app.get('/addto_pl', function(req, res) {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer '+ access_token
     };
+    console.log(playlist_id_str);
     var uris = 'spotify%3Atrack%3A4iV5W9uYEdYUVa79Axb7Rh%2Cspotify%3Atrack%3A1301WleyT98MSxVHPZCA6M'  // dynamically picked up from seeding
-    console.log(playlist_id);
     var options = {
-  //  url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+'4dXHVSoRU19YNOvRxKH8Xr'+'/tracks?position=0&uris='+uris,
-      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id           +'/tracks?position=0&uris='+uris,
+      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+'4dXHVSoRU19YNOvRxKH8Xr'+'/tracks?position=0&uris='+uris,
       headers: { 'Authorization': 'Bearer ' + access_token },
       body: uris,
       method: 'POST',
