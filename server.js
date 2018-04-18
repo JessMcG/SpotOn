@@ -334,6 +334,7 @@ app.get('/profile_tracks', function(req, res) {
           console.log(tracks[i].track.artists[0].name);
           console.log(tracks[i].track.duration_min);
         }
+        console.log('Tracks Length: '+tracks.length);
       } else {
         //Log the error in the console
         console.log(statusCode + " " + error);
