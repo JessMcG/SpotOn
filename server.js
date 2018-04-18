@@ -507,7 +507,6 @@ app.get('/addto_pl', function(req, res) {
     };
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
-        var parsedData = JSON.parse(body);
         console.log('success: ' + res.statusCode);
         //console.log('songs added '+ uris);
       } else {
