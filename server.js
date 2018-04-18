@@ -37,9 +37,10 @@ var generateRandomString = function(length) {
   return text;
 };
 
+//Converting miliseconds to minutes:seconds for track durations
 var msToMins = function(milis) {
-  var minutes = Math.floor(millis / 60000);
-  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  var minutes = Math.floor(milis / 60000);
+  var seconds = ((milis % 60000) / 1000).toFixed(0);
 
   if (seconds == 60) {minutes++};
   if (seconds < 10) {seconds='0'+seconds};
