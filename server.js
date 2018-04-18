@@ -455,8 +455,7 @@ app.get('/addto_pl', function(req, res) {
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
   var query = {user_id: user_id};
-  var proj = {playlist_id: true};
-  db.collection('users').find(query, proj).toArray(function(err, result) {
+  db.collection('users').find(query, {playlist_id: true}).toArray(function(err, result) {
     if (result!=null){
       console.log(result);
     } else {
