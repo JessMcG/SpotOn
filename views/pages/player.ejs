@@ -58,8 +58,9 @@
 					</div>
 
 					<div id="trackDetails">
-						<h2>Imagine Dragons <%= playlist_tracks[0].track.artists[0].name %></h2>
-						<p>Roots <%= playlist_tracks[0].track.name %></p>
+						<!-- Load the details from the first track into the player -->
+						<h2><%= playlist_tracks[0].track.artists[0].name %></h2>
+						<p><%= playlist_tracks[0].track.name %></p>
 					</div>
 
 					<div id="playTrackButton">
@@ -79,12 +80,12 @@
 			<div class="profileCols">
 
 				<h2>Tracks</h2>
-
 				<div id="profileSongs">
 					<ol>
-						<!-- Dynamically add the user's tracks from Spotify-->
+						<!-- Dynamically add the playlist's tracks from Spotify-->
             <% if(playlist_tracks){playlist_tracks.forEach(function(track) { %>
               <li class="trackOnProfile">
+								<!--Track Title - Track Artist mins:secs -->
   							<p><%= track.track.name %> - <%= track.track.artists[0].name %><span><%= track.track.duration_min %></span></p>
   							<div class="playTrackProfile">
   								<img src="img/play.png" alt="play track" />
@@ -92,20 +93,13 @@
   						</li>
             <% }); }%>
 					</ol>
-
 				</div>
-
 			</div>
-
 		</div>
 
 
 		<div id="footer">
-
-
-
 		</div>
-
 	</div>
 </body>
 </html>
