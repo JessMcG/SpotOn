@@ -402,8 +402,8 @@ app.get('/seedpl', function(req, res, body) {
       'Authorization': 'Bearer ' + access_token
     };
     var query = {
-      'limit': '25'
-      'seed_tracks': querystring
+      limit: '25'
+      seed_tracks: querystring
     };
     var options = {
       url: 'https://api.spotify.com/v1/recommendations?limit=25',
