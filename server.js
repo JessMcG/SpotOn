@@ -376,7 +376,7 @@ app.get('/seedpl', function(req, res, body) {
 // get global access token and user id
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  var querystring = '';
+  var tracks = '';
 // check if logged in
   if(access_token!=null){
 // query db for search term
@@ -389,7 +389,7 @@ app.get('/seedpl', function(req, res, body) {
         var result_str = new String(result);
         result_str = result_str.slice(18, 43);
         console.log('playlist_id_str: '+ result_str);
-        querystring = result_str;
+        tracks = result_str;
         console.log('querystring: '+ querystring);
       } else {
         console.log('No db.find result' +err);
@@ -401,14 +401,11 @@ app.get('/seedpl', function(req, res, body) {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token
     };
-    var query = {
-      limit: '25'
-      seed_tracks: querystring
-    };
+    var querystring = 'limit=25' + tracks
     var options = {
-      url: 'https://api.spotify.com/v1/recommendations?limit=25',
+      url: 'https://api.spotify.com/v1/recommendations',
       headers: headers,
-      query: query
+      query: querystring
     };
 // make GET request to Spotify API for 25 tracks seeded from search
     request.get(options, function(err, res, body) {
