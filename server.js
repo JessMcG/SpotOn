@@ -384,6 +384,7 @@ app.get('/seedpl', function(req, res, body) {
     var proj = {'search': true};
     db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
+// TODO format json response and attach to querystring
         console.log('result: '+ result);
         var result_str = new String(result);
         result_str = result_str.slice(18, 43);
@@ -400,10 +401,14 @@ app.get('/seedpl', function(req, res, body) {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token
     };
+    var query = {
+      'limit': '25'
+      'seed_tracks': querystring
+    };
     var options = {
-      url: 'https://api.spotify.com/v1/recommendations',
+      url: 'https://api.spotify.com/v1/recommendations?limit=25',
       headers: headers,
-      query: querystring
+      query: query
     };
 // make GET request to Spotify API for 25 tracks seeded from search
     request.get(options, function(err, res, body) {
