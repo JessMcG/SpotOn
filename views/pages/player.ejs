@@ -11,6 +11,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="js/script.js"></script>
+	<script src="js/script2.js"></script>
 </head>
 <body>
 
@@ -46,13 +47,14 @@
 		<div id="profileInfo">
 
 			<div class="profileCols">
+				<% var t = 0; %>
 				<h2><%= playlist_name %></h2>
 
 				<div id="musicPlayer">
 					<div id="coverArtBlured">
-						<img class=album_art_blur src="<%= playlist_tracks[0].track.album.images[0].url %>" />
+						<img class=album_art_blur src="<%= playlist_tracks[t].track.album.images[0].url %>" />
 						<div id="coverArtBluredInner">
-							<img class=album_art src="<%= playlist_tracks[0].track.album.images[0].url %>" />
+							<img class=album_art src="<%= playlist_tracks[t].track.album.images[0].url %>" />
 						</div>
 					</div>
 

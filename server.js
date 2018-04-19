@@ -142,13 +142,23 @@ app.get('/callback/', function(req, res) {
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           console.log(body);
+
+          //if user does not have a display name (i.e. not connected to facebook), use profile id
           if(body.display_name!=null){
             var display_name = body.display_name;
           }
           else {
             var display_name = body.id;
           }
-          var image_url = body.images.url;
+
+          //if user has no profile image, use default blank image
+          if(body.image_url!=null){
+            var image_url = body.images.url;
+          }
+          else {
+            var image_url = 'img/profile_blank.png';
+          }
+
           //Search database for the current user ID
           db.collection('users').find({user_id: body.id}).toArray(function(err, result) {
             if (err) throw err;
