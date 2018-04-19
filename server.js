@@ -285,14 +285,14 @@ app.get('/profile_playlists', function(req, res) {
 
     // GET Playlists from Spotify
     request.get(options, function(error, response, body) {
-      console.log(body.items);
+      //console.log(body.items);
 
       //If no errors from the API request
       if (!error && response.statusCode === 200) {
         //Get the details from each playlist and save as a variable
         playlists = body.items;
-        //TODO Calculate Total Duration of Tracks
         for (var i = 0; i < playlists.length; i++) {
+
           console.log(playlists[i].images[0].url);
         }
 
@@ -321,13 +321,12 @@ app.get('/profile_tracks', function(req, res) {
 
     // GET Trackss from Spotify
     request.get(options, function(error, response, body) {
-      console.log(body.items);
+      //console.log(body.items);
 
       //If no errors from the API request
       if (!error && response.statusCode === 200) {
         //Get the details from each playlist and save as a variable
         tracks = body.items;
-        //TODO Convert milliseconds into minutes:seconds from duration
         for (var i = 0; i < tracks.length; i++) {
           tracks[i].track.duration_min = msToMins(tracks[i].track.duration_ms);
           console.log(tracks[i].track.name);
@@ -356,6 +355,61 @@ app.get('/profile_page', function(req, res) {
     tracks: tracks
   });
 
+});
+
+//Setting up variable to store playlist Tracks
+var playlist_tracks;
+var playlist_name;
+
+//Send Playlists to Media player
+app.get('/play_playlist', function(req, res) {
+  //collect passed variables from url
+  var user = req.query.user;
+  var playlist_id = req.query.uri;
+  playlist_name = req.query.name;
+  var access_token = req.session.access_token;
+
+  if (access_token != null) {
+    var options = {
+      url: 'https://api.spotify.com/v1/users/'+user+'/playlists/'+playlist_id+'/tracks',
+      headers: { 'Authorization': 'Bearer ' + access_token },
+      json: true
+    };
+
+
+    // GET Playlist tracks from Spotify
+    request.get(options, function(error, response, body) {
+      console.log(body.items);
+
+      //If no errors from the API request
+      if (!error && response.statusCode === 200) {
+        //Get the details from each playlist and save as a variable
+        playlist_tracks = body.items;
+        for (var i = 0; i < playlist_tracks.length; i++) {
+          playlist_tracks[i].track.duration_min = msToMins(playlist_tracks[i].track.duration_ms);
+          console.log(playlist_tracks[i].track.name);
+          console.log(playlist_tracks[i].track.duration_min);
+        }
+
+      } else {
+        //Log the error in the console
+        console.log(statusCode + " " + error);
+      }
+    });
+  }
+  //Go to next API call on completion
+  res.redirect('/media_player');
+});
+
+app.get('/media_player', function(req, res) {
+  res.render('pages/player', {
+    playlist_tracks: playlist_tracks,
+    playlists: playlists,
+    image_url: image_url,
+    display_name: display_name,
+    tracks: tracks,
+    playlist_name: playlist_name
+  });
 });
 
 /**
