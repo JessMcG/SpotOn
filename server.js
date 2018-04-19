@@ -337,11 +337,13 @@ app.get('/profile_tracks', function(req, res) {
       } else {
         //Log the error in the console
         console.log(statusCode + " " + error);
+        //If error print error
+        res.send(statusCode + " " + error);
       }
+      //Go to render on completion
+      res.redirect('/profile_page');
     });
   }
-  //Go to render on completion
-  res.redirect('/profile_page');
 });
 
 //Final profile call
@@ -387,8 +389,6 @@ app.get('/play_playlist', function(req, res) {
         playlist_tracks = body.items;
         for (var i = 0; i < playlist_tracks.length; i++) {
           playlist_tracks[i].track.duration_min = msToMins(playlist_tracks[i].track.duration_ms);
-          console.log(playlist_tracks[i].track.name);
-          console.log(playlist_tracks[i].track.duration_min);
         }
 
       } else {
