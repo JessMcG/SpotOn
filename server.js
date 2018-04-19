@@ -332,22 +332,20 @@ app.get('/search', function(req, res) {
   // seed_id: seed_artists or seed_tracks
 
   // Add searches to user_id
-  var query = {user_id: user_id};
-  var proj = {"searches": true};
-  db.collection('users').find(query, proj).toArray(function(err, result) {
-    if (result != null) {
-      playlist_id = result;
-      console.log(playlist_id);
-    } else {
-      console.log("No db.find result" + err);
-    }
-  });
+  var current_user = req.session.user_id;
+  var query = {user_id: current_user};
+  var proj = {"user_id": true};
+  // db.collection('users').find(query, proj).toArray(function(err, result) {
+  //   if (result != null) {
+  //     playlist_id = result;
+  //     console.log(playlist_id);
+  //   } else {
+  //     console.log("No db.find result" + err);
+  //   }
+  // });
 
-
-
-  var user_id = req.session.user_id;
   if (user_id != null) {    // Requirement: valid user id in session
-    db.collection('users').find({user_id: user_id}).toArray(function(err, result) {
+    db.collection('users').find(query).toArray(function(err, result) {
       if (result.length > 0) {
         console.log("User exists: " + result.user_id);
 
