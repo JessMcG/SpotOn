@@ -20,7 +20,10 @@ document.addEventListener('keydown', function(e) {
     konamiCodePosition++;
     if (konamiCodePosition == konamiCode.length) {
 
-      $("#konami").css({"background": "url(img/cantina_band.gif) center", "background-size": "cover", "position": "absolute", "bottom": "0", "right": "0", "z-index": "522", "height": "200px", "width": "500px" });
+      $("#konami").css({"background": "url(img/cantina_band.gif) center",
+      "background-size": "cover", "position": "absolute",
+      "bottom": "0", "right": "0", "z-index": "522",
+      "height": "200px", "width": "500px" });
 
       var audio = new Audio('mp3/cantina.mp3');
       audio.play();
