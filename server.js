@@ -376,6 +376,7 @@ app.get('/seedpl', function(req, res, body) {
 // get global access token and user id
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
+  var searchterm = '';
 // check if logged in
   if(access_token!=null){
 // query db for search term
