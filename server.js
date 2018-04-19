@@ -1,4 +1,3 @@
-<<<<<<< current
 //Login function obtained from https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
 
 var express = require('express'); // Express web server framework
