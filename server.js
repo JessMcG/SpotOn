@@ -407,9 +407,8 @@ app.get('/seedpl', function(req, res, body) {
       if(!err && res.statusCode === 200){
 // TODO add json response to db.seed/global for use in addto_pl
         console.log('body: '+ body);
-
         var qry = {user_id: user_id};
-        var newval = {tracks: {body};
+        var newval = {tracks: body};
         db.collection('seed').update(qry, newval, function(err, result){
           if(err)throw err;
           console.log('db .update res: '+ result);
