@@ -320,7 +320,7 @@ app.get('/search', function(req, res) {
         data = error;
       }
     } else {
-      console.log(statusCode + " " + error);
+      console.log(response.statusCode + " " + error);
     }
 
   });
