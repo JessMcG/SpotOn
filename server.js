@@ -380,7 +380,8 @@ app.get('/seedpl', function(req, res, body) {
   if(access_token!=null){
 // query db for search term
     var query = {user_id: user_id};
-    db.collection('users').find(query, {'search': true}).toArray(function(err, result) {
+    var proj = {'search': true};
+    db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
         searchterm = result
         console.log(searchterm);
@@ -394,8 +395,10 @@ app.get('/seedpl', function(req, res, body) {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token
     };
+  var querystring = searchterm;
+  console.log('querystring: '+ querystring);
   var options = {
-    url: 'https://api.spotify.com/v1/recommendations?',
+    url: 'https://api.spotify.com/v1/recommendations',
     headers: headers,
     query: querystring
     };
@@ -475,7 +478,8 @@ app.get('/addto_pl', function(req, res) {
 // search db for user_id's playlist_id
     var playlist_id = '';
     var query = {user_id: user_id};
-    db.collection('users').find(query, {'playlist_id': true}).toArray(function(err, result) {
+    var proj = {'playlist_id': true};
+    db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
         playlist_id = result
         console.log(playlist_id);
@@ -483,24 +487,17 @@ app.get('/addto_pl', function(req, res) {
         console.log('No db.find result' +err);
       };
     });
-
-
-
- // TODO: search db for seed and assign output to var uris
-// search db.seed for track uris
-
-
-    var query = {};
-    db.collection('seed').find(query).toArray(function(err,result){
+// search db for track uris
+    var searchterm = '';
+    var proj = {'search': true};
+    db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
-        console.log(result);
+        searchterm = result
+        console.log(searchterm);
       } else {
         console.log('No db.find result' +err);
-      }
+      };
     });
-*/
-
-
 // tidying var playlist_id into useable string
     var playlist_id_str = new String(playlist_id);
     playlist_id_str = playlist_id_str.slice(47, 77);
@@ -513,7 +510,7 @@ app.get('/addto_pl', function(req, res) {
     };
     var uris = 'spotify%3Atrack%3A4iV5W9uYEdYUVa79Axb7Rh%2Cspotify%3Atrack%3A1301WleyT98MSxVHPZCA6M'  // dynamically picked up from seeding
     var options = {
-      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+'4dXHVSoRU19YNOvRxKH8Xr'+'/tracks?position=0&uris='+uris,
+      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id_str+'/tracks?position=0&uris='+uris,
       headers: { 'Authorization': 'Bearer ' + access_token },
       body: uris,
       method: 'POST',
