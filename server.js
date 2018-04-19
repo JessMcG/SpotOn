@@ -376,7 +376,7 @@ app.get('/seedpl', function(req, res, body) {
 // get global access token and user id
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  var searchterm = '';
+  var querystring = '';
 // check if logged in
   if(access_token!=null){
 // query db for search term
@@ -384,24 +384,22 @@ app.get('/seedpl', function(req, res, body) {
     var proj = {'search': true};
     db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
-        searchterm = result
+        querystring = result;
         console.log('searchterm: '+ searchterm);
       } else {
         console.log('No db.find result' +err);
       };
     });
 // build request options
-  var headers = {
+    var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token
     };
-  var querystring = searchterm;
-  console.log('querystring: '+ querystring);
-  var options = {
-    url: 'https://api.spotify.com/v1/recommendations',
-    headers: headers,
-    query: querystring
+    var options = {
+      url: 'https://api.spotify.com/v1/recommendations',
+      headers: headers,
+      query: querystring
     };
 // make GET request to Spotify API for 25 tracks seeded from search
     request.get(options, function(err, res, body) {
@@ -425,6 +423,7 @@ app.get('/seedpl', function(req, res, body) {
   };
 });
 
+/*
 app.get('/create_pl', function(req, res, body) {
   console.log('Start Creating Playlist');
 // get global access token and user id
@@ -467,6 +466,7 @@ app.get('/create_pl', function(req, res, body) {
     console.log('login required');
   };
 });
+*/
 
 app.get('/addto_pl', function(req, res) {
   console.log('Adding To Playlist');
