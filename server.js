@@ -395,10 +395,11 @@ app.get('/play_playlist', function(req, res) {
         //Log the error in the console
         console.log(statusCode + " " + error);
       }
+      //Go to next API call on completion
+      res.redirect('/media_player');
     });
   }
-  //Go to next API call on completion
-  res.redirect('/media_player');
+
 });
 
 app.get('/media_player', function(req, res) {
