@@ -384,9 +384,8 @@ app.get('/seedpl', function(req, res, body) {
     var proj = {'search': true};
     db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
-        var parsedData = JSON.parse(result);
-        console.log(parsedData);
-        querystring = parsedData;
+        console.log(result);
+        querystring = result;
         console.log('querystring: '+ querystring);
       } else {
         console.log('No db.find result' +err);
