@@ -58,8 +58,8 @@
 					</div>
 
 					<div id="trackDetails">
-						<h2>Imagine Dragons</h2>
-						<p>Roots</p>
+						<h2>Imagine Dragons <%= playlist_tracks[0].track.artists[0].name %></h2>
+						<p>Roots <%= playlist_tracks[0].track.name %></p>
 					</div>
 
 					<div id="playTrackButton">
@@ -90,7 +90,7 @@
   								<img src="img/play.png" alt="play track" />
   							</div>
   						</li>
-            <% }); }%>						
+            <% }); }%>
 					</ol>
 
 				</div>
