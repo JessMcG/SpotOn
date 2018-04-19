@@ -384,6 +384,7 @@ app.get('/seedpl', function(req, res, body) {
     var proj = {'search': true};
     db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
+        console.log('result: '+ result);
         var result_str = new String(result);
         result_str = result_str.slice(18, 43);
         console.log('playlist_id_str: '+ result_str);
