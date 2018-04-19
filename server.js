@@ -384,8 +384,10 @@ app.get('/seedpl', function(req, res, body) {
     var proj = {'search': true};
     db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
-        console.log(result);
-        querystring = result;
+        var result_str = new String(result);
+        result_str = result_str.slice(18, 43);
+        console.log('playlist_id_str: '+ result_str);
+        querystring = result_str;
         console.log('querystring: '+ querystring);
       } else {
         console.log('No db.find result' +err);
@@ -488,6 +490,10 @@ app.get('/addto_pl', function(req, res) {
         console.log('No db.find result' +err);
       };
     });
+// tidying var playlist_id into useable string
+    var playlist_id_str = new String(playlist_id);
+    playlist_id_str = playlist_id_str.slice(47, 77);
+    console.log('playlist_id_str: '+playlist_id_str);
 // search db for track uris
     var searchterm = '';
     var proj = {'search': true};
@@ -499,10 +505,6 @@ app.get('/addto_pl', function(req, res) {
         console.log('No db.find result' +err);
       };
     });
-// tidying var playlist_id into useable string
-    var playlist_id_str = new String(playlist_id);
-    playlist_id_str = playlist_id_str.slice(47, 77);
-    console.log('playlist_id_str: '+playlist_id_str);
 // build request options
     var headers = {
       'Accept': 'application/json',
