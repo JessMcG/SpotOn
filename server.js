@@ -345,9 +345,9 @@ app.get('/search', function(req, res) {
   // });
 
   if (current_user != null) {    // Requirement: valid user id in session
-    db.collection('users').find(query).toArray(function(err, result) {
+    db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result.length > 0) {
-        console.log("User exists: " + result.user_id);
+        console.log("User exists: " + result[0]);
 
         //db.collection('users').update({user_id: req.session.user_id})
       } else {
