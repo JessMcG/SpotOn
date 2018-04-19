@@ -344,7 +344,7 @@ app.get('/search', function(req, res) {
   //   }
   // });
 
-  if (user_id != null) {    // Requirement: valid user id in session
+  if (current_user != null) {    // Requirement: valid user id in session
     db.collection('users').find(query).toArray(function(err, result) {
       if (result.length > 0) {
         console.log("User exists: " + result.user_id);
