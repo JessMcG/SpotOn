@@ -156,7 +156,7 @@ app.get('/callback/', function(req, res) {
             var image_url = body.images.url;
           }
           else {
-            var image_url = '../public/img/profile_blank.png';
+            var image_url = '../img/profile_blank.png';
           }
 
           //Search database for the current user ID
@@ -301,11 +301,7 @@ app.get('/profile_playlists', function(req, res) {
       if (!error && response.statusCode === 200) {
         //Get the details from each playlist and save as a variable
         playlists = body.items;
-        for (var i = 0; i < playlists.length; i++) {
-
-          console.log(playlists[i].images[0].url);
-        }
-
+        
       } else {
         //Log the error in the console
         console.log(statusCode + " " + error);
@@ -339,9 +335,9 @@ app.get('/profile_tracks', function(req, res) {
         tracks = body.items;
         for (var i = 0; i < tracks.length; i++) {
           tracks[i].track.duration_min = msToMins(tracks[i].track.duration_ms);
-          console.log(tracks[i].track.name);
+          /*console.log(tracks[i].track.name);
           console.log(tracks[i].track.artists[0].name);
-          console.log(tracks[i].track.duration_min);
+          console.log(tracks[i].track.duration_min);*/
         }
         console.log('Tracks Length: '+tracks.length);
       } else {
