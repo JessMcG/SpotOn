@@ -385,7 +385,7 @@ app.get('/seedpl', function(req, res, body) {
     db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
         searchterm = result
-        console.log(searchterm);
+        console.log('searchterm: '+ searchterm);
       } else {
         console.log('No db.find result' +err);
       };
