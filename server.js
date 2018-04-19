@@ -384,13 +384,17 @@ app.get('/seedpl', function(req, res, body) {
     var proj = {'search': true};
     db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
+
 // TODO format json response and attach to querystring
         console.log('result: '+ result);
         var result_str = new String(result);
         result_str = result_str.slice(18, 43);
         console.log('playlist_id_str: '+ result_str);
         tracks = result_str;
-        console.log('querystring: '+ querystring);
+        console.log('querystring: '+ tracks);
+
+        getTracks(tracks){}
+//
       } else {
         console.log('No db.find result' +err);
       };
@@ -410,15 +414,19 @@ app.get('/seedpl', function(req, res, body) {
 // make GET request to Spotify API for 25 tracks seeded from search
     request.get(options, function(err, res, body) {
       if(!err && res.statusCode === 200){
-// TODO add json response to db.seed/global for use in addto_pl
+
+// TODO add json response to db for use in addto_pl
         console.log('body: '+ body);
         var qry = {user_id: user_id};
-        var newval = {tracks: body};
-        db.collection('seed').update(qry, newval, function(err, result){
+        var newval = {$addToSet: {"searches": [{"query":body}, {"type": "artist"}]}};
+//
+        db.collection('users').update(qry, newval, {upsert: true}, function(err, result){
           if(err)throw err;
           console.log('db .update res: '+ result);
-        });
-
+          });
+        } else {
+          console.log('failed: ' + res.statusCode);
+        };
         console.log('success ' + res.statusCode + ' ' + body);
       } else {
         console.log('failed ' + res.statusCode);
@@ -497,13 +505,14 @@ app.get('/addto_pl', function(req, res) {
     var playlist_id_str = new String(playlist_id);
     playlist_id_str = playlist_id_str.slice(47, 77);
     console.log('playlist_id_str: '+playlist_id_str);
-// search db for track uris
-    var searchterm = '';
-    var proj = {'search': true};
+// search db for seed tracks
+    var query = {user_id: user_id};
+    var proj = {/*LOCATION OF SEEDED TRACKS: true*/};
     db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
-        searchterm = result
-        console.log(searchterm);
+        console.log(result);
+// TODO attach result to tracks
+//
       } else {
         console.log('No db.find result' +err);
       };
@@ -514,9 +523,9 @@ app.get('/addto_pl', function(req, res) {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer '+ access_token
     };
-    var uris = 'spotify%3Atrack%3A4iV5W9uYEdYUVa79Axb7Rh%2Cspotify%3Atrack%3A1301WleyT98MSxVHPZCA6M'  // dynamically picked up from seeding
+    var tracks = 'spotify%3Atrack%3A4iV5W9uYEdYUVa79Axb7Rh%2Cspotify%3Atrack%3A1301WleyT98MSxVHPZCA6M'  // dynamically picked up from seeding
     var options = {
-      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id_str+'/tracks?position=0&uris='+uris,
+      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id_str+'/tracks?position=0&uris='+tracks,
       headers: { 'Authorization': 'Bearer ' + access_token },
       body: uris,
       method: 'POST',
