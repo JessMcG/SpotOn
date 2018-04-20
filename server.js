@@ -156,7 +156,7 @@ app.get('/callback/', function(req, res) {
             var image_url = body.images.url;
           }
           else {
-            var image_url = '../img/profile_blank.png';
+            var image_url = 'img/profile_blank.png';
           }
 
           //Search database for the current user ID
