@@ -302,6 +302,11 @@ app.get('/profile_playlists', function(req, res) {
         //Get the details from each playlist and save as a variable
         playlists = body.items;
         console.log(body.items);
+        for (var i = 0; i < playlists.length; i++) {
+          if(typeof playlists[i].images[0].url == undefined){
+            playlists[i].images[0].url = 'img/blank.png';
+          }
+        }
 
       } else {
         //Log the error in the console
