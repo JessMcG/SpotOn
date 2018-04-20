@@ -381,7 +381,7 @@ app.get('/play_playlist', function(req, res) {
 
   if (access_token != null) {
     var options = {
-      url: 'https://api.spotify.com/v1/users/'+user+'/playlists/'+playlist_id+'/tracks',
+      url: 'https://api.spotify.com/v1/users/'+playlist_owner+'/playlists/'+playlist_id+'/tracks',
       headers: { 'Authorization': 'Bearer ' + access_token },
       json: true
     };
