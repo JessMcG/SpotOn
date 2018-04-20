@@ -368,12 +368,14 @@ app.get('/profile_page', function(req, res) {
 //Setting up variable to store playlist Tracks
 var playlist_tracks;
 var playlist_name;
+var playlist_owner;
+var playlist_id;
 
 //Send Playlists to Media player
 app.get('/play_playlist', function(req, res) {
   //collect passed variables from url
-  var user = req.query.user;
-  var playlist_id = req.query.uri;
+  playlist_owner = req.query.user;
+  playlist_id = req.query.uri;
   playlist_name = req.query.name;
   var access_token = req.session.access_token;
 
@@ -411,6 +413,8 @@ app.get('/play_playlist', function(req, res) {
 app.get('/media_player', function(req, res) {
   res.render('pages/player', {
     playlist_tracks: playlist_tracks,
+    playlist_id: playlist_id,
+    playlist_owner: playlist_owner,
     playlists: playlists,
     image_url: image_url,
     display_name: display_name,

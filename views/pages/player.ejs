@@ -51,7 +51,10 @@
 				<h2><%= playlist_name %></h2>
 
 				<div id="musicPlayer">
-					<div id="coverArtBlured">
+
+					<iframe src="https://open.spotify.com/embed?uri=spotify:user:'+<%= playlist_owner %>+':playlist:'+<%= playlist_id %>+'788MOXyTfcUb1tdw4oC7KJ&view=coverart"
+        frameborder="0" allow="encrypted-media" allowtransparency="true"></iframe>
+					<!--<div id="coverArtBlured">
 						<img class=album_art_blur src="<%= playlist_tracks[t].track.album.images[0].url %>" />
 						<div id="coverArtBluredInner">
 							<img class=album_art src="<%= playlist_tracks[t].track.album.images[0].url %>" />
@@ -63,7 +66,7 @@
 
 					<div id="trackDetails">
 						<!-- Load the details from the first track into the player -->
-						<h2><%= playlist_tracks[0].track.artists[0].name %></h2>
+						<!--<h2><%= playlist_tracks[0].track.artists[0].name %></h2>
 						<p><%= playlist_tracks[0].track.name %></p>
 					</div>
 
@@ -78,9 +81,13 @@
 					<div class="nextPrevButtons nextPos">
 						<img src="img/next.png" alt="close" />
 					</div>
+					-->
 
 				</div>
+
 			</div>
+
+
 			<div class="profileCols">
 
 				<h2>Tracks</h2>
