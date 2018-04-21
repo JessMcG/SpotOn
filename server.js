@@ -5,6 +5,7 @@ var session = require('express-session'); //Express Session Module
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/spot_on";
 
@@ -272,6 +273,11 @@ var data = "";
  * name = artist_name or song_title
  * type = artist or track
  */
+app.use(bodyParser.urlencoded({extended: true}));
+app.post('/search_form', function(req,res) {
+  res.send('You send me the query: \n' + '\t artist: ' + req.body.artistField + '\n\t song: ' + req.body.songField);
+});
+
 app.get('/search', function(req, res) {
   console.log("Searching....");
 
@@ -286,6 +292,7 @@ app.get('/search', function(req, res) {
   //console.log("Search string: " + req.body.artistField);
 
   var access_token = req.session.access_token;
+  console.log()
   var query =  ""; //req.query.q;
   var type = "artist"; // req.query.type;
 
