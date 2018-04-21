@@ -281,8 +281,9 @@ var track;
 app.post('/search_form', function(req,res) {
   artist =  req.body.artistField;
   track = req.body.songField;
-  res.redirect('/search');
-  //res.send('You send me the query: \n' + '\t artist: ' + req.body.artistField + '\n\t song: ' + req.body.songField);
+  //res.redirect('/search');
+  console.log(artist + track);
+  res.send('You send me the query: \n' + '\t artist: ' + req.body.artistField + '\n\t song: ' + req.body.songField);
 });
 
 app.get('/search', function(req, res) {
