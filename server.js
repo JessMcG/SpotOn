@@ -297,11 +297,11 @@ app.get('/search', function(req, res) {
   var query = "";
   var type = ""; // req.query.type;
 
-  if (artist != null) {
+  if ((artist.isEmpty()) || (artist != null)) {
     query = artist;
     type = "artist";
     console.log("Query - Artist: " + query + " Type: " + type);
-  } else if (track != null) {
+  } else if ((track.isEmpty()) || (track != null)) {
     query = track;
     type = "track";
     console.log("Query - Track: " + query + " Type: " + type);
