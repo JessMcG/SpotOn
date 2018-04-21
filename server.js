@@ -297,17 +297,18 @@ app.get('/search', function(req, res) {
   var query = "";
   var type = ""; // req.query.type;
 
-  if ((artist.isEmpty()) || (artist != null)) {
+  if (!artist) {
     query = artist;
     type = "artist";
     console.log("Query - Artist: " + query + " Type: " + type);
-  } else if ((track.isEmpty()) || (track != null)) {
+  } else if (!track) {
     query = track;
     type = "track";
     console.log("Query - Track: " + query + " Type: " + type);
   } else {
     console.log("Invalid query");
   }
+  console.log("Query: " + query + " Type: " + type);
 
   if (access_token != null) {
     var searchOptions = {
