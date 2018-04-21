@@ -294,11 +294,20 @@ app.get('/search', function(req, res) {
   console.log("Access Token: " + req.session.access_token);
 
   var access_token = req.session.access_token;
-  // var artist =  req.body.artistField;
-  // var track = req.body.songField;
-  var type = "artist"; // req.query.type;
+  var query = "";
+  var type = ""; // req.query.type;
 
-  console.log("Query: " + artist + track);
+  if (artist != null) {
+    query = artist;
+    type = "artist";
+    console.log("Query - Artist: " + query + " Type: " + type);
+  } else if (track != null) {
+    query = track;
+    type = "track";
+    console.log("Query - Track: " + query + " Type: " + type);
+  } else {
+    console.log("Invalid query");
+  }
 
   if (access_token != null) {
     var searchOptions = {
