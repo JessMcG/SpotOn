@@ -276,8 +276,13 @@ var data = "";
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+var artist;
+var track;
 app.post('/search_form', function(req,res) {
-  res.send('You send me the query: \n' + '\t artist: ' + req.body.artistField + '\n\t song: ' + req.body.songField);
+  artist =  req.body.artistField;
+  track = req.body.songField;
+  res.send('/search');
+  //res.send('You send me the query: \n' + '\t artist: ' + req.body.artistField + '\n\t song: ' + req.body.songField);
 });
 
 app.get('/search', function(req, res) {
@@ -289,8 +294,8 @@ app.get('/search', function(req, res) {
   console.log("Access Token: " + req.session.access_token);
 
   var access_token = req.session.access_token;
-  var artist =  req.body.artistField;
-  var track = req.body.songField;
+  // var artist =  req.body.artistField;
+  // var track = req.body.songField;
   var type = "artist"; // req.query.type;
 
   console.log("Query: " + artist + track);
