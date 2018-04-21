@@ -283,8 +283,8 @@ app.get('/search', function(req, res) {
 
   // Api call details
   // Search details
-  console.log("Search query: " + req.query.q);
-  console.log("Search string: " + document.locatoin.search.substring(1));
+  console.log("Search query: " + req.body.songField);
+  console.log("Search string: " + req.body.artistField);
   var searchString = document.location.search;
   searchString = searchString.substring(1);
 
