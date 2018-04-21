@@ -286,7 +286,7 @@ app.get('/search', function(req, res) {
   //console.log("Search string: " + req.body.artistField);
 
   var access_token = req.session.access_token;
-  var query = req.query.q; //req.query.q;
+  var query =  ""; //req.query.q;
   var type = "artist"; // req.query.type;
 
   if (access_token != null) {
@@ -323,7 +323,7 @@ app.get('/search', function(req, res) {
         data = error;
       }
     } else {
-      console.log(response.statusCode + " " + error);
+      console.log("Response code " + response.statusCode);
     }
 
   });
