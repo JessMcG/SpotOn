@@ -297,6 +297,7 @@ app.get('/search', function(req, res) {
   var query = "";
   var type = ""; // req.query.type;
 
+  console.log("Query: " + artist + track);
   if (!artist) {
     query = artist;
     type = "artist";
