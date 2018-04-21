@@ -282,8 +282,14 @@ app.get('/search', function(req, res) {
   console.log("Access Token: " + req.session.access_token);
 
   // Api call details
+  // Search details
+  console.log("Search query: " + req.query.q);
+  console.log("Search string: " + document.locatoin.search.substring(1));
+  var searchString = document.location.search;
+  searchString = searchString.substring(1);
+
   var access_token = req.session.access_token;
-  var query = "Muse"; //req.query.q;
+  var query = req.query.q; //req.query.q;
   var type = "artist"; // req.query.type;
 
   if (access_token != null) {
@@ -333,21 +339,17 @@ app.get('/search', function(req, res) {
 
   // Add searches to user_id
   var current_user = req.session.user_id;
-  var query = {user_id: current_user};
   var proj = {"user_id": true};
-  // db.collection('users').find(query, proj).toArray(function(err, result) {
-  //   if (result != null) {
-  //     playlist_id = result;
-  //     console.log(playlist_id);
-  //   } else {
-  //     console.log("No db.find result" + err);
-  //   }
-  // });
+  var query_query = {"query" : "Muse"};
+  var query_type = {"type": "artist"};
 
   if (current_user != null) {    // Requirement: valid user id in session
-    db.collection('users').find(query, proj).toArray(function(err, result) {
+    db.collection('users').find({user_id: current_user}, proj).toArray(function(err, result) {
       if (result.length > 0) {
         console.log("User exists: " + JSON.stringify(result[0]));
+
+        // Add search to the Database
+
 
         //db.collection('users').update({user_id: req.session.user_id})
       } else {
