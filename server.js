@@ -277,16 +277,13 @@ app.get('/search', function(req, res) {
 
   //TODO: Check if logged in
   // if(!req.session.loggedin){res.redirect('/login'); return;}
-  console.log("Session: " + req.session.session_id);
   console.log("Session user_id: " + req.session.user_id);
   console.log("Access Token: " + req.session.access_token);
 
   // Api call details
   // Search details
-  console.log("Search query: " + req.body);
+  console.log("Search query: " + JSON.stringify(req.body));
   //console.log("Search string: " + req.body.artistField);
-  var searchString = document.location.search;
-  searchString = searchString.substring(1);
 
   var access_token = req.session.access_token;
   var query = req.query.q; //req.query.q;
