@@ -274,6 +274,7 @@ var data = "";
  * type = artist or track
  */
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.post('/search_form', function(req,res) {
   res.send('You send me the query: \n' + '\t artist: ' + req.body.artistField + '\n\t song: ' + req.body.songField);
 });
