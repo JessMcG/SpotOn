@@ -275,6 +275,7 @@ var data = "";
  */
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
 app.post('/search_form', function(req,res) {
   res.send('You send me the query: \n' + '\t artist: ' + req.body.artistField + '\n\t song: ' + req.body.songField);
 });
@@ -287,15 +288,12 @@ app.get('/search', function(req, res) {
   console.log("Session user_id: " + req.session.user_id);
   console.log("Access Token: " + req.session.access_token);
 
-  // Api call details
-  // Search details
-  console.log("Search query: " + JSON.stringify(req.body));
-  //console.log("Search string: " + req.body.artistField);
-
   var access_token = req.session.access_token;
-  console.log()
-  var query =  ""; //req.query.q;
+  var artist =  req.body.artistField;
+  var track = req.body.songField;
   var type = "artist"; // req.query.type;
+
+  console.log("Query: " + artist + track);
 
   if (access_token != null) {
     var searchOptions = {
