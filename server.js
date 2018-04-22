@@ -264,32 +264,32 @@ app.get('/profile', function(req, res) {
 });
 
 /**
- * Searching and recommendatoins
+ * Searching, Top Tracks and Recommendatoins
  * Author: Nicky ter Maat
- */
-var data = "";
-/**
- * Search for artist or track
- * name = artist_name or song_title
- * type = artist or track
  */
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 var artist;
 var track;
+var query;
+var type;
+/**
+ * /search_form:  Send data from input form to /search
+ */
 app.post('/search_form', function(req,res) {
+  // Clear query, type, artist_id and track_id from memory
+  query = ""; type = ""; artist_id = ""; track_id = "";
   artist =  req.body.artistField;
   track = req.body.songField;
   console.log("Collecting search form data...")
   console.log("Body: " + JSON.stringify(req.body));
   res.redirect('/search');
-
-  //res.send('You send me the query: \n' + '\t artist: ' + req.body.artistField + '\n\t song: ' + req.body.songField);
 });
 
-var query;
-var type;
+/**
+ * /search: look for artist or track
+ */
 app.get('/search', function(req, res) {
   console.log("Searching....");
 
@@ -348,6 +348,9 @@ app.get('/search', function(req, res) {
   addSearchToDatabase(req.session.user_id, query, type, null, null);
 });
 
+/**
+ * addSearchToDatabase: add and update search to database
+ */
 function addSearchToDatabase(current_user, query, type, artist_id, track_id) {
   if (current_user != null) {    // Requirement: valid user id in session
     db.collection('users').find({user_id: current_user}).toArray(function(err, result) {
@@ -356,8 +359,6 @@ function addSearchToDatabase(current_user, query, type, artist_id, track_id) {
         db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": [{"query": query}, {"type": type}, {"artist_id": artist_id}, {"track_id": track_id}]}}, {upsert: true}, function(err, result) {
 
         });
-        // After search is added to the database, clear query, type, artist_id and track_id
-        query = ""; type = ""; artist_id = ""; track_id = "";
       } else {
       console.log("User " + req.session.user_id + " does not exist in users collection");
     }});
@@ -366,7 +367,10 @@ function addSearchToDatabase(current_user, query, type, artist_id, track_id) {
   }
 }
 
-// Top tracks for selected artist
+/**
+ * /top_tracks: Select top tracks for selected artist
+ TODO: When artist is selected create app.post where artist_id is send through
+ */
 app.get('/top_tracks', function(req, res) {
   console.log("Getting artist....");
 
@@ -382,7 +386,6 @@ app.get('/top_tracks', function(req, res) {
 
   if (access_token != null) {
     var topTrackOptions = {
-      //12Chz98pHFMPJEknJQMWvI/top-tracks?country=NL
       url: 'https://api.spotify.com/v1/artists/' + seed_artists + '/top-tracks?' + 'country=' + country_artists,
       headers: { 'Authorization': 'Bearer ' + access_token },
       json: true
@@ -397,21 +400,23 @@ app.get('/top_tracks', function(req, res) {
     if (!error && response.statusCode === 200) {
       if (body.tracks.length > 0) {
         console.log("TOP TRACKS \n");
-        data = "TOP TRACKS \n";
         for (var i = 0; i < body.tracks.length; i++) {
-          data += ("\t TRACK: " + body.tracks[i].name);
           console.log("\t TRACK: " + body.tracks[i].name);
         }
       }
     } else {
-      console.log(response.statusCode + " " + error);
-      data = response.statusCode + " " + error;
+      console.log("Response code: " + response.statusCode + "\nError: " + error);
     }
+    res.send("Search: " + JSON.stringify(body));
   });
-  res.send("Top tracks: " + data);
-  data = "";
+
+  addSearchToDatabase(req.session.user_id, query, type, seed_artists, null);
 });
 
+/**
+ * /recommend:  Recommend tracks for selected track by artist
+ TODO: When recommend-for-this-track is selected create app.post where artist_id and track_id are send through
+ */
 app.get('/recommend', function(req, res) {
   console.log("Getting recommendations....");
 
@@ -444,23 +449,21 @@ app.get('/recommend', function(req, res) {
   request.get(recommendOptions, function(error, response, body) {
     console.log(body);
     if (!error && response.statusCode === 200) {
-      data = "RECOMMENDATIONS \n";
       console.log("RECOMMENDATIONS \n");
       if (body.tracks) {
         for (var i = 0; i < body.tracks.length; i++) {
-          data += ("\t TRACK: " + body.tracks[i].name);
           console.log("\t TRACK: " + body.tracks[i].name);
         }
     } else {
-      data = (response.statusCode + " " + error);
-      console.log(response.statusCode + " " + error);
+      console.log("Response code: " + response.statusCode + "\nError: " + error);
     }}
+    res.send("Recommendations: " + JSON.stringify(body));
   });
-  res.send("Recommendations: " + data);
-  data = "";
+
+  addSearchToDatabase(req.session.user_id, query, type, seed_artists, seed_tracks);
 });
 /**
-  * End of Search and Recommendations
+  * End of Search, Top Tracks and Recommendations
 */
 
 //   // Playlist functions
