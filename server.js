@@ -281,7 +281,7 @@ var track;
 app.post('/search_form', function(req,res) {
   artist =  req.body.query;
   track = req.body.query;
-  console.log(artist + " " + req.params('artistField') + ", " + + track + " " + req.params('songField')));
+  console.log(artist + " " + req.params('artistField') + ", " + + track + " " + req.params('songField'));
   res.redirect('/search');
 
   //res.send('You send me the query: \n' + '\t artist: ' + req.body.artistField + '\n\t song: ' + req.body.songField);
