@@ -358,7 +358,7 @@ app.get('/search', function(req, res) {
       if (result.length > 0) {
         console.log("User exists: " + JSON.stringify(result[0]));
         db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": [{"query": query}, {"type": type}]}}, {upsert: true}, function(err, result) {
-          console.log("Added search: " query + " of type " + type );
+          
         });
         console.log("User: " + JSON.stringify(db.collection('users').find({user_id: current_user})));
         // Add search to the Database
