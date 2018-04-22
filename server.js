@@ -354,11 +354,11 @@ app.get('/search', function(req, res) {
   // Add searches to user_id
   var current_user = req.session.user_id;
   if (current_user != null) {    // Requirement: valid user id in session
-    db.collection('users').find({user_id: current_user}, proj).toArray(function(err, result) {
+    db.collection('users').find({user_id: current_user}).toArray(function(err, result) {
       if (result.length > 0) {
         console.log("User exists: " + JSON.stringify(result[0]));
         db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": [{"query": query}, {"type": type}]}}, {upsert: true}, function(err, result) {
-          
+
         });
         console.log("User: " + JSON.stringify(db.collection('users').find({user_id: current_user})));
         // Add search to the Database
