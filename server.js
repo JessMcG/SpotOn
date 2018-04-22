@@ -342,9 +342,9 @@ app.get('/search', function(req, res) {
     } else {
       console.log("Response code: " + response.statusCode + "\nError: " + error);
     }
-
+    res.send("Search: " + JSON.stringify(body));
   });
-  res.send("Search: " + JSON.stringify(body));
+
 
   // TODO: add searches do DB
   // type artist or tracks
