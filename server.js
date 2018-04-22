@@ -281,7 +281,7 @@ var track;
 app.post('/search_form', function(req,res) {
   artist =  req.body.query;
   track = req.body.query;
-  console.log(artist + track + req.params.uid);
+  console.log(artist + track + req.params + req.params.artistField + req.params.songField);
   res.redirect('/search');
 
   //res.send('You send me the query: \n' + '\t artist: ' + req.body.artistField + '\n\t song: ' + req.body.songField);
@@ -300,7 +300,7 @@ app.get('/search', function(req, res) {
   var type = "";
 
   console.log("Query: " + artist + track);
-  if (!artist) {
+  if (!query) {
     query = artist;
     type = "artist";
     console.log("Query - Artist: " + query + " Type: " + type);
@@ -317,7 +317,7 @@ app.get('/search', function(req, res) {
     var searchOptions = {
       url: 'https://api.spotify.com/v1/search?' +
       querystring.stringify({
-        q: query,
+        query: query,
         type: type,
         limit: 8
       }),
