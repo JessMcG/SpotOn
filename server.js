@@ -279,8 +279,8 @@ app.use(bodyParser.json());
 var artist;
 var track;
 app.post('/search_form', function(req,res) {
-  artist =  req.body.query;
-  track = req.body.query;
+  artist =  req.body.artistField;
+  track = req.body.songField;
   console.log(artist + " " + req.param.artistField+ ", " + + track + " " + req.param.songField);
   res.redirect('/search');
 
