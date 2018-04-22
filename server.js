@@ -342,7 +342,7 @@ app.get('/search', function(req, res) {
     } else {
       console.log("Response code: " + response.statusCode + "\nError: " + error);
     }
-    res.send("Search: " + body);
+    res.send("Search: " + JSON.stringify(body));
   });
 
 
@@ -353,18 +353,14 @@ app.get('/search', function(req, res) {
 
   // Add searches to user_id
   var current_user = req.session.user_id;
-  var proj = {"user_id": true};
-  var query_query = {"query" : "Muse"};
-  var query_type = {"type": "artist"};
-
   if (current_user != null) {    // Requirement: valid user id in session
     db.collection('users').find({user_id: current_user}, proj).toArray(function(err, result) {
       if (result.length > 0) {
         console.log("User exists: " + JSON.stringify(result[0]));
-        db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": [{"query":"Muse"}, {"type": "artist"}]}}, {upsert: true}, function(err, result) {
-          console.log("Searches added: " + JSON.stringify(result[0]));
+        db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": [{"query": query}, {"type": type}]}}, {upsert: true}, function(err, result) {
+          console.log("Added search: " query + " of type " + type )
         });
-        console.log("User: " + db.collection('users').find({user_id: current_user}));
+        console.log("User: " + JSON.stringify(db.collection('users').find({user_id: current_user})));
         // Add search to the Database
 
 
@@ -376,26 +372,6 @@ app.get('/search', function(req, res) {
     console.log("Invalid req.session.user_id");
   }
 
-
-
-// Sample from login
-  // db.collection('users').find({user_id: body.id}).toArray(function(err, result) {
-  //   if (err) throw err;
-  //   //If user_id already exists, update the database
-  //   if (result.length>0){
-  //     db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
-  //       if (err) throw err;
-  //       console.log('Saved to Database');
-  //       //add user details to current Session
-  //       req.session.user_id = body.id;
-  //       req.session.access_token = access_token;
-  //       req.session.loggedin = true;
-  //       console.log('session ID = '+ req.session.id);
-  //       console.log('session User ID = '+ req.session.user_id);
-  //       console.log('session Access Token = '+ req.session.access_token);
-  //       //redirect to home
-  //       res.redirect('/');
-  //     });
 });
 
 // Top tracks for selected artist
