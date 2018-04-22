@@ -282,7 +282,8 @@ app.post('/search_form', function(req,res) {
   artist =  req.body.artistField;
   track = req.body.songField;
   console.log("Collecting search form data...")
-  console.log("Artist: " + artist + " " + req.query.artistField + ", Song: " + + track + " " + req.query.songField);
+  console.log("Artist: " + artist + " " + req.query.artistField + ", Song: " + track.substring[1] + " " + req.query.songField);
+  console.log("Body: " + JSON.stringify(req.body));
   res.redirect('/search');
 
   //res.send('You send me the query: \n' + '\t artist: ' + req.body.artistField + '\n\t song: ' + req.body.songField);
@@ -304,7 +305,7 @@ app.get('/search', function(req, res) {
   if (!query) {
     query = artist;
     type = "artist";
-    console.log("Query - Artist: " + query + " Type: " + type);
+    console.log("Query X - Artist: " + query + " Type: " + type);
   } else if (!track) {
     query = track;
     type = "track";
