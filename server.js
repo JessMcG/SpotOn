@@ -345,16 +345,16 @@ app.get('/search', function(req, res) {
     res.send("Search: " + JSON.stringify(body));
   });
 
-  addSearchToDatabase(query, type, null, null);
+  addSearchToDatabase(req.session.user_id, query, type, null, null);
 });
 
-function addSearchToDatabase(query, type, artist_id, track_id) {
-  var current_user = req.session.user_id;
+function addSearchToDatabase(current_user, query, type, artist_id, track_id) {
   if (current_user != null) {    // Requirement: valid user id in session
     db.collection('users').find({user_id: current_user}).toArray(function(err, result) {
       if (result.length > 0) {
         console.log("User exists: " + JSON.stringify(result[0]));
         db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": [{"query": query}, {"type": type}, {"artist_id": artist_id}, {"track_id": track_id}]}}, {upsert: true}, function(err, result) {
+
         });
         // After search is added to the database, clear query and type
         query = "";
