@@ -356,9 +356,8 @@ function addSearchToDatabase(current_user, query, type, artist_id, track_id) {
         db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": [{"query": query}, {"type": type}, {"artist_id": artist_id}, {"track_id": track_id}]}}, {upsert: true}, function(err, result) {
 
         });
-        // After search is added to the database, clear query and type
-        query = "";
-        type = "";
+        // After search is added to the database, clear query, type, artist_id and track_id
+        query = ""; type = ""; artist_id = ""; track_id = "";
       } else {
       console.log("User " + req.session.user_id + " does not exist in users collection");
     }});
