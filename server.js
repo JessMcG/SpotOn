@@ -345,34 +345,27 @@ app.get('/search', function(req, res) {
     res.send("Search: " + JSON.stringify(body));
   });
 
+  addSearchToDatabase(query, type, null, null);
+});
 
-  // TODO: add searches do DB
-  // type artist or tracks
-  // q: artist_name or song_title
-  // seed_id: seed_artists or seed_tracks
-
-  // Add searches to user_id
+function addSearchToDatabase(query, type, artist_id, track_id) {
   var current_user = req.session.user_id;
   if (current_user != null) {    // Requirement: valid user id in session
     db.collection('users').find({user_id: current_user}).toArray(function(err, result) {
       if (result.length > 0) {
         console.log("User exists: " + JSON.stringify(result[0]));
-        db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": [{"query": query}, {"type": type}]}}, {upsert: true}, function(err, result) {
-
+        db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": [{"query": query}, {"type": type}, {"artist_id": artist_id}, {"track_id": track_id}]}}, {upsert: true}, function(err, result) {
         });
-        console.log("User: " + db.collection('users').find({user_id: current_user}).user_id);
-        // Add search to the Database
-
-
-        //db.collection('users').update({user_id: req.session.user_id})
+        // After search is added to the database, clear query and type
+        query = "";
+        type = "";
       } else {
       console.log("User " + req.session.user_id + " does not exist in users collection");
     }});
   } else {
     console.log("Invalid req.session.user_id");
   }
-
-});
+}
 
 // Top tracks for selected artist
 app.get('/top_tracks', function(req, res) {
