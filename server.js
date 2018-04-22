@@ -327,6 +327,8 @@ app.get('/search', function(req, res) {
 
   // GET request for /search
   request.get(searchOptions, function(error, response, body) {
+    if(error) throw error;
+
     console.log(body);
     if (!error && response.statusCode === 200) {
       console.log("\nSEARCH RESULTS \n");
@@ -347,25 +349,6 @@ app.get('/search', function(req, res) {
 
   addSearchToDatabase(req.session.user_id, query, type, null, null);
 });
-
-/**
- * addSearchToDatabase: add and update search to database
- */
-function addSearchToDatabase(current_user, query, type, artist_id, track_id) {
-  if (current_user != null) {    // Requirement: valid user id in session
-    db.collection('users').find({user_id: current_user}).toArray(function(err, result) {
-      if (result.length > 0) {
-        console.log("User exists: " + JSON.stringify(result[0]));
-        db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": [{"query": query}, {"type": type}, {"artist_id": artist_id}, {"track_id": track_id}]}}, {upsert: true}, function(err, result) {
-
-        });
-      } else {
-      console.log("User " + req.session.user_id + " does not exist in users collection");
-    }});
-  } else {
-    console.log("Invalid req.session.user_id");
-  }
-}
 
 /**
  * /top_tracks: Select top tracks for selected artist
@@ -396,6 +379,8 @@ app.get('/top_tracks', function(req, res) {
 
   // GET request for /top tracks
   request.get(topTrackOptions, function(error, response, body) {
+    if(error) throw error;
+
     console.log(body);
     if (!error && response.statusCode === 200) {
       if (body.tracks.length > 0) {
@@ -447,6 +432,8 @@ app.get('/recommend', function(req, res) {
 
   // GET request for /recommend
   request.get(recommendOptions, function(error, response, body) {
+    if(error) throw error;
+
     console.log(body);
     if (!error && response.statusCode === 200) {
       console.log("RECOMMENDATIONS \n");
@@ -462,6 +449,31 @@ app.get('/recommend', function(req, res) {
 
   addSearchToDatabase(req.session.user_id, query, type, seed_artists, seed_tracks);
 });
+
+/**
+ * addSearchToDatabase: add and update search to database
+ */
+function addSearchToDatabase(current_user, query, type, artist_id, track_id) {
+  // Check if the user is still logged in
+  if (current_user != null) {
+    db.collection('users').find({user_id: current_user}).toArray(function(err, result) {
+      if(err) throw err;
+
+      if (result.length > 0) {
+        console.log("User exists: " + JSON.stringify(result[0]));
+        db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": [{"query": query}, {"type": type}, {"artist_id": artist_id}, {"track_id": track_id}]}}, {upsert: true}, function(err, result) {
+          if (err) {
+            throw err;
+          }
+        });
+      } else {
+      console.log("User " + req.session.user_id + " does not exist in users collection");
+    }});
+  } else {
+    // TODO: prompt user to login? Redirect?
+    console.log("Invalid req.session.user_id");
+  }
+}
 /**
   * End of Search, Top Tracks and Recommendations
 */
