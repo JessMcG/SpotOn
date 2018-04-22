@@ -279,10 +279,10 @@ app.use(bodyParser.json());
 var artist;
 var track;
 app.post('/search_form', function(req,res) {
-  artist =  req.body.query;
-  track = req.body.query;
+  artist =  req.body.artistField;
+  track = req.body.songField;
   console.log("Collecting search form data...")
-  console.log("Artist: " + artist + " " + req.query.query + ", Song: " + + track + " " + req.params.query);
+  console.log("Artist: " + artist + " " + req.query.artistField + ", Song: " + + track + " " + req.query.songField);
   res.redirect('/search');
 
   //res.send('You send me the query: \n' + '\t artist: ' + req.body.artistField + '\n\t song: ' + req.body.songField);
