@@ -282,13 +282,14 @@ app.post('/search_form', function(req,res) {
   artist =  req.body.artistField;
   track = req.body.songField;
   console.log("Collecting search form data...")
-  console.log("Artist: " + artist + " " + req.query.artistField + ", Song: " + track.substring[1] + " " + req.query.songField);
   console.log("Body: " + JSON.stringify(req.body));
   res.redirect('/search');
 
   //res.send('You send me the query: \n' + '\t artist: ' + req.body.artistField + '\n\t song: ' + req.body.songField);
 });
 
+var query;
+var type;
 app.get('/search', function(req, res) {
   console.log("Searching....");
 
@@ -298,10 +299,7 @@ app.get('/search', function(req, res) {
   console.log("Access Token: " + req.session.access_token);
 
   var access_token = req.session.access_token;
-  var query = "";
-  var type = "";
 
-  console.log("Query: " + "A " + artist + "B " + track);
   if (artist != null && artist.length > 1) {
     query = artist;
     type = "artist";
@@ -313,7 +311,6 @@ app.get('/search', function(req, res) {
   } else {
     console.log("Invalid query");
   }
-  console.log("Query -X : " + query + " Type: " + type);
 
   if (access_token != null) {
     var searchOptions = {
@@ -333,28 +330,23 @@ app.get('/search', function(req, res) {
     console.log(body);
 
     if (!error && response.statusCode === 200) {
-      data = "\nSEARCH RESULTS \n";
       console.log("\nSEARCH RESULTS \n");
       if (body.artists) {
         for (var i = 0; i < body.artists.items.length; i++) {
-          data += ("\t ARTIST: " + body.artists.items[i].name + " id: " + body.artists.items[i].id);
           console.log("\t ARTIST: " + body.artists.items[i].name + " id: " + body.artists.items[i].id);
         }
       } else if (body.tracks) {
         for (var i = 0; i < body.tracks.items.length; i++) {
-          data += ("\t TRACK: " + body.tracks.items[i].name + " track_id: " + body.tracks.items[i].id + " artist: " + body.tracks.items[i].artists.name + " artist_id: " + body.tracks.items[i].artists.id);
           console.log("\t TRACK: " + body.tracks.items[i].name + " track_id: " + body.tracks.items[i].id + " artist: " + body.tracks.items[i].artists.name + " artist_id: " + body.tracks.items[i].artists.id);
         }
-      } else {
-        data = error;
       }
     } else {
-      console.log("Response code " + response.statusCode);
+      console.log("Response code: " + response.statusCode + "\nError: " + error);
     }
 
   });
-  res.send("Search: " + data);
-  data = "";
+  res.send("Search: " + body);
+
   // TODO: add searches do DB
   // type artist or tracks
   // q: artist_name or song_title
@@ -370,7 +362,10 @@ app.get('/search', function(req, res) {
     db.collection('users').find({user_id: current_user}, proj).toArray(function(err, result) {
       if (result.length > 0) {
         console.log("User exists: " + JSON.stringify(result[0]));
-
+        db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": [{"query":"Muse"}, {"type": "artist"}]}}, {upsert: true}, function(err, result) {
+          console.log("Searches added: " + JSON.stringify(result[0]));
+        });
+        console.log("User: " + JSON.stringify(db.collection('users').find({user_id: current_user})));
         // Add search to the Database
 
 
