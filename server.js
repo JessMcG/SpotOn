@@ -301,19 +301,19 @@ app.get('/search', function(req, res) {
   var query = "";
   var type = "";
 
-  console.log("Query: " + artist + track);
-  if (!query) {
+  console.log("Query: " + "A " + artist + "B " + track);
+  if (artist != null) {
     query = artist;
     type = "artist";
-    console.log("Query X - Artist: " + query + " Type: " + type);
-  } else if (!track) {
+    console.log("Query - Artist: " + query + " Type: " + type);
+  } else if (track != null) {
     query = track;
     type = "track";
     console.log("Query - Track: " + query + " Type: " + type);
   } else {
     console.log("Invalid query");
   }
-  console.log("Query: " + query + " Type: " + type);
+  console.log("Query -X : " + query + " Type: " + type);
 
   if (access_token != null) {
     var searchOptions = {
