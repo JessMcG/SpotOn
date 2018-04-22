@@ -281,7 +281,8 @@ var track;
 app.post('/search_form', function(req,res) {
   artist =  req.body.artistField;
   track = req.body.songField;
-  console.log(artist + " " + req.param.artistField+ ", " + + track + " " + req.param.songField);
+  console.log("Collecting search form data...")
+  console.log("Artist: " + artist + " " + req.params.artistField+ ", Song: " + + track + " " + req.params.songField);
   res.redirect('/search');
 
   //res.send('You send me the query: \n' + '\t artist: ' + req.body.artistField + '\n\t song: ' + req.body.songField);
