@@ -327,8 +327,7 @@ app.get('/search', function(req, res) {
 
   // GET request for /search
   request.get(searchOptions, function(error, response, body) {
-    var body = body;
-
+    console.log(body);
     if (!error && response.statusCode === 200) {
       console.log("\nSEARCH RESULTS \n");
       if (body.artists) {
@@ -345,7 +344,7 @@ app.get('/search', function(req, res) {
     }
 
   });
-  res.send("Search: " + body);
+  res.send("Search: " + JSON.stringify(body));
 
   // TODO: add searches do DB
   // type artist or tracks
