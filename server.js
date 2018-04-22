@@ -302,11 +302,11 @@ app.get('/search', function(req, res) {
   var type = "";
 
   console.log("Query: " + "A " + artist + "B " + track);
-  if (artist != null) {
+  if (artist != null && artist.length > 1) {
     query = artist;
     type = "artist";
     console.log("Query - Artist: " + query + " Type: " + type);
-  } else if (track != null) {
+  } else if (track != null && track.length > 1) {
     query = track;
     type = "track";
     console.log("Query - Track: " + query + " Type: " + type);
