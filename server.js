@@ -327,7 +327,7 @@ app.get('/search', function(req, res) {
 
   // GET request for /search
   request.get(searchOptions, function(error, response, body) {
-    console.log(body);
+    var body = body;
 
     if (!error && response.statusCode === 200) {
       console.log("\nSEARCH RESULTS \n");
