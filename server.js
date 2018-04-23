@@ -162,7 +162,7 @@ app.get('/callback/', function(req, res) {
             if (err) throw err;
 
             //Save user's searches from db before updating user details
-            if(result[0].searches.length > 0){
+            if(result[0].searches != null){
               var searches_from_db = result[0].searches;
               console.log("Searches: "+searches_from_db);
             }
