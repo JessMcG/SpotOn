@@ -379,6 +379,15 @@ app.get('/profile_page', function(req, res) {
 
 });
 
+/*
+  End of Profile Page
+*/
+
+/*
+  Send Playlist to Media Player from Profile Page
+  - Jess McGowan
+*/
+
 //Setting up variable to store playlist Tracks
 var playlist_tracks;
 var playlist_name;
@@ -407,7 +416,7 @@ app.get('/play_playlist', function(req, res) {
 
       //If no errors from the API request
       if (!error && response.statusCode === 200) {
-        //Get the details from each playlist and save as a variable
+        //Get the track details from each playlist and save as a variable
         playlist_tracks = body.items;
         for (var i = 0; i < playlist_tracks.length; i++) {
           playlist_tracks[i].track.duration_min = msToMins(playlist_tracks[i].track.duration_ms);
@@ -424,6 +433,7 @@ app.get('/play_playlist', function(req, res) {
 
 });
 
+//Render the Media Player page with the details from the selected playlist
 app.get('/media_player', function(req, res) {
   res.render('pages/player', {
     playlist_tracks: playlist_tracks,
@@ -436,6 +446,9 @@ app.get('/media_player', function(req, res) {
     playlist_name: playlist_name
   });
 });
+/*
+  End of Media Player
+*/
 
 /**
  * Search for artist or track
