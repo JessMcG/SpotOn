@@ -1,30 +1,48 @@
+
 $(document).ready(function(){
    //switch between playlists and songs on profile
 	$("#profileSongSwitch").hide();
-
+	
 	$(".mySongs").click(function(){
-
+		
 		$(".mySongs").addClass( "activeInner" );
 		$(".myPlaylists").removeClass( "activeInner" );
-
+		
 		$("#profilePlaylistSwitch").hide();
 		$("#profileSongSwitch").show();
-
+		
 	});
+	$("#example").hide();
+	$("#closeRecentResults, #example").click(function(){
+			
+		$("#example2").animate({marginLeft: '-700px'},300);
+		$("#example").delay(300).fadeOut("fast");
+		
+		
+	});
+	
+	$("#exampleSearchResult").click(function(){
+			
+		$("#example2").delay(100).animate({marginLeft: '0px'},300);
+		$("#example").fadeIn("fast");
+		
+		
+	});
+	
 	$(".myPlaylists").click(function(){
-
+		
 		$(".myPlaylists").addClass( "activeInner" );
 		$(".mySongs").removeClass( "activeInner" );
-
+		
 		$("#profilePlaylistSwitch").show();
 		$("#profileSongSwitch").hide();
 	});
-
+		
 	$("#waves,#waves2,#waves3").hide();
-
+	
 	$("#artistField").hide();
 	$(".playTrackButton2").hide();
-
+	
 	$(".playTrackButton").click(function(){
 		$(".playTrackButton").hide();
 		$(".playTrackButton2").show();
@@ -33,7 +51,7 @@ $(document).ready(function(){
 		$(".playTrackButton").show();
 		$(".playTrackButton2").hide();
     });
-
+		
 	$(".bySong").click(function(){
         $(".bySong").removeClass("inactiveButton");
         $(".bySong").addClass("activeButton");
@@ -42,7 +60,7 @@ $(document).ready(function(){
 		$("#artistField").hide();
 		$("#songField").show();
     });
-
+	
 	$(".byArtist").click(function(){
         $(".byArtist").removeClass("inactiveButton");
         $(".byArtist").addClass("activeButton");
@@ -51,20 +69,20 @@ $(document).ready(function(){
 		$("#artistField").show();
 		$("#songField").hide();
     });
-
+	
 	$(".searchResult,#searchResults").hide();
-
+	
 	$("#dontWork").click(function(){
 		  $("#searchResults").animate({marginTop: '-120px'},500);
 		  $("#searchResults").show();
 		  $(".searchResult").show();
 		  $("#homeBoxes").hide();
-
-    });
-	//change colour of the nav bar on scrolling
+			
+    }); 
+	//change colour of the nav bar on scrolling 
 	var scroll_pos = 0;
 
-	$(document).scroll(function() {
+	$(document).scroll(function() { 
 		scroll_pos = $(this).scrollTop();
 		if(scroll_pos > 80) {
 			$("#nav").css('background-color', '#222');
@@ -72,21 +90,21 @@ $(document).ready(function(){
 			$("#nav").css('background-color', 'transparent');
 		}
 	});
-
-
+	
+	
 	$("#loginLink").click(function(){
-
+		 
 		$("#loginOverlay").fadeIn(300);
 		$("#loginBox").delay(100).slideDown(300);
-
+			
     });
 	$("#closeLoginForm").click(function(){
-
+		 
 		$("#loginOverlay").delay(100).fadeOut(300);
 		$("#loginBox").slideUp(300);
-
-    });
-
+			
+    }); 
+	
 	$("#respMenu").click(function(){
 		  $("#container").animate({marginLeft: '-70%'},300);
 		  $("#header").animate({marginLeft: '-70%'},300);
@@ -96,8 +114,8 @@ $(document).ready(function(){
 		  $("#respMenu").fadeOut(350);
 		  $("#closeRespMenu").fadeIn(450);
 		  $(".respContent").fadeIn(200);
-    });
-
+    }); 
+	
 	$("#closeRespMenu").click(function(){
 		  $("#container").animate({marginLeft: '0%'},300);
 		  $("#header").animate({marginLeft: '0%'},300);
@@ -107,9 +125,9 @@ $(document).ready(function(){
 		  $("#closeRespMenu").fadeOut(250);
 		  $("#respNav").removeClass("respNavBoxShadow");
 		  $(".respContent").fadeOut(200);
-    });
+    }); 
 
-//grab data from the json file.
+//grab data from the json file. 
 
 	$.ajax({
 		url: 'data.json',
@@ -118,28 +136,28 @@ $(document).ready(function(){
 		cashe: false,
 		success: function(data){
 			$(data.tracks).each(function(index, value){
-
+					
 
 				var appendTrack = "<li class='trackOnProfile'><p class='ellipsis' title='"+ value.artist_name + " - " + value.track_name  +"'>" + value.artist_name + " - <span>" + value.track_name + " " + "</span></p><div class='playTrackProfile'><img class='playSingleTrack' src='img/play.png' alt='" + value.track_id +"' />";
 
 				//$("ol li:even").css("background-color", "#fafafa");
 
-				$("#allTracks").append(appendTrack);
-				$(".profileMySongs").append(appendTrack);
+				$("#allTracks").append(appendTrack);  
+				$(".profileMySongs").append(appendTrack);  	
 
 
 			});
 			// load first track into player on page loading
 			var t = 0;
-
+			
 			$("#trackArt").attr("src",data.tracks[t].album_art);
 			$("#coverArtBluredInner").attr("src",data.tracks[t].album_art);
 			$("#playerArtistName").html(data.tracks[t].artist_name);
 			$("#playerTrackName").html(data.tracks[t].track_name);
 			$("#playerPlaylistTitle").html(data.tracks[t].playlist_title);
-			$("#ffs").attr("src",data.tracks[t].track);
+			$("#ffs").attr("src",data.tracks[t].track);				
 			var playListLength = data.tracks.length;
-
+			
 			//move to the next track on the playlist
 			$("#playNext").click(function(){
 				t++;
@@ -181,10 +199,10 @@ $(document).ready(function(){
 					$("#waves,#waves2,#waves3").fadeIn(600);
 				}
 			});
-
+			
 			//hide default player
 			$("audio").hide();
-
+			
 			//play & pause audio player
 			$(".playTrackButton").click(function(){
 
@@ -198,7 +216,7 @@ $(document).ready(function(){
 				$("#waves,#waves2,#waves3").fadeOut(600);
 
 			});
-
+			
 			$("#ffs").on("ended", function() {
 				t++;
 				if(t >= playListLength){
@@ -218,29 +236,29 @@ $(document).ready(function(){
 					$(".playTrackButton").hide();
 				}
 			});
-			//
+			// 
 			$(".playSingleTrack").click(function(evt){
 				var c = evt.target.alt;
 				$("#ffs").attr("autoplay","true");
 				$(".playTrackButton2").show();
 				$(".playTrackButton").hide();
 				$("#waves,#waves2,#waves3").fadeIn(600);
-
+				
 				$("#trackArt").attr("src",data.tracks[c].album_art);
 				$("#coverArtBluredInner").attr("src",data.tracks[c].album_art);
 				$("#playerArtistName").html(data.tracks[c].artist_name);
 				$("#playerTrackName").html(data.tracks[c].track_name);
 				$("#playerPlaylistTitle").html(data.tracks[c].playlist_title);
-				$("#ffs").attr("src",data.tracks[c].track);
-
+				$("#ffs").attr("src",data.tracks[c].track);				
+				
 			});
 		}
-
-
+	
+	
 	});
 
 	// iterate out serach result within div on page on page. - *not working*
-	// doesnt recognise this ajax function just the other one.
+	// doesnt recognise this ajax function just the other one. 
 	$.ajax({
 		url: 'search.json',
 		dataType: 'json',
@@ -249,24 +267,29 @@ $(document).ready(function(){
 		success: function(data2){
 			$(data2.search).each(function(index, value){
 
-				console.log("hello");
 				var appendSearch = "<li class='recentSearch'><p>" + value.type + " - <span>" + value.search + " " + "</span></p>";
-
-
-				$("#recentSearchResults").append(appendSearch);
+				
+				
+				$("#recentSearchResults").append(appendSearch);  	
 
 
 			});
-
-
-
+			
+			
+			
 		}
-
+	
 	});
 	// show tooltips on hover of tracks with jquery ui
   $( function() {
 	$( document ).tooltip();
   } );
+	
+		
+	
+	/*
+	var searchResultsHome = "<article class='searchResult'><img class='searchResultImage' src='" + value.images[0].url +"'alt=''/><h3>" + value.name + "</h3><div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div><div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div></article>";
+	*/
+	
+});// END DOCUMENT READY 
 
-
-});

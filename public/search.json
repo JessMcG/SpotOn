@@ -1,0 +1,42 @@
+{
+	"search": [
+		
+		{
+			"search_id": "0",
+			"type": "Artist",
+			"search": "Muse",
+			"playlist": "playlist details" // maybe this could be another structure with the playlist details in it that could be sent to the player? 
+		},
+		{   
+			"search_id": "1",
+			"type": "Track",
+			"track_name": "Time Is Running Out",
+			"search": "playlist details"
+		},
+		{   
+			"search_id": "2",
+			"type": "Track",
+			"track_name": "Roots",
+			"search": "playlist details"
+		},
+		{
+			"search_id": "3",
+			"type": "Artist",
+			"track_name": "Rise Against",
+			"search": "playlist details"
+		},
+		{
+			"search_id": "4",
+			"type": "Track",
+			"track_name": "Say Something",
+			"search": "playlist details"
+		},
+		{
+			"search_id": "5",
+			"type": "Artist",
+			"track_name": "Disturbed",
+			"search": "playlist details"
+		}
+		
+			  ]
+}

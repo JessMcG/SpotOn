@@ -10,38 +10,148 @@
 	<link rel="icon" type="image/png" href="img/favicon.png" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-	<script src="js/script.js"></script>
+	<script src="js/script2.js"></script>
+
+	<script>
+
+			$.ajax({
+				url: 'searchResults.json',
+				dataType: 'json',
+				type: 'get',
+				cashe: false,
+				success: function(data){
+					$(data.artists.items).each(function(index, value){
+
+						var artistID = value.uri;
+						var artistID2 = artistID.substring(15, 37);
+
+						var searchResultsHome = "<article class='searchResult sr1'><img class='searchResultImage' src='" + value.images[0].url +"'alt=''/><h3>" + value.name + "</h3><div class='addTrack playSearchedTrack' data-artist-id='" + artistID2 + "' id='showSongs'><img src='img/next.png' alt='play track' /></div></article>";
+
+						$("#searchResults").append(searchResultsHome);
+
+					});
+
+				}
+
+			});
+
+			setTimeout(doSomething, 1000);
+
+			function doSomething() {
+
+				$("#showSongs").click(function(){
+
+					$(".sr1").hide();
+					$(".sr2").delay(400).show();
+
+					var a = 0;
+
+					for(x=0;x<4;x++){
+
+						var images = ["img/muse1.jpg", "img/muse2.jpg", "img/muse3.jpg", "img/muse4.jpg"];
+						var songs = ["Uprising", "Knights of Cydonia", "Hysteria", "Starlight"];
+
+						var museTracks = "<article class='searchResult sr2'><img class='searchResultImage'  src='" + images[a] + "' alt=''/><h3>" + "Muse <br />" + "<span>" + songs[a] + "</span>" + "</h3><div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div><div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div></article>";
+
+						$("#searchResults").append(museTracks);
+
+						a++;
+					}
+
+					/*
+
+
+					$.ajax({
+						url: 'museTracks.json',
+						dataType: 'json',
+						type: 'get',
+						cashe: false,
+						success: function(data){
+
+							$(data.tracks).each(function(index, value){
+
+								var museTracks = "<article class='searchResult sr2'><img class='searchResultImage' src='" + value.album.images[0].url +"'alt=''/><h3>" + value.album.name + "</h3><div class='addTrack playSearchedTrack' data-artist-id='" + "hello" + "' id='showSongs'><img src='img/next.png' alt='play track' /></div></article>";
+
+								$("#searchResults").append(museTracks);
+
+							});
+
+						}
+
+
+
+
+					});*/
+
+				});
+
+			}
+
+			</script>
+
 </head>
 <body>
 
 	<div id="container">
 
-		<div id="nav">
+		<header id="nav">
 			<a href="index.html"><img id="logo" src="img/SpotOnLogo.png" alt="logo" /></a>
 
 			<ul id="normalMenu">
-				<li><a href="/index">Home</a></li>
-				<li><a href="/profile">Profile</a></li>
-				<li><a href="/player">Media Player</a></li>
+				<li><a href="/login">Home</a></li>
+				<li><a href="profile.html">Profile</a></li>
+				<li><a href="player.html">Media Player</a></li>
+
+				<li><a href="/search">Search</a></li>
+				<li><a href="/recommend">Recommend</a></li>
+				<li><a href="/top_tracks">Top tracks</a></li>
 			</ul>
 
-			<a href="/login">
-				<div id="loginWithSpotify">
+			 <a href="/login" ><div id="loginWithSpotify">
 					<p>Login with </p> <img id="SpotLogo" src="img/spotifyLogo.png" alt="spotify logo" />
-				</div>
-			</a>
-
-			<a href="profile.html"><div id="respMenu">
-
 			</div></a>
-		</div>
 
-		<div id="header">
+			<div id="respMenu">
 
-			<h2>Welcome to SpotOn<br /> <span>an online playlist generator.</span></h2>
+			</div>
+		</header>
+
+		<header id="respNav">
+
+			<div class="respContent">
+				<div id="closeRespMenu">
+
+				</div>
+
+				<div id="respNavProfileLogin">
+
+				</div>
+				<img id="respNavImage" src="img/guest.jpg" alt="" />
+
+				<h2>Guest User</h2>
+
+				<div id="spotifyLoginResp">
+					<p>Login with </p> <img id="SpotLogoResp" src="img/spotifyLogo.png" alt="spotify logo" />
+				</div>
+
+				<div id="respNavLinks">
 
 
-			<form onsubmit="return false;">
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="profile.html">Profile</a></li>
+						<li><a href="player.html">Media Player</a></li>
+					</ul>
+				</div>
+			</div>
+		</header>
+
+		<section id="header">
+
+			<h2 id="test">Welcome to SpotOn<br /> <span>an online playlist generator.</span></h2>
+
+
+			<form id="searchform" method="post" action="/search_form" >
 
 				<div id="homeSearchForm">
 
@@ -59,138 +169,63 @@
 
 				</div>
 
-				<input id="artistField" type="text" placeholder="Artist name...." />
+				<input id="artistField" name="artistField" type="text" placeholder="Artist name...." />
 
-				<input id="songField" type="text" placeholder="Song name...." />
+				<input id="songField" name="songField" type="text" placeholder="Song name...." />
 
-				<button id="dontWork">Search</button>
+				<!--<button onclick="artistResults()"  id="dontWork">Search</button>-->
+				<button type="submit" id="dontWork" value="Submit">Search</button>
 
 			</form>
 
-		</div>
+		</section>
 
 		<div id="clear-box">
 
 		</div>
 
-		<div id="homeBoxes">
+		<section id="homeBoxes">
 
-			<div class="homeBox h-box-tablet">
+			<article class="homeBox h-box-tablet">
 
 				<img src="img/funds.png" alt="note" />
 
 				<h3>100% free</h3>
 
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque velit di non tempor ipsum tellus vel est. Nunc eget imperdiet risus. Quisque et fringilla massa. Sed a congue est.</p>
-			</div>
+			</article>
 
-			<div class="homeBox box-margin-tablet">
+			<article class="homeBox box-margin-tablet">
 
 				<img src="img/headphones.png" alt="note" />
 
 				<h3>Find new music</h3>
 
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque velit di non tempor ipsum tellus vel est. Nunc eget imperdiet risus. Quisque et fringilla massa. Sed a congue est.</p>
-			</div>
+			</article>
 
-			<div class="homeBox">
+			<article class="homeBox">
 
 				<img src="img/playlist.png" alt="note" />
 
 				<h3>Custom playlists</h3>
 
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque velit di non tempor ipsum tellus vel est. Nunc eget imperdiet risus. Quisque et fringilla massa. Sed a congue est.</p>
-			</div>
+			</article>
 
-		</div>
+		</section>
 
-		<div id="searchResults">
+		<section id="searchResults">
 
 			<h2>Search Results</h2>
 
-			<p>Listing results for <span>Rag n Bone Man</span></p>
+			<p>Listing results for <span>Muse</span></p>
 
-			<div class="searchResult">
-
-				<img class="searchResultImage" src="img/testArt.jpg" />
-
-				<h3>Rag n Bone Man<br /> <span>Human</span></h3>
-
-				<div class="addTrack addSearchedTrack">
-
-					<img src="img/add.png" alt="add track" />
-
-				</div>
-
-				<div class="addTrack playSearchedTrack">
-
-					<img src="img/play.png" alt="play track" />
-
-				</div>
-
-			</div>
-			<div class="searchResult">
-
-				<img class="searchResultImage" src="img/testArt.jpg" />
-
-				<h3>Rag n Bone Man<br /> <span>Ego</span></h3>
-
-				<div class="addTrack addSearchedTrack">
-
-					<img src="img/add.png" alt="add track" />
-
-				</div>
-
-				<div class="addTrack playSearchedTrack">
-
-					<img src="img/play.png" alt="play track" />
-
-				</div>
-
-			</div>
-			<div class="searchResult">
-
-				<img class="searchResultImage" src="img/testArt.jpg" />
-
-				<h3>Rag n Bone Man<br /> <span>Skin</span></h3>
-
-				<div class="addTrack addSearchedTrack">
-
-					<img src="img/add.png" alt="add track" />
-
-				</div>
-
-				<div class="addTrack playSearchedTrack">
-
-					<img src="img/play.png" alt="play track" />
-
-				</div>
-
-			</div>
-
-			<div class="searchResult">
-
-				<img class="searchResultImage" src="img/testArt.jpg" />
-
-				<h3>Rag n Bone Man<br /> <span>Bitter End</span></h3>
-
-				<div class="addTrack addSearchedTrack">
-
-					<img src="img/add.png" alt="add track" />
-
-				</div>
-
-				<div class="addTrack playSearchedTrack">
-
-					<img src="img/play.png" alt="play track" />
-
-				</div>
-
-			</div>
-
-		</div>
+		</section>
 
 
 	</div>
+
+
 </body>
 </html>

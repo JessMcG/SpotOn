@@ -5,18 +5,18 @@ var session = require('express-session'); //Express Session Module
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/spot_on";
 
-/*var jquery = require("node-jsdom");
-jquery.env("", function(err, window) {
-    if (err) {
-        console.error(err);
-        return;
-    }
-
-    var $ = require("jquery")(window);
-});*/
+// var jquery = require("node-jsdom");
+// jquery.env("", function(err, window) {
+//     if (err) {
+//         console.error(err);
+//         return;
+//     }
+//     var $ = require("jquery")(window);
+// });
 
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
 var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
@@ -74,6 +74,7 @@ MongoClient.connect(url, function(err, database){
 app.get('/login', function(req, res) {
 
   var redirect_uri = req.protocol + '://' +req.get('host') + '/callback/';
+  console.log("Welcome...");
   console.log(redirect_uri);
 
   var state = generateRandomString(16);
@@ -438,87 +439,244 @@ app.get('/media_player', function(req, res) {
 });
 
 /**
- * Search for artist or track
- * name = artist_name or song_title
- * type = artist or track
+ * Searching, Top Tracks and Recommendatoins
+ * Author: Nicky ter Maat
  */
-app.get('/search', function(req, res) {
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
-
-  //TODO: Check if logged in
-  // if(!req.session.loggedin){res.redirect('/login'); return;}
-
-  var access_token = req.session.access_token;
-
-  var query = req.query.q;
-  var type = req.query.type;
-  var searchoptions = {
-    url: 'https://api.spotify.com/v1/search?' +
-    querystring.stringify({
-      query: query,
-      type: type,
-      limit: 8
-    }),
-    headers: { 'Authorization': 'Bearer ' + access_token },
-    json: true
-  };
-
-
-  request.post(authOptions, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-      res.send("Status 200 it worked");
-
-
-      console.log(response.jsonData);
-
-      request.get(searchoptions, function(error, response, body) {
-        console.log(body);
-
-        console.log("\nSEARCH RESULTS \n");
-        if (body.artists) {
-          for (var i = 0; i < body.artists.items.length; i++) {
-            console.log("\t ARTIST: " + body.artists.items[i].name);
-          }
-        } else if (body.tracks) {
-          for (var i = 0; i < body.tracks.items.length; i++) {
-            console.log("\t ARTIST: " + body.artists.items[i].name);
-          }
-        }
-//=======
-        //console.log("SEARCH RESULTS \n" + "\tARTIST: " + body.artists + "\n\TRACK": body.track);
-//>>>>>>> ac65cc00feb7d32f9724e36c500ca4e9f389a3b7
-      });
-    }
-  });
+var artist;
+var track;
+var query;
+var type;
+/**
+ * /search_form:  Send data from input form to /search
+ */
+app.post('/search_form', function(req,res) {
+  // Clear query, type, artist_id and track_id from memory
+  query = ""; type = ""; artist_id = ""; track_id = "";
+  artist =  req.body.artistField;
+  track = req.body.songField;
+  console.log("Collecting search form data...")
+  console.log("Body: " + JSON.stringify(req.body));
+  res.redirect('/search');
 });
 
 /**
-  * End of Search and Recommendations
-  */
-  // Playlist functions
-app.post('/create_pl', function(req, res) {
+ * /search: look for artist or track
+ */
+app.get('/search', function(req, res) {
+  console.log("Searching....");
+
+  //TODO: Check if logged in
+  // if(!req.session.loggedin){res.redirect('/login'); return;}
+  console.log("Session user_id: " + req.session.user_id);
+  console.log("Access Token: " + req.session.access_token);
+
   var access_token = req.session.access_token;
-  var user_id = req.session.user_id;
-  var newpl = {
-    name: "New Playlist",
-    description: "New playlist description",
-    public: false
-  };
-  var options = {
-    url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
-    headers: { 'Authorization': 'Bearer ' + access_token },
-    body:newpl
-    //json: true
+
+  if (artist != null && artist.length > 1) {
+    query = artist;
+    type = "artist";
+    console.log("Query - Artist: " + query + " Type: " + type);
+  } else if (track != null && track.length > 1) {
+    query = track;
+    type = "track";
+    console.log("Query - Track: " + query + " Type: " + type);
+  } else {
+    console.log("Invalid query");
+  }
+
+  if (access_token != null) {
+    var searchOptions = {
+      url: 'https://api.spotify.com/v1/search?' +
+      querystring.stringify({
+        query: query,
+        type: type,
+        limit: 8
+      }),
+      headers: { 'Authorization': 'Bearer ' + access_token },
+      json: true
     };
-  request.post(options, function(err, res, body) {
-    if(!error && response.statusCode === 200){
-      console.log(body);
+  }
+
+  // GET request for /search
+  request.get(searchOptions, function(error, response, body) {
+    if(error) throw error;
+
+    console.log(body);
+    if (!error && response.statusCode === 200) {
+      console.log("\nSEARCH RESULTS \n");
+      if (body.artists) {
+        for (var i = 0; i < body.artists.items.length; i++) {
+          console.log("\t ARTIST: " + body.artists.items[i].name + " id: " + body.artists.items[i].id);
+        }
+      } else if (body.tracks) {
+        for (var i = 0; i < body.tracks.items.length; i++) {
+          console.log("\t TRACK: " + body.tracks.items[i].name + " track_id: " + body.tracks.items[i].id + " artist: " + body.tracks.items[i].artists.name + " artist_id: " + body.tracks.items[i].artists.id);
+        }
+      }
+    } else {
+      console.log("Response code: " + response.statusCode + "\nError: " + error);
     }
-    else{
-      console.log(error);
-    }
+    res.send("Search: " + JSON.stringify(body));
   });
+
+  addSearchToDatabase(req.session.user_id, query, type, null, null);
 });
+
+/**
+ * /top_tracks: Select top tracks for selected artist
+ TODO: When artist is selected create app.post where artist_id is send through
+ */
+app.get('/top_tracks', function(req, res) {
+  console.log("Getting artist....");
+
+  //TODO: Check if logged in
+  // if(!req.session.loggedin){res.redirect('/login'); return;}
+  console.log("Session: " + req.session.session_id);
+  console.log("Access Token: " + req.session.access_token);
+
+  // Api call details
+  var access_token = req.session.access_token;
+  var seed_artists = "12Chz98pHFMPJEknJQMWvI";
+  var country_artists = "NL";
+
+  if (access_token != null) {
+    var topTrackOptions = {
+      url: 'https://api.spotify.com/v1/artists/' + seed_artists + '/top-tracks?' + 'country=' + country_artists,
+      headers: { 'Authorization': 'Bearer ' + access_token },
+      json: true
+    };
+  } else {
+    console.log("Log in first");
+  }
+
+  // GET request for /top tracks
+  request.get(topTrackOptions, function(error, response, body) {
+    if(error) throw error;
+
+    console.log(body);
+    if (!error && response.statusCode === 200) {
+      if (body.tracks.length > 0) {
+        console.log("TOP TRACKS \n");
+        for (var i = 0; i < body.tracks.length; i++) {
+          console.log("\t TRACK: " + body.tracks[i].name);
+        }
+      }
+    } else {
+      console.log("Response code: " + response.statusCode + "\nError: " + error);
+    }
+    res.send("Search: " + JSON.stringify(body));
+  });
+
+  addSearchToDatabase(req.session.user_id, query, type, seed_artists, null);
+});
+
+/**
+ * /recommend:  Recommend tracks for selected track by artist
+ TODO: When recommend-for-this-track is selected create app.post where artist_id and track_id are send through
+ */
+app.get('/recommend', function(req, res) {
+  console.log("Getting recommendations....");
+
+  //TODO: Check if logged in
+  // if(!req.session.loggedin){res.redirect('/login'); return;}
+  console.log("Session: " + req.session.session_id);
+  console.log("Access Token: " + req.session.access_token);
+
+  // Api call details
+  var access_token = req.session.access_token;
+  var seed_artists = "1hkC9kHG980jEfkTmQYB7t";
+  var seed_tracks = "0c6xIDDpzE81m2q797ordA";
+
+  if (access_token != null) {
+    var recommendOptions = {
+      url: 'https://api.spotify.com/v1/recommendations?' +
+      querystring.stringify({
+        seed_artists: seed_artists,
+        seed_tracks: seed_tracks,
+        limit: 8
+      }),
+      headers: { 'Authorization': 'Bearer ' + access_token },
+      json: true
+    };
+  } else {
+    console.log("Log in first");
+  }
+
+  // GET request for /recommend
+  request.get(recommendOptions, function(error, response, body) {
+    if(error) throw error;
+
+    console.log(body);
+    if (!error && response.statusCode === 200) {
+      console.log("RECOMMENDATIONS \n");
+      if (body.tracks) {
+        for (var i = 0; i < body.tracks.length; i++) {
+          console.log("\t TRACK: " + body.tracks[i].name);
+        }
+    } else {
+      console.log("Response code: " + response.statusCode + "\nError: " + error);
+    }}
+    res.send("Recommendations: " + JSON.stringify(body));
+  });
+
+  addSearchToDatabase(req.session.user_id, query, type, seed_artists, seed_tracks);
+});
+
+/**
+ * addSearchToDatabase: add and update search to database
+ */
+function addSearchToDatabase(current_user, query, type, artist_id, track_id) {
+  // Check if the user is still logged in
+  if (current_user != null) {
+    db.collection('users').find({user_id: current_user}).toArray(function(err, result) {
+      if(err) throw err;
+
+      if (result.length > 0) {
+        console.log("User exists: " + JSON.stringify(result[0]));
+        db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": [{"query": query}, {"type": type}, {"artist_id": artist_id}, {"track_id": track_id}]}}, {upsert: true}, function(err, result) {
+          if (err) {
+            throw err;
+          }
+        });
+      } else {
+      console.log("User " + req.session.user_id + " does not exist in users collection");
+    }});
+  } else {
+    // TODO: prompt user to login? Redirect?
+    console.log("Invalid req.session.user_id");
+  }
+}
+/**
+  * End of Search, Top Tracks and Recommendations
+*/
+
+//   // Playlist functions
+// app.post('/create_pl', function(req, res) {
+//   var access_token = req.session.access_token;
+//   var user_id = req.session.user_id;
+//   var newpl = {
+//     name: "New Playlist",
+//     description: "New playlist description",
+//     public: false
+//   };
+//   var options = {
+//     url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists',
+//     headers: { 'Authorization': 'Bearer ' + access_token },
+//     body:newpl
+//     //json: true
+//     };
+//   request.post(options, function(err, res, body) {
+//     if(!error && response.statusCode === 200){
+//       console.log(body);
+//     }
+//     else{
+//       console.log(error);
+//     }
+//   });
+// });
 
 /*app.post('/addto_pl', function(req, res) {
   var access_token = req.session.access_token;
