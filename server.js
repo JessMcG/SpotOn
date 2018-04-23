@@ -636,7 +636,7 @@ function addSearchToDatabase(current_user, query, type, artist_id, track_id) {
 
       if (result.length > 0) {
         console.log("User exists: " + JSON.stringify(result[0]));
-        db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": {{"query": query}, {"type": type}, {"artist_id": artist_id}, {"track_id": track_id}}}}, {upsert: true}, function(err, result) {
+        db.collection('users').update({user_id: current_user}, {$addToSet: {"searches": [{"query": query}, {"type": type}, {"artist_id": artist_id}, {"track_id": track_id}]}}, {upsert: true}, function(err, result) {
           if (err) {
             throw err;
           }
