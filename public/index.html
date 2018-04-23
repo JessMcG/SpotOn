@@ -20,24 +20,19 @@
 				type: 'get',
 				cashe: false,
 				success:
-				if (data != null) {
-					function(data){
-						$(data.artists.items).each(function(index, value){
-							console.log("Displaying search results...");
+				function(data){
+					$(data.artists.items).each(function(index, value){
+						console.log("Displaying search results...");
 
-							var artistID = value.uri;
-							var artistID2 = artistID.substring(15, 37);
+						var artistID = value.uri;
+						var artistID2 = artistID.substring(15, 37);
 
-							var searchResultsHome = "<article class='searchResult sr1'><img class='searchResultImage' src='" + value.images[0].url +"'alt=''/><h3>" + value.name + "</h3><div class='addTrack playSearchedTrack' data-artist-id='" + artistID2 + "' id='showSongs'><img src='img/next.png' alt='play track' /></div></article>";
+						var searchResultsHome = "<article class='searchResult sr1'><img class='searchResultImage' src='" + value.images[0].url +"'alt=''/><h3>" + value.name + "</h3><div class='addTrack playSearchedTrack' data-artist-id='" + artistID2 + "' id='showSongs'><img src='img/next.png' alt='play track' /></div></article>";
 
-							$("#searchResults").append(searchResultsHome);
+						$("#searchResults").append(searchResultsHome);
 
-						});
-
-					}
+					});
 				}
-
-
 			});
 
 			setTimeout(doSomething, 1000);
