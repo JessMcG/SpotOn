@@ -162,8 +162,8 @@ app.get('/callback/', function(req, res) {
             if (err) throw err;
 
             //Save user's searches from db before updating user details
-            //var searches_from_db = result.searches;
-            //console.log(searches_from_db);
+            var searches_from_db = result.searches;
+            console.log("Seaches: "+searches_from_db);
 
             //If user_id already exists, update the database
             if (result.length>0){
