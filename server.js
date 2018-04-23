@@ -519,8 +519,11 @@ app.get('/search', function(req, res) {
     } else {
       console.log("Response code: " + response.statusCode + "\nError: " + error);
     }
-    res.send("Search: " + JSON.stringify(body));
+    //res.send("Search: " + JSON.stringify(body));
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'json')
     res.json(body);
+    res.end();
   });
 
   addSearchToDatabase(req.session.user_id, query, type, null, null);
