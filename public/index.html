@@ -21,6 +21,7 @@
 				cashe: false,
 				success: function(data){
 					$(data.artists.items).each(function(index, value){
+						console.log("Displaying search results...");
 
 						var artistID = value.uri;
 						var artistID2 = artistID.substring(15, 37);
