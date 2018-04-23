@@ -303,7 +303,7 @@ app.get('/profile_playlists', function(req, res) {
         playlists = body.items;
         console.log(body.items);
         for (var i = 0; i < playlists.length; i++) {
-          if(typeof playlists[i].images[0].url == undefined){
+          if(typeof playlists[i].images == undefined){
             playlists[i].images[0].url = 'img/blank.png';
           }
         }
