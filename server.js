@@ -521,8 +521,8 @@ app.get('/search', function(req, res) {
       console.log("Response code: " + response.statusCode + "\nError: " + error);
     }
     //res.send("Search: " + JSON.stringify(body));
-    res.writeHeader('Content-Type': 'applicatoin/json');
-    res.send(body);
+    res.setHeader('Content-Type': 'application/json');
+    res.json(JSON.stringify(body);
     res.end();
   });
 
