@@ -309,7 +309,7 @@ app.get('/profile_playlists', function(req, res) {
           Attempts to add a blank image url to the JSON object so field is not empty
         */
         for (var i = 0; i < playlists.length; i++) {
-          if(typeof playlists[i].images == undefined){
+          if(playlists[i].images.length == 0){
             playlists[i].images[0].url = 'img/playlist_cat.jpg';
           }
         }
