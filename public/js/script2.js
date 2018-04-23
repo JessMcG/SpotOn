@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
    //switch between playlists and songs on profile
 	$("#profileSongSwitch").hide();
@@ -291,3 +292,4 @@ $(document).ready(function(){
 	*/
 	
 });// END DOCUMENT READY 
+

@@ -1,14 +1,17 @@
+<!doctype html>
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>SpotOn</title>
+	<title>Spot On</title>
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,700" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
+
 	<link rel="icon" type="image/gif" href="favicon.gif" />
 	<link rel="icon" type="image/png" href="img/favicon.png" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="js/script.js"></script>
+	<script src="js/script2.js"></script>
 </head>
 <body>
 
@@ -22,44 +25,78 @@
 				<li><a href="profile.html">Profile</a></li>
 				<li><a href="player.html">Media Player</a></li>
 			</ul>
-    </div>
 
-    <div id="header">
+			<div id="loginWithSpotify">
+				<p>Login with </p> <img id="SpotLogo" src="img/spotifyLogo.png" alt="spotify logo" />
+			</div>
+
+			<a href="profile.html"><div id="respMenu">
+
+			</div></a>
+		</div>
+
+		<div id="header">
 			<img src="<%= image_url %>" id="profilePicture" alt="User Profile Picture" />
 			<h3><%= display_name %></h3> <!-- Spotify Display Name -->
 			<h4>Playlists - <span><%= playlists.length %></span> Songs - <span><%= tracks.length %></span></h4>
 		</div>
 
 		<div id="clear-box">
-
 		</div>
 
 		<div id="profileInfo">
+
 			<div class="profileCols">
-				<h2>My Playlists</h2>
-				<!-- Dynamically add the user's playlists from Spotify-->
-				<% if(playlists){playlists.forEach(function(playlist) { %>
-					<div class="searchResultProfile">
-						<img class="searchResultImage" src="<%= playlist.images[0].url %>" />						
-						<h3><%= playlist.name %><br /> <span><%= playlist.tracks.total %> songs</span></h3>
-						<div class="addTrackProfile addSearchedTrack">
-							<img src="img/close.png" alt="add track" />
-						</div>
-						<div class="addTrackProfile playSearchedTrack">
-							<a href='/play_playlist?user=<%= playlist.owner.id %>&uri=<%= playlist.id %>&name=<%= playlist.name %>'><img src="img/play.png" alt="play track" /></a>
+				<% var t = 0; %>
+				<h2><%= playlist_name %></h2>
+
+				<div id="musicPlayer">
+
+					<iframe src="https://open.spotify.com/embed?uri=spotify:user:<%= playlist_owner %>:playlist:<%= playlist_id %>" width="400" height="480"
+        frameborder="0" allow="encrypted-media" allowtransparency="true"></iframe>
+					<!--<div id="coverArtBlured">
+						<img class=album_art_blur src="<%= playlist_tracks[t].track.album.images[0].url %>" />
+						<div id="coverArtBluredInner">
+							<img class=album_art src="<%= playlist_tracks[t].track.album.images[0].url %>" />
 						</div>
 					</div>
-					<% }); }%>
+
+					<div id="trackArt">
+					</div>
+
+					<div id="trackDetails">
+						<!-- Load the details from the first track into the player -->
+						<!--<h2><%= playlist_tracks[0].track.artists[0].name %></h2>
+						<p><%= playlist_tracks[0].track.name %></p>
+					</div>
+
+					<div id="playTrackButton">
+						<img src="img/play.png" alt="play track" />
+					</div>
+
+					<div class="nextPrevButtons prevPos">
+						<img src="img/prev.png" alt="close" />
+					</div>
+
+					<div class="nextPrevButtons nextPos">
+						<img src="img/next.png" alt="close" />
+					</div>
+					-->
+
 				</div>
+
+			</div>
 
 
 			<div class="profileCols">
+
 				<h2>Tracks</h2>
 				<div id="profileSongs">
 					<ol>
-						<!-- Dynamically add the user's tracks from Spotify-->
-            <% if(tracks){tracks.forEach(function(track) { %>
+						<!-- Dynamically add the playlist's tracks from Spotify-->
+            <% if(playlist_tracks){playlist_tracks.forEach(function(track) { %>
               <li class="trackOnProfile">
+								<!--Track Title - Track Artist mins:secs -->
   							<p><%= track.track.name %> - <%= track.track.artists[0].name %> <span> <%= track.track.duration_min %></span></p>
   							<div class="playTrackProfile">
   								<img src="img/play.png" alt="play track" />
@@ -69,30 +106,11 @@
 					</ol>
 				</div>
 			</div>
-
-			<div class="profileCols">
-				<h1 id="wtf">Recent Searches</h1>
-				<div class="profileSongs">
-					<ol id="recentSearchResults">
-						<!-- Dynamically add the user's searches from Mongo-->
-            <% if(searches){searches.forEach(function(search) { %>
-						<li class="recentSearch">
-							<p><%= search.type %> - <span><%= search.q %></span></p>
-							<div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
-						<% }); }%>
-					</ol>
-				</div>
-			</div>
-
 		</div>
 
 
 		<div id="footer">
-
-
-
 		</div>
-
 	</div>
 </body>
 </html>
