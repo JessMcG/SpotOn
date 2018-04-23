@@ -310,7 +310,7 @@ app.get('/profile_playlists', function(req, res) {
         */
         for (var i = 0; i < playlists.length; i++) {
           if(playlists[i].images.length == 0){
-            playlists[i].images[0].url.push('img/playlist_cat.jpg');
+            playlists[i].images.push('url': 'img/playlist_cat.jpg');
             console.log(playlists[i].images[0].url);
           }
         }
