@@ -149,11 +149,12 @@ app.get('/callback/', function(req, res) {
 
           //if user has no profile image, use default blank image
           if(body.images.length>0){
-            var image_url = body.images.url;
+            var image_url = body.images[0].url;
           }
           else {
             var image_url = 'img/profile_pic.jpg';
           }
+          console.log(image_url);
 
           //Search database for the current user ID
           db.collection('users').find({user_id: body.id}).toArray(function(err, result) {
