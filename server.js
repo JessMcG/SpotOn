@@ -444,6 +444,7 @@ app.get('/media_player', function(req, res) {
  */
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.set('view engine', 'html');
 
 var artist;
 var track;
