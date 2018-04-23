@@ -81,7 +81,7 @@
 						<!-- Dynamically add the user's searches from Mongo-->
             <% if(searches){searches.forEach(function(search) { %>
 						<li class="recentSearch">
-							<p><%= search.type %> - <span><%= search.q %></span></p>
+							<p><%= search.type %> - <span><%= search.query %></span></p>
 							<div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
 						<% }); }%>
 					</ol>
