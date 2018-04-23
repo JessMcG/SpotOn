@@ -68,7 +68,6 @@ var db;
 MongoClient.connect(url, function(err, database){
   if(err) throw err;
   db = database;
-  //app.listen(8080);
 });
 
 // /login
@@ -83,7 +82,7 @@ app.get('/login', function(req, res) {
   // your application requests authorization
   var scope = 'user-read-private user-read-email playlist-read-private';
   scope += ' user-library-read playlist-modify-public playlist-modify-private';
-  scope += ' playlist-read-collaborative';
+  scope += ' playlist-read-collaborative'; //Adding Scopes for functionality with Spotify's API
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -100,9 +99,6 @@ app.get('/callback/', function(req, res) {
   // your application requests refresh and access tokens
   // after checking the state parameter
 
-  //var redirect_uri = req.protocol + '://' +req.get('host') + '/callback/';
-  //console.log(redirect_uri);
-
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -118,7 +114,7 @@ app.get('/callback/', function(req, res) {
       url: 'https://accounts.spotify.com/api/token',
       form: {
         code: code,
-        redirect_uri: req.protocol + '://' +req.get('host') + '/callback/',
+        redirect_uri: req.protocol + '://' +req.get('host') + '/callback/', //Variable callback uri for all team Codio accounts
         grant_type: 'authorization_code'
       },
       headers: {
@@ -156,7 +152,7 @@ app.get('/callback/', function(req, res) {
             var image_url = body.images.url;
           }
           else {
-            var image_url = 'img/profile_blank.png';
+            var image_url = 'img/profile_pic.jpg';
           }
 
           //Search database for the current user ID
@@ -171,6 +167,7 @@ app.get('/callback/', function(req, res) {
                 req.session.user_id = body.id;
                 req.session.access_token = access_token;
                 req.session.loggedin = true;
+                //Console log to test Session Creation
                 console.log('session ID = '+ req.session.id);
                 console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
@@ -187,6 +184,7 @@ app.get('/callback/', function(req, res) {
                 req.session.user_id = body.id;
                 req.session.access_token = access_token;
                 req.session.loggedin = true;
+                //Console log to test Session Creation
                 console.log('session ID = '+ req.session.id);
                 console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
@@ -197,7 +195,7 @@ app.get('/callback/', function(req, res) {
 
           });
         });
-        //Change Login Button to Logout
+        //TODO Change Login Button to Logout
 
       /*  $(".loginButton").click(function(){
     		    $(".loginButton").hide();
@@ -254,12 +252,13 @@ var tracks;
 
 //Complete the first call for loading profile information from the database
 app.get('/profile', function(req, res) {
-  //redirect if not logged in
+  //redirect to log in if not logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
 
+  //Log to test session functionality
   console.log('User ID from Session: ' +req.session.user_id);
 
-  //Get User Searches from Mongo
+  //Get User's Searches from Mongo
   db.collection('users').find({user_id: req.session.user_id}).toArray(function(err, result) {
     if (err) throw err;
     //Get user's details from DB
@@ -295,13 +294,20 @@ app.get('/profile_playlists', function(req, res) {
 
     // GET Playlists from Spotify
     request.get(options, function(error, response, body) {
-      //console.log(body.items);
 
       //If no errors from the API request
       if (!error && response.statusCode === 200) {
         //Get the details from each playlist and save as a variable
         playlists = body.items;
         console.log(body.items);
+
+        /*
+          Attempted handling for an extreme error
+          If a user's playlist has no images associated with it
+          profile template cannot load due to undefined variable
+
+          Attempts to add a blank image url to the JSON object so field is not empty
+        */
         for (var i = 0; i < playlists.length; i++) {
           if(typeof playlists[i].images == undefined){
             playlists[i].images[0].url = 'img/blank.png';
@@ -331,7 +337,7 @@ app.get('/profile_tracks', function(req, res) {
     };
 
 
-    // GET Trackss from Spotify
+    // GET Tracks from Spotify
     request.get(options, function(error, response, body) {
       console.log(body.items);
 
