@@ -1,0 +1,151 @@
+{
+  "artists": {
+    "href": "https://api.spotify.com/v1/search?query=Muse&type=artist&market=US&offset=0&limit=4",
+    "items": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/12Chz98pHFMPJEknJQMWvI"
+        },
+        "followers": {
+          "href": null,
+          "total": 3589779
+        },
+        "genres": [
+          "alternative rock",
+          "modern rock",
+          "permanent wave",
+          "piano rock",
+          "post-grunge",
+          "rock"
+        ],
+        "href": "https://api.spotify.com/v1/artists/12Chz98pHFMPJEknJQMWvI",
+        "id": "12Chz98pHFMPJEknJQMWvI",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/19ac88c7aec1f68aa6e207aff29efa15d37336a7",
+            "width": 640
+          },
+          {
+            "height": 320,
+            "url": "https://i.scdn.co/image/7ad2128db73a2814a1a96498404a5d9aabb4c15c",
+            "width": 320
+          },
+          {
+            "height": 160,
+            "url": "https://i.scdn.co/image/f026a6204c28907e43e833eaa1820f9b674295ca",
+            "width": 160
+          }
+        ],
+        "name": "Muse",
+        "popularity": 78,
+        "type": "artist",
+        "uri": "spotify:artist:12Chz98pHFMPJEknJQMWvI"
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/6dauOpCe6nbJap574c28ss"
+        },
+        "followers": {
+          "href": null,
+          "total": 690
+        },
+        "genres": [],
+        "href": "https://api.spotify.com/v1/artists/6dauOpCe6nbJap574c28ss",
+        "id": "6dauOpCe6nbJap574c28ss",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/9e2131c4dbfa83ab1513f6aec05d7a49df213103",
+            "width": 640
+          },
+          {
+            "height": 320,
+            "url": "https://i.scdn.co/image/4f584563fc62265dc0520c908f945eb70369d2e7",
+            "width": 320
+          },
+          {
+            "height": 160,
+            "url": "https://i.scdn.co/image/b9d25b920021a84b8a785f38c1b3cb7b7db98755",
+            "width": 160
+          }
+        ],
+        "name": "Kenif Muse",
+        "popularity": 27,
+        "type": "artist",
+        "uri": "spotify:artist:6dauOpCe6nbJap574c28ss"
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/0EcCExwuVReDp8Y86sLXUo"
+        },
+        "followers": {
+          "href": null,
+          "total": 34
+        },
+        "genres": [],
+        "href": "https://api.spotify.com/v1/artists/0EcCExwuVReDp8Y86sLXUo",
+        "id": "0EcCExwuVReDp8Y86sLXUo",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/fef4944016086c9f0afb7ee943ab0a0d746b30e7",
+            "width": 640
+          },
+          {
+            "height": 320,
+            "url": "https://i.scdn.co/image/39d74c5be6e3e929bdca315b2a4c60fc6c581487",
+            "width": 320
+          },
+          {
+            "height": 160,
+            "url": "https://i.scdn.co/image/ae04510bb2b9493375de9e3748651e4574de4084",
+            "width": 160
+          }
+        ],
+        "name": "Charlee Muse",
+        "popularity": 31,
+        "type": "artist",
+        "uri": "spotify:artist:0EcCExwuVReDp8Y86sLXUo"
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/2nYRDHDPqrclxCKNOCFY2j"
+        },
+        "followers": {
+          "href": null,
+          "total": 297
+        },
+        "genres": [],
+        "href": "https://api.spotify.com/v1/artists/2nYRDHDPqrclxCKNOCFY2j",
+        "id": "2nYRDHDPqrclxCKNOCFY2j",
+        "images": [
+          {
+            "height": 640,
+            "url": "https://i.scdn.co/image/d3c5f59c05526425b56dc94bf5a6989cbb2e075e",
+            "width": 640
+          },
+          {
+            "height": 320,
+            "url": "https://i.scdn.co/image/cd962983b1901c1b3cd287f097b0e9cf9222e168",
+            "width": 320
+          },
+          {
+            "height": 160,
+            "url": "https://i.scdn.co/image/6a7f66344df6bd13af20b5bcebb775461c6209d8",
+            "width": 160
+          }
+        ],
+        "name": "Pixy Muse",
+        "popularity": 18,
+        "type": "artist",
+        "uri": "spotify:artist:2nYRDHDPqrclxCKNOCFY2j"
+      }
+    ],
+    "limit": 4,
+    "next": "https://api.spotify.com/v1/search?query=Muse&type=artist&market=US&offset=4&limit=4",
+    "offset": 0,
+    "previous": null,
+    "total": 185
+  }
+}
