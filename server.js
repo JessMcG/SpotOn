@@ -172,21 +172,43 @@ app.get('/callback/', function(req, res) {
 
             //If user_id already exists, update the database
             if (result.length>0){
-              db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token}, {upsert: true}, function(err, result) {
-                if (err) throw err;
-                console.log('Saved to Database');
-                //add user details to current Session
-                req.session.user_id = body.id;
-                req.session.access_token = access_token;
-                req.session.loggedin = true;
-                //Console log to test Session Creation
-                console.log('session ID = '+ req.session.id);
-                console.log('session User ID = '+ req.session.user_id);
-                console.log('session Access Token = '+ req.session.access_token);
-                //redirect to home
-                res.redirect('/');
-              });
+              if(result[0].searches != null){
+                db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, searches: searches_from_db}, {upsert: true}, function(err, result) {
+                  if (err) throw err;
+                  console.log('Saved to Database');
+
+                  //add user details to current Session
+                  req.session.user_id = body.id;
+                  req.session.access_token = access_token;
+                  req.session.loggedin = true;
+                  //Console log to test Session Creation
+                  console.log('session ID = '+ req.session.id);
+                  console.log('session User ID = '+ req.session.user_id);
+                  console.log('session Access Token = '+ req.session.access_token);
+                  //redirect to home
+                  res.redirect('/');
+                });
+              }
+              else {
+                db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token}, {upsert: true}, function(err, result) {
+                  if (err) throw err;
+                  console.log('Saved to Database');
+
+                  //add user details to current Session
+                  req.session.user_id = body.id;
+                  req.session.access_token = access_token;
+                  req.session.loggedin = true;
+                  //Console log to test Session Creation
+                  console.log('session ID = '+ req.session.id);
+                  console.log('session User ID = '+ req.session.user_id);
+                  console.log('session Access Token = '+ req.session.access_token);
+                  //redirect to home
+                  res.redirect('/');
+                });
+              }
+
             }
+
             //otherwise create a new user account
             else {
               db.collection('users').insert({user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token}, function(err, result) {
