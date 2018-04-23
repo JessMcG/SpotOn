@@ -37,6 +37,16 @@ var generateRandomString = function(length) {
   return text;
 };
 
+//Converting miliseconds to minutes:seconds for track durations
+var msToMins = function(milis) {
+  var minutes = Math.floor(milis / 60000);
+  var seconds = ((milis % 60000) / 1000).toFixed(0);
+
+  if (seconds == 60) {minutes++};
+  if (seconds < 10) {seconds='0'+seconds};
+  return minutes + ':' + seconds;
+}
+
 var stateKey = 'spotify_auth_state';
 
 var app = express();
@@ -46,13 +56,18 @@ app.use(cookieParser());
 app.use(session({secret: 'rory_and_charlie'}));
 app.set('view engine', 'ejs');
 
+
+/*
+  Log In, Database Creation & Session Creation
+  - Jess McGowan (with Spotify for authorisation)
+*/
+
 //Initialise the database connection
 var db;
 
 MongoClient.connect(url, function(err, database){
   if(err) throw err;
   db = database;
-  //app.listen(8080);
 });
 
 // /login
@@ -68,7 +83,7 @@ app.get('/login', function(req, res) {
   // your application requests authorization
   var scope = 'user-read-private user-read-email playlist-read-private';
   scope += ' user-library-read playlist-modify-public playlist-modify-private';
-  scope += ' playlist-read-collaborative';
+  scope += ' playlist-read-collaborative'; //Adding Scopes for functionality with Spotify's API
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -85,9 +100,6 @@ app.get('/callback/', function(req, res) {
   // your application requests refresh and access tokens
   // after checking the state parameter
 
-  //var redirect_uri = req.protocol + '://' +req.get('host') + '/callback/';
-  //console.log(redirect_uri);
-
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -103,7 +115,7 @@ app.get('/callback/', function(req, res) {
       url: 'https://accounts.spotify.com/api/token',
       form: {
         code: code,
-        redirect_uri: req.protocol + '://' +req.get('host') + '/callback/',
+        redirect_uri: req.protocol + '://' +req.get('host') + '/callback/', //Variable callback uri for all team Codio accounts
         grant_type: 'authorization_code'
       },
       headers: {
@@ -127,13 +139,24 @@ app.get('/callback/', function(req, res) {
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           console.log(body);
+
+          //if user does not have a display name (i.e. not connected to facebook), use profile id
           if(body.display_name!=null){
             var display_name = body.display_name;
           }
           else {
             var display_name = body.id;
           }
-          var image_url = body.images.url;
+
+          //if user has no profile image, use default blank image
+          if(body.images.length>0){
+            var image_url = body.images[0].url;
+          }
+          else {
+            var image_url = 'img/profile_pic.jpg';
+          }
+          console.log(image_url);
+
           //Search database for the current user ID
           db.collection('users').find({user_id: body.id}).toArray(function(err, result) {
             if (err) throw err;
@@ -146,6 +169,7 @@ app.get('/callback/', function(req, res) {
                 req.session.user_id = body.id;
                 req.session.access_token = access_token;
                 req.session.loggedin = true;
+                //Console log to test Session Creation
                 console.log('session ID = '+ req.session.id);
                 console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
@@ -162,6 +186,7 @@ app.get('/callback/', function(req, res) {
                 req.session.user_id = body.id;
                 req.session.access_token = access_token;
                 req.session.loggedin = true;
+                //Console log to test Session Creation
                 console.log('session ID = '+ req.session.id);
                 console.log('session User ID = '+ req.session.user_id);
                 console.log('session Access Token = '+ req.session.access_token);
@@ -172,7 +197,7 @@ app.get('/callback/', function(req, res) {
 
           });
         });
-        //Change Login Button to Logout
+        //TODO Change Login Button to Logout
 
       /*  $(".loginButton").click(function(){
     		    $(".loginButton").hide();
@@ -214,45 +239,137 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-//Profile Page
+
+/*
+  Profile Page
+  - Jess McGowan
+*/
+
+//Initialising variables for profile
+var searches;
+var display_name;
+var image_url;
+var playlists;
+var tracks;
+
+//Complete the first call for loading profile information from the database
 app.get('/profile', function(req, res) {
-  //redirect if not logged in
+  //redirect to log in if not logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
 
+  //Log to test session functionality
   console.log('User ID from Session: ' +req.session.user_id);
 
-  //Initialising variables for profile
-  var searches;
-  var display_name;
-  var image_url;
-  var playlists;
-  var tracks;
+  //Get User's Searches from Mongo
+  db.collection('users').find({user_id: req.session.user_id}).toArray(function(err, result) {
+    if (err) throw err;
+    //Get user's details from DB
+    if (result.length>0){
+      for (var i = 0; i < result.length; i++) {
+        console.log('Search Results: '+result[i]);
+        searches = result[i].searches;
+        display_name = result[i].display_name;
+        image_url = result[i].image_url;
+      }
+        console.log('Searches: '+searches);
+        console.log('display_name: '+display_name);
+        console.log('image_url: '+image_url);
+      }
 
-  var code = req.query.code || null;
-  var authOptions = {
-    url: 'https://accounts.spotify.com/api/token',
-    form: {
-      code: code,
-      redirect_uri: req.protocol + '://' +req.get('host') + '/callback/',
-      grant_type: 'authorization_code'
-    },
-    headers: {
-      'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
-    },
-    json: true
-  };
+  });
+  //Go to next API call on completion
+  res.redirect('/profile_playlists');
+});
 
-    //Call profile_playlist.js
-    //return playlists
+//Get the user's playlists from Spotify
+app.get('/profile_playlists', function(req, res) {
+  //  Details for the API Call
+  var access_token = req.session.access_token;
 
-    //Call profile_tracks.js
-    //return tracks
-
-    //Call profile_db.js
-    //return display_name, image_url, searches
+  if (access_token != null) {
+    var options = {
+      url: 'https://api.spotify.com/v1/me/playlists',
+      headers: { 'Authorization': 'Bearer ' + access_token },
+      json: true
+    };
 
 
-  //render the template with the content added
+    // GET Playlists from Spotify
+    request.get(options, function(error, response, body) {
+
+      //If no errors from the API request
+      if (!error && response.statusCode === 200) {
+        //Get the details from each playlist and save as a variable
+        playlists = body.items;
+        console.log(body.items);
+
+        /*
+          Attempted handling for an extreme error
+          If a user's playlist has no images associated with it
+          profile template cannot load due to undefined variable
+
+          Attempts to add a blank image url to the JSON object so field is not empty
+        */
+        for (var i = 0; i < playlists.length; i++) {
+          if(playlists[i].images.length == 0){
+            playlists[i].images.push({"height": "200", "url": "img/playlist_cat.jpg"});
+            console.log(playlists[i].images[0].url);
+          }
+        }
+
+      } else {
+        //Log the error in the console
+        console.log(statusCode + " " + error);
+      }
+    });
+  }
+  //Go to next API call on completion
+  res.redirect('/profile_tracks');
+});
+
+//Get the user's tracks from Spotify
+app.get('/profile_tracks', function(req, res) {
+  //  Details for the API Call
+  var access_token = req.session.access_token;
+
+  if (access_token != null) {
+    var options = {
+      url: 'https://api.spotify.com/v1/me/tracks',
+      headers: { 'Authorization': 'Bearer ' + access_token },
+      json: true
+    };
+
+
+    // GET Tracks from Spotify
+    request.get(options, function(error, response, body) {
+      console.log(body.items);
+
+      //If no errors from the API request
+      if (!error && response.statusCode === 200) {
+        //Get the details from each playlist and save as a variable
+        tracks = body.items;
+        for (var i = 0; i < tracks.length; i++) {
+          tracks[i].track.duration_min = msToMins(tracks[i].track.duration_ms);
+          /*console.log(tracks[i].track.name);
+          console.log(tracks[i].track.artists[0].name);
+          console.log(tracks[i].track.duration_min);*/
+        }
+        console.log('Tracks Length: '+tracks.length);
+      } else {
+        //Log the error in the console
+        console.log(statusCode + " " + error);
+        //If error print error
+        res.send(statusCode + " " + error);
+      }
+      //Go to render on completion
+      res.redirect('/profile_page');
+    });
+  }
+});
+
+//Final profile call
+app.get('/profile_page', function(req, res) {
+  //render the template with the content added from the previous calls
   res.render('pages/test_profile', {
     display_name: display_name,
     image_url: image_url,
@@ -261,6 +378,64 @@ app.get('/profile', function(req, res) {
     tracks: tracks
   });
 
+});
+
+//Setting up variable to store playlist Tracks
+var playlist_tracks;
+var playlist_name;
+var playlist_owner;
+var playlist_id;
+
+//Send Playlists to Media player
+app.get('/play_playlist', function(req, res) {
+  //collect passed variables from url
+  playlist_owner = req.query.user;
+  playlist_id = req.query.uri;
+  playlist_name = req.query.name;
+  var access_token = req.session.access_token;
+
+  if (access_token != null) {
+    var options = {
+      url: 'https://api.spotify.com/v1/users/'+playlist_owner+'/playlists/'+playlist_id+'/tracks',
+      headers: { 'Authorization': 'Bearer ' + access_token },
+      json: true
+    };
+
+
+    // GET Playlist tracks from Spotify
+    request.get(options, function(error, response, body) {
+      console.log(body.items);
+
+      //If no errors from the API request
+      if (!error && response.statusCode === 200) {
+        //Get the details from each playlist and save as a variable
+        playlist_tracks = body.items;
+        for (var i = 0; i < playlist_tracks.length; i++) {
+          playlist_tracks[i].track.duration_min = msToMins(playlist_tracks[i].track.duration_ms);
+        }
+
+      } else {
+        //Log the error in the console
+        console.log(statusCode + " " + error);
+      }
+      //Go to next API call on completion
+      res.redirect('/media_player');
+    });
+  }
+
+});
+
+app.get('/media_player', function(req, res) {
+  res.render('pages/player', {
+    playlist_tracks: playlist_tracks,
+    playlist_id: playlist_id,
+    playlist_owner: playlist_owner,
+    playlists: playlists,
+    image_url: image_url,
+    display_name: display_name,
+    tracks: tracks,
+    playlist_name: playlist_name
+  });
 });
 
 /**
