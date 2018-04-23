@@ -148,7 +148,7 @@ app.get('/callback/', function(req, res) {
           }
 
           //if user has no profile image, use default blank image
-          if(body.image_url!=null){
+          if(body.images.length>0){
             var image_url = body.images.url;
           }
           else {
