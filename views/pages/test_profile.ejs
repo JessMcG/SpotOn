@@ -18,9 +18,13 @@
 			<a href="index.html"><img id="logo" src="img/SpotOnLogo.png" alt="logo" /></a>
 
 			<ul id="normalMenu">
-				<li><a href="index.html">Home</a></li>
-				<li><a href="profile.html">Profile</a></li>
-				<li><a href="player.html">Media Player</a></li>
+				<li><a href="/">Home</a></li>
+				<li><a href="/profile">Profile</a></li>
+				<!--li><a href="player.html">Media Player</a></li-->
+
+				<li><a href="/search">Search</a></li>
+				<li><a href="/recommend">Recommend</a></li>
+				<li><a href="/top_tracks">Top tracks</a></li>
 			</ul>
     </div>
 
@@ -40,7 +44,7 @@
 				<!-- Dynamically add the user's playlists from Spotify-->
 				<% if(playlists){playlists.forEach(function(playlist) { %>
 					<div class="searchResultProfile">
-						<img class="searchResultImage" src="<%= playlist.images[0].url %>" />						
+						<img class="searchResultImage" src="<%= playlist.images[0].url %>" />
 						<h3><%= playlist.name %><br /> <span><%= playlist.tracks.total %> songs</span></h3>
 						<div class="addTrackProfile addSearchedTrack">
 							<img src="img/close.png" alt="add track" />
