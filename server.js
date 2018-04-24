@@ -420,7 +420,8 @@ app.get('/seedpl', function(req, res, body) {
         console.log('body: '+ body);
         var qry = {user_id: user_id};
         var newval = {$addToSet: {"searches": [{"query":body}, {"type": "artist"}]}};
-//
+/
+/*
         db.collection('users').update(qry, newval, {upsert: true}, function(err, result){
           if(err)throw err;
           console.log('db .update res: '+ result);
@@ -437,7 +438,7 @@ app.get('/seedpl', function(req, res, body) {
     console.log('login required');
   };
 });
-
+/*
 /*
 app.get('/create_pl', function(req, res, body) {
   console.log('Start Creating Playlist');
