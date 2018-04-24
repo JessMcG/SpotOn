@@ -402,7 +402,7 @@ app.get('/profile_tracks', function(req, res) {
 //Final profile call
 app.get('/profile_page', function(req, res) {
   //render the template with the content added from the previous calls
-  res.render('pages/test_profile', {
+  res.render('pages/profile', {
     display_name: display_name,
     image_url: image_url,
     searches: searches,
@@ -494,6 +494,7 @@ var artist;
 var track;
 var query;
 var type;
+
 /**
  * /search_form:  Send data from input form to /search
  */
