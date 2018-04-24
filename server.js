@@ -83,7 +83,7 @@ app.get('/login', function(req, res) {
   // your application requests authorization
   var scope = 'user-read-private user-read-email playlist-read-private';
   scope += ' user-library-read playlist-modify-public playlist-modify-private';
-  scope += ' playlist-read-collaborative'; //Adding Scopes for functionality with Spotify's API
+  scope += ' playlist-read-collaborative streaming'; //Adding Scopes for functionality with Spotify's API
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
