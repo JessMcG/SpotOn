@@ -121,10 +121,12 @@
 				<div class="profileSongs">
 					<ol id="recentSearchResults">
 						<!-- Dynamically add the user's searches from Mongo-->
-						<% if(searches){searches.forEach(function(search) { %>
-						<li class="recentSearch">
-							<p><%= search.type %> - <span><%= search.query %></span></p>
-							<div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
+						<% if(searches){
+							searches.reverse();
+							searches.forEach(function(search) { %>
+								<li class="recentSearch">
+									<p><%= search.type %> - <span><%= search.query %></span></p>
+									<div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
 						<% }); }%>
 					</ol>
 				</div>
