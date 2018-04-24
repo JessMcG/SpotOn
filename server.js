@@ -382,7 +382,7 @@ app.get('/seedpl', function(req, res, body) {
 // query db for search term
     var query = {user_id: user_id};
     var proj = {'search': true};
-
+/*
     var findTracks = function(query, proj){
       db.collection('users').find(query, proj).toArray(function(err, result) {
         if (result!=null){
@@ -399,7 +399,7 @@ app.get('/seedpl', function(req, res, body) {
         };
       });
     };
-
+*/
 // build request options
     var headers = {
       'Accept': 'application/json',
