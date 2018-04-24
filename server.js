@@ -161,18 +161,11 @@ app.get('/callback/', function(req, res) {
           db.collection('users').find({user_id: body.id}).toArray(function(err, result) {
             if (err) throw err;
 
-            //Save user's searches from db before updating user details
-            if(result[0].searches != null){
-              var searches_from_db = result[0].searches;
-              console.log("Searches: "+searches_from_db);
-            }
-            else{
-              console.log("No current searches");
-            }
-
             //If user_id already exists, update the database
             if (result.length>0){
               if(result[0].searches != null){
+                var searches_from_db = result[0].searches;
+                console.log("Searches: "+searches_from_db);
                 db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token, searches: searches_from_db}, {upsert: true}, function(err, result) {
                   if (err) throw err;
                   console.log('Saved to Database');
@@ -190,6 +183,7 @@ app.get('/callback/', function(req, res) {
                 });
               }
               else {
+                console.log("No current searches");
                 db.collection('users').update({user_id: body.id},{user_id: body.id, display_name: display_name, image_url: image_url, access_token: access_token, refresh_token: refresh_token}, {upsert: true}, function(err, result) {
                   if (err) throw err;
                   console.log('Saved to Database');
