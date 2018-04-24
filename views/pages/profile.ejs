@@ -72,6 +72,7 @@
 		<div id="profileInfo">
 			<section class="profileCols">
 				<h1>Music</h1>
+				<!-- Switch view between playlists and tracks -->
 				<div id="switch">
 					<div class="switchInner myPlaylists activeInner">
 						<p>Playlists</p>
@@ -104,7 +105,7 @@
 							<!-- Dynamically add the user's tracks from Spotify-->
 	            <% if(tracks){tracks.forEach(function(track) { %>
 	              <li class="trackOnProfile">
-	  							<p><%= track.track.name %> - <%= track.track.artists[0].name %> <span> <%= track.track.duration_min %></span></p>
+	  							<p class='ellipsis'><%= track.track.name %> - <%= track.track.artists[0].name %> <span> <%= track.track.duration_min %></span></p>
 	  							<div class="playTrackProfile">
 	  								<img src="img/play.png" alt="play track" />
 	  							</div>
@@ -130,7 +131,7 @@
 			</section>
 
 		</div>
-		
+
 		<footer id="footer">
 
 
