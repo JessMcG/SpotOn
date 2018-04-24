@@ -382,23 +382,24 @@ app.get('/seedpl', function(req, res, body) {
 // query db for search term
     var query = {user_id: user_id};
     var proj = {'search': true};
-    db.collection('users').find(query, proj).toArray(function(err, result) {
-      if (result!=null){
 
-// TODO format json response and attach to querystring
-        console.log('result: '+ result);
-        var result_str = new String(result);
-        result_str = result_str.slice(18, 43);
-        console.log('playlist_id_str: '+ result_str);
-        tracks = result_str;
-        console.log('querystring: '+ tracks);
+    var findTracks = function(query, proj){
+      db.collection('users').find(query, proj).toArray(function(err, result) {
+        if (result!=null){
+          console.log('result: '+ result);
+          getTracks(tracks){
+            var result_str = new String(result);
+            result_str = result_str.slice(18, 43);
+            console.log('playlist_id_str: '+ result_str);
+            tracks = result_str;
+            console.log('querystring: '+ tracks);
+          };
+        } else {
+          console.log('No db.find result' +err);
+        };
+      });
+    };
 
-        getTracks(tracks){}
-//
-      } else {
-        console.log('No db.find result' +err);
-      };
-    });
 // build request options
     var headers = {
       'Accept': 'application/json',
