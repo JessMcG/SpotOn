@@ -105,7 +105,7 @@
 							<!-- Dynamically add the user's tracks from Spotify-->
 	            <% if(tracks){tracks.forEach(function(track) { %>
 	              <li class="trackOnProfile">
-	  							<p class='ellipsis'><%= track.track.name %> - <%= track.track.artists[0].name %> <span> <%= track.track.duration_min %></span></p>
+	  							<p class='ellipsis' title='<%= track.track.name %> - <%= track.track.artists[0].name %> / <%= track.track.duration_min %>'><%= track.track.name %> - <%= track.track.artists[0].name %> <span> <%= track.track.duration_min %></span></p>
 	  							<div class="playTrackProfile">
 	  								<img src="img/play.png" alt="play track" />
 	  							</div>
