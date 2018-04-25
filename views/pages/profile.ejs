@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Profile Template 
+<!-- Profile Template
 		Adapted from non-dynamic profile.html
 		- Jess McGowan -->
 <html>
@@ -30,22 +30,19 @@
 			</div>
 		</header>
 
+			<!-- Responsive Menu-->
 		<header id="respNav">
 			<div class="respContent">
 				<div id="closeRespMenu">
 				</div>
 				<div id="respNavProfileLogin">
 				</div>
-				<img id="respNavImage" src="img/guest.jpg" alt="" />
-				<h2>Guest User</h2>
-				<div id="spotifyLoginResp">
-					<p>Login with </p> <img id="SpotLogoResp" src="img/spotifyLogo.png" alt="spotify logo" />
-				</div>
+				<img id="respNavImage" src="<%= image_url %>" alt="User Profile Picture" />
+				<h2><%= display_name %></h2>
 				<div id="respNavLinks">
 					<ul>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="profile.html">Profile</a></li>
-						<li><a href="player.html">Media Player</a></li>
+						<li><a href="/login">Home</a></li>
+						<li><a href="/profile">Profile</a></li>
 					</ul>
 				</div>
 			</div>

@@ -21,23 +21,36 @@ Adapted from non-dynamic player.html
 	<div id="container">
 
 		<!--Navigation bar -->
-		<div id="nav">
+		<header id="nav">
 			<a href="index.html"><img id="logo" src="img/SpotOnLogo.png" alt="logo" /></a>
-
 			<ul id="normalMenu">
 				<li><a href="/">Home</a></li>
 				<li><a href="/profile">Profile</a></li>
-				<li><a href="/search">Search</a></li>
-				<li><a href="/recommend">Recommend</a></li>
-				<li><a href="/top_tracks">Top tracks</a></li>
 			</ul>
 			<div id="loginWithSpotify">
-				<p>Login with </p> <img id="SpotLogo" src="img/spotifyLogo.png" alt="spotify logo" />
+					<p>Login with </p> <img id="SpotLogo" src="img/spotifyLogo.png" alt="spotify logo" />
 			</div>
+			<div id="respMenu">
+			</div>
+		</header>
 
-			<a href="profile.html"><div id="respMenu">
-			</div></a>
-		</div>
+		<!-- Responsive Menu-->
+		<header id="respNav">
+			<div class="respContent">
+				<div id="closeRespMenu">
+				</div>
+				<div id="respNavProfileLogin">
+				</div>
+				<img id="respNavImage" src="<%= image_url %>" alt="User Profile Picture" />
+				<h2><%= display_name %></h2>
+				<div id="respNavLinks">
+					<ul>
+						<li><a href="/login">Home</a></li>
+						<li><a href="/profile">Profile</a></li>
+					</ul>
+				</div>
+			</div>
+		</header>
 
 		<div id="header">
 			<!-- Adding dynamic content to the page header with the user's profile picture, display name, and music details-->
