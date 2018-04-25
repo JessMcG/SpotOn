@@ -131,7 +131,7 @@ $(document).ready(function(){
 
 	$.ajax({
 		url: '/search',
-		dataType: 'jsonp',
+		dataType: 'text/html',
 		type: 'get',
 		cashe: false,
 		success: function(data){
