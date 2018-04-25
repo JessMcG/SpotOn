@@ -131,7 +131,7 @@ $(document).ready(function(){
 
 	$.ajax({
 		url: '/search',
-		dataType: 'json',
+		dataType: 'jsonp',
 		type: 'get',
 		cashe: false,
 		success: function(data){
@@ -252,6 +252,9 @@ $(document).ready(function(){
 				$("#ffs").attr("src",data.tracks[c].track);
 
 			});
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert(jqXHR.status);
 		}
 
 
