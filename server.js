@@ -526,6 +526,7 @@ app.get('/search', function(req, res) {
     // res.end();
     //res.sendFile(body);
     //res.status(status).json(obj)
+    res.setHeader('Content-Type', 'text/html')
     res.status(200).json(JSON.stringify(body));
   });
 
