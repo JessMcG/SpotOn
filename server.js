@@ -525,7 +525,8 @@ app.get('/search', function(req, res) {
     // res.json(JSON.stringify(body);
     // res.end();
     //res.sendFile(body);
-    res.json(200, body);
+    //res.status(status).json(obj)
+    res.status(200).json(body);
   });
 
   addSearchToDatabase(req.session.user_id, query, type, null, null);
