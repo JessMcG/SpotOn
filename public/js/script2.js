@@ -129,6 +129,42 @@ $(document).ready(function(){
 
 
 
+
+	// iterate out serach result within div on page on page. - *not working*
+	// doesnt recognise this ajax function just the other one.
+	$.ajax({
+		url: 'search.json',
+		dataType: 'json',
+		type: 'get',
+		cashe: false,
+		success: function(data2){
+			$(data2.search).each(function(index, value){
+
+				var appendSearch = "<li class='recentSearch'><p>" + value.type + " - <span>" + value.search + " " + "</span></p>";
+
+
+				$("#recentSearchResults").append(appendSearch);
+
+
+			});
+
+
+
+		}
+
+	});
+	// show tooltips on hover of tracks with jquery ui
+  $( function() {
+	$( document ).tooltip();
+  } );
+
+
+
+	/*
+	var searchResultsHome = "<article class='searchResult'><img class='searchResultImage' src='" + value.images[0].url +"'alt=''/><h3>" + value.name + "</h3><div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div><div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div></article>";
+	*/
+
+});// END DOCUMENT READY
 //grab data from the json file.
 function getData(){
 var artist = $('#artistField').value();
@@ -265,38 +301,3 @@ console.log("Receiving data from /search...");
 
 	});
 }
-	// iterate out serach result within div on page on page. - *not working*
-	// doesnt recognise this ajax function just the other one.
-	$.ajax({
-		url: 'search.json',
-		dataType: 'json',
-		type: 'get',
-		cashe: false,
-		success: function(data2){
-			$(data2.search).each(function(index, value){
-
-				var appendSearch = "<li class='recentSearch'><p>" + value.type + " - <span>" + value.search + " " + "</span></p>";
-
-
-				$("#recentSearchResults").append(appendSearch);
-
-
-			});
-
-
-
-		}
-
-	});
-	// show tooltips on hover of tracks with jquery ui
-  $( function() {
-	$( document ).tooltip();
-  } );
-
-
-
-	/*
-	var searchResultsHome = "<article class='searchResult'><img class='searchResultImage' src='" + value.images[0].url +"'alt=''/><h3>" + value.name + "</h3><div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div><div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div></article>";
-	*/
-
-});// END DOCUMENT READY
