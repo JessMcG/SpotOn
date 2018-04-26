@@ -538,7 +538,7 @@ app.get('/top_tracks', function(req, res) {
 
   // Api call details
   var access_token = req.session.access_token;
-  var seed_artists = "12Chz98pHFMPJEknJQMWvI";
+  var seed_artists = req.query.artist_id;
   var country_artists = "NL";
 
   if (access_token != null) {
@@ -588,8 +588,8 @@ app.get('/recommend', function(req, res) {
 
   // Api call details
   var access_token = req.session.access_token;
-  var seed_artists = "1hkC9kHG980jEfkTmQYB7t";
-  var seed_tracks = "0c6xIDDpzE81m2q797ordA";
+  var seed_artists = req.query.artist;
+  var seed_tracks = req.query.song;
 
   if (access_token != null) {
     var recommendOptions = {
@@ -620,7 +620,9 @@ app.get('/recommend', function(req, res) {
     } else {
       console.log("Response code: " + response.statusCode + "\nError: " + error);
     }}
-    res.send("Recommendations: " + JSON.stringify(body));
+
+    res.setHeader('Content-Type', 'application/json')
+    res.send(body);
   });
 
   addSearchToDatabase(req.session.user_id, query, type, seed_artists, seed_tracks);

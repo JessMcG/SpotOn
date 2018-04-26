@@ -283,6 +283,11 @@ $(document).ready(function(){
 
 });// END DOCUMENT READY
 
+
+/**
+ * Searching, top tracks and recommendations
+ * Author: Nicky ter Maat
+ */
 //grab data from the json file.
 function getSearchData(){
 var artist = $('#artistField').val();
@@ -294,6 +299,8 @@ console.log("Receiving data from /search...");
 		type: 'get',
 		cashe: false,
 		success: function(data){
+
+
 			$(data.tracks).each(function(index, value){
 				console.log("Received tracks data from /search!");
 				console.log(data);
@@ -327,7 +334,7 @@ console.log("Receiving data from /search...");
 					//appendSearchResults += "<img class='searchResultImage' src='" + data.artists.items[i].images[0].url +"' 'alt=''/>"
 					appendSearchResults += "<h3>" + data.artists.items[i].name + "</h3>"
 					appendSearchResults	+= "<p id='artist_id'>" + data.artists.items[i].id + "</p>"
-					appendSearchResults += "<div class='addTrack addSearchedTrack' id='top_tracks'><img src='img/next.png' alt='add track' /></div>"
+					appendSearchResults += "<div class='addTrack addSearchedTrack top_tracks' id='"+data.artists.items[i].id+"' ><img src='img/next.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
 					appendSearchResults += "</article>"
@@ -340,11 +347,12 @@ console.log("Receiving data from /search...");
 	});
 }
 
-$('#top_tracks').click(getTopTracksFromArtist());
-function getTopTracksFromArtist() {
+$('.top_tracks').click(function(e){var id=e.target.attr('id'); getTopTracksFromArtist(id);});
+
+function getTopTracksFromArtist(id) {
 	var artistID = $('#artist_id').val();
 	console.log("Receiving data from /top_tracks..." + artistID);
-	
+
 	var appendSearchResults = "";
 	appendSearchResults += "<p>Listing results for <span>" + artistID + "</span></p>"
 
@@ -373,3 +381,38 @@ function getTopTracksFromArtist() {
 			}
 		});
 	}
+
+	$('#recommend_button').click(getRecommendations());
+	function getRecommendations() {
+		var artistID = $('#artist_id').val();
+		var trackID = $('#track_id').val();
+		console.log("Receiving data from /recommendations..." + "Artist: " + artistID + "Song: " + trackID);
+
+		var appendSearchResults = "";
+		appendSearchResults += "<p>Listing results for <span>" + artistID + trackID + "</span></p>"
+
+			$.ajax({
+				url: '/recommend?artist='+artistID+'&song='+trackID,
+				dataType: 'json',
+				type: 'get',
+				cashe: false,
+				success: function(data){
+					//$("#searchResults").remove();
+					console.log("Received tracks data from /recommendations!");
+					console.log(data);
+					console.log("Amount of results: " + data.tracks.length);
+					$(data.tracks).each(function(index, value){
+
+						appendSearchResults += "<article class='searchResult'>"
+						appendSearchResults += "<img class='searchResultImage' src='" + data.tracks[index].album.images[0].url +"' 'alt=''/>"
+						appendSearchResults += "<h3>" + data.tracks[index].name + "</h3>"
+						appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
+						appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
+						appendSearchResults += "</article>"
+
+						$("#searchResults").append(appendSearchResults);
+					});
+
+				}
+			});
+		}
