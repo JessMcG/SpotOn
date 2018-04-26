@@ -450,38 +450,6 @@ var artist;
 var track;
 var query;
 var type;
-var result;
-/**
- * /search_form:  Send data from input form to /search
- */
-// app.post('/search_form', function(req,res) {
-//   // Clear query, type, artist_id and track_id from memory
-//   query = ""; type = ""; artist_id = ""; track_id = "";
-//   artist =  req.body.artistField;
-//   track = req.body.songField;
-//   console.log("Collecting search form data...")
-//   console.log("Body: " + JSON.stringify(req.body));
-//   res.redirect('/search');
-// });
-
-// app.get('/search_results', function(req,res){
-//   console.log("Searchresults...");
-//
-//   // Use ajax to get information from url /search
-//   // /search will give you the body which is needed for rendering all the information into a html page.
-//   res.render('/pages/search', {
-//     playlist_tracks: playlist_tracks,
-//     playlist_id: playlist_id,
-//     playlist_owner: playlist_owner,
-//     playlists: playlists,
-//     image_url: image_url,
-//     display_name: display_name,
-//     tracks: tracks,
-//     playlist_name: playlist_name
-//   });
-//
-// });
-
 /**
  * /search: look for artist or track
  */
@@ -598,7 +566,9 @@ app.get('/top_tracks', function(req, res) {
     } else {
       console.log("Response code: " + response.statusCode + "\nError: " + error);
     }
-    res.send("Search: " + JSON.stringify(body));
+
+    res.setHeader('Content-Type', 'application/json')
+    res.send(body);
   });
 
   addSearchToDatabase(req.session.user_id, query, type, seed_artists, null);

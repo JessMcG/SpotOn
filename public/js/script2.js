@@ -280,14 +280,6 @@ $(document).ready(function(){
 		}
 
 	});
-	// // show tooltips on hover of tracks with jquery ui
-  // $( function() {
-	// $( document ).tooltip();
-  // } );
-
-
-
-
 
 });// END DOCUMENT READY
 
@@ -334,6 +326,7 @@ console.log("Receiving data from /search...");
 					appendSearchResults += "<article class='searchResult'>"
 					//appendSearchResults += "<img class='searchResultImage' src='" + data.artists.items[i].images[0].url +"' 'alt=''/>"
 					appendSearchResults += "<h3>" + data.artists.items[i].name + "</h3>"
+					appendSearchResults	+= "<p id='artist_id'>" + data.artists.items[i].id + "</p>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
 					appendSearchResults += "</article>"
@@ -346,6 +339,34 @@ console.log("Receiving data from /search...");
 	});
 }
 
+$('.searchResult').click(getTopTracksFromArtist);
 function getTopTracksFromArtist() {
+	var artistID = $('#artist_id').val();
+	console.log("Receiving data from /top_tracks...");
+		$.ajax({
+			url: '/top_tracks?artist='+artistID,
+			dataType: 'json',
+			type: 'get',
+			cashe: false,
+			success: function(data){
+				$(data.tracks).each(function(index, value){
+					console.log("Received tracks data from /top_tracks!");
+					console.log(data);
 
+					var appendSearchResults = "";
+					appendSearchResults += "<p>Listing results for <span>" + artistID + "</span></p>"
+
+					console.log("Amount of results: " + data.tracks.items.length);
+					for (var i = 0; i <data.tracks.items.length; i++) {
+						appendSearchResults += "<article class='searchResult'>"
+						appendSearchResults += "<img class='searchResultImage' src='" + data.tracks.items[i].album.images[0].url +"' 'alt=''/>"
+						appendSearchResults += "<h3>" + data.tracks.items[i].name + "</h3>"
+						appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
+						appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
+						appendSearchResults += "</article>"
+					}
+	
+					$("#searchResults").append(appendSearchResults);
+
+				});
 }
