@@ -191,13 +191,13 @@ console.log("Receiving data from /search...");
 			// load first track into player on page loading
 			var t = 0;
 
-			$("#trackArt").attr("src",data.tracks[t].album_art);
-			$("#coverArtBluredInner").attr("src",data.tracks[t].album_art);
-			$("#playerArtistName").html(data.tracks[t].artist_name);
-			$("#playerTrackName").html(data.tracks[t].track_name);
-			$("#playerPlaylistTitle").html(data.tracks[t].playlist_title);
-			$("#ffs").attr("src",data.tracks[t].track);
-			var playListLength = data.tracks.length;
+			$("#trackArt").attr("src",data.tracks.items[t].images[0].url);
+			$("#coverArtBluredInner").attr("src",data.tracks.items[t].images[0].url);
+			$("#playerArtistName").html(data.tracks.items[t].artists[0].name);
+			$("#playerTrackName").html(data.tracks.items[t].name);
+			$("#playerPlaylistTitle").html(data.tracks.items[t].name);
+			$("#ffs").attr("src",data.tracks.items[t].uri);
+			var playListLength = data.tracks.items.length;
 
 			//move to the next track on the playlist
 			$("#playNext").click(function(){
