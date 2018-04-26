@@ -342,7 +342,10 @@ console.log("Receiving data from /search...");
 $('.searchResult').click(getTopTracksFromArtist());
 function getTopTracksFromArtist() {
 	var artistID = $('#artist_id').val();
-	console.log("Receiving data from /top_tracks...");
+	console.log("Receiving data from /top_tracks..." + artistID);
+	var appendSearchResults = "";
+	appendSearchResults += "<p>Listing results for <span>" + artistID + "</span></p>"
+
 		$.ajax({
 			url: '/top_tracks?artist='+artistID,
 			dataType: 'json',
@@ -350,13 +353,10 @@ function getTopTracksFromArtist() {
 			cashe: false,
 			success: function(data){
 				//$("#searchResults").remove();
-				var appendSearchResults = "";
-				appendSearchResults += "<p>Listing results for <span>" + artistID + "</span></p>"
-
+				console.log("Received tracks data from /top_tracks!");
+				console.log(data);
+				console.log("Amount of results: " + data.tracks.length);
 				$(data.tracks).each(function(index, value){
-					console.log("Received tracks data from /top_tracks!");
-					console.log(data);
-					console.log("Amount of results: " + data.tracks.length);
 
 					appendSearchResults += "<article class='searchResult'>"
 					appendSearchResults += "<img class='searchResultImage' src='" + data.tracks[index].album.images[0].url +"' 'alt=''/>"
@@ -365,9 +365,11 @@ function getTopTracksFromArtist() {
 					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
 					appendSearchResults += "</article>"
 
-					$("#searchResults").append(appendSearchResults);
+
 
 				});
 			}
+			$("#searchResults").append(appendSearchResults);
+
 		});
 	}
