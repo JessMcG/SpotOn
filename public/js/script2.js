@@ -167,8 +167,8 @@ $(document).ready(function(){
 });// END DOCUMENT READY
 //grab data from the json file.
 function getData(){
-var artist = $('#artistField').value();
-var song = $('#songField').value();
+var artist = $('#artistField').val();
+var song = $('#songField').val();
 console.log("Receiving data from /search...");
 	$.ajax({
 		url: '/search?artist='+artist+'&song='+song,
