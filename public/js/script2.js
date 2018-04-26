@@ -329,7 +329,7 @@ console.log("Receiving data from /search...");
 				$("#searchResults").empty();
 				$("#searchResults").append(appendSearchResults);
 
-				$('.searchResult').click(function(e){var id=e.target.id; console.log(e); appendSearchResults = ""; getRecommendations(data.tracks.items[0].artists[0].id, id);});
+				$('.searchResult').click(function(e){var id=e.target.id; console.log(e); appendSearchResults = ""; getRecommendations(data.tracks.items[0].artists[0].id, id, data.tracks.items[0].artists[0].name, data.tracks.items[0].name );});
 			});
 
 			// If you have searched for artists, data will contain artists
@@ -366,7 +366,7 @@ function getTopTracksFromArtist(artistID) {
 	console.log("Receiving data from /top_tracks..." + artistID);
 
 	var appendSearchResults = "";		// Dynamically create the result-html-display
-	appendSearchResults += "<p>Listing results for <span>" + artistID + "</span></p>"
+
 
 		$.ajax({
 			url: '/top_tracks?artist='+artistID,
@@ -376,6 +376,8 @@ function getTopTracksFromArtist(artistID) {
 			success: function(data){
 				console.log("Received tracks data from /top_tracks!");
 				console.log(data);
+
+				appendSearchResults += "<p>Listing top tracks for <span>" + data.tracks[0].artists[0].name + "</span></p>"
 
 				$(data.tracks).each(function(index, value){
 
@@ -390,7 +392,7 @@ function getTopTracksFromArtist(artistID) {
 				$("#searchResults").empty();
 				$("#searchResults").append(appendSearchResults);
 
-				$('.searchResult').click(function(e){var id=e.target.id; console.log(id); appendSearchResults = ""; getRecommendations(artistID, id);});
+				$('.searchResult').click(function(e){var id=e.target.id; console.log(id); appendSearchResults = ""; getRecommendations(artistID, id, data.tracks[0].artists[0].name, data.tracks[index].name);});
 			}
 		});
 	}
@@ -398,11 +400,10 @@ function getTopTracksFromArtist(artistID) {
 /**
  * Recommendations for the selected track.Sending artist and track ID from client to server, returning recommendation data from server to client.
  */
-	function getRecommendations(artistID, trackID) {
+	function getRecommendations(artistID, trackID, artist_name, track_name) {
 		console.log("Receiving data from /recommendations..." + "Artist: " + artistID + "Song: " + trackID);
 
 		var appendSearchResults = "";		// Dynamically create the result-html-display
-		appendSearchResults += "<p>Listing results for <span>" + artistID + trackID + "</span></p>"
 
 			$.ajax({
 				url: '/recommend?artist='+artistID+'&song='+trackID,
@@ -412,6 +413,8 @@ function getTopTracksFromArtist(artistID) {
 				success: function(data){
 					console.log("Received tracks data from /recommen!");
 					console.log(data);
+
+					appendSearchResults += "<p>Listing recommendations for <span>" + artist_name + "</span> by <span>" + artist_name  "</span></p>"
 
 					$(data.tracks).each(function(index, value){
 						appendSearchResults += "<article class='searchResult'>"
