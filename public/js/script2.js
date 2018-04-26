@@ -352,19 +352,16 @@ function getTopTracksFromArtist() {
 				$(data.tracks).each(function(index, value){
 					console.log("Received tracks data from /top_tracks!");
 					console.log(data);
+					console.log("Amount of results: " + data.tracks.length);
 
 					var appendSearchResults = "";
 					appendSearchResults += "<p>Listing results for <span>" + artistID + "</span></p>"
-
-					console.log("Amount of results: " + data.tracks.length);
-					for (var i = 0; i <data.tracks.length; i++) {
-						appendSearchResults += "<article class='searchResult'>"
-						appendSearchResults += "<img class='searchResultImage' src='" + data.tracks[i].album.images[0].url +"' 'alt=''/>"
-						appendSearchResults += "<h3>" + data.tracks[i].name + "</h3>"
-						appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
-						appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
-						appendSearchResults += "</article>"
-					}
+					appendSearchResults += "<article class='searchResult'>"
+					appendSearchResults += "<img class='searchResultImage' src='" + data.tracks[index].album.images[0].url +"' 'alt=''/>"
+					appendSearchResults += "<h3>" + data.tracks[index].name + "</h3>"
+					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
+					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
+					appendSearchResults += "</article>"
 
 					$("#searchResults").append(appendSearchResults);
 
