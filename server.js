@@ -419,6 +419,7 @@ app.get('/play_playlist', function(req, res) {
   playlist_name = req.query.name;
   var access_token = req.session.access_token;
 
+  //build up varible API URL from passed variables
   if (access_token != null) {
     var options = {
       url: 'https://api.spotify.com/v1/users/'+playlist_owner+'/playlists/'+playlist_id+'/tracks',
