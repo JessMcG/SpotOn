@@ -372,4 +372,3 @@ function getTopTracksFromArtist() {
 			}
 		});
 	}
-}
