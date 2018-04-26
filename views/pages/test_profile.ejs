@@ -18,16 +18,20 @@
 			<a href="index.html"><img id="logo" src="img/SpotOnLogo.png" alt="logo" /></a>
 
 			<ul id="normalMenu">
-				<li><a href="index.html">Home</a></li>
-				<li><a href="profile.html">Profile</a></li>
-				<li><a href="player.html">Media Player</a></li>
+				<li><a href="/">Home</a></li>
+				<li><a href="/profile">Profile</a></li>
+				<!--li><a href="player.html">Media Player</a></li-->
+
+				<li><a href="/search">Search</a></li>
+				<li><a href="/recommend">Recommend</a></li>
+				<li><a href="/top_tracks">Top tracks</a></li>
 			</ul>
     </div>
 
     <div id="header">
-			<img src=image_url id="profilePicture" alt="User Profile Picture" />
+			<img src="<%= image_url %>" id="profilePicture" alt="User Profile Picture" />
 			<h3><%= display_name %></h3> <!-- Spotify Display Name -->
-			<h4>Playlists - <span>3</span> Songs - <span>19</span></h4>
+			<h4>Playlists - <span><%= playlists.length %></span> Songs - <span><%= tracks.length %></span></h4>
 		</div>
 
 		<div id="clear-box">
@@ -37,34 +41,49 @@
 		<div id="profileInfo">
 			<div class="profileCols">
 				<h2>My Playlists</h2>
-
-        <% playlists.forEach(function(playlist) { %>
-          <div class="searchResultProfile">
-  					<img class="searchResultImage" src=playlist.images.url />
-  					<h3><%= playlist.name %><br /> <span><%= playlist.tracks.total %></span></h3>
-  					<div class="addTrackProfile addSearchedTrack">
-  						<img src="img/close.png" alt="add track" />
-  					</div>
-  					<div class="addTrackProfile playSearchedTrack">
-  						<img src="img/play.png" alt="play track" />
-  					</div>
-  				</div>
-        <% }); %>
-			</div>
+				<!-- Dynamically add the user's playlists from Spotify-->
+				<% if(playlists){playlists.forEach(function(playlist) { %>
+					<div class="searchResultProfile">
+						<img class="searchResultImage" src="<%= playlist.images[0].url %>" />
+						<h3><%= playlist.name %><br /> <span><%= playlist.tracks.total %> songs</span></h3>
+						<div class="addTrackProfile addSearchedTrack">
+							<img src="img/close.png" alt="add track" />
+						</div>
+						<div class="addTrackProfile playSearchedTrack">
+							<a href='/play_playlist?user=<%= playlist.owner.id %>&uri=<%= playlist.id %>&name=<%= playlist.name %>'><img src="img/play.png" alt="play track" /></a>
+						</div>
+					</div>
+					<% }); }%>
+				</div>
 
 
 			<div class="profileCols">
 				<h2>Tracks</h2>
 				<div id="profileSongs">
 					<ol>
-            <% tracks.forEach(function(track) { %>
+						<!-- Dynamically add the user's tracks from Spotify-->
+            <% if(tracks){tracks.forEach(function(track) { %>
               <li class="trackOnProfile">
-  							<p>Track title <span>3 min 31</span></p>
+  							<p><%= track.track.name %> - <%= track.track.artists[0].name %> <span> <%= track.track.duration_min %></span></p>
   							<div class="playTrackProfile">
   								<img src="img/play.png" alt="play track" />
   							</div>
   						</li>
-            <% }); %>
+            <% }); }%>
+					</ol>
+				</div>
+			</div>
+
+			<div class="profileCols">
+				<h1 id="wtf">Recent Searches</h1>
+				<div class="profileSongs">
+					<ol id="recentSearchResults">
+						<!-- Dynamically add the user's searches from Mongo-->
+            <% if(searches){searches.forEach(function(search) { %>
+						<li class="recentSearch">
+							<p><%= search.type %> - <span><%= search.query %></span></p>
+							<div class="profileResultPlaylist"><img src="img/play.png" alt="" /></div></li>
+						<% }); }%>
 					</ol>
 				</div>
 			</div>

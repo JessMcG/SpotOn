@@ -1,0 +1,101 @@
+<!doctype html>
+<!-- Profile Template
+Adapted from non-dynamic player.html
+- Jess McGowan -->
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Spot On</title>
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+	<link rel="icon" type="image/gif" href="favicon.gif" />
+	<link rel="icon" type="image/png" href="img/favicon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/script2.js"></script>
+</head>
+<body>
+
+	<div id="container">
+
+		<!--Navigation bar -->
+		<header id="nav">
+			<a href="index.html"><img id="logo" src="img/SpotOnLogo.png" alt="logo" /></a>
+			<ul id="normalMenu">
+				<li><a href="/">Home</a></li>
+				<li><a href="/profile">Profile</a></li>
+			</ul>
+			<div id="loginWithSpotify">
+					<p>Login with </p> <img id="SpotLogo" src="img/spotifyLogo.png" alt="spotify logo" />
+			</div>
+			<div id="respMenu">
+			</div>
+		</header>
+
+		<!-- Responsive Menu-->
+		<header id="respNav">
+			<div class="respContent">
+				<div id="closeRespMenu">
+				</div>
+				<div id="respNavProfileLogin">
+				</div>
+				<img id="respNavImage" src="<%= image_url %>" alt="User Profile Picture" />
+				<h2><%= display_name %></h2>
+				<div id="respNavLinks">
+					<ul>
+						<li><a href="/login">Home</a></li>
+						<li><a href="/profile">Profile</a></li>
+					</ul>
+				</div>
+			</div>
+		</header>
+
+		<div id="header">
+			<!-- Adding dynamic content to the page header with the user's profile picture, display name, and music details-->
+			<img src="<%= image_url %>" id="profilePicture" alt="User Profile Picture" /> <!-- Added alt text to the profile picture-->
+			<h3><%= display_name %></h3> <!-- Spotify Display Name from server.js-->
+			<h4>Playlists - <span><%= playlists.length %></span> Songs - <span><%= tracks.length %></span></h4> <!-- Adding the user's playlist/track details from server.js-->
+		</div>
+
+		<div id="clear-box">
+		</div>
+
+		<div id="profileInfo">
+			<div class="profileCols">
+				<h2><%= playlist_name %></h2> <!-- Adding the Playlist's Name as a heading-->
+				<div id="musicPlayer">
+					<!-- Using the Spotify Player Widget, buidling the dynamic source url from the options sent from server.js-->
+					<iframe src="https://open.spotify.com/embed?uri=spotify:user:<%= playlist_owner %>:playlist:<%= playlist_id %>" width="400" height="480"
+						frameborder="0" allow="encrypted-media" allowtransparency="true"></iframe>
+				</div>
+			</div>
+
+
+			<div class="profileCols">
+				<h2>Tracks</h2>
+				<div id="profileSongs">
+					<ol>
+						<!-- Dynamically add the playlist's tracks from Spotify from server.js-->
+						<%	 if(playlist_tracks){playlist_tracks.forEach(function(track) { %>
+							<li class="trackOnProfile">
+								<!--Added a css style to prevent text overflow, added hover text to display full details -->
+								<p class='ellipsis' title='<%= track.track.name %> - <%= track.track.artists[0].name %> / <%= track.track.duration_min %>'><%= track.track.name %> - <%= track.track.artists[0].name %> <span> <%= track.track.duration_min %></span></p>
+								<div class="playTrackProfile">
+									<img src="img/play.png" alt="play track" />
+								</div>
+							</li>
+						<% }); }%>
+					</ol>
+				</div>
+			</div>
+		</div>
+
+		<% include ../partials/konami %>
+
+		<div id="footer">
+		</div>
+	</div>
+</body>
+</html>
