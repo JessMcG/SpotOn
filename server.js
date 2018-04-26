@@ -487,8 +487,8 @@ var result;
  */
 app.get('/search', function(req, res) {
   console.log("Searching....");
-  var artist =  req.query.artistField;
-  var track = req.query.songField;
+  var artist =  req.query.artist;
+  var track = req.query.song;
   //TODO: Check if logged in
   // if(!req.session.loggedin){res.redirect('/login'); return;}
   console.log("Session user_id: " + req.session.user_id);
