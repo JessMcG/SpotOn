@@ -461,7 +461,7 @@ app.post('/search_form', function(req,res) {
   track = req.body.songField;
   console.log("Collecting search form data...")
   console.log("Body: " + JSON.stringify(req.body));
-  res.redirect('/search_results');
+  res.redirect('/search');
 });
 
 // app.get('/search_results', function(req,res){
