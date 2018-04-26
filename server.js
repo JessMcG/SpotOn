@@ -372,13 +372,13 @@ app.get('/search', function(req, res) {
 // Lew McCullough / mcsmall1
 
 app.get('/seedpl', function(req, res, body) {
-  console.log('Start Seeding Playlist');
 // get global access token and user id
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
   var tracks = '';
 // check if logged in
   if(access_token!=null){
+    console.log('Start Seeding Playlist');
 // query db for search term
     var query = {user_id: user_id};
     var proj = {'search': true};
@@ -388,23 +388,23 @@ app.get('/seedpl', function(req, res, body) {
           var result_str = new String(result);
           result_str = result_str.slice(18, 43);
           console.log('playlist_id_str: '+ result_str);
-          tracks = result_str;
-          console.log('querystring: '+ tracks);
+          uris = result_str;
+          console.log('querystring: '+ uris);
       } else {
         console.log('No db.find result' +err);
       };
     });
 // build request options
+    var track = '1301WleyT98MSxVHPZCA6m';
+    var querystring = '?limit=25&seed_tracks='+track //;
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + access_token
     };
-    var querystring = 'limit=25' + tracks
     var options = {
-      url: 'https://api.spotify.com/v1/recommendations',
-      headers: headers,
-      query: querystring
+      url: 'https://api.spotify.com/v1/recommendations'+querystring
+      headers: headers
     };
 // make GET request to Spotify API for 25 tracks seeded from search
     request.get(options, function(err, res, body) {
@@ -490,7 +490,7 @@ app.get('/addto_pl', function(req, res) {
     var playlist_id_str = new String(playlist_id);
     playlist_id_str = playlist_id_str.slice(47, 77);
     console.log('playlist_id_str: ' +playlist_id_str);
-    
+
     console.log('res.session.tracks' +res.session.tracks);
 
 // build request options
