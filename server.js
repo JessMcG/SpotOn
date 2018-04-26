@@ -379,7 +379,6 @@ app.get('/seedpl', function(req, res, body) {
   var tracks = '';
 // check if logged in
   if(access_token!=null){
-
 // query db for search term
     var query = {user_id: user_id};
     var proj = {'search': true};
@@ -395,8 +394,6 @@ app.get('/seedpl', function(req, res, body) {
         console.log('No db.find result' +err);
       };
     });
-
-
 // build request options
     var headers = {
       'Accept': 'application/json',
@@ -414,6 +411,7 @@ app.get('/seedpl', function(req, res, body) {
       if(!err && res.statusCode === 200){
         console.log('body: '+ body);
         res.session.tracks = body;
+        console.log('res.session.tracks' +res.session.tracks);
 // TODO add json response to db for use in addto_pl
       } else {
         console.log('failed: ' + res.statusCode);
@@ -491,21 +489,9 @@ app.get('/addto_pl', function(req, res) {
 // tidying var playlist_id into useable string
     var playlist_id_str = new String(playlist_id);
     playlist_id_str = playlist_id_str.slice(47, 77);
-    console.log('playlist_id_str: '+playlist_id_str);
-    console.log(res.session.tracks);
-// search db for seed tracks
-/*
-    var query = {user_id: user_id};
-    var proj = {##LOCATION##OF##SEEDED##TRACKS##: true};
-    db.collection('users').find(query, proj).toArray(function(err, result) {
-      if (result!=null){
-        console.log(result);
-// TODO attach result to tracks
-      } else {
-        console.log('No db.find result' +err);
-      };
-    });
-*/
+    console.log('playlist_id_str: ' +playlist_id_str);
+    
+    console.log('res.session.tracks' +res.session.tracks);
 
 // build request options
     var headers = {
