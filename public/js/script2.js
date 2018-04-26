@@ -414,7 +414,7 @@ function getTopTracksFromArtist(artistID) {
 					console.log("Received tracks data from /recommen!");
 					console.log(data);
 
-					appendSearchResults += "<p>Listing recommendations for <span>" + artist_name + "</span> by <span>" + artist_name  "</span></p>";
+					appendSearchResults += "<p>Listing recommendations for <span>" + artist_name + "</span> by <span>" + artist_name + "</span></p>";
 
 					$(data.tracks).each(function(index, value){
 						appendSearchResults += "<article class='searchResult'>"
