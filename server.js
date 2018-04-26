@@ -375,11 +375,9 @@ app.get('/seedpl', function(req, res, body) {
 // get global access token and user id
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
-  var tracks = '';
 // check if logged in
   if(access_token!=null){
     console.log('Start Seeding Playlist');
-
 
 // query db for search term
     var query = {user_id: user_id};
@@ -417,8 +415,10 @@ app.get('/seedpl', function(req, res, body) {
         });
         trackuris = trackuris.slice(0,-1);
         req.session.seeds = trackuris;
+        res.send('trackuris: ' +req.session.seeds);
         console.log('trackuris: ' +req.session.seeds);
       } else {
+        res.send('failed: ' + res.statusCode);
         console.log('failed: ' + res.statusCode);
       };
     });
