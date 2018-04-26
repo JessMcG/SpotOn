@@ -433,6 +433,7 @@ function getTopTracksFromArtist() {
 				}
 			});
 		}
+	}
 
 /**
  * End of search, top tracks and recommendations.
