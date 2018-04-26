@@ -386,7 +386,7 @@ app.get('/seedpl', function(req, res, body) {
     var proj = {'search': true};
     db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
-        console.log('result: ' +result);
+        console.log('db.find result: ' +result);
       } else {
         console.log('No db.find result' +err);
       };
@@ -411,7 +411,12 @@ app.get('/seedpl', function(req, res, body) {
     request.get(options, function(err, res, body) {
       if(!err && res.statusCode === 200){
         var pbody = JSON.parse(body);
-        req.session.tracks = pbody;
+        req.session.tracks = pbody.tracks.uri;
+        var trackuris;
+        pbody.tracks.forEach(function(track){
+          trackuris += track.uri;
+        });
+        console.log(trackuris);
       } else {
         console.log('failed: ' + res.statusCode);
       };
