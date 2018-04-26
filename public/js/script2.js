@@ -302,7 +302,7 @@ console.log("Receiving data from /search...");
 		type: 'get',
 		cashe: false,
 		success: function(data){
-			$(data.tracks).each(function(index, value){
+			$(data).each(function(index, value){
 				console.log("Received data from /search!");
 				console.log(data);
 
