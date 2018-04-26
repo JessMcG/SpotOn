@@ -9,18 +9,8 @@ var bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/spot_on";
 
-// var jquery = require("node-jsdom");
-// jquery.env("", function(err, window) {
-//     if (err) {
-//         console.error(err);
-//         return;
-//     }
-//     var $ = require("jquery")(window);
-// });
-
 var client_id = '703c95bc02d947b9b49c0b5e50cfaa3f'; // Your client id
 var client_secret = '911cbe0e20f847769f5981267259c13a'; // Your secret
-// var redirect_uri = req.protocol + '://' +req.get('host') + '/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -37,7 +27,7 @@ var generateRandomString = function(length) {
   return text;
 };
 
-//Converting miliseconds to minutes:seconds for track durations
+//Converting miliseconds to minutes:seconds for track durations - JM
 var msToMins = function(milis) {
   var minutes = Math.floor(milis / 60000);
   var seconds = ((milis % 60000) / 1000).toFixed(0);
