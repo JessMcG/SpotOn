@@ -391,7 +391,7 @@ function getTopTracksFromArtist(artistID) {
 				$("#searchResults").empty();
 				$("#searchResults").append(appendSearchResults);
 
-				$('.searchResult').click(function(e){var id=e.target.id; var songName=e.target.name console.log(id); appendSearchResults = ""; getRecommendations(artistID, id, data.tracks[0].artists[0].name, songName);});
+				$('.searchResult').click(function(e){var id=e.target.id; var songName=e.target.name; console.log(id); appendSearchResults = ""; getRecommendations(artistID, id, data.tracks[0].artists[0].name, songName);});
 			}
 		});
 	}
