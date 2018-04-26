@@ -449,8 +449,9 @@ app.get('/create_pl', function(req, res, body) {
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
         console.log('success: ' + res.statusCode);
-        var playlist_id = body.id;
+        var pbody = JOSN.parse(body);
         console.log(body);
+        var playlist_id = pbody.id;
         req.session.playlist_id = playlist_id;
         console.log('req.session.playlist_id ' +req.session.playlist_id);
       } else {
