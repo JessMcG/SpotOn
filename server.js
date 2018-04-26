@@ -415,8 +415,8 @@ app.get('/seedpl', function(req, res, body) {
         pbody.tracks.forEach(function(track){
           trackuris += track.uri + ',';
         });
-        req.session.tracks = trackuris.slice(0,-1);
-        console.log('trackuris: ' +req.session.tracks);
+        req.session.seeds = trackuris.slice(0,-1);
+        console.log('trackuris: ' +req.session.seeds);
       } else {
         console.log('failed: ' + res.statusCode);
       };
@@ -479,7 +479,8 @@ app.get('/addto_pl', function(req, res) {
   if(access_token!=null){
     console.log('Adding To Playlist');
     var playlist_id = req.session.playlist_id;
-    var tracks = req.session.tracks;
+    var tracks = req.session.seeds;
+    console.log(req.session.seeds);
     console.log(tracks);
     var track = 'spotify:track:6sUhC28zNaIuRzjC0QQhTF,spotify:track:79R5oMVwp6OXSTlfQPQPEA'
 
@@ -490,7 +491,7 @@ app.get('/addto_pl', function(req, res) {
       'Authorization': 'Bearer '+ access_token
     };
     var options = {
-      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks?uris='+track,
+      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks?uris='+tracks,
       headers: { 'Authorization': 'Bearer ' + access_token },
       method: 'POST'
     };
