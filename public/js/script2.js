@@ -340,9 +340,9 @@ console.log("Receiving data from /search...");
 
 				console.log("Amount of results: " + data.artists.items.length);
 				for (var i = 0; i <data.artists.items.length; i++) {
-					appendSearchResults += "<article class='searchResult'>"
+					appendSearchResults += "<article class='searchResult' id='"+data.artists.items[i].id+"'>"
 					//appendSearchResults += "<img class='searchResultImage' src='" + data.artists.items[i].images[0].url +"' 'alt=''/>" //image does not want to display properly
-					appendSearchResults += "<h3 class='searchResultName' id='"+data.artists.items[i].id+"'>" + data.artists.items[i].name + "</h3>"
+					appendSearchResults += "<h3>" + data.artists.items[i].name + "</h3>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack' ><img src='img/next.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack playSearchedTrack top_tracks' id='"+data.artists.items[i].id+"'><img src='img/play.png' alt='play track' /></div>"
