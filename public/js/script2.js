@@ -382,7 +382,7 @@ function getTopTracksFromArtist(id) {
 				//console.log("Amount of results: " + data.tracks.length);
 				$(data.tracks).each(function(index, value){
 
-					appendSearchResults += "<article class='searchResult' id='"+data.tracks.items[index].id+"'>"
+					appendSearchResults += "<article class='searchResult' id='"+data.tracks[index].id+"'>"
 					appendSearchResults += "<img class='searchResultImage' src='" + data.tracks[index].album.images[0].url +"' 'alt=''/>"
 					appendSearchResults += "<h3>" + data.tracks[index].name + "</h3>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
