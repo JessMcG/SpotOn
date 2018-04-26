@@ -527,17 +527,21 @@ app.get('/search', function(req, res) {
     // res.end();
     //res.sendFile(body);
     //res.status(status).json(obj)
-    result = body;
-    res.redirect('/search_results')
+    // result = body;
+    // res.redirect('/search_results')
+      res.setHeader('Content-Type', 'text/html')
+      res.status(200).json(body);
   });
 
   addSearchToDatabase(req.session.user_id, query, type, null, null);
 });
-
-app.post('/search_results', function(req,res){
-  res.setHeader('Content-Type', 'text/html')
-  res.status(200).json(body);
-});
+//
+// app.post('/search_results', function(req,res){
+//   console.log("Searchresults...");
+//
+//   res.setHeader('Content-Type', 'text/html')
+//   res.status(200).json(body);
+// });
 
 /**
  * /top_tracks: Select top tracks for selected artist
