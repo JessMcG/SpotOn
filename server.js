@@ -479,7 +479,8 @@ app.get('/addto_pl', function(req, res) {
     console.log('Adding To Playlist');
     var playlist_id = req.session.playlist_id;
     var tracks = req.session.tracks;
-    tracks = tracks.toArray.slice(tracks.length);
+    tracks = tracks.toArray();
+    track = tracks.slice(tracks.length)
 // build request options
     var headers = {
       'Accept': 'application/json',
