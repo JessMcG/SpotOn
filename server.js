@@ -410,7 +410,7 @@ app.get('/seedpl', function(req, res, body) {
     request.get(options, function(err, res, body) {
       if(!err && res.statusCode === 200){
         console.log('body: '+ body);
-        console.log(body)
+        console.log(body.items);
         res.session.tracks = body;
         console.log('res.session.tracks' +res.session.tracks);
 // TODO add json response to db for use in addto_pl
