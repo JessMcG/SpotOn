@@ -406,8 +406,8 @@ app.get('/seedpl', function(req, res, body) {
 
 
 // make GET request to Spotify API for 25 tracks seeded from search
-    request.get(options, function(err, res, body) {
-      if(!err && res.statusCode === 200){
+    request.get(options, function(err, result, body) {
+      if(!err && result.statusCode === 200){
         var pbody = JSON.parse(body);
         var trackuris = '';
         pbody.tracks.forEach(function(track){
@@ -418,8 +418,8 @@ app.get('/seedpl', function(req, res, body) {
         res.send('trackuris: ' +req.session.seeds);
         console.log('trackuris: ' +req.session.seeds);
       } else {
-        res.send('failed: ' + res.statusCode);
-        console.log('failed: ' + res.statusCode);
+        res.send('failed: ' + result.statusCode);
+        console.log('failed: ' + result.statusCode);
       };
     });
   } else {
@@ -453,9 +453,9 @@ app.get('/create_pl', function(req, res, body) {
 
 
 // make POST to Spotify API to create a playlist on a given user_id's account
-    request.post(options, function(err, res, body) {
-      if(!err && res.statusCode === 201){
-        console.log('success: ' + res.statusCode);
+    request.post(options, function(err, result, body) {
+      if(!err && result.statusCode === 201){
+        console.log('success: ' + result.statusCode);
         var pbody = JSON.parse(body);
         console.log(pbody);
         var playlist_id = pbody.id;
@@ -463,7 +463,7 @@ app.get('/create_pl', function(req, res, body) {
         console.log(req.session.seeds);
         console.log('req.session.playlist_id ' +req.session.playlist_id);
       } else {
-        console.log('failed: ' + res.statusCode);
+        console.log('failed: ' + result.statusCode);
       };
     });
   } else {
@@ -500,13 +500,13 @@ app.get('/addto_pl', function(req, res) {
 
 
 // make POST request to Spotify API to add uris to a user_id's playlist_id
-    request.post(options, function(err, res, body) {
-      if(!err && res.statusCode === 201){
-        console.log('success: ' + res.statusCode);
+    request.post(options, function(err, result, body) {
+      if(!err && result.statusCode === 201){
+        console.log('success: ' + result.statusCode);
         var pbody = JSON.parse(body);
         console.log(body);
       } else {
-        console.log('failed: ' + res.statusCode);
+        console.log('failed: ' + result.statusCode);
       };
     });
   } else {
