@@ -349,13 +349,14 @@ function getTopTracksFromArtist() {
 			type: 'get',
 			cashe: false,
 			success: function(data){
+				var appendSearchResults = "";
+				appendSearchResults += "<p>Listing results for <span>" + artistID + "</span></p>"
+
 				$(data.tracks).each(function(index, value){
 					console.log("Received tracks data from /top_tracks!");
 					console.log(data);
 					console.log("Amount of results: " + data.tracks.length);
 
-					var appendSearchResults = "";
-					appendSearchResults += "<p>Listing results for <span>" + artistID + "</span></p>"
 					appendSearchResults += "<article class='searchResult'>"
 					appendSearchResults += "<img class='searchResultImage' src='" + data.tracks[index].album.images[0].url +"' 'alt=''/>"
 					appendSearchResults += "<h3>" + data.tracks[index].name + "</h3>"
