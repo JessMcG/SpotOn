@@ -347,7 +347,7 @@ console.log("Receiving data from /search...");
 	});
 }
 
-$('#searchResult').on('click', function(e){var id=e.target.attr('id'); console.log(e); getTopTracksFromArtist(id);});
+$('#searchResult').on('click', '#searchResults', function(e){var id=e.target.attr('id'); console.log(e); getTopTracksFromArtist(id);});
 function getTopTracksFromArtist(id) {
 	console.log("ID: " + id);
 	var artistID = id;
