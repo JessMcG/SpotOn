@@ -398,7 +398,7 @@ function getTopTracksFromArtist() {
  * Recommendations for the selected track.Sending artist and track ID from client to server, returning recommendation data from server to client.
  */
  // Unfortunately, I was unable to get the click events working on dynamically generated elements. Sorry for that..
-	$('#recommend_button').click(getRecommendations());
+	$('#recommend_button').click(function() {getRecommendations();});
 	function getRecommendations() {
 		// Using hardcoded artist and track ID to be able to display some recommendations.
 		var artistID = "12Chz98pHFMPJEknJQMWvI" //$('#artist_id').val();
@@ -433,7 +433,6 @@ function getTopTracksFromArtist() {
 				}
 			});
 		}
-	}
 
 /**
  * End of search, top tracks and recommendations.
