@@ -414,7 +414,7 @@ app.get('/seedpl', function(req, res, body) {
         req.session.tracks = pbody.tracks.uri;
         var trackuris;
         pbody.tracks.forEach(function(track){
-          trackuris += track.uri;
+          trackuris += track.uri + ',';
         });
         console.log(trackuris);
       } else {
