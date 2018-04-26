@@ -91,7 +91,7 @@ app.get('/callback/', function(req, res) {
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
   var playlist_id = '4dXHVSoRU19YNOvRxKH8Xr'
-  var search = '1301WleyT98MSxVHPZCA6m';
+  var search = '0c6xIDDpzE81m2q797ordA';
 
   if (state === null || state !== storedState) {
     res.redirect('/#' +
@@ -395,7 +395,7 @@ app.get('/seedpl', function(req, res, body) {
       };
     });
 // build request options
-    var track = '1301WleyT98MSxVHPZCA6m';
+    var track = '0c6xIDDpzE81m2q797ordA';
     var querystring = '?limit=25&seed_tracks='+track //;
     var headers = {
       'Accept': 'application/json',
@@ -410,6 +410,7 @@ app.get('/seedpl', function(req, res, body) {
     request.get(options, function(err, res, body) {
       if(!err && res.statusCode === 200){
         console.log('body: '+ body);
+        console.log(body)
         res.session.tracks = body;
         console.log('res.session.tracks' +res.session.tracks);
 // TODO add json response to db for use in addto_pl
