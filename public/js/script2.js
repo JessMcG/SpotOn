@@ -307,19 +307,20 @@ console.log("Receiving data from /search...");
 				console.log("Received data from /search!");
 				console.log(data);
 
-				var searchResultsHome = "";
-				searchResultsHome += "<p>Listing results for <span>" + artist + song + "</span></p>"
+				var appendSearchResults = "";
+				appendSearchResults += "<p>Listing results for <span>" + artist + song + "</span></p>"
+				console.log("Amount of results: " + data.tracks.items.length);
 				for (var i = 0; i <data.tracks.items.length; i++) {
-					searchResultsHome += "<article class='searchResult'>"
-					searchResultsHome += "<img class='searchResultImage' src='" + data.tracks.items[i].images[0].url +"'alt=''/>"
-					searchResultsHome += "<h3>" + data.tracks.items[i].name + "</h3>"
-					searchResultsHome += "<div class='add Track addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
-					searchResultsHome += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
-					searchResultsHome += "</article>"
+					appendSearchResults += "<article class='searchResult'>"
+					appendSearchResults += "<img class='searchResultImage' src='" + data.tracks.items[i].images[0].url +"' 'alt=''/>"
+					appendSearchResults += "<h3>" + data.tracks.items[i].name + "</h3>"
+					appendSearchResults += "<div class='add Track addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
+					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
+					appendSearchResults += "</article>"
 				}
 
-				$("#searchResults").append(appendTrack);
-				$(".profileMySongs").append(appendTrack);
+				$("#searchResults").append(appendSearchResults);
+				//$(".profileMySongs").append(appendTrack);
 
 
 			});
