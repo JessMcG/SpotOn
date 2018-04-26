@@ -307,7 +307,7 @@ console.log("Receiving data from /search...");
 				console.log(data);
 
 				var appendSearchResults = "";
-				appendSearchResults += "<p>Listing results for <span>" + artist + song + "</span></p>"
+				appendSearchResults += "<p>Listing results for <span>" + song + "</span></p>"
 
 				console.log("Amount of results: " + data.tracks.items.length);
 				for (var i = 0; i <data.tracks.items.length; i++) {
@@ -327,10 +327,10 @@ console.log("Receiving data from /search...");
 				console.log(data);
 
 				var appendSearchResults = "";
-				appendSearchResults += "<p>Listing results for <span>" + artist + song + "</span></p>"
+				appendSearchResults += "<p>Listing results for <span>" + artist + "</span></p>"
 
-				console.log("Amount of results: " + data.tracks.items.length);
-				for (var i = 0; i <data.tracks.items.length; i++) {
+				console.log("Amount of results: " + data.artists.items.length);
+				for (var i = 0; i <data.artists.items.length; i++) {
 					appendSearchResults += "<article class='searchResult'>"
 					appendSearchResults += "<img class='searchResultImage' src='" + data.artists.items[i].images[0].url +"' 'alt=''/>"
 					appendSearchResults += "<h3>" + data.artists.items[i].name + "</h3>"
