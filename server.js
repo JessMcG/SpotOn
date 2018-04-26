@@ -410,6 +410,7 @@ app.get('/seedpl', function(req, res, body) {
 // make GET request to Spotify API for 25 tracks seeded from search
     request.get(options, function(err, res, body) {
       if(!err && res.statusCode === 200){
+        var pbody = JSON.parse(body);
         var trackuris = '';
         pbody.tracks.forEach(function(track){
           trackuris += track.uri + ',';
@@ -456,7 +457,7 @@ app.get('/create_pl', function(req, res, body) {
       if(!err && res.statusCode === 201){
         console.log('success: ' + res.statusCode);
         var pbody = JSON.parse(body);
-        console.log(body);
+        console.log(pbody);
         var playlist_id = pbody.id;
         req.session.playlist_id = playlist_id;
         console.log('req.session.playlist_id ' +req.session.playlist_id);
