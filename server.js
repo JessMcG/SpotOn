@@ -411,12 +411,11 @@ app.get('/seedpl', function(req, res, body) {
     request.get(options, function(err, res, body) {
       if(!err && res.statusCode === 200){
         var pbody = JSON.parse(body);
-        req.session.tracks = pbody.tracks.uri;
-        var trackuris;
+        var trackuris = '';
         pbody.tracks.forEach(function(track){
           trackuris += track.uri + ',';
         });
-        console.log(trackuris);
+        req.session.tracks = trackuris;
       } else {
         console.log('failed: ' + res.statusCode);
       };
@@ -480,6 +479,7 @@ app.get('/addto_pl', function(req, res) {
     console.log('Adding To Playlist');
     var playlist_id = req.session.playlist_id;
     var tracks = req.session.tracks;
+    tracks = tracks.slice(tracks.length);
 // build request options
     var headers = {
       'Accept': 'application/json',
