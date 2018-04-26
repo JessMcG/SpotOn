@@ -302,29 +302,38 @@ console.log("Receiving data from /search...");
 		type: 'get',
 		cashe: false,
 		success: function(data){
-			$(data).each(function(index, value){
-				console.log("Received data from /search!");
+			$(data.tracks).each(function(index, value){
+				console.log("Received tracks data from /search!");
 				console.log(data);
 
 				var appendSearchResults = "";
 				appendSearchResults += "<p>Listing results for <span>" + artist + song + "</span></p>"
 
-				var searchResultImage = "";
-				var searchResultName = "";
-
-				if (data.tracks != null && data.tracks.items.length > 1) {
-					searchResultImage = data.tracks.items[i].album.images[0].url;
-					searchResultName = data.tracks.items[i].name
-				} else if (data.artists != null && data.artists.items.length > 1) {
-					searchResultImage = data.artists.images[0].url;
-					searchResultName = data.artists.images[0].url;
+				console.log("Amount of results: " + data.tracks.items.length);
+				for (var i = 0; i <data.tracks.items.length; i++) {
+					appendSearchResults += "<article class='searchResult'>"
+					appendSearchResults += "<img class='searchResultImage' src='" + data.tracks.items[i].album.images[0].url +"' 'alt=''/>"
+					appendSearchResults += "<h3>" + data.tracks.items[i].name + "</h3>"
+					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
+					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
+					appendSearchResults += "</article>"
 				}
+
+				$("#searchResults").append(appendSearchResults);
+
+			});
+			$(data.artists).each(function(index, value){
+				console.log("Received artist data from /search!");
+				console.log(data);
+
+				var appendSearchResults = "";
+				appendSearchResults += "<p>Listing results for <span>" + artist + song + "</span></p>"
 
 				console.log("Amount of results: " + data.tracks.items.length);
 				for (var i = 0; i <data.tracks.items.length; i++) {
 					appendSearchResults += "<article class='searchResult'>"
-					appendSearchResults += "<img class='searchResultImage' src='" + searchResultImage +"' 'alt=''/>"
-					appendSearchResults += "<h3>" + searchResultName + "</h3>"
+					appendSearchResults += "<img class='searchResultImage' src='" + data.artists.items[i].images[0].url +"' 'alt=''/>"
+					appendSearchResults += "<h3>" + data.artists.items[i].name + "</h3>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
 					appendSearchResults += "</article>"
