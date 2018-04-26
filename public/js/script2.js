@@ -334,9 +334,9 @@ console.log("Receiving data from /search...");
 					//appendSearchResults += "<img class='searchResultImage' src='" + data.artists.items[i].images[0].url +"' 'alt=''/>"
 					appendSearchResults += "<h3>" + data.artists.items[i].name + "</h3>"
 					appendSearchResults	+= "<p id='artist_id'>" + data.artists.items[i].id + "</p>"
-					appendSearchResults += "<div class='addTrack addSearchedTrack top_tracks' id='"+data.artists.items[i].id+"' ><img src='img/next.png' alt='add track' /></div>"
+					appendSearchResults += "<div class='addTrack addSearchedTrack' ><img src='img/next.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
-					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
+					appendSearchResults += "<div class='addTrack playSearchedTrack top_tracks' id='"+data.artists.items[i].id+"'><img src='img/play.png' alt='play track' /></div>"
 					appendSearchResults += "</article>"
 				}
 
