@@ -379,6 +379,8 @@ app.get('/seedpl', function(req, res, body) {
 // check if logged in
   if(access_token!=null){
     console.log('Start Seeding Playlist');
+
+    
 // query db for search term
     var query = {user_id: user_id};
     var proj = {'search': true};
@@ -394,6 +396,8 @@ app.get('/seedpl', function(req, res, body) {
         console.log('No db.find result' +err);
       };
     });
+
+
 // build request options
     var track = '0c6xIDDpzE81m2q797ordA';
     var querystring = '?limit=25&seed_tracks='+track //;
@@ -406,6 +410,8 @@ app.get('/seedpl', function(req, res, body) {
       url: 'https://api.spotify.com/v1/recommendations'+querystring,
       headers: headers
     };
+
+
 // make GET request to Spotify API for 25 tracks seeded from search
     request.get(options, function(err, res, body) {
       if(!err && res.statusCode === 200){
@@ -423,12 +429,14 @@ app.get('/seedpl', function(req, res, body) {
 
 
 app.get('/create_pl', function(req, res, body) {
-  console.log('Start Creating Playlist');
 // get global access token and user id
   var access_token = req.session.access_token;
   var user_id = req.session.user_id;
 // check if logged in
   if(access_token!=null){
+    console.log('Start Creating Playlist');
+
+
 // build request options
     var headers = {
         'Accept': 'application/json',
@@ -442,6 +450,8 @@ app.get('/create_pl', function(req, res, body) {
       headers: headers,
       body: datastring
     };
+
+
 // make POST to Spotify API to create a playlist on a given user_id's account
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
@@ -458,6 +468,7 @@ app.get('/create_pl', function(req, res, body) {
 });
 
 
+
 app.get('/addto_pl', function(req, res) {
 // get global access token and user id
   var access_token = req.session.access_token;
@@ -465,34 +476,14 @@ app.get('/addto_pl', function(req, res) {
 // check if logged in
   if(access_token!=null){
     console.log('Adding To Playlist');
-// search db for user_id's playlist_id
     var playlist_id = req.session.playlist_id;
-
-    /*
-    var query = {user_id: user_id};
-    var proj = {'playlist_id': true};
-    db.collection('users').find(query, proj).toArray(function(err, result) {
-      if (result!=null){
-
-        console.log('db.find result ' +playlist_id);
-      } else {
-        console.log('No db.find result ' +err);
-      };
-    });
-// tidying var playlist_id into useable string
-    var playlist_id_str = new String(playlist_id);
-    playlist_id_str = playlist_id_str.slice(47, 77);
-    console.log('playlist_id_str: ' +playlist_id_str);
-    console.log('res.session.tracks' +res.session.tracks);
-    */
-
+    var tracks = req.session.tracks;
 // build request options
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': 'Bearer '+ access_token
     };
-    var tracks = 'spotify%3Atrack%3A4iV5W9uYEdYUVa79Axb7Rh%2Cspotify%3Atrack%3A1301WleyT98MSxVHPZCA6M'  // dynamically picked up from seeding
     var options = {
       url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks?position=0&uris='+tracks,
       headers: { 'Authorization': 'Bearer ' + access_token },
@@ -500,6 +491,7 @@ app.get('/addto_pl', function(req, res) {
       method: 'POST',
       json: true
     };
+
 
 // make POST request to Spotify API to add uris to a user_id's playlist_id
     request.post(options, function(err, res, body) {
