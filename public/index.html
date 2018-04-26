@@ -12,7 +12,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="js/script2.js"></script>
 
-	<script>
+	<!-- <script>
 
 			$.ajax({
 				url: '/search',
@@ -20,7 +20,6 @@
 				type: 'get',
 				cashe: false,
 				success:
-				console.log("Data received:" + data);
 				if (data != null) {
 					function(data){
 						$(data.artists.items).each(function(index, value){
@@ -90,7 +89,7 @@
 
 			}
 
-			</script>
+			</script> -->
 
 </head>
 <body>
@@ -177,7 +176,7 @@
 				<input id="songField" name="songField" type="text" placeholder="Song name...." />
 
 				<!--<button onclick="artistResults()"  id="dontWork">Search</button>-->
-				<button id="dontWork" >Search</button>
+				<button id="dontWork" type="submit" value="Submit">Search</button>
 
 			</form>
 
