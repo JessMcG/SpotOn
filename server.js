@@ -394,8 +394,8 @@ app.get('/seedpl', function(req, res, body) {
 
 
 // build request options
-    var track = '0c6xIDDpzE81m2q797ordA';
-    var querystring = '?limit=25&seed_tracks='+track //;
+    var track = '0c6xIDDpzE81m2q797ordA'; // comes from db.find
+    var querystring = '?limit=25&seed_tracks='+track;
     var headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -460,6 +460,7 @@ app.get('/create_pl', function(req, res, body) {
         console.log(pbody);
         var playlist_id = pbody.id;
         req.session.playlist_id = playlist_id;
+        console.log(req.session.seeds);
         console.log('req.session.playlist_id ' +req.session.playlist_id);
       } else {
         console.log('failed: ' + res.statusCode);
