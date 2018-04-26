@@ -403,7 +403,7 @@ app.get('/seedpl', function(req, res, body) {
       'Authorization': 'Bearer ' + access_token
     };
     var options = {
-      url: 'https://api.spotify.com/v1/recommendations'+querystring
+      url: 'https://api.spotify.com/v1/recommendations'+querystring,
       headers: headers
     };
 // make GET request to Spotify API for 25 tracks seeded from search
