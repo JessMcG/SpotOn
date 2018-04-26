@@ -315,7 +315,7 @@ console.log("Receiving data from /search...");
 				console.log("Received tracks data from /search!");
 				console.log(data);
 
-				appendSearchResults += "<p>Listing results for <span>" + song + "</span></p>"
+				appendSearchResults += "<p>Listing results for <span>" + song + "</span></p>";
 
 				console.log("Amount of results: " + data.tracks.items.length);
 				for (var i = 0; i <data.tracks.items.length; i++) {
@@ -337,7 +337,7 @@ console.log("Receiving data from /search...");
 				console.log("Received artist data from /search!");
 				console.log(data);
 
-				appendSearchResults += "<p>Listing results for <span>" + artist + "</span></p>"
+				appendSearchResults += "<p>Listing results for <span>" + artist + "</span></p>";
 
 				console.log("Amount of results: " + data.artists.items.length);
 				for (var i = 0; i <data.artists.items.length; i++) {
@@ -377,7 +377,7 @@ function getTopTracksFromArtist(artistID) {
 				console.log("Received tracks data from /top_tracks!");
 				console.log(data);
 
-				appendSearchResults += "<p>Listing top tracks for <span>" + data.tracks[0].artists[0].name + "</span></p>"
+				appendSearchResults += "<p>Listing top tracks for <span>" + data.tracks[0].artists[0].name + "</span></p>";
 
 				$(data.tracks).each(function(index, value){
 
@@ -414,7 +414,7 @@ function getTopTracksFromArtist(artistID) {
 					console.log("Received tracks data from /recommen!");
 					console.log(data);
 
-					appendSearchResults += "<p>Listing recommendations for <span>" + artist_name + "</span> by <span>" + artist_name  "</span></p>"
+					appendSearchResults += "<p>Listing recommendations for <span>" + artist_name + "</span> by <span>" + artist_name  "</span></p>";
 
 					$(data.tracks).each(function(index, value){
 						appendSearchResults += "<article class='searchResult'>"
