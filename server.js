@@ -527,7 +527,7 @@ app.get('/top_tracks', function(req, res) {
 
   // Api call details
   var access_token = req.session.access_token;
-  var seed_artists = req.query.artist_id;
+  var seed_artists = req.query.artist;
   var country_artists = "NL";
 
   if (access_token != null) {
