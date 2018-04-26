@@ -417,7 +417,7 @@ app.get('/seedpl', function(req, res, body) {
         });
         console.log('trackuris: ' +trackuris);
         req.session.tracks = trackuris.slice(0,-1);
-        console.log('trackuris: ' +trackuris);
+        console.log('trackuris: ' +req.session.tracks);
       } else {
         console.log('failed: ' + res.statusCode);
       };
