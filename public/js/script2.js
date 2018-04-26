@@ -191,7 +191,7 @@ console.log("Receiving data from /search...");
 			// load first track into player on page loading
 			var t = 0;
 
-			$("#trackArt").attr("src",data.tracks.items[t].images[0].url);
+			//$("#trackArt").attr("src",data.tracks.items[t].images[0].url);
 			$("#coverArtBluredInner").attr("src",data.tracks.items[t].images[0].url);
 			$("#playerArtistName").html(data.tracks.items[t].artists[0].name);
 			$("#playerTrackName").html(data.tracks.items[t].name);
