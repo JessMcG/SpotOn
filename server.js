@@ -381,7 +381,7 @@ app.get('/seedpl', function(req, res, body) {
 
 // query db for searchterm ID
     var query = {user_id: user_id};
-    var proj = {'search': true};
+    var proj = {'track_id': true};
     db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
         console.log('db.find result: ' +result);
