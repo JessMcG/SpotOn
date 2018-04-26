@@ -450,6 +450,7 @@ var artist;
 var track;
 var query;
 var type;
+var result;
 /**
  * /search_form:  Send data from input form to /search
  */
@@ -526,11 +527,16 @@ app.get('/search', function(req, res) {
     // res.end();
     //res.sendFile(body);
     //res.status(status).json(obj)
-    res.setHeader('Content-Type', 'text/html')
-    res.status(200).json(body);
+    result = body;
+    res.redirect('/search_results')
   });
 
   addSearchToDatabase(req.session.user_id, query, type, null, null);
+});
+
+app.post('/search_results', function(req,res){
+  res.setHeader('Content-Type', 'text/html')
+  res.status(200).json(body);
 });
 
 /**
