@@ -129,136 +129,136 @@ $(document).ready(function(){
 
 //grab data from the json file.
 
-	$.ajax({
-		url: '/search_results',
-		dataType: 'text/html',
-		type: 'get',
-		cashe: false,
-		success: function(data){
-			$(data.tracks).each(function(index, value){
-					console.log("Received data from /search_results")
-
-				var appendTrack = "<li class='trackOnProfile'><p class='ellipsis' title='"+ value.artist_name + " - " + value.track_name  +"'>" + value.artist_name + " - <span>" + value.track_name + " " + "</span></p><div class='playTrackProfile'><img class='playSingleTrack' src='img/play.png' alt='" + value.track_id +"' />";
-
-				//$("ol li:even").css("background-color", "#fafafa");
-
-				$("#allTracks").append(appendTrack);
-				$(".profileMySongs").append(appendTrack);
-
-
-			});
-			// load first track into player on page loading
-			var t = 0;
-
-			$("#trackArt").attr("src",data.tracks[t].album_art);
-			$("#coverArtBluredInner").attr("src",data.tracks[t].album_art);
-			$("#playerArtistName").html(data.tracks[t].artist_name);
-			$("#playerTrackName").html(data.tracks[t].track_name);
-			$("#playerPlaylistTitle").html(data.tracks[t].playlist_title);
-			$("#ffs").attr("src",data.tracks[t].track);
-			var playListLength = data.tracks.length;
-
-			//move to the next track on the playlist
-			$("#playNext").click(function(){
-				t++;
-				if(t >= playListLength){
-					t = 0;
-				}
-				else{
-					console.log(data.tracks[t].artist_name);
-					console.log(t);
-					$("#trackArt").attr("src",data.tracks[t].album_art);
-					$("#coverArtBluredInner").attr("src",data.tracks[t].album_art);
-					$("#playerArtistName").html(data.tracks[t].artist_name);
-					$("#playerTrackName").html(data.tracks[t].track_name);
-					$("#playerPlaylistTitle").html(data.tracks[t].playlist_title);
-					$("#ffs").attr("src",data.tracks[t].track);
-					$("#ffs").attr("autoplay","true");
-					$(".playTrackButton2").show();
-					$(".playTrackButton").hide();
-					$("#waves,#waves2,#waves3").fadeIn(600);
-				}
-			});
-			//go to the previous track on the playlist
-			$("#playPrev").click(function(){
-				t--;
-				if(t < 0){
-					t = playListLength +1;
-				}
-				else{
-					console.log(data.tracks[t].track);
-					console.log(t);
-					$("#trackArt").attr("src",data.tracks[t].album_art);
-					$("#coverArtBluredInner").attr("src",data.tracks[t].album_art);
-					$("#playerArtistName").html(data.tracks[t].artist_name);
-					$("#playerTrackName").html(data.tracks[t].track_name);
-					$("#ffs").attr("src",data.tracks[t].track);
-					$("#ffs").attr("autoplay","true");
-					$(".playTrackButton2").show();
-					$(".playTrackButton").hide();
-					$("#waves,#waves2,#waves3").fadeIn(600);
-				}
-			});
-
-			//hide default player
-			$("audio").hide();
-
-			//play & pause audio player
-			$(".playTrackButton").click(function(){
-
-				$("#ffs").trigger('play');
-				$("#waves,#waves2,#waves3").fadeIn(600);
-
-			});
-			$(".playTrackButton2").click(function(){
-
-				$("#ffs").trigger('pause');
-				$("#waves,#waves2,#waves3").fadeOut(600);
-
-			});
-
-			$("#ffs").on("ended", function() {
-				t++;
-				if(t >= playListLength){
-					t = 0;
-				}
-				else{
-					console.log(data.tracks[t].artist_name);
-					console.log(t);
-					$("#trackArt").attr("src",data.tracks[t].album_art);
-					$("#coverArtBluredInner").attr("src",data.tracks[t].album_art);
-					$("#playerArtistName").html(data.tracks[t].artist_name);
-					$("#playerTrackName").html(data.tracks[t].track_name);
-					$("#playerPlaylistTitle").html(data.tracks[t].playlist_title);
-					$("#ffs").attr("src",data.tracks[t].track);
-					$("#ffs").attr("autoplay","true");
-					$(".playTrackButton2").show();
-					$(".playTrackButton").hide();
-				}
-			});
-			//
-			$(".playSingleTrack").click(function(evt){
-				var c = evt.target.alt;
-				$("#ffs").attr("autoplay","true");
-				$(".playTrackButton2").show();
-				$(".playTrackButton").hide();
-				$("#waves,#waves2,#waves3").fadeIn(600);
-
-				$("#trackArt").attr("src",data.tracks[c].album_art);
-				$("#coverArtBluredInner").attr("src",data.tracks[c].album_art);
-				$("#playerArtistName").html(data.tracks[c].artist_name);
-				$("#playerTrackName").html(data.tracks[c].track_name);
-				$("#playerPlaylistTitle").html(data.tracks[c].playlist_title);
-				$("#ffs").attr("src",data.tracks[c].track);
-
-			});
-		},
-		error: function(jqXHR, textStatus, errorThrown){
-			alert(jqXHR.status);
-		}
-
-
-	});
+	// $.ajax({
+	// 	url: '/search',
+	// 	dataType: 'text/html',
+	// 	type: 'get',
+	// 	cashe: false,
+	// 	success: function(data){
+	// 		$(data.tracks).each(function(index, value){
+	// 				console.log("Received data from /search_results")
+	//
+	// 			var appendTrack = "<li class='trackOnProfile'><p class='ellipsis' title='"+ value.artist_name + " - " + value.track_name  +"'>" + value.artist_name + " - <span>" + value.track_name + " " + "</span></p><div class='playTrackProfile'><img class='playSingleTrack' src='img/play.png' alt='" + value.track_id +"' />";
+	//
+	// 			//$("ol li:even").css("background-color", "#fafafa");
+	//
+	// 			$("#allTracks").append(appendTrack);
+	// 			$(".profileMySongs").append(appendTrack);
+	//
+	//
+	// 		});
+	// 		// load first track into player on page loading
+	// 		var t = 0;
+	//
+	// 		$("#trackArt").attr("src",data.tracks[t].album_art);
+	// 		$("#coverArtBluredInner").attr("src",data.tracks[t].album_art);
+	// 		$("#playerArtistName").html(data.tracks[t].artist_name);
+	// 		$("#playerTrackName").html(data.tracks[t].track_name);
+	// 		$("#playerPlaylistTitle").html(data.tracks[t].playlist_title);
+	// 		$("#ffs").attr("src",data.tracks[t].track);
+	// 		var playListLength = data.tracks.length;
+	//
+	// 		//move to the next track on the playlist
+	// 		$("#playNext").click(function(){
+	// 			t++;
+	// 			if(t >= playListLength){
+	// 				t = 0;
+	// 			}
+	// 			else{
+	// 				console.log(data.tracks[t].artist_name);
+	// 				console.log(t);
+	// 				$("#trackArt").attr("src",data.tracks[t].album_art);
+	// 				$("#coverArtBluredInner").attr("src",data.tracks[t].album_art);
+	// 				$("#playerArtistName").html(data.tracks[t].artist_name);
+	// 				$("#playerTrackName").html(data.tracks[t].track_name);
+	// 				$("#playerPlaylistTitle").html(data.tracks[t].playlist_title);
+	// 				$("#ffs").attr("src",data.tracks[t].track);
+	// 				$("#ffs").attr("autoplay","true");
+	// 				$(".playTrackButton2").show();
+	// 				$(".playTrackButton").hide();
+	// 				$("#waves,#waves2,#waves3").fadeIn(600);
+	// 			}
+	// 		});
+	// 		//go to the previous track on the playlist
+	// 		$("#playPrev").click(function(){
+	// 			t--;
+	// 			if(t < 0){
+	// 				t = playListLength +1;
+	// 			}
+	// 			else{
+	// 				console.log(data.tracks[t].track);
+	// 				console.log(t);
+	// 				$("#trackArt").attr("src",data.tracks[t].album_art);
+	// 				$("#coverArtBluredInner").attr("src",data.tracks[t].album_art);
+	// 				$("#playerArtistName").html(data.tracks[t].artist_name);
+	// 				$("#playerTrackName").html(data.tracks[t].track_name);
+	// 				$("#ffs").attr("src",data.tracks[t].track);
+	// 				$("#ffs").attr("autoplay","true");
+	// 				$(".playTrackButton2").show();
+	// 				$(".playTrackButton").hide();
+	// 				$("#waves,#waves2,#waves3").fadeIn(600);
+	// 			}
+	// 		});
+	//
+	// 		//hide default player
+	// 		$("audio").hide();
+	//
+	// 		//play & pause audio player
+	// 		$(".playTrackButton").click(function(){
+	//
+	// 			$("#ffs").trigger('play');
+	// 			$("#waves,#waves2,#waves3").fadeIn(600);
+	//
+	// 		});
+	// 		$(".playTrackButton2").click(function(){
+	//
+	// 			$("#ffs").trigger('pause');
+	// 			$("#waves,#waves2,#waves3").fadeOut(600);
+	//
+	// 		});
+	//
+	// 		$("#ffs").on("ended", function() {
+	// 			t++;
+	// 			if(t >= playListLength){
+	// 				t = 0;
+	// 			}
+	// 			else{
+	// 				console.log(data.tracks[t].artist_name);
+	// 				console.log(t);
+	// 				$("#trackArt").attr("src",data.tracks[t].album_art);
+	// 				$("#coverArtBluredInner").attr("src",data.tracks[t].album_art);
+	// 				$("#playerArtistName").html(data.tracks[t].artist_name);
+	// 				$("#playerTrackName").html(data.tracks[t].track_name);
+	// 				$("#playerPlaylistTitle").html(data.tracks[t].playlist_title);
+	// 				$("#ffs").attr("src",data.tracks[t].track);
+	// 				$("#ffs").attr("autoplay","true");
+	// 				$(".playTrackButton2").show();
+	// 				$(".playTrackButton").hide();
+	// 			}
+	// 		});
+	// 		//
+	// 		$(".playSingleTrack").click(function(evt){
+	// 			var c = evt.target.alt;
+	// 			$("#ffs").attr("autoplay","true");
+	// 			$(".playTrackButton2").show();
+	// 			$(".playTrackButton").hide();
+	// 			$("#waves,#waves2,#waves3").fadeIn(600);
+	//
+	// 			$("#trackArt").attr("src",data.tracks[c].album_art);
+	// 			$("#coverArtBluredInner").attr("src",data.tracks[c].album_art);
+	// 			$("#playerArtistName").html(data.tracks[c].artist_name);
+	// 			$("#playerTrackName").html(data.tracks[c].track_name);
+	// 			$("#playerPlaylistTitle").html(data.tracks[c].playlist_title);
+	// 			$("#ffs").attr("src",data.tracks[c].track);
+	//
+	// 		});
+	// 	},
+	// 	error: function(jqXHR, textStatus, errorThrown){
+	// 		alert(jqXHR.status);
+	// 	}
+	//
+	//
+	// });
 
 	// iterate out serach result within div on page on page. - *not working*
 	// doesnt recognise this ajax function just the other one.
