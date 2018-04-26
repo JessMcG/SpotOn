@@ -133,7 +133,7 @@ $('#dontWork').click(function(){getData();});
 function getData(){
 var artist = $('#artistField').value();
 var song = $('#songField').value();
-
+console.log("Receiving data from /search...");
 	$.ajax({
 		url: '/search?artist='+artist+'&song='+song,
 		dataType: 'json',
@@ -141,7 +141,7 @@ var song = $('#songField').value();
 		cashe: false,
 		success: function(data){
 			$(data.tracks).each(function(index, value){
-					console.log("Received data from /search_results")
+				console.log("Received data from /search!");
 
 				var appendTrack = "<li class='trackOnProfile'><p class='ellipsis' title='"+ value.artist_name + " - " + value.track_name  +"'>" + value.artist_name + " - <span>" + value.track_name + " " + "</span></p><div class='playTrackProfile'><img class='playSingleTrack' src='img/play.png' alt='" + value.track_id +"' />";
 
