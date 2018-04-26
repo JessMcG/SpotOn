@@ -454,67 +454,62 @@ var type;
  * /search: look for artist or track
  */
 app.get('/search', function(req, res) {
-  console.log("Searching....");
   var artist =  req.query.artist;
   var track = req.query.song;
-  //TODO: Check if logged in
-  // if(!req.session.loggedin){res.redirect('/login'); return;}
-  console.log("Session user_id: " + req.session.user_id);
-  console.log("Access Token: " + req.session.access_token);
-
   var access_token = req.session.access_token;
 
-  if (artist != null && artist.length > 1) {
-    query = artist;
-    type = "artist";
-    console.log("Query - Artist: " + query + " Type: " + type);
-  } else if (track != null && track.length > 1) {
-    query = track;
-    type = "track";
-    console.log("Query - Track: " + query + " Type: " + type);
-  } else {
-    console.log("Invalid query");
-  }
+  console.log("Searching....");
+  console.log("Access Token: " + access_token);
 
   if (access_token != null) {
-    var searchOptions = {
-      url: 'https://api.spotify.com/v1/search?' +
-      querystring.stringify({
-        query: query,
-        type: type,
-        limit: 8
-      }),
-      headers: { 'Authorization': 'Bearer ' + access_token },
-      json: true
-    };
-  }
 
-  // GET request for /search
-  request.get(searchOptions, function(error, response, body) {
-    if(error) throw error;
-
-    console.log(body);
-    if (!error && response.statusCode === 200) {
-      console.log("\nSEARCH RESULTS \n");
-      if (body.artists) {
-        for (var i = 0; i < body.artists.items.length; i++) {
-          console.log("\t ARTIST: " + body.artists.items[i].name + " id: " + body.artists.items[i].id);
-        }
-      } else if (body.tracks) {
-        for (var i = 0; i < body.tracks.items.length; i++) {
-          console.log("\t TRACK: " + body.tracks.items[i].name + " track_id: " + body.tracks.items[i].id + " artist: " + body.tracks.items[i].artists.name + " artist_id: " + body.tracks.items[i].artists.id);
-        }
-      }
+    if (artist != null && artist.length > 1) {
+      query = artist;
+      type = "artist";
+      console.log("Query - Artist: " + query + " Type: " + type);
+    } else if (track != null && track.length > 1) {
+      query = track;
+      type = "track";
+      console.log("Query - Track: " + query + " Type: " + type);
     } else {
-      console.log("Response code: " + response.statusCode + "\nError: " + error);
+      console.log("Invalid query");
     }
 
-      res.setHeader('Content-Type', 'application/json')
-      res.send(body);
-  });
+    if (access_token != null) {
+      var searchOptions = {
+        url: 'https://api.spotify.com/v1/search?' +
+        querystring.stringify({
+          query: query,
+          type: type,
+          limit: 8
+        }),
+        headers: { 'Authorization': 'Bearer ' + access_token },
+        json: true
+      };
+    }
 
-  addSearchToDatabase(req.session.user_id, query, type, null, null);
-  //return body;
+    // GET request for /search
+    request.get(searchOptions, function(error, response, body) {
+      if(error) throw error;
+
+      console.log(body);
+      if (!error && response.statusCode === 200) {
+        res.setHeader('Content-Type', 'application/json')
+        res.send(body);
+      } else {
+        console.log("Response code: " + response.statusCode + "\nError: " + error);
+      }
+        // res.setHeader('Content-Type', 'application/json')
+        // res.send(body);
+    });
+
+    addSearchToDatabase(req.session.user_id, query, type, null, null);
+
+  } else {
+    console.log("User should log in first");
+    res.redirect('/login');
+  }
+
 });
 
 /**
@@ -546,18 +541,14 @@ app.get('/top_tracks', function(req, res) {
 
     console.log(body);
     if (!error && response.statusCode === 200) {
-      if (body.tracks.length > 0) {
-        console.log("TOP TRACKS \n");
-        for (var i = 0; i < body.tracks.length; i++) {
-          console.log("\t TRACK: " + body.tracks[i].name);
-        }
-      }
+      res.setHeader('Content-Type', 'application/json')
+      res.send(body);
     } else {
       console.log("Response code: " + response.statusCode + "\nError: " + error);
     }
 
-    res.setHeader('Content-Type', 'application/json')
-    res.send(body);
+    // res.setHeader('Content-Type', 'application/json')
+    // res.send(body);
   });
 
   addSearchToDatabase(req.session.user_id, query, type, seed_artists, null);
