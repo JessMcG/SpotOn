@@ -379,27 +379,26 @@ app.get('/seedpl', function(req, res, body) {
   var tracks = '';
 // check if logged in
   if(access_token!=null){
+
 // query db for search term
     var query = {user_id: user_id};
     var proj = {'search': true};
-/*
-    var findTracks = function(query, proj){
-      db.collection('users').find(query, proj).toArray(function(err, result) {
-        if (result!=null){
-          console.log('result: '+ result);
-          getTracks(tracks){
-            var result_str = new String(result);
-            result_str = result_str.slice(18, 43);
-            console.log('playlist_id_str: '+ result_str);
-            tracks = result_str;
-            console.log('querystring: '+ tracks);
-          };
-        } else {
-          console.log('No db.find result' +err);
+    db.collection('users').find(query, proj).toArray(function(err, result) {
+      if (result!=null){
+        console.log('result: '+ result);
+        getTracks(tracks){
+          var result_str = new String(result);
+          result_str = result_str.slice(18, 43);
+          console.log('playlist_id_str: '+ result_str);
+          tracks = result_str;
+          console.log('querystring: '+ tracks);
         };
-      });
-    };
-*/
+      } else {
+        console.log('No db.find result' +err);
+      };
+    });
+
+
 // build request options
     var headers = {
       'Accept': 'application/json',
@@ -415,21 +414,11 @@ app.get('/seedpl', function(req, res, body) {
 // make GET request to Spotify API for 25 tracks seeded from search
     request.get(options, function(err, res, body) {
       if(!err && res.statusCode === 200){
-
-// TODO add json response to db for use in addto_pl
         console.log('body: '+ body);
-        var qry = {user_id: user_id};
-        var newval = {$addToSet: {"searches": [{"query":body}, {"type": "artist"}]}};
-
-/*
-        db.collection('users').update(qry, newval, {upsert: true}, function(err, result){
-          if(err)throw err;
-          console.log('db .update res: '+ result);
-          });
-        } else {
-          console.log('failed: ' + res.statusCode);
+// TODO add json response to db for use in addto_pl
+      } else {
+        console.log('failed: ' + res.statusCode);
         };
-        console.log('success ' + res.statusCode + ' ' + body);
       } else {
         console.log('failed ' + res.statusCode);
       };
@@ -438,8 +427,8 @@ app.get('/seedpl', function(req, res, body) {
     console.log('login required');
   };
 });
-/*
-/*
+
+
 app.get('/create_pl', function(req, res, body) {
   console.log('Start Creating Playlist');
 // get global access token and user id
@@ -482,7 +471,7 @@ app.get('/create_pl', function(req, res, body) {
     console.log('login required');
   };
 });
-*/
+
 
 app.get('/addto_pl', function(req, res) {
   console.log('Adding To Playlist');
@@ -491,6 +480,7 @@ app.get('/addto_pl', function(req, res) {
   var user_id = req.session.user_id;
 // check if logged in
   if(access_token!=null){
+
 // search db for user_id's playlist_id
     var playlist_id = '';
     var query = {user_id: user_id};
@@ -507,6 +497,7 @@ app.get('/addto_pl', function(req, res) {
     var playlist_id_str = new String(playlist_id);
     playlist_id_str = playlist_id_str.slice(47, 77);
     console.log('playlist_id_str: '+playlist_id_str);
+
 // search db for seed tracks
     var query = {user_id: user_id};
     var proj = {/*LOCATION OF SEEDED TRACKS: true*/};
@@ -519,6 +510,7 @@ app.get('/addto_pl', function(req, res) {
         console.log('No db.find result' +err);
       };
     });
+
 // build request options
     var headers = {
       'Accept': 'application/json',
@@ -546,6 +538,8 @@ app.get('/addto_pl', function(req, res) {
     console.log('login required');
   };
 });
+
+
 
 app.get('/logout', function(req, res) {
   req.session.loggedin = false;
