@@ -312,7 +312,7 @@ console.log("Receiving data from /search...");
 				console.log("Amount of results: " + data.tracks.items.length);
 				for (var i = 0; i <data.tracks.items.length; i++) {
 					appendSearchResults += "<article class='searchResult'>"
-					appendSearchResults += "<img class='searchResultImage' src='" + data.tracks.items[i].images[0].url +"' 'alt=''/>"
+					//appendSearchResults += "<img class='searchResultImage' src='" + data.tracks.items[i].images[0].url +"' 'alt=''/>"
 					appendSearchResults += "<h3>" + data.tracks.items[i].name + "</h3>"
 					appendSearchResults += "<div class='add Track addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
