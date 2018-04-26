@@ -326,6 +326,10 @@ console.log("Receiving data from /search...");
 					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
 					appendSearchResults += "</article>"
 				}
+				$("#searchResults").empty();
+				$("#searchResults").append(appendSearchResults);
+
+				$('.searchResult').click(function(e){var id=e.target.id; console.log(e); appendSearchResults = ""; getRecommendations(data.tracks.items[0].artists[0].id, id);});
 			});
 
 			// If you have searched for artists, data will contain artists
@@ -338,18 +342,19 @@ console.log("Receiving data from /search...");
 				console.log("Amount of results: " + data.artists.items.length);
 				for (var i = 0; i <data.artists.items.length; i++) {
 					appendSearchResults += "<article class='searchResult' id='"+data.artists.items[i].id+"'>"
-					//appendSearchResults += "<img class='searchResultImage' src='" + data.artists.items[i].images[0].url +"' 'alt=''/>" //image does not want to display properly
+					appendSearchResults += "<img class='searchResultImage' src='" + data.artists.items[i].images[0].url +"' 'alt=''/>" //image does not want to display properly
 					appendSearchResults += "<h3>" + data.artists.items[i].name + "</h3>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack' ><img src='img/next.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack playSearchedTrack top_tracks' id='"+data.artists.items[i].id+"'><img src='img/play.png' alt='play track' /></div>"
 					appendSearchResults += "</article>"
 				}
-			});
-			$("#searchResults").empty();
-			$("#searchResults").append(appendSearchResults);
+				$("#searchResults").empty();
+				$("#searchResults").append(appendSearchResults);
 
-			$('.searchResult').click(function(e){var id=e.target.id; console.log(e); appendSearchResults = ""; getTopTracksFromArtist(id);});
+				$('.searchResult').click(function(e){var id=e.target.id; console.log(e); appendSearchResults = ""; getTopTracksFromArtist(id);});
+			});
+
 		}
 	});
 }
@@ -357,12 +362,7 @@ console.log("Receiving data from /search...");
 /**
  * If the searched artist is selected, its top tracks will be displayed. The artists id is sent from client to server, top tracks data is returned from server to client.
  */
-// Unfortunately, I was unable to get the click events working on dynamically generated elements. Sorry for that..
-//getTopTracksFromArtist(id);});
-
-function getTopTracksFromArtist(id) {
-	// Using hardcoded artist ID to be able to display some top tracks
-	var artistID = id //"12Chz98pHFMPJEknJQMWvI" //id;
+function getTopTracksFromArtist(artistID) {
 	console.log("Receiving data from /top_tracks..." + artistID);
 
 	var appendSearchResults = "";		// Dynamically create the result-html-display
@@ -374,10 +374,9 @@ function getTopTracksFromArtist(id) {
 			type: 'get',
 			cashe: false,
 			success: function(data){
-
 				console.log("Received tracks data from /top_tracks!");
 				console.log(data);
-				//console.log("Amount of results: " + data.tracks.length);
+
 				$(data.tracks).each(function(index, value){
 
 					appendSearchResults += "<article class='searchResult' id='"+data.tracks[index].id+"'>"
@@ -400,9 +399,6 @@ function getTopTracksFromArtist(id) {
  * Recommendations for the selected track.Sending artist and track ID from client to server, returning recommendation data from server to client.
  */
 	function getRecommendations(artistID, trackID) {
-		// Using hardcoded artist and track ID to be able to display some recommendations.
-		// var artistID = artistID; //$('#artist_id').val();
-		// var trackID = trackID; //$('#track_id').val();
 		console.log("Receiving data from /recommendations..." + "Artist: " + artistID + "Song: " + trackID);
 
 		var appendSearchResults = "";		// Dynamically create the result-html-display
@@ -414,10 +410,9 @@ function getTopTracksFromArtist(id) {
 				type: 'get',
 				cashe: false,
 				success: function(data){
-					//$("#searchResults").remove();
-					console.log("Received tracks data from /recommendations!");
+					console.log("Received tracks data from /recommen!");
 					console.log(data);
-					//console.log("Amount of results: " + data.tracks.length);
+
 					$(data.tracks).each(function(index, value){
 						appendSearchResults += "<article class='searchResult'>"
 						appendSearchResults += "<img class='searchResultImage' src='" + data.tracks[index].album.images[0].url +"' 'alt=''/>"
@@ -432,7 +427,6 @@ function getTopTracksFromArtist(id) {
 				}
 			});
 		}
-
 /**
  * End of search, top tracks and recommendations.
  */
