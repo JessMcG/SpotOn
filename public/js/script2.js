@@ -351,7 +351,7 @@ console.log("Receiving data from /search...");
 
 				$("#searchResults").append(appendSearchResults);
 			});
-			$('.searchResult').click(function(e){var id=e.target.attr('id'); console.log(e)}); 
+			$('.searchResult').click(function(e){var id=e.target.id; console.log(e); getTopTracksFromArtist(id);});
 		}
 	});
 }
@@ -362,9 +362,9 @@ console.log("Receiving data from /search...");
 // Unfortunately, I was unable to get the click events working on dynamically generated elements. Sorry for that..
 //getTopTracksFromArtist(id);});
 
-function getTopTracksFromArtist() {
+function getTopTracksFromArtist(id) {
 	// Using hardcoded artist ID to be able to display some top tracks
-	var artistID = "12Chz98pHFMPJEknJQMWvI" //id;
+	var artistID = id //"12Chz98pHFMPJEknJQMWvI" //id;
 	console.log("Receiving data from /top_tracks..." + artistID);
 
 	var appendSearchResults = "";		// Dynamically create the result-html-display
