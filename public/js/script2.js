@@ -339,7 +339,7 @@ console.log("Receiving data from /search...");
 	});
 }
 
-$('.searchResult').onclick(getTopTracksFromArtist);
+$('.searchResult').click(getTopTracksFromArtist);
 function getTopTracksFromArtist() {
 	var artistID = $('#artist_id').val();
 	console.log("Receiving data from /top_tracks...");
