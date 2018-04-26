@@ -339,7 +339,7 @@ console.log("Receiving data from /search...");
 	});
 }
 
-$('.searchResult').click(getTopTracksFromArtist);
+$('.searchResult').onclick(getTopTracksFromArtist);
 function getTopTracksFromArtist() {
 	var artistID = $('#artist_id').val();
 	console.log("Receiving data from /top_tracks...");
@@ -365,8 +365,11 @@ function getTopTracksFromArtist() {
 						appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
 						appendSearchResults += "</article>"
 					}
-	
+
 					$("#searchResults").append(appendSearchResults);
 
 				});
+			}
+		});
+	}
 }
