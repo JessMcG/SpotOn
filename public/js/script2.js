@@ -359,7 +359,7 @@ console.log("Receiving data from /search...");
  * If the searched artist is selected, its top tracks will be displayed. The artists id is sent from client to server, top tracks data is returned from server to client.
  */
 // Unfortunately, I was unable to get the click events working on dynamically generated elements. Sorry for that..
-$('#searchResult').on("click", function(e){var id=e.target.attr('id'); console.log(e); //getTopTracksFromArtist(id);});
+$('#searchResult').on("click", function(e){var id=e.target.attr('id'); console.log(e)}); //getTopTracksFromArtist(id);});
 function getTopTracksFromArtist() {
 	// Using hardcoded artist ID to be able to display some top tracks
 	var artistID = "12Chz98pHFMPJEknJQMWvI" //id;
