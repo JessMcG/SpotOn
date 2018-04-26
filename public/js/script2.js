@@ -326,8 +326,6 @@ console.log("Receiving data from /search...");
 					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
 					appendSearchResults += "</article>"
 				}
-
-				$("#searchResults").append(appendSearchResults);
 			});
 
 			// If you have searched for artists, data will contain artists
@@ -347,11 +345,11 @@ console.log("Receiving data from /search...");
 					appendSearchResults += "<div class='addTrack playSearchedTrack top_tracks' id='"+data.artists.items[i].id+"'><img src='img/play.png' alt='play track' /></div>"
 					appendSearchResults += "</article>"
 				}
-
-				$("#searchResults").append(appendSearchResults);
 			});
+			$("#searchResults").empty();
+			$("#searchResults").append(appendSearchResults);
+
 			$('.searchResult').click(function(e){var id=e.target.id; console.log(e); appendSearchResults = ""; getTopTracksFromArtist(id);});
-			appendSearchResults = "";
 		}
 	});
 }
@@ -389,8 +387,10 @@ function getTopTracksFromArtist(id) {
 					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
 					appendSearchResults += "</article>"
 
-					$("#searchResults").append(appendSearchResults);
 				});
+				$("#searchResults").empty();
+				$("#searchResults").append(appendSearchResults);
+
 				$('.searchResult').click(function(e){var id=e.target.id; console.log(id); appendSearchResults = ""; getRecommendations(artistID, id);});
 			}
 		});
@@ -425,8 +425,10 @@ function getTopTracksFromArtist(id) {
 						appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
 						appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
 						appendSearchResults += "</article>"
-						$("#searchResults").append(appendSearchResults);
+
 					});
+					$("#searchResults").empty();
+					$("#searchResults").append(appendSearchResults);
 				}
 			});
 		}
