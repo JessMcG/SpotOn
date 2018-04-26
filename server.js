@@ -410,12 +410,12 @@ app.get('/seedpl', function(req, res, body) {
 // make GET request to Spotify API for 25 tracks seeded from search
     request.get(options, function(err, res, body) {
       if(!err && res.statusCode === 200){
-        var pbody = JSON.parse(body);
         var trackuris = '';
         pbody.tracks.forEach(function(track){
           trackuris += track.uri + ',';
         });
-        req.session.seeds = trackuris.slice(0,-1);
+        trackuris = trackuris.slice(0,-1);
+        req.session.seeds = trackuris;
         console.log('trackuris: ' +req.session.seeds);
       } else {
         console.log('failed: ' + res.statusCode);
