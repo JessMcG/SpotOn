@@ -508,14 +508,7 @@ app.get('/search', function(req, res) {
     } else {
       console.log("Response code: " + response.statusCode + "\nError: " + error);
     }
-    //res.send("Search: " + JSON.stringify(body));
-    // res.setHeader('Content-Type': 'application/json');
-    // res.json(JSON.stringify(body);
-    // res.end();
-    //res.sendFile(body);
-    //res.status(status).json(obj)
-    // result = body;
-    // res.redirect('/search_results')
+
       res.setHeader('Content-Type', 'application/json')
       res.send(body);
   });
@@ -526,13 +519,9 @@ app.get('/search', function(req, res) {
 
 /**
  * /top_tracks: Select top tracks for selected artist
- TODO: When artist is selected create app.post where artist_id is send through
  */
 app.get('/top_tracks', function(req, res) {
   console.log("Getting artist....");
-
-  //TODO: Check if logged in
-  // if(!req.session.loggedin){res.redirect('/login'); return;}
   console.log("Session: " + req.session.session_id);
   console.log("Access Token: " + req.session.access_token);
 
@@ -576,13 +565,9 @@ app.get('/top_tracks', function(req, res) {
 
 /**
  * /recommend:  Recommend tracks for selected track by artist
- TODO: When recommend-for-this-track is selected create app.post where artist_id and track_id are send through
  */
 app.get('/recommend', function(req, res) {
   console.log("Getting recommendations....");
-
-  //TODO: Check if logged in
-  // if(!req.session.loggedin){res.redirect('/login'); return;}
   console.log("Session: " + req.session.session_id);
   console.log("Access Token: " + req.session.access_token);
 

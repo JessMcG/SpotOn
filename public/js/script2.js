@@ -1,4 +1,8 @@
 
+/**
+ * Author: Allan
+ * General javascript and jquery.
+ */
 $(document).ready(function(){
    //switch between playlists and songs on profile
 	$("#profileSongSwitch").hide();
@@ -282,13 +286,18 @@ $(document).ready(function(){
 	});
 
 });// END DOCUMENT READY
-
+/**
+ * End of general javascript and jquery.
+ */
 
 /**
  * Searching, top tracks and recommendations
  * Author: Nicky ter Maat
  */
-//grab data from the json file.
+
+/**
+ * Pass artist or song search from the client to the server and return the resultsdata back from the server to the client
+ */
 function getSearchData(){
 var artist = $('#artistField').val();
 var song = $('#songField').val();
@@ -299,13 +308,13 @@ console.log("Receiving data from /search...");
 		type: 'get',
 		cashe: false,
 		success: function(data){
-
-
+			// Depending on the type, the track or artist data will be returned.
+			// If you have searched for songs, data will contain tracks.
 			$(data.tracks).each(function(index, value){
 				console.log("Received tracks data from /search!");
 				console.log(data);
 
-				var appendSearchResults = "";
+				var appendSearchResults = "";		// Dynamically create the result-html-display
 				appendSearchResults += "<p>Listing results for <span>" + song + "</span></p>"
 
 				console.log("Amount of results: " + data.tracks.items.length);
@@ -319,21 +328,21 @@ console.log("Receiving data from /search...");
 				}
 
 				$("#searchResults").append(appendSearchResults);
-
 			});
+
+			// If you have searched for artists, data will contain artists
 			$(data.artists).each(function(index, value){
 				console.log("Received artist data from /search!");
 				console.log(data);
 
-				var appendSearchResults = "";
+				var appendSearchResults = ""; // Dynamically create the result-html-display
 				appendSearchResults += "<p>Listing results for <span>" + artist + "</span></p>"
 
 				console.log("Amount of results: " + data.artists.items.length);
 				for (var i = 0; i <data.artists.items.length; i++) {
 					appendSearchResults += "<article class='searchResult'>"
-					//appendSearchResults += "<img class='searchResultImage' src='" + data.artists.items[i].images[0].url +"' 'alt=''/>"
+					//appendSearchResults += "<img class='searchResultImage' src='" + data.artists.items[i].images[0].url +"' 'alt=''/>" //image does not want to display properly
 					appendSearchResults += "<h3 class='searchResultName' id='"+data.artists.items[i].id+"'>" + data.artists.items[i].name + "</h3>"
-					//appendSearchResults	+= "<p id='artist_id'>" + data.artists.items[i].id + "</p>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack' ><img src='img/next.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack playSearchedTrack top_tracks' id='"+data.artists.items[i].id+"'><img src='img/play.png' alt='play track' /></div>"
@@ -341,21 +350,22 @@ console.log("Receiving data from /search...");
 				}
 
 				$("#searchResults").append(appendSearchResults);
-
 			});
 		}
 	});
 }
 
-//$(staticAncestors).on(eventName, dynamicChild, function() {});
-
-$('#searchResult').on("click", function(e){var id=e.target.attr('id'); console.log(e); getTopTracksFromArtist(id);});
-function getTopTracksFromArtist(id) {
-	console.log("ID: " + id);
-	var artistID = id;
+/**
+ * If the searched artist is selected, its top tracks will be displayed. The artists id is sent from client to server, top tracks data is returned from server to client.
+ */
+// Unfortunately, I was unable to get the click events working on dynamically generated elements. Sorry for that..
+$('#searchResult').on("click", function(e){var id=e.target.attr('id'); console.log(e); //getTopTracksFromArtist(id);});
+function getTopTracksFromArtist() {
+	// Using hardcoded artist ID to be able to display some top tracks
+	var artistID = "12Chz98pHFMPJEknJQMWvI" //id;
 	console.log("Receiving data from /top_tracks..." + artistID);
 
-	var appendSearchResults = "";
+	var appendSearchResults = "";		// Dynamically create the result-html-display
 	appendSearchResults += "<p>Listing results for <span>" + artistID + "</span></p>"
 
 		$.ajax({
@@ -364,7 +374,7 @@ function getTopTracksFromArtist(id) {
 			type: 'get',
 			cashe: false,
 			success: function(data){
-				//$("#searchResults").remove();
+
 				console.log("Received tracks data from /top_tracks!");
 				console.log(data);
 				console.log("Amount of results: " + data.tracks.length);
@@ -384,13 +394,18 @@ function getTopTracksFromArtist(id) {
 		});
 	}
 
+/**
+ * Recommendations for the selected track.Sending artist and track ID from client to server, returning recommendation data from server to client.
+ */
+ // Unfortunately, I was unable to get the click events working on dynamically generated elements. Sorry for that..
 	$('#recommend_button').click(getRecommendations());
 	function getRecommendations() {
-		var artistID = $('#artist_id').val();
-		var trackID = $('#track_id').val();
+		// Using hardcoded artist and track ID to be able to display some recommendations.
+		var artistID = "12Chz98pHFMPJEknJQMWvI" //$('#artist_id').val();
+		var trackID = "0eFHYz8NmK75zSplL5qlfM" //$('#track_id').val();
 		console.log("Receiving data from /recommendations..." + "Artist: " + artistID + "Song: " + trackID);
 
-		var appendSearchResults = "";
+		var appendSearchResults = "";		// Dynamically create the result-html-display
 		appendSearchResults += "<p>Listing results for <span>" + artistID + trackID + "</span></p>"
 
 			$.ajax({
@@ -402,7 +417,7 @@ function getTopTracksFromArtist(id) {
 					//$("#searchResults").remove();
 					console.log("Received tracks data from /recommendations!");
 					console.log(data);
-					console.log("Amount of results: " + data.tracks.length);
+					//console.log("Amount of results: " + data.tracks.length);
 					$(data.tracks).each(function(index, value){
 
 						appendSearchResults += "<article class='searchResult'>"
@@ -418,3 +433,7 @@ function getTopTracksFromArtist(id) {
 				}
 			});
 		}
+
+/**
+ * End of search, top tracks and recommendations.
+ */

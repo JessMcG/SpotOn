@@ -11,86 +11,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="js/script2.js"></script>
-
-	<!-- <script>
-
-			$.ajax({
-				url: '/search',
-				dataType: 'json',
-				type: 'get',
-				cashe: false,
-				success:
-				if (data != null) {
-					function(data){
-						$(data.artists.items).each(function(index, value){
-							console.log("Displaying search results...");
-
-							var artistID = value.uri;
-							var artistID2 = artistID.substring(15, 37);
-
-							var searchResultsHome = "<article class='searchResult sr1'><img class='searchResultImage' src='" + value.images[0].url +"'alt=''/><h3>" + value.name + "</h3><div class='addTrack playSearchedTrack' data-artist-id='" + artistID2 + "' id='showSongs'><img src='img/next.png' alt='play track' /></div></article>";
-
-							$("#searchResults").append(searchResultsHome);
-
-						});
-					}
-				}
-			});
-
-			setTimeout(doSomething, 1000);
-
-			function doSomething() {
-
-				$("#showSongs").click(function(){
-
-					$(".sr1").hide();
-					$(".sr2").delay(400).show();
-
-					var a = 0;
-
-					for(x=0;x<4;x++){
-
-						var images = ["img/muse1.jpg", "img/muse2.jpg", "img/muse3.jpg", "img/muse4.jpg"];
-						var songs = ["Uprising", "Knights of Cydonia", "Hysteria", "Starlight"];
-
-						var museTracks = "<article class='searchResult sr2'><img class='searchResultImage'  src='" + images[a] + "' alt=''/><h3>" + "Muse <br />" + "<span>" + songs[a] + "</span>" + "</h3><div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div><div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div></article>";
-
-						$("#searchResults").append(museTracks);
-
-						a++;
-					}
-
-					/*
-
-
-					$.ajax({
-						url: 'museTracks.json',
-						dataType: 'json',
-						type: 'get',
-						cashe: false,
-						success: function(data){
-
-							$(data.tracks).each(function(index, value){
-
-								var museTracks = "<article class='searchResult sr2'><img class='searchResultImage' src='" + value.album.images[0].url +"'alt=''/><h3>" + value.album.name + "</h3><div class='addTrack playSearchedTrack' data-artist-id='" + "hello" + "' id='showSongs'><img src='img/next.png' alt='play track' /></div></article>";
-
-								$("#searchResults").append(museTracks);
-
-							});
-
-						}
-
-
-
-
-					});*/
-
-				});
-
-			}
-
-			</script> -->
-
 </head>
 <body>
 
@@ -175,7 +95,9 @@
 
 				<input id="songField" name="songField" type="text" placeholder="Song name...." />
 
-				<button id="dontWork" onclick="getSearchData()" type="button">Search</button>
+				<!-- <button id="dontWork" onclick="getSearchData()" type="button">Search</button> -->
+				<button id="dontWork" onclick="getTopTracksFromArtist()" type="button">Search</button>
+				<!-- <button id="dontWork" onclick="getRecommendations()" type="button">Search</button> -->
 
 			</form>
 
