@@ -480,6 +480,8 @@ app.get('/addto_pl', function(req, res) {
     console.log('Adding To Playlist');
     var playlist_id = req.session.playlist_id;
     var tracks = req.session.tracks;
+
+
 // build request options
     var headers = {
       'Accept': 'application/json',
@@ -487,11 +489,9 @@ app.get('/addto_pl', function(req, res) {
       'Authorization': 'Bearer '+ access_token
     };
     var options = {
-      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks?position=0&uris='+tracks,
+      url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id+'/tracks?uris='+tracks,
       headers: { 'Authorization': 'Bearer ' + access_token },
-      body: tracks,
-      method: 'POST',
-      json: true
+      method: 'POST'
     };
 
 
