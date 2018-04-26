@@ -291,9 +291,8 @@ $(document).ready(function(){
 
 });// END DOCUMENT READY
 
-
 //grab data from the json file.
-function getData(){
+function getSearchData(){
 var artist = $('#artistField').val();
 var song = $('#songField').val();
 console.log("Receiving data from /search...");
@@ -309,19 +308,36 @@ console.log("Receiving data from /search...");
 
 				var appendSearchResults = "";
 				appendSearchResults += "<p>Listing results for <span>" + artist + song + "</span></p>"
+
+				var searchResultImage = "";
+				var searchResultName = "";
+
+				if (data.tracks != null && data.tracks.items.length > 1) {
+					searchResultImage = data.tracks.items[i].album.images[0].url;
+					searchResultName = data.tracks.items[i].name
+				} else if (data.artists != null && data.artists.items.length > 1) {
+					searchResultImage = data.artists.images[0].url;
+					searchResultName = data.artists.images[0].url;
+				}
+
 				console.log("Amount of results: " + data.tracks.items.length);
 				for (var i = 0; i <data.tracks.items.length; i++) {
 					appendSearchResults += "<article class='searchResult'>"
-					appendSearchResults += "<img class='searchResultImage' src='" + data.tracks.items[i].album.images[0].url +"' 'alt=''/>"
-					appendSearchResults += "<h3>" + data.tracks.items[i].name + "</h3>"
+					appendSearchResults += "<img class='searchResultImage' src='" + searchResultImage +"' 'alt=''/>"
+					appendSearchResults += "<h3>" + searchResultName + "</h3>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
 					appendSearchResults += "</article>"
 				}
+
 
 				$("#searchResults").append(appendSearchResults);
 
 			});
 		}
 	});
+}
+
+function getTopTracksFromArtist() {
+
 }
