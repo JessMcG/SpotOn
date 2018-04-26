@@ -381,8 +381,8 @@ function getTopTracksFromArtist(id) {
 				console.log(data);
 				//console.log("Amount of results: " + data.tracks.length);
 				$(data.tracks).each(function(index, value){
-					appendSearchResults = "";
-					appendSearchResults += "<article class='searchResult'>"
+
+					appendSearchResults += "<article class='searchResult' id='"+data.tracks.items[i].id+"'>"
 					appendSearchResults += "<img class='searchResultImage' src='" + data.tracks[index].album.images[0].url +"' 'alt=''/>"
 					appendSearchResults += "<h3>" + data.tracks[index].name + "</h3>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
@@ -391,7 +391,7 @@ function getTopTracksFromArtist(id) {
 
 					$("#searchResults").append(appendSearchResults);
 				});
-				$('.searchResult').click(function(e){var id=e.target.id; console.log(id)});
+				$('.searchResult').click(function(e){var id=e.target.id; console.log(id); getRecommendations(artistID, id);});
 			}
 		});
 	}
@@ -399,12 +399,10 @@ function getTopTracksFromArtist(id) {
 /**
  * Recommendations for the selected track.Sending artist and track ID from client to server, returning recommendation data from server to client.
  */
- // Unfortunately, I was unable to get the click events working on dynamically generated elements. Sorry for that..
-	$('#recommend_button').click(function() {getRecommendations();});
-	function getRecommendations() {
+	function getRecommendations(artistID, trackID) {
 		// Using hardcoded artist and track ID to be able to display some recommendations.
-		var artistID = "12Chz98pHFMPJEknJQMWvI" //$('#artist_id').val();
-		var trackID = "0eFHYz8NmK75zSplL5qlfM" //$('#track_id').val();
+		// var artistID = artistID; //$('#artist_id').val();
+		// var trackID = trackID; //$('#track_id').val();
 		console.log("Receiving data from /recommendations..." + "Artist: " + artistID + "Song: " + trackID);
 
 		var appendSearchResults = "";		// Dynamically create the result-html-display
