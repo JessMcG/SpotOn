@@ -309,12 +309,12 @@ console.log("Receiving data from /search...");
 		cashe: false,
 		success: function(data){
 			// Depending on the type, the track or artist data will be returned.
+			var appendSearchResults = ""; // Dynamically create the result-html-display
 			// If you have searched for songs, data will contain tracks.
 			$(data.tracks).each(function(index, value){
 				console.log("Received tracks data from /search!");
 				console.log(data);
 
-				var appendSearchResults = "";		// Dynamically create the result-html-display
 				appendSearchResults += "<p>Listing results for <span>" + song + "</span></p>"
 
 				console.log("Amount of results: " + data.tracks.items.length);
@@ -335,7 +335,6 @@ console.log("Receiving data from /search...");
 				console.log("Received artist data from /search!");
 				console.log(data);
 
-				var appendSearchResults = ""; // Dynamically create the result-html-display
 				appendSearchResults += "<p>Listing results for <span>" + artist + "</span></p>"
 
 				console.log("Amount of results: " + data.artists.items.length);
@@ -351,7 +350,8 @@ console.log("Receiving data from /search...");
 
 				$("#searchResults").append(appendSearchResults);
 			});
-			$('.searchResult').click(function(e){var id=e.target.id; console.log(e); getTopTracksFromArtist(id);});
+			$('.searchResult').click(function(e){var id=e.target.id; console.log(e); appendSearchResults = ""; getTopTracksFromArtist(id);});
+			appendSearchResults = "";
 		}
 	});
 }
@@ -391,7 +391,7 @@ function getTopTracksFromArtist(id) {
 
 					$("#searchResults").append(appendSearchResults);
 				});
-				$('.searchResult').click(function(e){var id=e.target.id; console.log(id); getRecommendations(artistID, id);});
+				$('.searchResult').click(function(e){var id=e.target.id; console.log(id); appendSearchResults = ""; getRecommendations(artistID, id);});
 			}
 		});
 	}
@@ -419,7 +419,6 @@ function getTopTracksFromArtist(id) {
 					console.log(data);
 					//console.log("Amount of results: " + data.tracks.length);
 					$(data.tracks).each(function(index, value){
-						appendSearchResults = "";
 						appendSearchResults += "<article class='searchResult'>"
 						appendSearchResults += "<img class='searchResultImage' src='" + data.tracks[index].album.images[0].url +"' 'alt=''/>"
 						appendSearchResults += "<h3>" + data.tracks[index].name + "</h3>"
@@ -427,9 +426,7 @@ function getTopTracksFromArtist(id) {
 						appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
 						appendSearchResults += "</article>"
 						$("#searchResults").append(appendSearchResults);
-
 					});
-
 				}
 			});
 		}
