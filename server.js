@@ -480,6 +480,7 @@ app.get('/addto_pl', function(req, res) {
     console.log('Adding To Playlist');
     var playlist_id = req.session.playlist_id;
     var tracks = req.session.tracks;
+    console.log(tracks);
     var track = 'spotify:track:6sUhC28zNaIuRzjC0QQhTF,spotify:track:79R5oMVwp6OXSTlfQPQPEA'
 
 // build request options
