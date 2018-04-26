@@ -516,10 +516,11 @@ app.get('/addto_pl', function(req, res) {
     var options = {
       url: 'https://api.spotify.com/v1/users/'+user_id+'/playlists/'+playlist_id_str+'/tracks?position=0&uris='+tracks,
       headers: { 'Authorization': 'Bearer ' + access_token },
-      body: tracks
+      body: tracks,
       method: 'POST',
       json: true
     };
+
 // make POST request to Spotify API to add uris to a user_id's playlist_id
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
