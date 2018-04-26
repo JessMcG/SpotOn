@@ -391,7 +391,7 @@ function getTopTracksFromArtist(id) {
 
 					$("#searchResults").append(appendSearchResults);
 				});
-				$('.searchResult').click(function(e){var id=e.target.attr('id'); console.log(e)});
+				$('.searchResult').click(function(e){var id=e.target.attr('id'); console.log(id)});
 			}
 		});
 	}
