@@ -128,7 +128,7 @@ $(document).ready(function(){
     });
 
 
-$('#dontWork').click(function(){getData();});
+
 //grab data from the json file.
 function getData(){
 var artist = $('#artistField').value();
