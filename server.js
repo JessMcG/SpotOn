@@ -483,9 +483,9 @@ app.get('/addto_pl', function(req, res) {
     db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
         playlist_id = result
-        console.log(playlist_id);
+        console.log('db.find result ' +playlist_id);
       } else {
-        console.log('No db.find result' +err);
+        console.log('No db.find result ' +err);
       };
     });
 // tidying var playlist_id into useable string
@@ -494,17 +494,18 @@ app.get('/addto_pl', function(req, res) {
     console.log('playlist_id_str: '+playlist_id_str);
 
 // search db for seed tracks
+/*
     var query = {user_id: user_id};
-    var proj = {/*LOCATION OF SEEDED TRACKS: true*/};
+    var proj = {##LOCATION##OF##SEEDED##TRACKS##: true};
     db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
         console.log(result);
 // TODO attach result to tracks
-//
       } else {
         console.log('No db.find result' +err);
       };
     });
+*/
 
 // build request options
     var headers = {
