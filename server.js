@@ -380,7 +380,7 @@ app.get('/seedpl', function(req, res, body) {
   if(access_token!=null){
     console.log('Start Seeding Playlist');
 
-    
+
 // query db for search term
     var query = {user_id: user_id};
     var proj = {'search': true};
@@ -416,8 +416,6 @@ app.get('/seedpl', function(req, res, body) {
     request.get(options, function(err, res, body) {
       if(!err && res.statusCode === 200){
         req.session.tracks = body;
-        console.log('res.session.tracks: ' +req.session.tracks);
-// TODO add json response to db for use in addto_pl
       } else {
         console.log('failed: ' + res.statusCode);
       };
@@ -455,9 +453,10 @@ app.get('/create_pl', function(req, res, body) {
 // make POST to Spotify API to create a playlist on a given user_id's account
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
-        console.log('success: ' + res.statusCode + ' ' + body);
+        console.log('success: ' + res.statusCode);
         var playlist_id = body.id;
         req.session.playlist_id = playlist_id;
+        console.log('req.session.playlist_id ' +req.session.playlist_id);
       } else {
         console.log('failed: ' + res.statusCode);
       };
