@@ -280,10 +280,10 @@ $(document).ready(function(){
 		}
 
 	});
-	// show tooltips on hover of tracks with jquery ui
-  $( function() {
-	$( document ).tooltip();
-  } );
+	// // show tooltips on hover of tracks with jquery ui
+  // $( function() {
+	// $( document ).tooltip();
+  // } );
 
 
 
@@ -329,7 +329,6 @@ console.log("Receiving data from /search...");
 					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
 					appendSearchResults += "</article>"
 				}
-
 
 				$("#searchResults").append(appendSearchResults);
 
