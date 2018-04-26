@@ -850,7 +850,5 @@ app.get('/logout', function(req, res) {
       });
   });
 
-});
-
 console.log('Listening on 8080');
 app.listen(8080);
