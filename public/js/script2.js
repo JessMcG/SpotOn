@@ -327,6 +327,7 @@ console.log("Receiving data from /search...");
 					//appendSearchResults += "<img class='searchResultImage' src='" + data.artists.items[i].images[0].url +"' 'alt=''/>"
 					appendSearchResults += "<h3>" + data.artists.items[i].name + "</h3>"
 					appendSearchResults	+= "<p id='artist_id'>" + data.artists.items[i].id + "</p>"
+					appendSearchResults += "<div class='addTrack addSearchedTrack' id='top_tracks'><img src='img/next.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
 					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
 					appendSearchResults += "</article>"
@@ -339,10 +340,11 @@ console.log("Receiving data from /search...");
 	});
 }
 
-$('.searchResult').click(getTopTracksFromArtist());
+$('#top_tracks').click(getTopTracksFromArtist());
 function getTopTracksFromArtist() {
 	var artistID = $('#artist_id').val();
 	console.log("Receiving data from /top_tracks..." + artistID);
+	
 	var appendSearchResults = "";
 	appendSearchResults += "<p>Listing results for <span>" + artistID + "</span></p>"
 
@@ -365,13 +367,9 @@ function getTopTracksFromArtist() {
 					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
 					appendSearchResults += "</article>"
 
-
-
 					$("#searchResults").append(appendSearchResults);
 				});
 
 			}
-
-
 		});
 	}
