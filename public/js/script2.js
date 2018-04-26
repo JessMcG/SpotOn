@@ -367,9 +367,11 @@ function getTopTracksFromArtist() {
 
 
 
+					$("#searchResults").append(appendSearchResults);
 				});
+
 			}
-			$("#searchResults").append(appendSearchResults);
+
 
 		});
 	}
