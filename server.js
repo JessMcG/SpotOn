@@ -369,6 +369,13 @@ app.get('/search', function(req, res) {
 */
 
 // Playlist functions
+/*
+  This code seaches for a 'track_id' inside the collection 'users' and saves the response,
+  then,
+  requests the spotify api to create a 'playlist_id' on a certian 'user_id'-'s profile,
+  then,
+  requests the api to add the 'tracks' to this new 'playlist_id'.
+*/
 // Lew McCullough / mcsmall1
 
 app.get('/seedpl', function(req, res, body) {
