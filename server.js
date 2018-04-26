@@ -454,15 +454,15 @@ var result;
 /**
  * /search_form:  Send data from input form to /search
  */
-app.post('/search_form', function(req,res) {
-  // Clear query, type, artist_id and track_id from memory
-  query = ""; type = ""; artist_id = ""; track_id = "";
-  artist =  req.body.artistField;
-  track = req.body.songField;
-  console.log("Collecting search form data...")
-  console.log("Body: " + JSON.stringify(req.body));
-  res.redirect('/search');
-});
+// app.post('/search_form', function(req,res) {
+//   // Clear query, type, artist_id and track_id from memory
+//   query = ""; type = ""; artist_id = ""; track_id = "";
+//   artist =  req.body.artistField;
+//   track = req.body.songField;
+//   console.log("Collecting search form data...")
+//   console.log("Body: " + JSON.stringify(req.body));
+//   res.redirect('/search');
+// });
 
 // app.get('/search_results', function(req,res){
 //   console.log("Searchresults...");
@@ -487,8 +487,8 @@ app.post('/search_form', function(req,res) {
  */
 app.get('/search', function(req, res) {
   console.log("Searching....");
-  var artist =  req.query.artist;
-  var track = req.query.song;
+  var artist =  req.query.artistField;
+  var track = req.query.songField;
   //TODO: Check if logged in
   // if(!req.session.loggedin){res.redirect('/login'); return;}
   console.log("Session user_id: " + req.session.user_id);
