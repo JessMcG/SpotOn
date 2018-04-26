@@ -331,7 +331,7 @@ console.log("Receiving data from /search...");
 				console.log("Amount of results: " + data.artists.items.length);
 				for (var i = 0; i <data.artists.items.length; i++) {
 					appendSearchResults += "<article class='searchResult'>"
-					//appendSearchResults += "<img class='searchResultImage' src='" + data.artists.items[i].images[0].url +"' 'alt=''/>"
+					appendSearchResults += "<img class='searchResultImage' src='" + data.artists.items[i].images[0].url +"' 'alt=''/>"
 					appendSearchResults += "<h3 class='searchResultName' id='"+data.artists.items[i].id+"'>" + data.artists.items[i].name + "</h3>"
 					//appendSearchResults	+= "<p id='artist_id'>" + data.artists.items[i].id + "</p>"
 					appendSearchResults += "<div class='addTrack addSearchedTrack' ><img src='img/next.png' alt='add track' /></div>"
@@ -347,7 +347,7 @@ console.log("Receiving data from /search...");
 	});
 }
 
-$('.searchResultName').on('click', function(e){var id=e.target.attr('id'); console.log(e); getTopTracksFromArtist(id);});
+$('#searchResult').on('click', function(e){var id=e.target.attr('id'); console.log(e); getTopTracksFromArtist(id);});
 function getTopTracksFromArtist(id) {
 	console.log("ID: " + id);
 	var artistID = id;
