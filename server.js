@@ -416,9 +416,6 @@ app.get('/seedpl', function(req, res, body) {
 // TODO add json response to db for use in addto_pl
       } else {
         console.log('failed: ' + res.statusCode);
-        };
-      } else {
-        console.log('failed ' + res.statusCode);
       };
     });
   } else {
