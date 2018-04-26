@@ -410,7 +410,8 @@ app.get('/seedpl', function(req, res, body) {
 // make GET request to Spotify API for 25 tracks seeded from search
     request.get(options, function(err, res, body) {
       if(!err && res.statusCode === 200){
-        req.session.tracks = body;
+        var pbody = JSON.parse(body);
+        req.session.tracks = pbody;
       } else {
         console.log('failed: ' + res.statusCode);
       };
@@ -493,7 +494,8 @@ app.get('/addto_pl', function(req, res) {
     request.post(options, function(err, res, body) {
       if(!err && res.statusCode === 201){
         console.log('success: ' + res.statusCode);
-        //console.log('songs added '+ uris);
+        var pbody = JSON.parse(body);
+        console.log(body);
       } else {
         console.log('failed: ' + res.statusCode);
       };
