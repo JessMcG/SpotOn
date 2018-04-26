@@ -127,58 +127,16 @@ $(document).ready(function(){
 		  $(".respContent").fadeOut(200);
     });
 
-
-
-
-	// iterate out serach result within div on page on page. - *not working*
-	// doesnt recognise this ajax function just the other one.
-	$.ajax({
-		url: 'search.json',
-		dataType: 'json',
-		type: 'get',
-		cashe: false,
-		success: function(data2){
-			$(data2.search).each(function(index, value){
-
-				var appendSearch = "<li class='recentSearch'><p>" + value.type + " - <span>" + value.search + " " + "</span></p>";
-
-
-				$("#recentSearchResults").append(appendSearch);
-
-
-			});
-
-
-
-		}
-
-	});
-	// show tooltips on hover of tracks with jquery ui
-  $( function() {
-	$( document ).tooltip();
-  } );
-
-
-
-	/*
-	var searchResultsHome = "<article class='searchResult'><img class='searchResultImage' src='" + value.images[0].url +"'alt=''/><h3>" + value.name + "</h3><div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div><div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div></article>";
-	*/
-
-});// END DOCUMENT READY
 //grab data from the json file.
-function getData(){
-var artist = $('#artistField').val();
-var song = $('#songField').val();
-console.log("Receiving data from /search...");
+
 	$.ajax({
-		url: '/search?artist='+artist+'&song='+song,
+		url: 'data.json',
 		dataType: 'json',
 		type: 'get',
 		cashe: false,
 		success: function(data){
 			$(data.tracks).each(function(index, value){
-				console.log("Received data from /search!");
-				console.log(data);
+
 
 				var appendTrack = "<li class='trackOnProfile'><p class='ellipsis' title='"+ value.artist_name + " - " + value.track_name  +"'>" + value.artist_name + " - <span>" + value.track_name + " " + "</span></p><div class='playTrackProfile'><img class='playSingleTrack' src='img/play.png' alt='" + value.track_id +"' />";
 
@@ -192,13 +150,13 @@ console.log("Receiving data from /search...");
 			// load first track into player on page loading
 			var t = 0;
 
-			//$("#trackArt").attr("src",data.tracks.items[t].images[0].url);
-			//$("#coverArtBluredInner").attr("src",data.tracks.items[t].images[0].url);
-			$("#playerArtistName").html(data.tracks.items[t].artists[0].name);
-			$("#playerTrackName").html(data.tracks.items[t].name);
-			$("#playerPlaylistTitle").html(data.tracks.items[t].name);
-			$("#ffs").attr("src",data.tracks.items[t].uri);
-			var playListLength = data.tracks.items.length;
+			$("#trackArt").attr("src",data.tracks[t].album_art);
+			$("#coverArtBluredInner").attr("src",data.tracks[t].album_art);
+			$("#playerArtistName").html(data.tracks[t].artist_name);
+			$("#playerTrackName").html(data.tracks[t].track_name);
+			$("#playerPlaylistTitle").html(data.tracks[t].playlist_title);
+			$("#ffs").attr("src",data.tracks[t].track);
+			var playListLength = data.tracks.length;
 
 			//move to the next track on the playlist
 			$("#playNext").click(function(){
@@ -294,11 +252,77 @@ console.log("Receiving data from /search...");
 				$("#ffs").attr("src",data.tracks[c].track);
 
 			});
-		},
-		error: function(jqXHR, textStatus, errorThrown){
-			alert(jqXHR.status);
 		}
 
 
+	});
+
+	// iterate out serach result within div on page on page. - *not working*
+	// doesnt recognise this ajax function just the other one.
+	$.ajax({
+		url: 'search.json',
+		dataType: 'json',
+		type: 'get',
+		cashe: false,
+		success: function(data2){
+			$(data2.search).each(function(index, value){
+
+				var appendSearch = "<li class='recentSearch'><p>" + value.type + " - <span>" + value.search + " " + "</span></p>";
+
+
+				$("#recentSearchResults").append(appendSearch);
+
+
+			});
+
+
+
+		}
+
+	});
+	// show tooltips on hover of tracks with jquery ui
+  $( function() {
+	$( document ).tooltip();
+  } );
+
+
+
+
+
+});// END DOCUMENT READY
+
+
+//grab data from the json file.
+function getData(){
+var artist = $('#artistField').val();
+var song = $('#songField').val();
+console.log("Receiving data from /search...");
+	$.ajax({
+		url: '/search?artist='+artist+'&song='+song,
+		dataType: 'json',
+		type: 'get',
+		cashe: false,
+		success: function(data){
+			$(data.tracks).each(function(index, value){
+				console.log("Received data from /search!");
+				console.log(data);
+
+				var searchResultsHome = "";
+				searchResultsHome += "<p>Listing results for <span>" + artist + song + "</span></p>"
+				for (var i = 0; i <data.tracks.items.length; i++) {
+					searchResultsHome += "<article class='searchResult'>"
+					searchResultsHome += "<img class='searchResultImage' src='" + data.tracks.items[i].images[0].url +"'alt=''/>"
+					searchResultsHome += "<h3>" + data.tracks.items[i].name + "</h3>"
+					searchResultsHome += "<div class='add Track addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
+					searchResultsHome += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
+					searchResultsHome += "</article>"
+				}
+
+				$("#searchResults").append(appendTrack);
+				$(".profileMySongs").append(appendTrack);
+
+
+			});
+		}
 	});
 }
