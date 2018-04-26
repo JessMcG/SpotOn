@@ -386,13 +386,11 @@ app.get('/seedpl', function(req, res, body) {
     db.collection('users').find(query, proj).toArray(function(err, result) {
       if (result!=null){
         console.log('result: '+ result);
-        getTracks(tracks){
           var result_str = new String(result);
           result_str = result_str.slice(18, 43);
           console.log('playlist_id_str: '+ result_str);
           tracks = result_str;
           console.log('querystring: '+ tracks);
-        };
       } else {
         console.log('No db.find result' +err);
       };
