@@ -349,7 +349,7 @@ function getTopTracksFromArtist() {
 			type: 'get',
 			cashe: false,
 			success: function(data){
-				$("#searchResults").remove();
+				//$("#searchResults").remove();
 				var appendSearchResults = "";
 				appendSearchResults += "<p>Listing results for <span>" + artistID + "</span></p>"
 
