@@ -479,6 +479,7 @@ app.get('/media_player', function(req, res) {
  */
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.set('view engine', 'html');
 
 var artist;
 var track;
@@ -486,101 +487,81 @@ var query;
 var type;
 
 /**
- * /search_form:  Send data from input form to /search
- */
-app.post('/search_form', function(req,res) {
-  // Clear query, type, artist_id and track_id from memory
-  query = ""; type = ""; artist_id = ""; track_id = "";
-  artist =  req.body.artistField;
-  track = req.body.songField;
-  console.log("Collecting search form data...")
-  console.log("Body: " + JSON.stringify(req.body));
-  res.redirect('/search');
-});
-
-
-/**
  * /search: look for artist or track
  */
 app.get('/search', function(req, res) {
-  console.log("Searching....");
-
-
-  //TODO: Check if logged in
-  // if(!req.session.loggedin){res.redirect('/login'); return;}
-  console.log("Session user_id: " + req.session.user_id);
-  console.log("Access Token: " + req.session.access_token);
-
+  var artist =  req.query.artist;
+  var track = req.query.song;
+  
+  if(!req.session.loggedin){res.redirect('/login'); return;}
   var access_token = req.session.access_token;
 
-  if (artist != null && artist.length > 1) {
-    query = artist;
-    type = "artist";
-    console.log("Query - Artist: " + query + " Type: " + type);
-  } else if (track != null && track.length > 1) {
-    query = track;
-    type = "track";
-    console.log("Query - Track: " + query + " Type: " + type);
-  } else {
-    console.log("Invalid query");
-  }
+  console.log("Searching....");
+  console.log("Access Token: " + access_token);
 
   if (access_token != null) {
-    var searchOptions = {
-      url: 'https://api.spotify.com/v1/search?' +
-      querystring.stringify({
-        query: query,
-        type: type,
-        limit: 8
-      }),
-      headers: { 'Authorization': 'Bearer ' + access_token },
-      json: true
-    };
+    if (artist != null && artist.length > 1) {
+      query = artist;
+      type = "artist";
+      console.log("Query - Artist: " + query + " Type: " + type);
+    } else if (track != null && track.length > 1) {
+      query = track;
+      type = "track";
+      console.log("Query - Track: " + query + " Type: " + type);
+    } else {
+      console.log("Invalid query");
+    }
+
+    if (access_token != null) {
+      var searchOptions = {
+        url: 'https://api.spotify.com/v1/search?' +
+        querystring.stringify({
+          query: query,
+          type: type,
+          limit: 8
+        }),
+        headers: { 'Authorization': 'Bearer ' + access_token },
+        json: true
+      };
+    }
+
+    // GET request for /search
+    request.get(searchOptions, function(error, response, body) {
+      if(error) throw error;
+
+      console.log(body);
+      if (!error && response.statusCode === 200) {
+        res.setHeader('Content-Type', 'application/json')
+        res.send(body);
+      } else {
+        console.log("Response code: " + response.statusCode + "\nError: " + error);
+      }
+        // res.setHeader('Content-Type', 'application/json')
+        // res.send(body);
+    });
+
+    addSearchToDatabase(req.session.user_id, query, type, null, null);
+
+  } else {
+    console.log("User should log in first");
+    res.redirect('/login');
   }
 
-
-  // GET request for /search
-  request.get(searchOptions, function(error, response, body) {
-    if(error) throw error;
-
-    console.log(body);
-    if (!error && response.statusCode === 200) {
-      console.log("\nSEARCH RESULTS \n");
-      if (body.artists) {
-        for (var i = 0; i < body.artists.items.length; i++) {
-          console.log("\t ARTIST: " + body.artists.items[i].name + " id: " + body.artists.items[i].id);
-        }
-      } else if (body.tracks) {
-        for (var i = 0; i < body.tracks.items.length; i++) {
-          console.log("\t TRACK: " + body.tracks.items[i].name + " track_id: " + body.tracks.items[i].id + " artist: " + body.tracks.items[i].artists.name + " artist_id: " + body.tracks.items[i].artists.id);
-        }
-      }
-    } else {
-      console.log("Response code: " + response.statusCode + "\nError: " + error);
-    }
-    res.send("Search: " + JSON.stringify(body));
-  });
-
-  addSearchToDatabase(req.session.user_id, query, type, null, null);
 });
 /* End of Search and Recommendations
 */
 
 /**
  * /top_tracks: Select top tracks for selected artist
- TODO: When artist is selected create app.post where artist_id is send through
  */
 app.get('/top_tracks', function(req, res) {
   console.log("Getting artist....");
-
-  //TODO: Check if logged in
-  // if(!req.session.loggedin){res.redirect('/login'); return;}
   console.log("Session: " + req.session.session_id);
   console.log("Access Token: " + req.session.access_token);
 
   // Api call details
   var access_token = req.session.access_token;
-  var seed_artists = "12Chz98pHFMPJEknJQMWvI";
+  var seed_artists = req.query.artist;
   var country_artists = "NL";
 
   if (access_token != null) {
@@ -599,16 +580,14 @@ app.get('/top_tracks', function(req, res) {
 
     console.log(body);
     if (!error && response.statusCode === 200) {
-      if (body.tracks.length > 0) {
-        console.log("TOP TRACKS \n");
-        for (var i = 0; i < body.tracks.length; i++) {
-          console.log("\t TRACK: " + body.tracks[i].name);
-        }
-      }
+      res.setHeader('Content-Type', 'application/json')
+      res.send(body);
     } else {
       console.log("Response code: " + response.statusCode + "\nError: " + error);
     }
-    res.send("Search: " + JSON.stringify(body));
+
+    // res.setHeader('Content-Type', 'application/json')
+    // res.send(body);
   });
 
   addSearchToDatabase(req.session.user_id, query, type, seed_artists, null);
@@ -616,20 +595,16 @@ app.get('/top_tracks', function(req, res) {
 
 /**
  * /recommend:  Recommend tracks for selected track by artist
- TODO: When recommend-for-this-track is selected create app.post where artist_id and track_id are send through
  */
 app.get('/recommend', function(req, res) {
   console.log("Getting recommendations....");
-
-  //TODO: Check if logged in
-  // if(!req.session.loggedin){res.redirect('/login'); return;}
   console.log("Session: " + req.session.session_id);
   console.log("Access Token: " + req.session.access_token);
 
   // Api call details
   var access_token = req.session.access_token;
-  var seed_artists = "1hkC9kHG980jEfkTmQYB7t";
-  var seed_tracks = "0c6xIDDpzE81m2q797ordA";
+  var seed_artists = req.query.artist;
+  var seed_tracks = req.query.song;
 
   if (access_token != null) {
     var recommendOptions = {
@@ -660,7 +635,9 @@ app.get('/recommend', function(req, res) {
     } else {
       console.log("Response code: " + response.statusCode + "\nError: " + error);
     }}
-    res.send("Recommendations: " + JSON.stringify(body));
+
+    res.setHeader('Content-Type', 'application/json')
+    res.send(body);
   });
 
   addSearchToDatabase(req.session.user_id, query, type, seed_artists, seed_tracks);

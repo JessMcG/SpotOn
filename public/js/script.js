@@ -1,9 +1,12 @@
+/**
+ * Author: Allan
+ * General javascript and jquery
+ */
 $(document).ready(function(){
-   
-	
+
 	$("#artistField").hide();
 	$(".playTrackButton2").hide();
-	
+
 	$(".playTrackButton").click(function(){
 		$(".playTrackButton").hide();
 		$(".playTrackButton2").show();
@@ -12,7 +15,7 @@ $(document).ready(function(){
 		$(".playTrackButton").show();
 		$(".playTrackButton2").hide();
     });
-		
+
 	$(".bySong").click(function(){
         $(".bySong").removeClass("inactiveButton");
         $(".bySong").addClass("activeButton");
@@ -21,7 +24,7 @@ $(document).ready(function(){
 		$("#artistField").hide();
 		$("#songField").show();
     });
-	
+
 	$(".byArtist").click(function(){
         $(".byArtist").removeClass("inactiveButton");
         $(".byArtist").addClass("activeButton");
@@ -30,20 +33,20 @@ $(document).ready(function(){
 		$("#artistField").show();
 		$("#songField").hide();
     });
-	
+
 	$(".searchResult,#searchResults").hide();
-	
+
 	$("#dontWork").click(function(){
 		  $("#searchResults").animate({marginTop: '-120px'},500);
 		  $("#searchResults").show();
 		  $(".searchResult").show();
 		  $("#homeBoxes").hide();
-			
-    }); 
-	
+
+    });
+
 	var scroll_pos = 0;
 
-	$(document).scroll(function() { 
+	$(document).scroll(function() {
 		scroll_pos = $(this).scrollTop();
 		if(scroll_pos > 80) {
 			$("#nav").css('background-color', '#222');
@@ -51,23 +54,23 @@ $(document).ready(function(){
 			$("#nav").css('background-color', 'transparent');
 		}
 	});
-	
-	
+
+
 	$("#loginLink").click(function(){
-		 
+
 		$("#loginOverlay").fadeIn(300);
 		$("#loginBox").delay(100).slideDown(300);
-			
+
     });
 	$("#closeLoginForm").click(function(){
-		 
+
 		$("#loginOverlay").delay(100).fadeOut(300);
 		$("#loginBox").slideUp(300);
-			
-    }); 
-	
-	
-	
+
+    });
+
+
+
 	$("#respMenu").click(function(){
 		  $("#container").animate({marginLeft: '-70%'},300);
 		  $("#header").animate({marginLeft: '-70%'},300);
@@ -77,8 +80,8 @@ $(document).ready(function(){
 		  $("#respMenu").fadeOut(350);
 		  $("#closeRespMenu").fadeIn(450);
 		  $(".respContent").fadeIn(200);
-    }); 
-	
+    });
+
 	$("#closeRespMenu").click(function(){
 		  $("#container").animate({marginLeft: '0%'},300);
 		  $("#header").animate({marginLeft: '0%'},300);
@@ -88,7 +91,7 @@ $(document).ready(function(){
 		  $("#closeRespMenu").fadeOut(250);
 		  $("#respNav").removeClass("respNavBoxShadow");
 		  $(".respContent").fadeOut(200);
-    }); 
+    });
 
 });
 
@@ -105,19 +108,19 @@ $.ajax({
 
 				$("ol li:even").css("background-color", "#fafafa");
 
-				$("#allTracks").append(appendTrack);  	
+				$("#allTracks").append(appendTrack);
 
 
 			});
 
 			var t = 0;
-			
+
 			$("#trackArt").attr("src",data.tracks.[t].album_art);
 			$("#coverArtBluredInner").attr("src",data.tracks[t].album_art);
 			$("#playerArtistName").html(data.tracks[t].artist_name);
 			$("#playerTrackName").html(data.tracks[t].track_name);
 			$("#playerPlaylistTitle").html(data.tracks[t].playlist_title);
-			$("#ffs").attr("src",data.tracks[t].track);				
+			$("#ffs").attr("src",data.tracks[t].track);
 			var playListLength = data.tracks.length;
 
 			$("#playNext").click(function(){
@@ -171,3 +174,7 @@ $.ajax({
 			});
 		}
 	});
+
+/**
+ * End of general javascript and jquery
+ */

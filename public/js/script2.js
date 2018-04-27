@@ -1,4 +1,8 @@
 
+/**
+ * Author: Allan
+ * General javascript and jquery.
+ */
 $(document).ready(function(){
    //switch between playlists and songs on profile
 	$("#profileSongSwitch").hide();
@@ -137,7 +141,6 @@ $(document).ready(function(){
 		success: function(data){
 			$(data.tracks).each(function(index, value){
 
-
 				//var appendTrack = "<li class='trackOnProfile'><p class='ellipsis' title='"+ value.artist_name + " - " + value.track_name  +"'>" + value.artist_name + " - <span>" + value.track_name + " " + "</span></p><div class='playTrackProfile'><img class='playSingleTrack' src='img/play.png' alt='" + value.track_id +"' />";
 
 				//$("ol li:even").css("background-color", "#fafafa");
@@ -268,10 +271,7 @@ $(document).ready(function(){
 			$(data2.search).each(function(index, value){
 
 				var appendSearch = "<li class='recentSearch'><p>" + value.type + " - <span>" + value.search + " " + "</span></p>";
-
-
 				$("#recentSearchResults").append(appendSearch);
-
 
 			});
 
@@ -280,15 +280,152 @@ $(document).ready(function(){
 		}
 
 	});
-	// show tooltips on hover of tracks with jquery ui
-  $( function() {
-	$( document ).tooltip();
-  } );
-
-
-
-	/*
-	var searchResultsHome = "<article class='searchResult'><img class='searchResultImage' src='" + value.images[0].url +"'alt=''/><h3>" + value.name + "</h3><div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div><div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div></article>";
-	*/
 
 });// END DOCUMENT READY
+/**
+ * End of general javascript and jquery.
+ */
+
+/**
+ * Searching, top tracks and recommendations
+ * Author: Nicky ter Maat
+ */
+
+/**
+ * Pass artist or song search from the client to the server and return the resultsdata back from the server to the client
+ */
+function getSearchData(){
+var artist = $('#artistField').val();
+var song = $('#songField').val();
+console.log("Receiving data from /search...");
+	$.ajax({
+		url: '/search?artist='+artist+'&song='+song,
+		dataType: 'json',
+		type: 'get',
+		cashe: false,
+		success: function(data){
+			// Depending on the type, the track or artist data will be returned.
+			var appendSearchResults = ""; // Dynamically create the result-html-display
+			// If you have searched for songs, data will contain tracks.
+			$(data.tracks).each(function(index, value){
+				console.log("Received tracks data from /search!");
+				console.log(data);
+
+				appendSearchResults += "<p>Listing results for <span>" + song + "</span></p>";
+
+				console.log("Amount of results: " + data.tracks.items.length);
+				for (var i = 0; i <data.tracks.items.length; i++) {
+					appendSearchResults += "<article class='searchResult'>"
+					appendSearchResults += "<img class='searchResultImage' src='" + data.tracks.items[i].album.images[0].url +"' 'alt=''/>"
+					appendSearchResults += "<h3>" + data.tracks.items[i].name + "</h3>"
+					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
+					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
+					appendSearchResults += "</article>"
+				}
+				$("#searchResults").empty();
+				$("#searchResults").append(appendSearchResults);
+
+				$('.searchResult').click(function(e){var id=e.target.id; console.log(e); appendSearchResults = ""; getRecommendations(data.tracks.items[0].artists[0].id, id, data.tracks.items[0].artists[0].name, data.tracks.items[0].name );});
+			});
+
+			// If you have searched for artists, data will contain artists
+			$(data.artists).each(function(index, value){
+				console.log("Received artist data from /search!");
+				console.log(data);
+
+				appendSearchResults += "<p>Listing results for <span>" + artist + "</span></p>";
+
+				console.log("Amount of results: " + data.artists.items.length);
+				for (var i = 0; i <data.artists.items.length; i++) {
+					appendSearchResults += "<article class='searchResult' id='"+data.artists.items[i].id+"'>"
+					//appendSearchResults += "<img class='searchResultImage' src='" + data.artists.items[i].images[0].url +"' 'alt=''/>" //image does not want to display properly
+					appendSearchResults += "<h3>" + data.artists.items[i].name + "</h3>"
+					appendSearchResults += "<div class='addTrack addSearchedTrack' ><img src='img/next.png' alt='add track' /></div>"
+					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
+					appendSearchResults += "<div class='addTrack playSearchedTrack top_tracks' id='"+data.artists.items[i].id+"'><img src='img/play.png' alt='play track' /></div>"
+					appendSearchResults += "</article>"
+				}
+				$("#searchResults").empty();
+				$("#searchResults").append(appendSearchResults);
+
+				$('.searchResult').click(function(e){var id=e.target.id; console.log(e); appendSearchResults = ""; getTopTracksFromArtist(id);});
+			});
+
+		}
+	});
+}
+
+/**
+ * If the searched artist is selected, its top tracks will be displayed. The artists id is sent from client to server, top tracks data is returned from server to client.
+ */
+function getTopTracksFromArtist(artistID) {
+	console.log("Receiving data from /top_tracks..." + artistID);
+
+	var appendSearchResults = "";		// Dynamically create the result-html-display
+
+		$.ajax({
+			url: '/top_tracks?artist='+artistID,
+			dataType: 'json',
+			type: 'get',
+			cashe: false,
+			success: function(data){
+				console.log("Received tracks data from /top_tracks!");
+				console.log(data);
+
+				appendSearchResults += "<p>Listing top tracks for <span>" + data.tracks[0].artists[0].name + "</span></p>";
+
+				$(data.tracks).each(function(index, value){
+
+					appendSearchResults += "<article class='searchResult' id='"+data.tracks[index].id+"'>"
+					appendSearchResults += "<img class='searchResultImage' src='" + data.tracks[index].album.images[0].url +"' 'alt=''/>"
+					appendSearchResults += "<h3>" + data.tracks[index].name + "</h3>"
+					appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
+					appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
+					appendSearchResults += "</article>"
+
+				});
+				$("#searchResults").empty();
+				$("#searchResults").append(appendSearchResults);
+
+				$('.searchResult').click(function(e){var id=e.target.id; var songName=e.target.name; console.log(id); appendSearchResults = ""; getRecommendations(artistID, id, data.tracks[0].artists[0].name, songName);});
+			}
+		});
+	}
+
+/**
+ * Recommendations for the selected track.Sending artist and track ID from client to server, returning recommendation data from server to client.
+ */
+	function getRecommendations(artistID, trackID, artist_name, track_name) {
+		console.log("Receiving data from /recommendations..." + "Artist: " + artistID + "Song: " + trackID);
+
+		var appendSearchResults = "";		// Dynamically create the result-html-display
+
+			$.ajax({
+				url: '/recommend?artist='+artistID+'&song='+trackID,
+				dataType: 'json',
+				type: 'get',
+				cashe: false,
+				success: function(data){
+					console.log("Received tracks data from /recommen!");
+					console.log(data);
+
+					appendSearchResults += "<p>Listing recommendations for <span>" + artist_name + "</span> by <span>" + artist_name + "</span></p>";
+
+					$(data.tracks).each(function(index, value){
+						appendSearchResults += "<article class='searchResult'>"
+						appendSearchResults += "<img class='searchResultImage' src='" + data.tracks[index].album.images[0].url +"' 'alt=''/>"
+						appendSearchResults += "<h3>" + data.tracks[index].name + "</h3>"
+						appendSearchResults += "<div class='addTrack addSearchedTrack'><img src='img/add.png' alt='add track' /></div>"
+						appendSearchResults += "<div class='addTrack playSearchedTrack'><img src='img/play.png' alt='play track' /></div>"
+						appendSearchResults += "</article>"
+
+					});
+					$("#searchResults").empty();
+					$("#searchResults").append(appendSearchResults);
+				}
+			});
+		}
+/**
+ * End of search, top tracks and recommendations.
+ */
+
