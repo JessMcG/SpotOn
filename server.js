@@ -479,7 +479,7 @@ app.get('/media_player', function(req, res) {
  */
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.set('view engine', 'html');
+//app.set('view engine', 'html');
 
 var artist;
 var track;
@@ -492,7 +492,7 @@ var type;
 app.get('/search', function(req, res) {
   var artist =  req.query.artist;
   var track = req.query.song;
-  
+
   if(!req.session.loggedin){res.redirect('/login'); return;}
   var access_token = req.session.access_token;
 
