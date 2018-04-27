@@ -141,8 +141,7 @@ $(document).ready(function(){
 		success: function(data){
 			$(data.tracks).each(function(index, value){
 
-
-				var appendTrack = "<li class='trackOnProfile'><p class='ellipsis' title='"+ value.artist_name + " - " + value.track_name  +"'>" + value.artist_name + " - <span>" + value.track_name + " " + "</span></p><div class='playTrackProfile'><img class='playSingleTrack' src='img/play.png' alt='" + value.track_id +"' />";
+				//var appendTrack = "<li class='trackOnProfile'><p class='ellipsis' title='"+ value.artist_name + " - " + value.track_name  +"'>" + value.artist_name + " - <span>" + value.track_name + " " + "</span></p><div class='playTrackProfile'><img class='playSingleTrack' src='img/play.png' alt='" + value.track_id +"' />";
 
 				//$("ol li:even").css("background-color", "#fafafa");
 
@@ -272,10 +271,7 @@ $(document).ready(function(){
 			$(data2.search).each(function(index, value){
 
 				var appendSearch = "<li class='recentSearch'><p>" + value.type + " - <span>" + value.search + " " + "</span></p>";
-
-
 				$("#recentSearchResults").append(appendSearch);
-
 
 			});
 
@@ -432,3 +428,4 @@ function getTopTracksFromArtist(artistID) {
 /**
  * End of search, top tracks and recommendations.
  */
+

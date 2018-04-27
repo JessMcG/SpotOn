@@ -1,4 +1,7 @@
 <!doctype html>
+<!-- Profile Template
+Adapted from non-dynamic player.html
+- Jess McGowan -->
 <html>
 <head>
 	<meta charset="utf-8">
@@ -17,97 +20,79 @@
 
 	<div id="container">
 
-		<div id="nav">
+		<!--Navigation bar -->
+		<header id="nav">
 			<a href="index.html"><img id="logo" src="img/SpotOnLogo.png" alt="logo" /></a>
-
 			<ul id="normalMenu">
-				<li><a href="index.html">Home</a></li>
-				<li><a href="profile.html">Profile</a></li>
-				<li><a href="player.html">Media Player</a></li>
+				<li><a href="/">Home</a></li>
+				<li><a href="/profile">Profile</a></li>
 			</ul>
-
 			<div id="loginWithSpotify">
-				<p>Login with </p> <img id="SpotLogo" src="img/spotifyLogo.png" alt="spotify logo" />
+					<p>Login with </p> <img id="SpotLogo" src="img/spotifyLogo.png" alt="spotify logo" />
 			</div>
+			<div id="respMenu">
+			</div>
+		</header>
 
-			<a href="profile.html"><div id="respMenu">
-
-			</div></a>
-		</div>
+		<!-- Responsive Menu-->
+		<header id="respNav">
+			<div class="respContent">
+				<div id="closeRespMenu">
+				</div>
+				<div id="respNavProfileLogin">
+				</div>
+				<img id="respNavImage" src="<%= image_url %>" alt="User Profile Picture" />
+				<h2><%= display_name %></h2>
+				<div id="respNavLinks">
+					<ul>
+						<li><a href="/login">Home</a></li>
+						<li><a href="/profile">Profile</a></li>
+					</ul>
+				</div>
+			</div>
+		</header>
 
 		<div id="header">
-			<img src="<%= image_url %>" id="profilePicture" alt="User Profile Picture" />
-			<h3><%= display_name %></h3> <!-- Spotify Display Name -->
-			<h4>Playlists - <span><%= playlists.length %></span> Songs - <span><%= tracks.length %></span></h4>
+			<!-- Adding dynamic content to the page header with the user's profile picture, display name, and music details-->
+			<img src="<%= image_url %>" id="profilePicture" alt="User Profile Picture" /> <!-- Added alt text to the profile picture-->
+			<h3><%= display_name %></h3> <!-- Spotify Display Name from server.js-->
+			<h4>Playlists - <span><%= playlists.length %></span> Songs - <span><%= tracks.length %></span></h4> <!-- Adding the user's playlist/track details from server.js-->
 		</div>
 
 		<div id="clear-box">
 		</div>
 
 		<div id="profileInfo">
-
 			<div class="profileCols">
-				<% var t = 0; %>
-				<h2><%= playlist_name %></h2>
-
+				<h2><%= playlist_name %></h2> <!-- Adding the Playlist's Name as a heading-->
 				<div id="musicPlayer">
-
+					<!-- Using the Spotify Player Widget, buidling the dynamic source url from the options sent from server.js-->
 					<iframe src="https://open.spotify.com/embed?uri=spotify:user:<%= playlist_owner %>:playlist:<%= playlist_id %>" width="400" height="480"
-        frameborder="0" allow="encrypted-media" allowtransparency="true"></iframe>
-					<!--<div id="coverArtBlured">
-						<img class=album_art_blur src="<%= playlist_tracks[t].track.album.images[0].url %>" />
-						<div id="coverArtBluredInner">
-							<img class=album_art src="<%= playlist_tracks[t].track.album.images[0].url %>" />
-						</div>
-					</div>
-
-					<div id="trackArt">
-					</div>
-
-					<div id="trackDetails">
-						<!-- Load the details from the first track into the player -->
-						<!--<h2><%= playlist_tracks[0].track.artists[0].name %></h2>
-						<p><%= playlist_tracks[0].track.name %></p>
-					</div>
-
-					<div id="playTrackButton">
-						<img src="img/play.png" alt="play track" />
-					</div>
-
-					<div class="nextPrevButtons prevPos">
-						<img src="img/prev.png" alt="close" />
-					</div>
-
-					<div class="nextPrevButtons nextPos">
-						<img src="img/next.png" alt="close" />
-					</div>
-					-->
-
+						frameborder="0" allow="encrypted-media" allowtransparency="true"></iframe>
 				</div>
-
 			</div>
 
 
 			<div class="profileCols">
-
 				<h2>Tracks</h2>
 				<div id="profileSongs">
 					<ol>
-						<!-- Dynamically add the playlist's tracks from Spotify-->
-            <% if(playlist_tracks){playlist_tracks.forEach(function(track) { %>
-              <li class="trackOnProfile">
-								<!--Track Title - Track Artist mins:secs -->
-  							<p><%= track.track.name %> - <%= track.track.artists[0].name %> <span> <%= track.track.duration_min %></span></p>
-  							<div class="playTrackProfile">
-  								<img src="img/play.png" alt="play track" />
-  							</div>
-  						</li>
-            <% }); }%>
+						<!-- Dynamically add the playlist's tracks from Spotify from server.js-->
+						<%	 if(playlist_tracks){playlist_tracks.forEach(function(track) { %>
+							<li class="trackOnProfile">
+								<!--Added a css style to prevent text overflow, added hover text to display full details -->
+								<p class='ellipsis' title='<%= track.track.name %> - <%= track.track.artists[0].name %> / <%= track.track.duration_min %>'><%= track.track.name %> - <%= track.track.artists[0].name %> <span> <%= track.track.duration_min %></span></p>
+								<div class="playTrackProfile">
+									<img src="img/play.png" alt="play track" />
+								</div>
+							</li>
+						<% }); }%>
 					</ol>
 				</div>
 			</div>
 		</div>
 
+		<% include ../partials/konami %>
 
 		<div id="footer">
 		</div>

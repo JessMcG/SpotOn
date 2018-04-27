@@ -21,12 +21,8 @@
 
 			<ul id="normalMenu">
 				<li><a href="/login">Home</a></li>
-				<li><a href="profile.html">Profile</a></li>
-				<li><a href="player.html">Media Player</a></li>
-
-				<li><a href="/search">Search</a></li>
-				<li><a href="/recommend">Recommend</a></li>
-				<li><a href="/top_tracks">Top tracks</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/seedpl">Seed Playlist</a></li>
 			</ul>
 
 			 <a href="/login" ><div id="loginWithSpotify">
@@ -34,15 +30,12 @@
 			</div></a>
 
 			<div id="respMenu">
-
 			</div>
 		</header>
 
 		<header id="respNav">
-
 			<div class="respContent">
 				<div id="closeRespMenu">
-
 				</div>
 
 				<div id="respNavProfileLogin">
@@ -57,12 +50,10 @@
 				</div>
 
 				<div id="respNavLinks">
-
-
 					<ul>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="profile.html">Profile</a></li>
-						<li><a href="player.html">Media Player</a></li>
+						<li><a href="/login">Home</a></li>
+						<li><a href="/profile">Profile</a></li>
+						<li><a href="/seedpl">Seed Playlist</a></li>
 					</ul>
 				</div>
 			</div>
@@ -73,7 +64,7 @@
 			<h2 id="test">Welcome to SpotOn<br /> <span>an online playlist generator.</span></h2>
 
 
-			<form id="searchform"  >
+			<form id="searchform" method="post" action="/search_form" >
 
 				<div id="homeSearchForm">
 
