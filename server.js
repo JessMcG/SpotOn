@@ -819,11 +819,8 @@ app.get('/addto_pl', function(req, res) {
 app.get('/logout', function(req, res) {
   req.session.loggedin = false;
   req.session.destroy(function(err) {
-    //no more session
-    //change back to login Button
-    //$(".logoutButton").click(function(){
-		    //$(".logoutButton").hide();
-		    //$(".loginButton").show();
+    	//redirect to home
+	res.redirect('/');
       });
   });
 
